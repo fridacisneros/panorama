@@ -1286,29 +1286,6 @@ export default function NormativasPage() {
           </p>
         </div>
 
-        {/* Estadísticas por categoría */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
-          {Object.entries(categoryStats).map(([category, count]) => {
-            const Icon = getCategoryIcon(category)
-            const colorClass = getCategoryColor(category)
-            return (
-              <Card key={category} className={`bg-gradient-to-br ${colorClass} text-white border-0 shadow-xl`}>
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-white/80 text-sm font-medium">{getCategoryName(category)}</p>
-                      <p className="text-3xl font-bold">{count}</p>
-                      <p className="text-white/70 text-xs">Documentos</p>
-                    </div>
-                    <div className="bg-white/20 p-3 rounded-full">
-                      <Icon className="w-6 h-6" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            )
-          })}
-        </div>
 
         {/* Search */}
         <Card className="bg-white/80 backdrop-blur-sm border-teal-200 mb-6">

@@ -133,11 +133,7 @@ export default function PepinoMarPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <div className="space-y-4">
                 <p className="text-gray-700 leading-relaxed">
-                  El pepino de mar (Isostichopus badionotus) es un equinodermo de alto valor comercial en los mercados
-                  asiáticos. Esta especie habita en praderas de pastos marinos y fondos arenosos de la península de
-                  Yucatán. Su explotación comercial comenzó en la década de 1990 y ha experimentado ciclos de auge y
-                  colapso, con capturas que alcanzaron picos de más de 1,200 toneladas en el año 2000, pero que se han
-                  reducido drásticamente a menos de 300 toneladas en años recientes.
+                De acuerdo con las estadísticas oficiales, la producción pesquera de pepinos de mar en México de 2012 al 2018 fue entre los 762 y 2,762 toneladas anuales, de los cuales el 88% proviene del Golfo de México y Mar Caribe y el 12% restante del Pacífico mexicano. El 94% de la captura en el Golfo de México se sostiene principalmente por la extracción proveniente del estado de Yucatán, donde la especie predominante es el pepino de mar café, Isostichopus badionotus, seguida de Holothuria floridana. Sin embargo, con excepción del pepino de mar café I. badionotus para la cual se han abierto ventanas de aprovechamiento con cuotas de captura definidas, todas las demás especies de pepino de mar con valor comercial se han mantenido en veda permanente en el Golfo de México desde el año 2013.
                 </p>
                   </div>
                   <div className="space-y-4">
@@ -167,10 +163,7 @@ export default function PepinoMarPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-gray-700 leading-relaxed">
-                    La captura de pepino de mar se realiza principalmente con embarcaciones menores y lanchas equipadas
-                    para buceo. Se utilizan pangas y lanchas de fibra de vidrio para el transporte de buceadores a las
-                    zonas de captura. También se utilizan embarcaciones artesanales para la recolección manual en aguas
-                    someras donde la especie es accesible.
+                    
                   </p>
                   <div className="aspect-video bg-gradient-to-br from-orange-100 to-yellow-100 rounded-lg flex items-center justify-center border-2 border-dashed border-orange-300">
                     <div className="text-center">
@@ -191,10 +184,8 @@ export default function PepinoMarPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-gray-700 leading-relaxed">
-                    Las principales artes de pesca incluyen buceo libre (70%), buceo con compresor (25%) y recolección
-                    manual en aguas someras (5%). La pesca se realiza principalmente en praderas de pastos marinos y
-                    fondos arenosos a profundidades de 1 a 30 metros. El uso de compresores está regulado para proteger
-                    los ecosistemas y la seguridad de los buceadores.
+                  El método de pesca para el pepino de mar café, es el buceo semi-autónomo tipo hookah a bordo de la embarcación, el buzo lleva uno o dos plomos, de aproximadamente dos libras cada uno, fijos a su cinturón en el cual se amarra la manguera que está unida por un extremo al tanque que acumula el aire generado por el compresor y en el otro extremo tiene una boquilla o regulador para que el buzo respire. A bordo de la embarcación, durante la faena de pesca participan dos buzos, un manguerero y el capitán. Algunos llevan un quinto integrante para el trabajo de evisceración de los animales. Los buzos pueden realizar las inmersiones con una sola manguera dividida para capturar más pepino en menos tiempo. También pueden turnarse realizando inmersiones alternadas, mientras se queda a bordo de la embarcación, el otro realiza la inmersión. El que se queda a bordo de la embarcación realiza la evisceración de los ejemplares capturados. 
+                  Durante la actividad de pesca, el buzo es arrastrado hasta topar con un parche de pepino de mar, que se va recolectando y guardando en una bolsa, conocida localmente como “buxaca”. Una vez llena la bolsa, se engancha en una porción de la manguera que tiene un broche de presión, o snap y se da aviso al manguerero para subirla y si el sitio es propicio, enviar otra bolsa vacía para seguir recolectando pepinos. Otros suben con la bolsa una vez que han recolectado todo lo que encontraron y se dirigen a otro sitio. El equipo utilizado para la pesca del pepino de mar café en Yucatán incluye: patas de rana (aletas), visor, snorkel, boquillas (reguladores de buceo), plomos (lastres), filtro, compresora (5.5 caballos de fuerza con capacidad de aire de 60 a 100 lb/pulg2), tanques receptores de la compresora (pulmones), manguera de alta presión (la misma que se utiliza para el gas doméstico), buxaca (bolsa para recolectar pepinos).
                   </p>
                   <div className="aspect-video bg-gradient-to-br from-yellow-100 to-amber-100 rounded-lg flex items-center justify-center border-2 border-dashed border-yellow-300">
                     <div className="text-center">
@@ -221,10 +212,6 @@ export default function PepinoMarPage() {
                       <h5 className="font-medium text-orange-800">Pepino de Mar</h5>
                       <p className="text-sm text-orange-700 italic">Isostichopus badionotus</p>
                     </div>
-                    <div className="p-3 bg-orange-50 rounded-lg border border-orange-200">
-                      <h5 className="font-medium text-orange-800">Pepino de Mar Negro</h5>
-                      <p className="text-sm text-orange-700 italic">Holothuria mexicana</p>
-                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -239,16 +226,20 @@ export default function PepinoMarPage() {
                 <CardContent>
                   <div className="space-y-3">
                     <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                      <h5 className="font-medium text-blue-800">Caracol</h5>
-                      <p className="text-sm text-blue-700 italic">Lobatus gigas</p>
+                      <h5 className="font-medium text-blue-800">Pepino de mar lápiz</h5>
+                      <p className="text-sm text-blue-700 italic">Holothuria floridana</p>
                       </div>
                     <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                      <h5 className="font-medium text-blue-800">Langosta</h5>
-                      <p className="text-sm text-blue-700 italic">Panulirus argus</p>
+                      <h5 className="font-medium text-blue-800">Pepino de mar peluche</h5>
+                      <p className="text-sm text-blue-700 italic">Astichopus multifidus</p>
                     </div>
                     <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                      <h5 className="font-medium text-blue-800">Pulpo</h5>
-                      <p className="text-sm text-blue-700 italic">Octopus maya</p>
+                      <h5 className="font-medium text-blue-800">Pepino de mar, Michelin pepino</h5>
+                      <p className="text-sm text-blue-700 italic">Holothuria mexicana</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Pepino de mar gris</h5>
+                      <p className="text-sm text-blue-700 italic">Holothuria grisea</p>
                     </div>
                   </div>
                 </CardContent>
@@ -425,13 +416,8 @@ export default function PepinoMarPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-gray-700 leading-relaxed">
-                  El cambio climático representa una amenaza crítica para las poblaciones de pepino de mar. El aumento
-                  de la temperatura del agua afecta el metabolismo y las tasas de reproducción de la especie. La pérdida
-                  de praderas de pastos marinos (Thalassia testudinum) debido al aumento del nivel del mar y eventos
-                  extremos como huracanes destruye los hábitats críticos donde estas especies viven y se alimentan.
-                  La acidificación oceánica afecta el desarrollo del esqueleto calcáreo interno. Los eventos extremos
-                  pueden causar mortalidades masivas en las poblaciones. La combinación de cambio climático y presión
-                  pesquera ha llevado a estas poblaciones a niveles críticos de conservación.
+                La temperatura global promedio a través del tiempo ± EE en la zona de distribución del pepino de mar lápiz (H. floridana), frente a las costas de Campeche, durante el periodo de evaluación 2010-2023, ha sido de 29 ± 0.05 grados centígrados (°C) (Fig. 5a), llegando a un mínimo de 24-25 grados centígrados en el año 2013 y a un máximo de 33 grados centígrados en 2016. No se determinó ningún tipo de relación entre la temperatura y la densidad registrada por año por lo cual, la variación anual de la temperatura durante el periodo de estudio no ha mostrado ser determinante para un cambio en la densidad de este recurso pesquero.
+                La temperatura global promedio a través del tiempo ± EE en la zona de distribución del pepino de mar café (I. badionotus), es de 25 ± 0.04 °C (Fig. 5b). Las biomasas más altas in situ se han registrado en los años 2010 y 2013, sin embargo, en el año 2010 la temperatura estuvo cerca del valor promedio general, pero en el 2013 estuvo dos grados por debajo de ésta, lo cual puede estar relacionado con el reclutamiento en los sitios más someros de las zonas I y II, que fue donde se ubicó el parche de mayor tamaño a lo largo de la costa de Yucatán en ese mismo año.
                 </p>
               </CardContent>
             </Card>
@@ -483,16 +469,16 @@ export default function PepinoMarPage() {
                           <div className="font-semibold text-gray-800">1. Norma Oficial Mexicana</div>
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 text-center align-top">
-                          <span className="text-green-700 font-bold text-lg">✓ Sí</span>
+                          <span className="text-green-700 font-bold text-lg">✗ No</span>
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            NOM-013-SAG/PESC-2017, Para ordenar el aprovechamiento de las especies de pepino de mar en aguas de jurisdicción federal del Golfo de México y Mar Caribe.
+                            
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Norma Oficial Mexicana publicada en DOF. Estudios del INAPESCA.
+                            
                           </p>
                         </td>
                       </tr>
@@ -501,16 +487,16 @@ export default function PepinoMarPage() {
                           <div className="font-semibold text-gray-800">2. Plan de Manejo Pesquero</div>
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 text-center align-top">
-                          <span className="text-red-700 font-bold text-lg">✗ No</span>
+                          <span className="text-red-700 font-bold text-lg">✓ Sí</span>
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            No existe un Plan de Manejo Pesquero específico. Oportunidad de mejora.
+                          ACUERDO por el que se da a conocer el plan de manejo pesquero de pepino de mar café (Isostichopus badionotus) y lápiz (Holothuria floridana) en la península de Yucatán.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Necesidad identificada para manejo sustentable. Requerimiento de estudios científicos.
+                          DOF: 12/05/2015
                           </p>
                         </td>
                       </tr>
@@ -523,12 +509,12 @@ export default function PepinoMarPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Permiso de pesca comercial para pepino de mar. Regulación de acceso.
+                          Permiso de pesca comercial para pepino de mar café Isostichopus badionotus.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Ley General de Pesca y Acuacultura Sustentables.
+                          Opinión	técnica	del IMIPAS.
                           </p>
                         </td>
                       </tr>
@@ -541,12 +527,13 @@ export default function PepinoMarPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Talla mínima de 20 cm de longitud total establecida en la NOM-013-SAG/PESC-2017.
+                          23 centímetros de longitud dorsal para el caso de pepino de mar café (I. badionotus).
+                          13 centímetros de longitud dorsal para pepino de mar lápiz (H. floridana).
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Estudios de madurez sexual y biología pesquera.
+                          Plan de Manejo Pesquero (DOF: 12/05/2015).
                           </p>
                         </td>
                       </tr>
@@ -559,12 +546,12 @@ export default function PepinoMarPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Buceo libre y con equipo autónomo regulado. Prohibición de uso de compresores en algunas zonas.
+                          Buceo semi-autónomo empleando el equipo denominado "hookah" para la captura de I. badionotus.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Norma Oficial Mexicana. Protección de hábitats y seguridad del buceador.
+                          Plan de Manejo Pesquero (DOF: 12/05/2015)
                           </p>
                         </td>
                       </tr>
@@ -577,12 +564,14 @@ export default function PepinoMarPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Veda temporal del 1 de marzo al 30 de septiembre de cada año en el Golfo de México y Mar Caribe.
+                          NORMA Oficial Mexicana NOM-009- PESC-1993. Veda permanente.
+                          ACUERDO por el que se modifica el Aviso por el que se da a conocer el establecimiento de épocas y zonas de veda para la pesca de diferentes especies de la fauna acuática en aguas de jurisdicción federal de los Estados Unidos Mexicanos, publicado el 16 de marzo de 1994, para establecer la cuota de aprovechamiento de pepino de mar café (Isostichopus badionotus) en las aguas marinas de jurisdicción federal colindantes con el Estado de Yucatán en el año 2018.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Acuerdos de veda en DOF. Estudios de reproducción y conservación.
+                          DOF: 25/04/2013 
+                          DOF: 06/04/2018
                           </p>
                         </td>
                       </tr>
@@ -591,16 +580,16 @@ export default function PepinoMarPage() {
                           <div className="font-semibold text-gray-800">7. Cuota</div>
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 text-center align-top">
-                          <span className="text-red-700 font-bold text-lg">✗ No</span>
+                          <span className="text-red-700 font-bold text-lg">✓ Sí</span>
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            No hay cuotas de captura establecidas. Manejo basado en vedas.
+                          Variable	de	acuerdo	con	la disponibilidad del recurso.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Gestión mediante vedas. Necesidad de evaluaciones de stock.
+                          Dictamen	Técnico	del IMIPAS.
                           </p>
                         </td>
                       </tr>
@@ -613,12 +602,13 @@ export default function PepinoMarPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Embarcaciones menores autorizadas. Regulación de embarcaciones de buceo.
+                          Se utilizan embarcaciones menores de fibra de vidrio de 20 a 22 pies de eslora, equipadas con motor fuera de borda de capacidad variable (40 a 115 caballos de fuerza).
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Clasificación de embarcaciones. Registro Nacional.
+                          Plan de Manejo Pesquero DOF: 12/05/2015.
+                          Permisos de pesca comercial para pepino de mar.
                           </p>
                         </td>
                       </tr>
@@ -631,12 +621,14 @@ export default function PepinoMarPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            No existe control específico del esfuerzo. Recomendación: No incrementar el esfuerzo pesquero.
+                          No existen permisos o concesiones para la pesca comercial de pepino de mar H. floridana.
+                          Para I. badionotus, se tiene un registro de 189 permisos de pesca comercial que amparan de 561 embarcaciones
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Necesidad de evaluaciones de capacidad. Estudios de sostenibilidad.
+                          DOF: 06/04/2018
+                          Base	de	datos	de	la CONAPESCA
                           </p>
                         </td>
                       </tr>
@@ -649,31 +641,19 @@ export default function PepinoMarPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Zonas delimitadas en el Golfo de México y Mar Caribe. Áreas de veda y protección.
+                          Veda permanente para la pesca de todas las especies de pepino de mar, desde el 7 de abril de 2018, en las aguas marinas de jurisdicción federal localizadas frente a la costa de la Península de Yucatán, a partir del punto ubicado en la frontera entre los Estados de Tabasco y Campeche, con las coordenadas 18 °39'05'' Latitud Norte y 92 °28'05'' Longitud Oeste, siguiendo de este punto una línea imaginaria hacia el norte hasta el límite exterior de la plataforma continental, y siguiendo por este límite hasta la frontera con Belice. ACUERDO por el que se establece una zona	de		refugio	pesquero	parcial temporal	en	aguas	marinas	de jurisdicción federal en el área que se ubica frente al Municipio de Celestún, en el Estado de Yucatán.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Delimitación de aguas federales. Áreas protegidas establecidas.
+                          DOF: 06/04/2018
+                          DOF: 02/10/2019
                           </p>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                     </div>
-                <div className="mt-8 p-6 bg-gradient-to-r from-orange-50 to-amber-50 rounded-xl border-2 border-orange-200 shadow-lg">
-                  <div className="flex items-start space-x-4">
-                    <AlertTriangle className="w-6 h-6 text-orange-600 mt-1 flex-shrink-0" />
-                    <div className="text-sm text-orange-800">
-                      <p className="font-bold mb-3 text-lg">Resumen de Instrumentos de Manejo:</p>
-                      <ul className="list-disc list-inside space-y-2 text-orange-700 font-medium">
-                        <li><strong>Implementados (7):</strong> NOM, Tipo de acceso, Talla mínima, Artes de pesca, Veda, Unidad de pesca, Zona de pesca</li>
-                        <li><strong>Oportunidades de mejora (3):</strong> Plan de Manejo, Cuota, Esfuerzo nominal autorizado</li>
-                        <li><strong>Total evaluado:</strong> 10 instrumentos de manejo pesquero</li>
-                      </ul>
-                    </div>
-                    </div>
-                  </div>
                 </CardContent>
               </Card>
           </TabsContent>
@@ -693,26 +673,49 @@ export default function PepinoMarPage() {
                   <div className="space-y-6">
                     {/* Tarjetas de Estado */}
                   <div className="space-y-4">
-                      {/* En deterioro */}
+                      {/* Pepino de mar café */}
                       <div className="bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-400 rounded-lg p-4 flex items-center space-x-4">
                         <div className="flex-shrink-0">
                           <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
                             <AlertTriangle className="w-10 h-10 text-red-600" />
-                    </div>
-                  </div>
+                          </div>
+                        </div>
                         <div className="flex-1">
-                          <h4 className="font-bold text-red-800 mb-1">En Deterioro</h4>
-                          <p className="text-sm text-gray-700 font-medium">Yucatán, Campeche, Quintana Roo</p>
-                          <p className="text-xs text-gray-600 mt-1">Poblaciones en niveles críticos</p>
+                          <h4 className="font-bold text-red-800 mb-1">En deterioro</h4>
+                          <p className="text-sm text-gray-700 font-medium">Pepino de mar café (Isostichopus badionotus)</p>
                         </div>
                       </div>
+                      {/* Pepino lápiz */}
+                      <div className="bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-400 rounded-lg p-4 flex items-center space-x-4">
+                        <div className="flex-shrink-0">
+                          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
+                            <AlertTriangle className="w-10 h-10 text-red-600" />
+                          </div>
                         </div>
+                        <div className="flex-1">
+                          <h4 className="font-bold text-red-800 mb-1">En deterioro</h4>
+                          <p className="text-sm text-gray-700 font-medium">Pepino lápiz (Holothuria floridiana)</p>
+                        </div>
+                      </div>
+                      {/* Pepino de mar (genérico I. badionotus) */}
+                      <div className="bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-400 rounded-lg p-4 flex items-center space-x-4">
+                        <div className="flex-shrink-0">
+                          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
+                            <AlertTriangle className="w-10 h-10 text-red-600" />
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-bold text-red-800 mb-1">En deterioro</h4>
+                          <p className="text-sm text-gray-700 font-medium">Pepino de mar (Isostichopus badionotus)</p>
+                        </div>
+                      </div>
+                    </div>
 
                     {/* Estrategia */}
                     <div className="space-y-4">
                       <h3 className="text-xl font-bold text-orange-800 border-b-2 border-orange-200 pb-2">Estrategia</h3>
                       <div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
-                        <p className="text-gray-800 font-medium">Recuperación de stock mediante vedas extendidas y control estricto de esfuerzo</p>
+                        <p className="text-gray-800 font-medium">Cuota de captura de acuerdo a la abundancia y biomasa determinada por dictamen técnico emitido por el IMIPAS.</p>
                       </div>
                         </div>
 
@@ -721,22 +724,14 @@ export default function PepinoMarPage() {
                       <h3 className="text-xl font-bold text-orange-800 border-b-2 border-orange-200 pb-2">Tácticas</h3>
                       <div className="bg-amber-50 rounded-lg p-4 border border-amber-200">
                         <ul className="space-y-2 text-gray-800">
-                          <li className="flex items-start">
-                            <span className="text-amber-600 mr-2">•</span>
-                            <span>Vedas temporales extendidas (marzo-septiembre)</span>
-                          </li>
-                          <li className="flex items-start">
-                            <span className="text-amber-600 mr-2">•</span>
-                            <span>Control de talla mínima</span>
-                          </li>
-                          <li className="flex items-start">
-                            <span className="text-amber-600 mr-2">•</span>
-                            <span>Regulación estricta de artes de pesca</span>
-                          </li>
-                          <li className="flex items-start">
-                            <span className="text-amber-600 mr-2">•</span>
-                            <span>Protección de hábitats críticos</span>
-                          </li>
+                          <li className="flex items-start"><span className="text-amber-600 mr-2">•</span><span>Control del esfuerzo pesquero</span></li>
+                          <li className="flex items-start"><span className="text-amber-600 mr-2">•</span><span>Regulación en el arte y método de captura</span></li>
+                          <li className="flex items-start"><span className="text-amber-600 mr-2">•</span><span>Talla mínima de captura</span></li>
+                          <li className="flex items-start"><span className="text-amber-600 mr-2">•</span><span>Veda temporal y espacial</span></li>
+                          <li className="flex items-start"><span className="text-amber-600 mr-2">•</span><span>Zona de pesca</span></li>
+                          <li className="flex items-start"><span className="text-amber-600 mr-2">•</span><span>Zonas de refugio pesquero</span></li>
+                          <li className="flex items-start"><span className="text-amber-600 mr-2">•</span><span>Cierre de zonas con altos niveles de reclutamiento o bajas densidades</span></li>
+                          <li className="flex items-start"><span className="text-amber-600 mr-2">•</span><span>Rotación de banco de aprovechamiento</span></li>
                         </ul>
                       </div>
                     </div>
@@ -792,7 +787,7 @@ export default function PepinoMarPage() {
                       <tr className="hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50 transition-all duration-300">
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-800 font-medium">
-                            Desarrollar y publicar un Plan de Manejo Pesquero específico para pepino de mar.
+                          Promover la formulación de un ordenamiento pesquero en la península de Yucatán.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
@@ -804,7 +799,7 @@ export default function PepinoMarPage() {
                       <tr className="hover:bg-gradient-to-r hover:from-amber-50 hover:to-yellow-50 transition-all duration-300">
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-800 font-medium">
-                            Establecer cuotas de captura basadas en evaluaciones de stock.
+                          Actualizar el Plan de Manejo Pesquero.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
@@ -816,7 +811,7 @@ export default function PepinoMarPage() {
                       <tr className="hover:bg-gradient-to-r hover:from-yellow-50 hover:to-orange-50 transition-all duration-300">
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-800 font-medium">
-                            Fortalecer el cumplimiento de vedas temporales establecidas.
+                          Elaborar una Norma Oficial Mexicana para el aprovechamiento de pepino de mar.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
@@ -828,7 +823,7 @@ export default function PepinoMarPage() {
                       <tr className="hover:bg-gradient-to-r hover:from-orange-50 hover:to-amber-50 transition-all duration-300">
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-800 font-medium">
-                            Proteger y restaurar hábitats de praderas de pastos marinos.
+                          Promover la erradicación de la práctica del buceo con compresores y manguera tipo hookah para la captura de pepino de mar lápiz (H. floridana).
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
@@ -840,7 +835,7 @@ export default function PepinoMarPage() {
                       <tr className="hover:bg-gradient-to-r hover:from-amber-50 hover:to-yellow-50 transition-all duration-300">
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-800 font-medium">
-                            Implementar sistemas de monitoreo y vigilancia más efectivos.
+                          Establecer sitios para traslocación y zonas de refugio pesquero para la recuperación de las poblaciones de pepino de mar.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
@@ -852,7 +847,31 @@ export default function PepinoMarPage() {
                       <tr className="hover:bg-gradient-to-r hover:from-yellow-50 hover:to-orange-50 transition-all duration-300">
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-800 font-medium">
-                            No incrementar el esfuerzo pesquero actual.
+                          Fomentar el co-manejo a través del Comité Consultivo de Manejo Pesquero del recurso pepino de mar.
+                          </p>
+                        </td>
+                        <td className="px-6 py-4 align-top">
+                          <p className="text-sm text-gray-700 leading-relaxed">
+                            Sin información de avance.
+                          </p>
+                        </td>
+                      </tr>
+                      <tr className="hover:bg-gradient-to-r hover:from-yellow-50 hover:to-orange-50 transition-all duration-300">
+                        <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
+                          <p className="text-sm text-gray-800 font-medium">
+                          No permitir la captura de otras especies de pepinos de mar diferentes a I. badionotus en ninguna región del Golfo de México y Mar Caribe.
+                          </p>
+                        </td>
+                        <td className="px-6 py-4 align-top">
+                          <p className="text-sm text-gray-700 leading-relaxed">
+                            Sin información de avance.
+                          </p>
+                        </td>
+                      </tr>
+                      <tr className="hover:bg-gradient-to-r hover:from-yellow-50 hover:to-orange-50 transition-all duration-300">
+                        <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
+                          <p className="text-sm text-gray-800 font-medium">
+                          Fortalecer la inspección y vigilancia para erradicar la pesca ilegal.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">

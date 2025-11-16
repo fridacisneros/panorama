@@ -722,16 +722,28 @@ export default function BagreBanderaPage() {
                       <div className="bg-gradient-to-r from-yellow-50 to-yellow-50 border-2 border-yellow-300 rounded-lg p-4 flex items-center space-x-4">
                         <div className="flex-shrink-0">
                           <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center">
-                        <CheckCircle className="w-10 h-10 text-yellow-600" />
+                        <TrendingUp className="w-10 h-10 text-yellow-600" />
                           </div>
                         </div>
                         <div className="flex-1">
                           <h4 className="font-bold text-yellow-800 mb-1">Aprovechado al máximo sustentable</h4>
-                          <p className="text-sm text-gray-700 font-medium">Bagre bandera y curuco</p>
+                          <p className="text-sm text-gray-700 font-medium">Bagre bandera (Bagre marinus)</p>
                           <p className="text-xs text-gray-600 mt-1">Golfo de México y Mar Caribe</p>
                         </div>
                       </div>
+                      <div className="bg-gradient-to-r from-yellow-50 to-yellow-50 border-2 border-yellow-300 rounded-lg p-4 flex items-center space-x-4">
+                        <div className="flex-shrink-0">
+                          <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center">
+                        <TrendingUp className="w-10 h-10 text-yellow-600" />
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-bold text-yellow-800 mb-1">Aprovechado al máximo sustentable</h4>
+                          <p className="text-sm text-gray-700 font-medium">Curuco (Ariopsis felis)</p>
+                          <p className="text-xs text-gray-600 mt-1">Golfo de México y Mar Caribe</p>
+                        </div>
                     </div>
+                      </div>
 
                     {/* Estrategia */}
                     <div className="space-y-4">

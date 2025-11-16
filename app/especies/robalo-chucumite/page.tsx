@@ -71,7 +71,7 @@ export default function RobaloChucumitePage() {
         <div className="flex items-center justify-center mb-8">
           <div className="text-center">
               <h1 className="text-4xl font-bold text-green-800 mb-2">Robalo y Chucumite</h1>
-              <p className="text-xl text-gray-600 italic">Centropomus undecimalis</p>
+              <p className="text-xl text-gray-600 italic">Centropomus undecimalis, Centropomus poeyi, Centropomus parallelus</p>
           </div>
         </div>
 
@@ -135,10 +135,7 @@ export default function RobaloChucumitePage() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <div className="space-y-4">
                 <p className="text-gray-700 leading-relaxed">
-                  El robalo común (Centropomus undecimalis) y el chucumite son peces eurihalinos de gran importancia
-                  comercial y deportiva en México. Estas especies habitan tanto en aguas dulces como saladas, utilizando
-                  estuarios, lagunas costeras y ríos para su desarrollo. Son altamente valorados por su carne de
-                  excelente calidad y su importancia en la pesca deportiva.
+                La pesca artesanal del robalo se realiza principalmente con redes de enmalle y es una de las más tradicionales e importantes en el Golfo de México, debido a que es un alimento de buena calidad y de alto valor comercial. Centropomus undecimalis sostiene una pesquería explotada por una flota que opera de acuerdo con las variaciones estacionales de abundancia relacionadas con la reproducción y la alimentación (Caballero-Chávez, 2012), además es de fácil acceso para las comunidades pesqueras ribereñas, alcanza un alto precio en el mercado nacional y representa una valiosa fuente de empleo para las comunidades ribereñas. La producción de las otras especies varía por localidad dependiendo de su distribución geográfica; en orden de importancia por su abundancia son el chucumite y el robalo prieto (DOF, 2014).
                 </p>
                   </div>
                   <div className="space-y-4">
@@ -168,10 +165,7 @@ export default function RobaloChucumitePage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-gray-700 leading-relaxed">
-                    El robalo común (Centropomus undecimalis) y el chucumite son peces eurihalinos de gran importancia
-                    comercial y deportiva en México. Estas especies habitan tanto en aguas dulces como saladas, utilizando
-                    estuarios, lagunas costeras y ríos para su desarrollo. Son altamente valorados por su carne de
-                    excelente calidad y su importancia en la pesca deportiva.
+                  Se utilizan embarcaciones menores de 7.0 a 8.2 metros y motores fuera de borda de 48 a 115 caballos de fuerza (HP) de dos y cuatro tiempos, en cada embarcación van de dos a cuatro pescadores.
                   </p>
                   <div className="aspect-video bg-gradient-to-br from-blue-100 to-green-100 rounded-lg flex items-center justify-center border-2 border-dashed border-blue-300">
                     <div className="text-center">
@@ -192,10 +186,7 @@ export default function RobaloChucumitePage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-gray-700 leading-relaxed">
-                    El robalo común (Centropomus undecimalis) y el chucumite son peces eurihalinos de gran importancia
-                    comercial y deportiva en México. Estas especies habitan tanto en aguas dulces como saladas, utilizando
-                    estuarios, lagunas costeras y ríos para su desarrollo. Son altamente valorados por su carne de
-                    excelente calidad y su importancia en la pesca deportiva.
+                  En Campeche, Tabasco, Veracruz y Tamaulipas la captura de robalo se lleva a cabo con red de enmalle, la de chucumite con red de enmalle y atarraya. Las redes de enmalle pueden ser de 2.5 a 7.0 pulgadas de luz de malla, estas pueden llevar de 10 a 25 paños dependiendo del permisionario. Existen diferentes métodos de pesca: fondo, a media agua, cercado, corraleo, aboyado o simplemente tendida a la deriva.
                   </p>
                   <div className="aspect-video bg-gradient-to-br from-orange-100 to-yellow-100 rounded-lg flex items-center justify-center border-2 border-dashed border-orange-300">
                     <div className="text-center">
@@ -224,11 +215,11 @@ export default function RobaloChucumitePage() {
                     </div>
                     <div className="p-3 bg-green-50 rounded-lg border border-green-200">
                       <h5 className="font-medium text-green-800">Robalo Prieto</h5>
-                      <p className="text-sm text-green-700 italic">Centropomus parallelus</p>
+                      <p className="text-sm text-green-700 italic">Centropomus poeyi</p>
                     </div>
                     <div className="p-3 bg-green-50 rounded-lg border border-green-200">
                       <h5 className="font-medium text-green-800">Chucumite</h5>
-                      <p className="text-sm text-green-700 italic">Centropomus poeyi</p>
+                      <p className="text-sm text-green-700 italic">Centropomus parallelus</p>
                     </div>
                   </div>
                 </CardContent>
@@ -242,22 +233,126 @@ export default function RobaloChucumitePage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
+                  <div className="space-y-3 max-h-[600px] overflow-y-auto">
                     <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                      <h5 className="font-medium text-blue-800">Sábalo</h5>
-                      <p className="text-sm text-blue-700 italic">Megalops atlanticus</p>
+                      <h5 className="font-medium text-blue-800">Robalo Constantino</h5>
+                      <p className="text-sm text-blue-700 italic">Centropomus pectinatus</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Sierra</h5>
+                      <p className="text-sm text-blue-700 italic">Scomberomorus maculatus</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Bandera</h5>
+                      <p className="text-sm text-blue-700 italic">Bagre marinus</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Trucha, corvina pinta</h5>
+                      <p className="text-sm text-blue-700 italic">Cynoscion nebulosus</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Trucha, corvina blanca</h5>
+                      <p className="text-sm text-blue-700 italic">Cynoscion arenarius</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Trucha, corvina plateada</h5>
+                      <p className="text-sm text-blue-700 italic">Cynoscion nothus</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Cazón, tripa</h5>
+                      <p className="text-sm text-blue-700 italic">Rhizoprionodon terraenovae</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Tiburones</h5>
+                      <p className="text-sm text-blue-700 italic">Charcharhinus spp</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Chopa</h5>
+                      <p className="text-sm text-blue-700 italic">Lobotes surinamensis</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Pargo gris, mulato</h5>
+                      <p className="text-sm text-blue-700 italic">Lutjanus griseus</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Peto, Carito</h5>
+                      <p className="text-sm text-blue-700 italic">Scomberomorus cavalla</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Pámpano amarillo</h5>
+                      <p className="text-sm text-blue-700 italic">Trachinotus carolinus</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Esmedregal</h5>
+                      <p className="text-sm text-blue-700 italic">Seriola rivoliana</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Medregal</h5>
+                      <p className="text-sm text-blue-700 italic">Seriola dumerili</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Cobia, bacalao, esmedregal</h5>
+                      <p className="text-sm text-blue-700 italic">Rachycentron canadum</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Palometa</h5>
+                      <p className="text-sm text-blue-700 italic">Trachinotus falcatus</p>
                     </div>
                     <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
                       <h5 className="font-medium text-blue-800">Lisa</h5>
                       <p className="text-sm text-blue-700 italic">Mugil cephalus</p>
                     </div>
                     <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                      <h5 className="font-medium text-blue-800">Jurel</h5>
+                      <h5 className="font-medium text-blue-800">Lebrancha, liseta</h5>
+                      <p className="text-sm text-blue-700 italic">Mugil curema</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Jurel amarillo, común</h5>
                       <p className="text-sm text-blue-700 italic">Caranx hippos</p>
                     </div>
                     <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                      <h5 className="font-medium text-blue-800">Pargo</h5>
-                      <p className="text-sm text-blue-700 italic">Lutjanus campechanus</p>
+                      <h5 className="font-medium text-blue-800">Gurrubata, tambor</h5>
+                      <p className="text-sm text-blue-700 italic">Micropogonias undulatus</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Ratón del Golfo, verrugato</h5>
+                      <p className="text-sm text-blue-700 italic">Menticirrhus americanus</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Raya látigo, blanca, balá</h5>
+                      <p className="text-sm text-blue-700 italic">Dasyatis americana</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Guabina</h5>
+                      <p className="text-sm text-blue-700 italic">Diplectrum radiale</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Sargo, mojarra negra</h5>
+                      <p className="text-sm text-blue-700 italic">Archosargus probatocephalus</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Bagre, pez gato americano</h5>
+                      <p className="text-sm text-blue-700 italic">Ictalurus furcatus</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Bagre pintontle</h5>
+                      <p className="text-sm text-blue-700 italic">Pylodictis olivaris</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Sábalo</h5>
+                      <p className="text-sm text-blue-700 italic">Megalops atlanticus</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Carpa común</h5>
+                      <p className="text-sm text-blue-700 italic">Cyprinus carpio</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Carpa herbívora</h5>
+                      <p className="text-sm text-blue-700 italic">Ctenopharyngodon idella</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Carpa plateada</h5>
+                      <p className="text-sm text-blue-700 italic">Hypophthalmichthys molitrix</p>
                     </div>
                   </div>
                 </CardContent>
@@ -496,12 +591,15 @@ negativos en las pesquerías y en las actividades acuícolas.
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            NOM-033-SAG/PESC-2014, Pesca responsable en el Sistema Lagunar Champayán y Río Tamesí. NOM-037-PESC-2004, Pesca responsable en el Sistema Lagunar formado por las humedales del Usumacinta. Especificaciones para el aprovechamiento de los recursos pesqueros.
+                          NOM-033-SAG/PESC-2014,	pesca responsable en el Sistema Lagunar Champayán y Río Tamesí, incluyendo las lagunas Chairel y La Escondida, ubicados en el Estado de Tamaulipas. Especificaciones	para	el aprovechamiento  de  los  recursos pesqueros.
+                          NOM-037-PESC-2004, Pesca responsable en el Sistema Lagunar formado por las humedales del Usumacinta, en los municipios de Catazajá, Palenque y La Libertad en el Estado de Chiapas, Jonuta, Emiliano Zapata y Balancán en el Estado de Tabasco, Ciudad del Carmen y Palizadas en el Estado de Campeche. Especificaciones	para	el aprovechamiento de los recursos pesqueros.
+
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Normas Oficiales Mexicanas publicadas en el Diario Oficial de la Federación. Basadas en estudios técnicos del IMIPAS y CONAPESCA. Regulación federal para el aprovechamiento sustentable de recursos pesqueros.
+                          DOF: 23/12/14
+                          DOF: 29/05/07
                           </p>
                         </td>
                       </tr>
@@ -514,12 +612,12 @@ negativos en las pesquerías y en las actividades acuícolas.
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            ACUERDO por el que se da a conocer el Plan de Manejo Pesquero de robalo (Centropomus undecimalis) del Golfo de México y Mar Caribe. Lineamientos, estrategias y acciones de manejo establecidas.
+                          ACUERDO por el que se da a conocer el Plan de Manejo Pesquero de robalo (Centropomus undecimalis) del Golfo de México y Mar Caribe.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Acuerdo publicado en el Diario Oficial de la Federación. Basado en estudios científicos del IMIPAS. Estrategia integral para el manejo sustentable de la pesquería.
+                          DOF 25/03/2014
                           </p>
                         </td>
                       </tr>
@@ -532,12 +630,12 @@ negativos en las pesquerías y en las actividades acuícolas.
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Permiso/Concesiones de pesca comercial para escama marina con dictamen técnico del IMIPAS. No existen permisos o concesiones específicos de pesca comercial de robalo.
+                            Permiso/Concesiones de pesca comercial para escama marina.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Ley General de Pesca y Acuacultura Sustentables. Reglamento de la Ley General de Pesca y Acuacultura Sustentables. Amparado por el permiso de pesca comercial de escama marina en la región.
+                          Dictamen	técnico	del IMIPAS
                           </p>
                         </td>
                       </tr>
@@ -550,12 +648,12 @@ negativos en las pesquerías y en las actividades acuícolas.
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            No existen tallas mínimas establecidas para robalo y chucumite. Oportunidad de mejora para establecer regulaciones de talla mínima de captura.
+                           
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Estudios de biología pesquera y tallas de primera madurez. Recomendaciones del Plan de Manejo Pesquero. Mejores prácticas internacionales para manejo sustentable.
+                            
                           </p>
                         </td>
                       </tr>
@@ -568,12 +666,12 @@ negativos en las pesquerías y en las actividades acuícolas.
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            El robalo se captura con red de enmalle, y el chucumite con red de enmalle y atarrayas principalmente. Para robalo blanco, C. undecimalis, se recomienda redes de enmalle con tamaño de malla de 6.0 pulgadas.
+                            El robalo se captura con red de enmalle, y el chucumite con red de enmalle y atarrayas principalmente. 
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Estudios de selectividad de artes de pesca. Recomendaciones del Plan de Manejo Pesquero. Análisis de eficiencia y impacto de diferentes métodos de captura.
+                          Permisos de pesca comercial	para embarcaciones menores para pesquería de escama marina.
                           </p>
                         </td>
                       </tr>
@@ -586,12 +684,12 @@ negativos en las pesquerías y en las actividades acuícolas.
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Acuerdo de veda para robalo prieto y robalo blanco en el Golfo de México del 15 de mayo al 30 de junio desde Soto la Marina, Tamaulipas, hasta Chachalacas, Veracruz; del 01 de julio al 15 de agosto desde Chachalacas, Ver., hasta Tonalá, entre los límites de Veracruz y Tabasco.
+                          Acuerdo de veda para robalo prieto y robalo blanco en el Golfo de México del 15 de mayo al 30 de junio desde la barra de Soto la Marina, Tamaulipas, hasta la barra de Chachalacas, Veracruz; del 01 de julio al 15 de agosto desde la barra de Chachalacas, Ver., hasta la barra de Tonalá, entre los límites de Veracruz y Tabasco
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Estudios de reproducción y época de desove. Acuerdo publicado en el Diario Oficial de la Federación. Protección de los periodos reproductivos críticos de las especies.
+                          DOF: 16/03/1994
                           </p>
                         </td>
                       </tr>
@@ -604,12 +702,12 @@ negativos en las pesquerías y en las actividades acuícolas.
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            No hay cuotas establecidas para robalo y chucumite. Oportunidad de mejora para implementar cuotas de captura anuales basadas en evaluaciones de stock.
+                            
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Evaluaciones de stock y biomasa reproductiva. Análisis de rendimiento máximo sostenible (RMS). Experiencias internacionales en manejo por cuotas. Recomendaciones del Plan de Manejo Pesquero.
+                            
                           </p>
                         </td>
                       </tr>
@@ -622,12 +720,12 @@ negativos en las pesquerías y en las actividades acuícolas.
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Embarcaciones menores autorizadas para la pesca de robalo y chucumite. Regulación del tipo y tamaño de embarcaciones permitidas para esta pesquería.
+                            Embarcaciones menores 
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Clasificación de embarcaciones por la Secretaría de Marina. Regulaciones de pesca costera y artesanal. Permisos de pesca comercial para embarcaciones menores.
+                          Permisos de pesca comercial	para embarcaciones menores para pesquería de escama marina.
                           </p>
                         </td>
                       </tr>
@@ -640,12 +738,12 @@ negativos en las pesquerías y en las actividades acuícolas.
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            No existen permisos o concesiones específicos de pesca comercial de robalo. Amparado por el permiso de pesca comercial de escama marina en la región. Recomendación: No incrementar el esfuerzo pesquero.
+                            No existen permisos o concesiones específicos de pesca comercial de robalo. Amparado por el permiso de pesca comercial de escama marina en la región.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Evaluaciones de capacidad de carga del ecosistema. Análisis de impacto del esfuerzo pesquero actual. Recomendaciones del Plan de Manejo Pesquero. Estudios de sostenibilidad a largo plazo.
+                            
                           </p>
                         </td>
                       </tr>
@@ -658,31 +756,19 @@ negativos en las pesquerías y en las actividades acuícolas.
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Aguas marinas de Jurisdicción Federal ríos y sistemas lagunares del Golfo de México y Mar Caribe. Considerando los lineamientos de la Zona de Refugio pesquero parcial temporal Akumal en Quintana Roo.
+                          Aguas marinas de Jurisdicción Federal ríos y sistemas lagunares del Golfo de México y Mar Caribe, considerando los lineamientos de la Zona de Refugio pesquero parcial temporal Akumal en Quintana Roo.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Delimitación de aguas territoriales y zona económica exclusiva. Regulaciones de pesca en aguas federales. Establecimiento de zonas de refugio pesquero. Protección de áreas de reproducción y crianza.
+                          Permisos de pesca comercial	para embarcaciones menores para pesquería de escama marina.
+                          DOF: 13/04/2015
                           </p>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                     </div>
-                <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border-2 border-blue-200 shadow-lg">
-                  <div className="flex items-start space-x-4">
-                    <AlertTriangle className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
-                    <div className="text-sm text-blue-800">
-                      <p className="font-bold mb-3 text-lg">Resumen de Instrumentos de Manejo:</p>
-                      <ul className="list-disc list-inside space-y-2 text-blue-700 font-medium">
-                        <li><strong>Implementados (6):</strong> NOM, Plan de Manejo, Tipo de acceso, Artes de pesca, Veda, Unidad de pesca, Zona de pesca</li>
-                        <li><strong>Oportunidades de mejora (3):</strong> Talla mínima, Cuota, Esfuerzo nominal autorizado</li>
-                        <li><strong>Total evaluado:</strong> 10 instrumentos de manejo pesquero</li>
-                      </ul>
-                    </div>
-                    </div>
-                  </div>
                 </CardContent>
               </Card>
           </TabsContent>
@@ -710,23 +796,23 @@ negativos en las pesquerías y en las actividades acuícolas.
                           </div>
                         </div>
                         <div className="flex-1">
-                          <h4 className="font-bold text-green-800 mb-1">Máximo Sustentable</h4>
-                          <p className="text-sm text-gray-700 font-medium">Veracruz, Tabasco y Quintana Roo</p>
-                          <p className="text-xs text-gray-600 mt-1">Aprovechados al máximo sustentable</p>
+                          <h4 className="font-bold text-green-800 mb-1">Aprovechados al máximo sustentable</h4>
+                          <p className="text-sm text-gray-700 font-medium">Robalo</p>
+                          <p className="text-xs text-gray-600 mt-1">Veracruz, Tabasco y Quintana Roo</p>
                         </div>
                       </div>
 
-                      {/* Con riesgo de deterioro */}
-                      <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-400 rounded-lg p-4 flex items-center space-x-4">
+                      {/* Aprovechados al máximo sustentable  */}
+                      <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-300 rounded-lg p-4 flex items-center space-x-4">
                         <div className="flex-shrink-0">
-                          <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center">
-                            <AlertTriangle className="w-10 h-10 text-yellow-600" />
+                          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                        <CheckCircle className="w-10 h-10 text-green-600" />
                           </div>
                         </div>
                         <div className="flex-1">
-                          <h4 className="font-bold text-yellow-800 mb-1">Con Riesgo de Deterioro</h4>
-                          <p className="text-sm text-gray-700 font-medium">Tamaulipas, Campeche y Yucatán</p>
-                          <p className="text-xs text-gray-600 mt-1">Aprovechado al máximo con riesgo</p>
+                          <h4 className="font-bold text-green-800 mb-1">Aprovechados al máximo sustentable (en riesgo de deterioro)</h4>
+                          <p className="text-sm text-gray-700 font-medium">Robalo</p>
+                          <p className="text-xs text-gray-600 mt-1">Tamaulipas, Campeche y Yucatán</p>
                         </div>
                       </div>
                     </div>

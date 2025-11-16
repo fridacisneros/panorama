@@ -135,10 +135,7 @@ export default function PezEspadaPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <div className="space-y-4">
                 <p className="text-gray-700 leading-relaxed">
-                  El pez espada (Xiphias gladius) es una especie pelágica de gran tamaño y alto valor comercial. Se distribuye
-                  en aguas tropicales y templadas del Pacífico mexicano, siendo una pesquería con gran potencial de desarrollo
-                  debido a la subutilización actual del recurso y la alta demanda internacional. Es una especie migratoria
-                  de aguas profundas que puede alcanzar tamaños considerables y es altamente valorada por su carne de calidad.
+                El pez espada (Xiphias gladius), es una especie altamente migratoria y ampliamente distribuida a nivel mundial. Habita aguas tropicales con temperaturas entre los 13 °C y 24 °C, a profundidades de hasta 1,000 metros, con distribución latitudinal de 50°N a 50°S, siendo un recurso pesquero importante y estrechamente relacionado con las condiciones ambientales; los organismos juveniles se mantienen en aguas con menor profundidad y temperaturas más cálidas, con capacidad de migración menor, por tanto, son más susceptibles a la pesca. Es considerada una especie objetivo para la pesca deportiva-recreativa, dentro de las 50 millas náuticas a partir de la línea de costa y aprovechada comercialmente por embarcaciones mayores en aguas posteriores a las 50 millas náuticas que establece la pesca deportiva.
                 </p>
                   </div>
                   <div className="space-y-4">
@@ -168,10 +165,7 @@ export default function PezEspadaPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-gray-700 leading-relaxed">
-                    La captura de pez espada se realiza principalmente con embarcaciones de altura especializadas en palangre
-                    (60%), pangas artesanales para pesca costera (25%) y embarcaciones industriales de gran capacidad (15%).
-                    Las embarcaciones palangreras son las más importantes, siendo barcos de mediano y gran tamaño equipados
-                    con sistemas de manejo de líneas largas.
+                    
                   </p>
                   <div className="aspect-video bg-gradient-to-br from-yellow-100 to-amber-100 rounded-lg flex items-center justify-center border-2 border-dashed border-yellow-300">
                     <div className="text-center">
@@ -192,10 +186,7 @@ export default function PezEspadaPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-gray-700 leading-relaxed">
-                    Las principales artes de pesca incluyen palangre pelágico (80%), arpón para pesca selectiva (15%) y
-                    red de enmalle (5%). El palangre pelágico es el arte principal, consistente en líneas largas con múltiples
-                    anzuelos desplegadas en aguas pelágicas. El arpón se usa principalmente en embarcaciones menores para
-                    pesca selectiva. La red de enmalle tiene uso limitado debido a regulaciones.
+                  Para la captura de pez espada en el Golfo de México se utiliza como arte de pesca el palangre de deriva “tipo americano”, el cual consiste en una línea principal de monofilamento llamada “línea madre” construida de nylon (4.0-4.5 milímetros) de 55 a 75 kilómetros de longitud, la cual está sostenida en sentido horizontal por una serie de flotadores con líneas de monofilamento verticales, llamados “orinques”. De la línea madre penden a intervalos regulares otras líneas con especificaciones semejantes a las de los orinques, denominados “reinales”, cada una con anzuelo en el extremo tipo “garra de águila o circular” del número 16/0 y en promedio se utilizan 658 anzuelos/lance. La principal carnada utilizada es la carnada viva, el ojón Selar crumenophthalmus, jiníguaro Haemulon aurolineatum, macarela Decapterus spp, sardina Sardinella spp y calamar Loligo spp, aunque estas características varían en función de las estrategias de pesca. El equipo del palangre está integrado por accesorios de señalización y localización como radio boyas (dos a cuatro) al inicio, mitad y final del palangre, banderines en cada sección, flotadores y luces en inicio y final del palangre.
                   </p>
                   <div className="aspect-video bg-gradient-to-br from-orange-100 to-yellow-100 rounded-lg flex items-center justify-center border-2 border-dashed border-orange-300">
                     <div className="text-center">
@@ -236,16 +227,84 @@ export default function PezEspadaPage() {
                 <CardContent>
                   <div className="space-y-3">
                     <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                      <h5 className="font-medium text-blue-800">Atún Aleta Amarilla</h5>
-                      <p className="text-sm text-blue-700 italic">Thunnus albacares</p>
+                      <h5 className="font-medium text-blue-800">Peto, wahoo</h5>
+                      <p className="text-sm text-blue-700 italic">Acanthocybium solandri</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Tiburón zorro</h5>
+                      <p className="text-sm text-blue-700 italic">Alopias spp</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Lanceta</h5>
+                      <p className="text-sm text-blue-700 italic">Alepisaurus spp</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Tiburón puntas negras</h5>
+                      <p className="text-sm text-blue-700 italic">Carcharhinus limbatus</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Tiburón aleta negra</h5>
+                      <p className="text-sm text-blue-700 italic">Carcharhinus falciformis.</p>
+                    </div>                    
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Tiburón puntas blancas</h5>
+                      <p className="text-sm text-blue-700 italic">Carcharhinus longimanus</p>
                     </div>
                     <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
                       <h5 className="font-medium text-blue-800">Dorado</h5>
                       <p className="text-sm text-blue-700 italic">Coryphaena hippurus</p>
                     </div>
                     <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                      <h5 className="font-medium text-blue-800">Marlín</h5>
-                      <p className="text-sm text-blue-700 italic">Makaira spp.</p>
+                      <h5 className="font-medium text-blue-800">Tintorera, tigre</h5>
+                      <p className="text-sm text-blue-700 italic">Galeocerdo cuvier</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Pez vela</h5>
+                      <p className="text-sm text-blue-700 italic">Istiophorus albicans</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Tiburón mako, alecrín, marrajo</h5>
+                      <p className="text-sm text-blue-700 italic">Isurus oxyrinchus</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Barrilete, listado</h5>
+                      <p className="text-sm text-blue-700 italic">Katsuwonus pelamis</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Marlin azul, aguja azul</h5>
+                      <p className="text-sm text-blue-700 italic">Makaira nigricans</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Aceitoso</h5>
+                      <p className="text-sm text-blue-700 italic">Lepidocybium flavobrunneum</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Tiburón martillo, cornuda</h5>
+                      <p className="text-sm text-blue-700 italic">Sphyrna spp.</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Marlin blanco, aguja blanca</h5>
+                      <p className="text-sm text-blue-700 italic">Tetrapturus albidus</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Marlin aguja larga</h5>
+                      <p className="text-sm text-blue-700 italic">Tetrapturus pfluegeri</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Atún aleta amarilla, rabil</h5>
+                      <p className="text-sm text-blue-700 italic">Thunnus albacares</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Atún aleta negra</h5>
+                      <p className="text-sm text-blue-700 italic">Thunnus atlanticus</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Patudo</h5>
+                      <p className="text-sm text-blue-700 italic">Thunnus obesus</p>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                      <h5 className="font-medium text-blue-800">Atún aleta azul, atún rojo del Atlántico</h5>
+                      <p className="text-sm text-blue-700 italic">Thunnus thynnus</p>
                     </div>
                   </div>
                 </CardContent>
@@ -422,14 +481,7 @@ export default function PezEspadaPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-gray-700 leading-relaxed">
-                  El cambio climático ha generado una afectación en los recursos pesqueros, ya que el calentamiento global
-                  ha causado trastornos en la estacionalidad de algunos procesos biológicos, como en las redes tróficas
-                  marinas. El pez espada, siendo una especie pelágica de aguas profundas, es particularmente vulnerable a
-                  cambios en la temperatura del agua y las corrientes oceánicas que afectan su distribución y migración.
-                  El aumento de la temperatura puede modificar los patrones de migración estacional y las áreas de
-                  alimentación. Los cambios en las corrientes oceánicas pueden afectar la disponibilidad de presas y la
-                  distribución espacial de las poblaciones. La acidificación oceánica puede tener efectos indirectos en las
-                  redes tróficas pelágicas de las que depende el pez espada.
+                Los efectos del cambio climático a nivel mundial se relacionan directamente con cambios en la temperatura media anual, con un registro continuo en el aumento de la temperatura. Dichos efectos han generado un impacto en las poblaciones de peces, con cambios en su crecimiento, reproducción, mortalidad, comportamiento y distribución. El calentamiento global puede tener grandes implicaciones en la disminución de capturas en peces pelágicos mayores, afectando a las comunidades e industrias que dependen de estas especies para su alimentación. La distribución del pez espada depende de la edad y sexo del pez, variando estacionalmente, las larvas de estos peces se encuentran asociadas a la temperatura del agua, solo se encuentran en temperaturas superiores a 24 °C, con una distribución continua en aguas subtropicales y tropicales. Los estudios que realizan proyecciones futuras sobre el comportamiento que presentará el pez espada ante los efectos del cambio climático estiman una disminución general en la abundancia relativa, con una disminución sustancial en la mayoría de las áreas tropicales y un ligero aumento en los límites de su rango de distribución, así como en el hemisferio norte y sur.
                 </p>
               </CardContent>
             </Card>
@@ -481,16 +533,16 @@ export default function PezEspadaPage() {
                           <div className="font-semibold text-gray-800">1. Norma Oficial Mexicana</div>
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 text-center align-top">
-                          <span className="text-red-700 font-bold text-lg">✗ No</span>
+                          <span className="text-red-700 font-bold text-lg">✓ Sí</span>
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            No existe una NOM específica para pez espada. Oportunidad de mejora.
+                          NORMA Oficial Mexicana NOM-023- SAG/PESC-2014, Que regula el aprovechamiento de las especies de túnidos con embarcaciones palangreras en aguas de jurisdicción federal del Golfo de México y Mar Caribe.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Necesidad identificada para manejo sustentable. Requerimiento de estudios científicos.
+                          DOF: 16/04/2014
                           </p>
                         </td>
                       </tr>
@@ -503,12 +555,12 @@ export default function PezEspadaPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            No existe un Plan de Manejo Pesquero específico. Oportunidad de mejora.
+                            
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Necesidad identificada para manejo sustentable. Requerimiento de estudios científicos.
+                            
                           </p>
                         </td>
                       </tr>
@@ -521,12 +573,14 @@ export default function PezEspadaPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Permiso de pesca comercial para especies pelágicas. Regulación de acceso.
+                          Permiso para pesca comercial de pez espada.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Ley General de Pesca y Acuacultura Sustentables.
+                          Opinión	técnica	del IMIPAS.
+                          Artículo 36, Fracción III de la LGPAS
+                          (DOF: 24/04/2018)
                           </p>
                         </td>
                       </tr>
@@ -535,16 +589,17 @@ export default function PezEspadaPage() {
                           <div className="font-semibold text-gray-800">4. Talla mínima</div>
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 text-center align-top">
-                          <span className="text-red-700 font-bold text-lg">✗ No</span>
+                          <span className="text-red-700 font-bold text-lg">✓ Sí</span>
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            No existen tallas mínimas establecidas. Oportunidad de mejora.
+                          ACUERDO por el que se establece la talla mínima de captura comercial para el pez espada (Xiphias gladius) en aguas marinas de jurisdicción federal del Golfo de México y Mar Caribe. Se establece una talla mínima de captura comercial de 125 centímetros de longitud de mandíbula inferior a la horquilla (LJFL), equivalente a
+                          25 kilogramos en peso vivo. Los ejemplares con talla inferior a la establecida deberán ser liberados en buenas condiciones de sobrevivencia.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Necesidad de estudios de madurez sexual y biología pesquera.
+                          DOF: 23/05/2019
                           </p>
                         </td>
                       </tr>
@@ -557,12 +612,12 @@ export default function PezEspadaPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Palangre pelágico, arpón y red de enmalle regulados. Especificaciones técnicas establecidas.
+                          Palangre atunero de superficie a la deriva, con longitud máxima de 60,000 metros, uso de 100% anzuelos circulares No. 16/0, un máximo de 800 anzuelos por palangre.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Regulaciones internacionales y nacionales. Protección de especies asociadas.
+                          Numeral	4.2	de	la NOM-023-SAG/PESC- 2014	(DOF:16/04/2014)
                           </p>
                         </td>
                       </tr>
@@ -575,12 +630,12 @@ export default function PezEspadaPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            No hay vedas establecidas específicamente para pez espada. Oportunidad de mejora.
+                            
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Necesidad de estudios de reproducción y ciclo de vida. Evaluaciones de stock.
+                            
                           </p>
                         </td>
                       </tr>
@@ -589,16 +644,17 @@ export default function PezEspadaPage() {
                           <div className="font-semibold text-gray-800">7. Cuota</div>
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 text-center align-top">
-                          <span className="text-red-700 font-bold text-lg">✗ No</span>
+                          <span className="text-red-700 font-bold text-lg">✓ Sí</span>
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            No hay cuotas de captura establecidas. Oportunidad de mejora.
+                          Se establece una captura total permitida (TAC, por sus siglas en inglés) de 13,200 t para el pez espada del Atlántico norte para los años 2018, 2019, 2020, 2021, 2022 y 2023, y cuyos límites de captura anuales se aplicarán para mismos años. De dicho TAC, para México corresponden 200 t.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Necesidad de evaluaciones de stock. Análisis de rendimiento máximo sostenible.
+                          Rec. 22-03
+                          Recomendación	de ICCAT que remplaza la recomendación suplementaria 21-02 que amplía y enmienda la recomendación 17-02 para la conservación del pez espada del Atlántico	norte. Comisión Internacional para la Conservación del Atún del Atlántico (CICAA).
                           </p>
                         </td>
                       </tr>
@@ -611,12 +667,14 @@ export default function PezEspadaPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Embarcaciones de altura y artesanales autorizadas. Regulación de embarcaciones.
+                          6 embarcaciones mayores palangreras.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Clasificación de embarcaciones. Registro Nacional.
+                          Permisos	de	pesca comercial para embarcaciones mayores para	la pesquería de	pez espada.
+                          Numeral	4.2	de	la NOM-023-SAG/PESC- 2014
+                          (DOF: 16/04/2014).
                           </p>
                         </td>
                       </tr>
@@ -625,16 +683,16 @@ export default function PezEspadaPage() {
                           <div className="font-semibold text-gray-800">9. Esfuerzo nominal autorizado</div>
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 text-center align-top">
-                          <span className="text-red-700 font-bold text-lg">✗ No</span>
+                          <span className="text-red-700 font-bold text-lg">✓ Sí</span>
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            No existe control específico del esfuerzo. Recomendación: No incrementar el esfuerzo pesquero.
+                          34 embarcaciones mayores palangreras.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Necesidad de evaluaciones de capacidad. Estudios de sostenibilidad.
+                          Registros de Permisos y Concesiones de Pesca	Comercial autorizadas	y registradas en el Sistema	de Administración Pesquera.
                           </p>
                         </td>
                       </tr>
@@ -647,31 +705,19 @@ export default function PezEspadaPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Zonas delimitadas en el Pacífico mexicano. Aguas de jurisdicción federal.
+                            Zona Económica exclusiva del Golfo de México y Mar Caribe.Zonas delimitadas en el Pacífico mexicano. Aguas de jurisdicción federal.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Delimitación de aguas territoriales y zona económica exclusiva.
+                          Permisos	de	pesca comercial	para embarcaciones mayores para pesquería	de pez espada.
+                          DOF: 16/04/2014
                           </p>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                     </div>
-                <div className="mt-8 p-6 bg-gradient-to-r from-yellow-50 to-amber-50 rounded-xl border-2 border-yellow-200 shadow-lg">
-                  <div className="flex items-start space-x-4">
-                    <AlertTriangle className="w-6 h-6 text-yellow-600 mt-1 flex-shrink-0" />
-                    <div className="text-sm text-yellow-800">
-                      <p className="font-bold mb-3 text-lg">Resumen de Instrumentos de Manejo:</p>
-                      <ul className="list-disc list-inside space-y-2 text-yellow-700 font-medium">
-                        <li><strong>Implementados (3):</strong> Tipo de acceso, Artes de pesca, Unidad de pesca, Zona de pesca</li>
-                        <li><strong>Oportunidades de mejora (6):</strong> NOM, Plan de Manejo, Talla mínima, Veda, Cuota, Esfuerzo nominal autorizado</li>
-                        <li><strong>Total evaluado:</strong> 10 instrumentos de manejo pesquero</li>
-                      </ul>
-                    </div>
-                    </div>
-                  </div>
                 </CardContent>
               </Card>
           </TabsContent>
@@ -700,8 +746,8 @@ export default function PezEspadaPage() {
                   </div>
                         <div className="flex-1">
                           <h4 className="font-bold text-green-800 mb-1">Con Potencial de Desarrollo</h4>
-                          <p className="text-sm text-gray-700 font-medium">Pacífico Mexicano</p>
-                          <p className="text-xs text-gray-600 mt-1">Recurso subutilizado con potencial</p>
+                          <p className="text-sm text-gray-700 font-medium">Pez espada (Xiphias gladius)</p>
+                          <p className="text-xs text-gray-600 mt-1">Pacífico Mexicano</p>
                         </div>
                       </div>
                         </div>
@@ -710,7 +756,7 @@ export default function PezEspadaPage() {
                     <div className="space-y-4">
                       <h3 className="text-xl font-bold text-yellow-800 border-b-2 border-yellow-200 pb-2">Estrategia</h3>
                       <div className="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
-                        <p className="text-gray-800 font-medium">Desarrollo sustentable del recurso mediante regulación y monitoreo</p>
+                        <p className="text-gray-800 font-medium">Cuota de captura internacional adoptada en el marco de la CICAA, y en la que se refiere cuota de captura asignada a México para el pez espada del Atlantico Norte.o</p>
                       </div>
                         </div>
 
@@ -721,19 +767,19 @@ export default function PezEspadaPage() {
                         <ul className="space-y-2 text-gray-800">
                           <li className="flex items-start">
                             <span className="text-amber-600 mr-2">•</span>
-                            <span>Desarrollo de normatividad específica</span>
+                            <span>Control del esfuerzo pesquero</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-amber-600 mr-2">•</span>
-                            <span>Regulación de artes de pesca</span>
+                            <span>Regulación de artes de pesca y método de captura</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-amber-600 mr-2">•</span>
-                            <span>Monitoreo de poblaciones</span>
+                            <span>Zonas de pesca</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-amber-600 mr-2">•</span>
-                            <span>Control de acceso a recursos</span>
+                            <span>Talla mínima de captura</span>
                           </li>
                         </ul>
                       </div>
@@ -790,7 +836,7 @@ export default function PezEspadaPage() {
                       <tr className="hover:bg-gradient-to-r hover:from-yellow-50 hover:to-amber-50 transition-all duration-300">
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-800 font-medium">
-                            Desarrollar y publicar una Norma Oficial Mexicana específica para pez espada.
+                          Elaborar el Plan de Manejo Pesquero de pez espada del Golfo de México.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
@@ -802,7 +848,7 @@ export default function PezEspadaPage() {
                       <tr className="hover:bg-gradient-to-r hover:from-amber-50 hover:to-orange-50 transition-all duration-300">
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-800 font-medium">
-                            Desarrollar y publicar un Plan de Manejo Pesquero específico para pez espada.
+                          No incrementar el esfuerzo pesquero.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
@@ -814,43 +860,7 @@ export default function PezEspadaPage() {
                       <tr className="hover:bg-gradient-to-r hover:from-orange-50 hover:to-yellow-50 transition-all duration-300">
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-800 font-medium">
-                            Establecer tallas mínimas de captura basadas en estudios de madurez sexual.
-                          </p>
-                        </td>
-                        <td className="px-6 py-4 align-top">
-                          <p className="text-sm text-gray-700 leading-relaxed">
-                            Sin información de avance.
-                          </p>
-                        </td>
-                      </tr>
-                      <tr className="hover:bg-gradient-to-r hover:from-yellow-50 hover:to-amber-50 transition-all duration-300">
-                        <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
-                          <p className="text-sm text-gray-800 font-medium">
-                            Establecer vedas reproductivas basadas en estudios de ciclo de vida.
-                          </p>
-                        </td>
-                        <td className="px-6 py-4 align-top">
-                          <p className="text-sm text-gray-700 leading-relaxed">
-                            Sin información de avance.
-                          </p>
-                        </td>
-                      </tr>
-                      <tr className="hover:bg-gradient-to-r hover:from-amber-50 hover:to-orange-50 transition-all duration-300">
-                        <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
-                          <p className="text-sm text-gray-800 font-medium">
-                            Establecer cuotas de captura basadas en evaluaciones de stock.
-                          </p>
-                        </td>
-                        <td className="px-6 py-4 align-top">
-                          <p className="text-sm text-gray-700 leading-relaxed">
-                            Sin información de avance.
-                          </p>
-                        </td>
-                      </tr>
-                      <tr className="hover:bg-gradient-to-r hover:from-orange-50 hover:to-yellow-50 transition-all duration-300">
-                        <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
-                          <p className="text-sm text-gray-800 font-medium">
-                            Implementar sistemas de monitoreo y vigilancia más efectivos.
+                          Continuar con el Programa de Observadores a Bordo.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">

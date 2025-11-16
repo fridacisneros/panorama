@@ -69,7 +69,7 @@ export default function PulpoPage() {
         <div className="flex items-center justify-center mb-8">
           <div className="text-center">
               <h1 className="text-4xl font-bold text-yellow-800 mb-2">Pulpo</h1>
-              <p className="text-xl text-gray-600 italic">Octopus maya</p>
+              <p className="text-xl text-gray-600 italic">Octopus maya, Octopus americanus</p>
           </div>
         </div>
 
@@ -133,11 +133,8 @@ export default function PulpoPage() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <div className="space-y-4">
                 <p className="text-gray-700 leading-relaxed">
-                  El pulpo maya (Octopus maya) es una especie endémica de la península de Yucatán y una de las
-                  pesquerías más importantes del sureste de México. Esta especie se caracteriza por su ciclo de vida
-                  corto (12-15 meses), alta fecundidad y gran importancia cultural y económica para las comunidades
-                  pesqueras de la región. El pulpo maya habita principalmente en fondos arenosos y rocosos de la
-                  plataforma continental, siendo Yucatán el estado que aporta más del 80% de las capturas totales.
+                La pesquería de pulpo en México es una de las más importantes del país, aporta una producción promedio de 37,000 toneladas anuales, registrándose incluso las 47,000 toneladas durante el 2021, lo que representó el 2.4% de la producción pesquera nacional y cuyo valor fue de 3,289 millones de pesos. Su alto valor económico la posiciona en la tercera pesquería más importante del país, sólo después del camarón y el atún. A nivel nacional, los estados Yucatán y Campeche son los principales productores de este recurso pesquero, aportando el 94.5% de las capturas (SIAP, 2022) y en donde esta pesquería de la Península de Yucatán es considerada la más grande del Continente Americano, aportando el 30% de la producción del continente.
+                En la región del Golfo de México y Mar Caribe, la pesquería de pulpo está basada principalmente en la captura de dos especies: el pulpo maya o rojo (Octopus maya) y el pulpo patón (O. americanus, anteriormente determinado como O. vulgaris). Sin embargo, O. maya representa aproximadamente el 75% de las capturas totales desde 1998, incluso hasta el 86% durante el año 2020. Una tercera especie denominada pulpo insular (O. insularis, anteriormente determinado como O. vulgaris) es capturada en Veracruz en menor proporción (0.1%) a nivel regional, pero de gran valor económico local y cultural.
                 </p>
                   </div>
                   <div className="space-y-4">
@@ -167,10 +164,12 @@ export default function PulpoPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-gray-700 leading-relaxed">
-                    La captura de pulpo se realiza principalmente con embarcaciones menores, lanchas y pangas equipadas
-                    para el uso de jimbas (trampas). Se utilizan embarcaciones artesanales de fibra de vidrio y madera
-                    para el despliegue y recolección de trampas. También se utilizan embarcaciones para buceo libre
-                    en aguas someras donde el pulpo es accesible.
+                  En esta pesquería participan dos tipos de flota pesquera: la flota menor o artesanal y la flota de mediana altura. La primera es la más numerosa, opera en todo el litoral de Campeche, Yucatán y norte de Quintana Roo. La flota que pesca en el Sistema Arrecifal Veracruzano también se puede considerar dentro de esta categoría. La flota de mediana altura en Yucatán opera casi exclusivamente en el puerto de Progreso, Yucatán.
+                  Flota artesanal (Yucatán, Campeche y Quintana Roo): Embarcación menor equipada con motor fuera de borda (115 caballos de fuerza) con un máximo de 2 alijos y 4 pescadores. Captura al “gareteo” con dos varas con hasta siete líneas cada una y hasta cinco líneas más en un costado de la embarcación.
+                  La pesca de pulpo se realiza exclusivamente durante el día, utilizando el método campechano o "gareteo", el cual consiste en dejar la embarcación a la deriva, arrastrando líneas de monofilamento o cordeles donde se sujeta la carnada, principalmente jaiba y cangrejo araña. La carnada va atada al extremo libre de la línea, el otro extremo, no sumergido, se ata a uno de los costados de la embarcación y a dos "jimbas", parte de las cuales se fija a la embarcación y parte pende a proa y popa. Los alijos emplean jimbas de dos a tres metros y de seis a siete líneas, en tanto que la embarcación usada como nodriza usa jimbas de cuatro a cinco metros y 16 líneas. Es un método de pesca muy selectivo.
+                  Flota artesanal (Veracruz): Embarcaciones de fibra vidrio y motor fuera de borda y de dos a seis pescadores por embarcación. En el litoral veracruzano, específicamente en el Sistema Arrecifal Veracruzano (SAV), la pesca de pulpo se realiza por medio de buceo libre o apnea. Debido a las características del fondo marino, corrientes y profundidad del SAV, se usa el denominado gancho o bastón pulpero, de aproximadamente un metro de largo, es una varilla atada por uno de sus extremos a un tramo de madera a manera de mango, y por el otro lado, termina en una punta doblada en forma de gancho.
+                  Flota de mediana altura (Yucatán): Embarcación mayor a 10 toneladas de arqueo neto que actúa como nodriza llevando hasta 12 alijos. Cada alijo lleva un par de varas de bambú (jimbas) y 5 líneas cebadas (2 por vara y una al costado). Participa un pescador por alijo.
+                  En el caso de los alijos utilizados en las embarcaciones de mediana altura que se dedican casi exclusivamente a la captura de O. americanus, el arte de pesca y la operación son similares a los de la captura de O. maya, con excepción del tipo de carnadas pues además de los crustáceos mencionados, utilizan especies de escama como el vulcay (Diplectrum spp) y el chac-chi (Haemulon plumieri). En el caso de O. americanus, con el fin de asegurar la captura del molusco, el arte de pesca lleva al final de la línea un anzuelo, dado que la pesca es en aguas más profundas y el pulpo podría escapar al ser levantado el cordel.
                   </p>
                   <div className="aspect-video bg-gradient-to-br from-yellow-100 to-amber-100 rounded-lg flex items-center justify-center border-2 border-dashed border-yellow-300">
                     <div className="text-center">
@@ -191,10 +190,7 @@ export default function PulpoPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-gray-700 leading-relaxed">
-                    Las principales artes de pesca incluyen jimbas o trampas (85%), buceo libre (10%) y línea de mano
-                    (5%). Las jimbas son trampas de alambre o plástico que se calan en el fondo y se revisan
-                    periódicamente. La pesca se realiza principalmente en fondos arenosos y rocosos a profundidades de
-                    5 a 100 metros, siendo la temporada principal de agosto a diciembre.
+                    
                   </p>
                   <div className="aspect-video bg-gradient-to-br from-orange-100 to-yellow-100 rounded-lg flex items-center justify-center border-2 border-dashed border-orange-300">
                     <div className="text-center">
@@ -218,12 +214,12 @@ export default function PulpoPage() {
                 <CardContent>
                   <div className="space-y-3">
                     <div className="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
-                      <h5 className="font-medium text-yellow-800">Pulpo Maya</h5>
+                      <h5 className="font-medium text-yellow-800">Pulpo Maya o rojo</h5>
                       <p className="text-sm text-yellow-700 italic">Octopus maya</p>
                     </div>
                     <div className="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
                       <h5 className="font-medium text-yellow-800">Pulpo Patón</h5>
-                      <p className="text-sm text-yellow-700 italic">Octopus vulgaris</p>
+                      <p className="text-sm text-yellow-700 italic">Octopus americanus</p>
                     </div>
                   </div>
                 </CardContent>
@@ -239,17 +235,9 @@ export default function PulpoPage() {
                 <CardContent>
                   <div className="space-y-3">
                     <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                      <h5 className="font-medium text-blue-800">Caracol</h5>
-                      <p className="text-sm text-blue-700 italic">Lobatus gigas</p>
+                      <h5 className="font-medium text-blue-800">Pulpo insular de Veracruz</h5>
+                      <p className="text-sm text-blue-700 italic">Octopus insularis</p>
                       </div>
-                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                      <h5 className="font-medium text-blue-800">Langosta</h5>
-                      <p className="text-sm text-blue-700 italic">Panulirus argus</p>
-                    </div>
-                    <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                      <h5 className="font-medium text-blue-800">Camarón</h5>
-                      <p className="text-sm text-blue-700 italic">Penaeus spp.</p>
-                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -425,13 +413,8 @@ export default function PulpoPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-gray-700 leading-relaxed">
-                  El cambio climático ha generado una afectación en los recursos pesqueros, ya que el calentamiento global
-                  ha causado trastornos en la estacionalidad de algunos procesos biológicos, como en las redes tróficas
-                  marinas. El pulpo maya, siendo una especie de ciclo de vida corto, es particularmente vulnerable a
-                  cambios en la temperatura del agua que afectan su crecimiento, reproducción y supervivencia. El aumento
-                  de la temperatura puede modificar los patrones de migración y distribución, mientras que los eventos
-                  extremos como huracanes pueden afectar directamente las poblaciones y los hábitats bentónicos donde
-                  habitan. La acidificación oceánica puede afectar el desarrollo de las paralarvas.
+                Con base en evidencia indirecta, se ha planteado la hipótesis de que las poblaciones de pulpos y, en general, de cefalópodos han estado proliferando en todo el mundo y específicamente alrededor de la Península de Yucatán debido a las condiciones ambientales más favorables provocadas por las tendencias del calentamiento global y el agotamiento de las pesquerías de peces que podrían ser competidores o depredadores de pulpos y cefalópodos. La incidencia del afloramiento derivado de la Corriente de Lazo, presente durante la primavera y el verano, enfría el agua del fondo a 20 °C en toda el área de muestreo, lo que favorecería los eventos de agregación y reproducción poblacional como se muestra al menos para O. maya.
+                De acuerdo a los estudios realizados por Reyes-Bonilla et al. (2021), sobre dos escenarios de cambio climático: 1) el SSP5 (SSP585), que refleja un desarrollo impulsado por combustibles fósiles y 2) el SSP1 (SSP126), que refleja sustentabilidad para el horizonte 2050; se encontró que la distribución de la especie O. maya, abarca alrededor de 42,000 km2 y de acuerdo a las proyecciones, se obtuvo que, en promedio para los dos escenarios futuros, se tendría una disminución en el hábitat del 19%, limitando su presencia a las zonas más someras del Banco de Campeche y Yucatán, lo cual reduciría su área de distribución a 34,000 km2.
                 </p>
               </CardContent>
             </Card>
@@ -487,12 +470,12 @@ export default function PulpoPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            NOM-008-SAG/PESC-2015, Para ordenar el aprovechamiento de las especies de pulpo en aguas de jurisdicción federal del Golfo de México y Mar Caribe.
+                          NORMA Oficial Mexicana NOM-008- SAG/PESC-2015, Para ordenar el aprovechamiento de las especies de pulpo en las aguas de jurisdicción federal del Golfo de México y Mar Caribe.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Norma Oficial Mexicana publicada en DOF. Estudios del INAPESCA.
+                          DOF: 13/04/2016
                           </p>
                         </td>
                       </tr>
@@ -505,12 +488,12 @@ export default function PulpoPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Plan de Manejo Pesquero de pulpo del Golfo de México y Mar Caribe. Lineamientos y estrategias establecidas.
+                          ACUERDO por el que se da a conocer el Plan de Manejo Pesquero de pulpo (O. maya y O. vulgaris) del Golfo de México y Mar Caribe.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Acuerdo publicado en DOF. Basado en estudios científicos del INAPESCA.
+                          DOF: 15/07/2014 
                           </p>
                         </td>
                       </tr>
@@ -523,12 +506,13 @@ export default function PulpoPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Permiso de pesca comercial para pulpo. Regulación de acceso.
+                          Permiso de pesca comercial para pulpo y concesiones de pesca.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Ley General de Pesca y Acuacultura Sustentables.
+                          Opinión técnica del IMIPAS.
+                          Artículo 36, Fracción III de la LGPAS (DOF, 24/04/2018).
                           </p>
                         </td>
                       </tr>
@@ -541,12 +525,12 @@ export default function PulpoPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Tallas mínimas establecidas en la NOM-008-SAG/PESC-2015.
+                          110 mm de longitud de manto para ambos sexos y especies (Octopus maya y O. americanus) en el Golfo de México y Mar Caribe.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Estudios de madurez sexual y biología pesquera.
+                          Numeral 4.2, NOM-008- SAG/PESC-2015 (DOF: 13/04/2016).
                           </p>
                         </td>
                       </tr>
@@ -559,12 +543,14 @@ export default function PulpoPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Jimbas (trampas), buceo libre y línea de mano regulados. Especificaciones técnicas establecidas.
+                          Una embarcación menor equipada con un motor fuera de borda con una potencia nominal máxima de hasta 85.76 kilovatios (equivalentes a 115 caballos de fuerza), con un máximo de dos alijos y cuatro pescadores. Captura al "gareteo" con dos varas con hasta siete líneas cada una y hasta cinco líneas más en un costado de la embarcación.
+                          Una embarcación mayor con hasta 12 alijos y 12 pescadores (un alijo por pescador a bordo), en cada alijo, un par de varas ("jimbas") y cinco líneas pulperas (dos por vara y una al costado del alijo).
+                          En el Parque Nacional Sistema Arrecifal Veracruzano (PNSAV), la pesca deberá realizarse mediante buceo por apnea a profundidades menores a tres metros, pudiendo auxiliarse de un bastón pulpero para la captura. Para la pesca en esta zona deberá observarse lo dispuesto en el Decreto de creación del PNSAV y su Programa de Manejo.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Norma Oficial Mexicana. Protección de hábitats bentónicos.
+                          Numeral 4.3, NOM-008- SAG/PESC-2015 (DOF: 13/04/2016).
                           </p>
                         </td>
                       </tr>
@@ -577,12 +563,14 @@ export default function PulpoPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Veda temporal del 1 de enero al 31 de julio de cada año en el Golfo de México y Mar Caribe.
+                          Del 16 de diciembre al 31 de julio de cada año en Campeche, Yucatán y Quintana Roo.
+                          Del 1 de enero al último día de febrero y del 1 al 30 de agosto de cada año para pulpo rojo en el Parque Nacional Sistema Arrecifal Veracruzano.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Acuerdos de veda en DOF. Estudios de reproducción y ciclo de vida.
+                          NOM-009-PESC-1993 (DOF: 04/03/1994).
+                          Acuerdo	modificatorio (DOF: 30/07/2015).
                           </p>
                         </td>
                       </tr>
@@ -591,16 +579,16 @@ export default function PulpoPage() {
                           <div className="font-semibold text-gray-800">7. Cuota</div>
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 text-center align-top">
-                          <span className="text-red-700 font-bold text-lg">✗ No</span>
+                          <span className="text-red-700 font-bold text-lg">✓ Sí</span>
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            No hay cuotas de captura establecidas. Manejo basado en vedas.
+                          Varía anualmente de acuerdo a dictamen técnico emitido por IMIPAS.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Gestión mediante vedas. Necesidad de evaluaciones de stock.
+                          Dictamen	técnico	del IMIPAS.
                           </p>
                         </td>
                       </tr>
@@ -613,12 +601,17 @@ export default function PulpoPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Embarcaciones menores autorizadas. Regulación de embarcaciones artesanales.
+                          Flota artesanal (Península de Yucatán): embarcaciones de fibra de vidrio, de 5 a 10.5 m de eslora con motor fuera de borda, que lleva un par de jimbas y que puede incrementar su esfuerzo con un máximo de dos alijos y un par de jimbas cada uno, haciendo un total de 6 jimbas como máximo.
+                          Flota	artesanal	(Veracruz): Embarcaciones de fibra vidrio y motor fuera de borda y de dos a seis pescadores por embarcación. En el litoral veracruzano, específicamente en el Sistema Arrecifal Veracruzano (SAV), la pesca de pulpo se realiza por medio de buceo libre o apnea. Debido a las características del fondo marino, corrientes y profundidad del SAV, se usa el denominado gancho o bastón pulpero, de aproximadamente un metro de largo, es una varilla atada por uno de sus extremos a un tramo de madera a manera de mango, y por el otro lado, termina en una punta doblada en forma de gancho.
+                          Flota de mediana altura (Yucatán): Embarcación mayor a 10 t de arqueo neto que actúa como nodriza llevando hasta 12 alijos como máximo. Cada alijo lleva un par de varas de bambú (jimbas) y 5 líneas cebadas (2 por vara y una al costado). Participa un pescador por alijo.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Clasificación de embarcaciones. Registro Nacional.
+                          Opinión técnica del IMIPAS.
+                          Permisos de pesca comercial.
+                          NOM-008-SAG/PESC- 2015 (DOF: 13/04/2016).
+                          Artículo 4, Sección XVII, LGPAS	(DOF: 24/04/2018).
                           </p>
                         </td>
                       </tr>
@@ -627,16 +620,21 @@ export default function PulpoPage() {
                           <div className="font-semibold text-gray-800">9. Esfuerzo nominal autorizado</div>
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 text-center align-top">
-                          <span className="text-red-700 font-bold text-lg">✗ No</span>
+                          <span className="text-red-700 font-bold text-lg">✓ Sí</span>
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            No existe control específico del esfuerzo. Recomendación: No incrementar el esfuerzo pesquero.
+                          En Yucatán 901 permisos, que amparan 2,768 embarcaciones menores y 411 embarcaciones mayores.
+                          Campeche hay 628 permisos que amparan 1,178 embarcaciones menores y 1 embarcación mayor.
+                          Quintana Roo, 15 permisos que amparan 245 embarcaciones menores.
+                          Veracruz, 18 permisos que amparan 75 embarcaciones menores.
+                          Tabasco, un permiso que ampara una embarcación mayor.
+                          Tamaulipas, un permiso de pesca que ampara dos embarcaciones menores.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Necesidad de evaluaciones de capacidad. Estudios de sostenibilidad.
+                          Registros de Permisos y Concesiones de Pesca Comercial autorizadas y registradas en el Sistema de	Administración Pesquera vigentes a abril de 2024
                           </p>
                         </td>
                       </tr>
@@ -649,31 +647,20 @@ export default function PulpoPage() {
                         </td>
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Zonas delimitadas en el Golfo de México y Mar Caribe. Áreas de veda y protección.
+                          Aguas de jurisdicción federal y sistemas lagunares del Golfo de México y Mar Caribe.
+                          ACUERDO por el que se establece una zona de refugio pesquero parcial temporal en aguas marinas de jurisdicción federal en el área que se ubica frente al Municipio de Celestún, en el Estado de Yucatán.
                           </p>
                         </td>
                         <td className="px-6 py-4 align-top">
                           <p className="text-sm text-gray-700 leading-relaxed">
-                            Delimitación de aguas federales. Áreas protegidas establecidas.
+                          Permiso de pesca comercial para pulpo y concesiones de pesca.
+                          DOF: 02/10/2019
                           </p>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                     </div>
-                <div className="mt-8 p-6 bg-gradient-to-r from-yellow-50 to-amber-50 rounded-xl border-2 border-yellow-200 shadow-lg">
-                  <div className="flex items-start space-x-4">
-                    <AlertTriangle className="w-6 h-6 text-yellow-600 mt-1 flex-shrink-0" />
-                    <div className="text-sm text-yellow-800">
-                      <p className="font-bold mb-3 text-lg">Resumen de Instrumentos de Manejo:</p>
-                      <ul className="list-disc list-inside space-y-2 text-yellow-700 font-medium">
-                        <li><strong>Implementados (8):</strong> NOM, Plan de Manejo, Tipo de acceso, Talla mínima, Artes de pesca, Veda, Unidad de pesca, Zona de pesca</li>
-                        <li><strong>Oportunidades de mejora (2):</strong> Cuota, Esfuerzo nominal autorizado</li>
-                        <li><strong>Total evaluado:</strong> 10 instrumentos de manejo pesquero</li>
-                      </ul>
-                    </div>
-                    </div>
-                  </div>
                 </CardContent>
               </Card>
           </TabsContent>
@@ -693,26 +680,39 @@ export default function PulpoPage() {
                   <div className="space-y-6">
                     {/* Tarjetas de Estado */}
                   <div className="space-y-4">
-                      {/* En monitoreo */}
-                      <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border-2 border-blue-300 rounded-lg p-4 flex items-center space-x-4">
+                      {/* Pulpo maya - Aprovechado al máximo sustentable */}
+                      <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-400 rounded-lg p-4 flex items-center space-x-4">
                         <div className="flex-shrink-0">
-                          <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
-                            <CheckCircle className="w-10 h-10 text-blue-600" />
-                    </div>
-                  </div>
+                          <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center">
+                            <TrendingUp className="w-10 h-10 text-yellow-600" />
+                          </div>
+                        </div>
                         <div className="flex-1">
-                          <h4 className="font-bold text-blue-800 mb-1">En Monitoreo</h4>
-                          <p className="text-sm text-gray-700 font-medium">Yucatán, Campeche, Quintana Roo</p>
-                          <p className="text-xs text-gray-600 mt-1">Pesquería estable con monitoreo continuo</p>
+                          <h4 className="font-bold text-yellow-800 mb-1">Aprovechado al máximo sustentable</h4>
+                          <p className="text-sm text-gray-700 font-medium">Pulpo maya (Octopus maya)</p>
+                          <p className="text-xs text-gray-600 mt-1">Península de Yucatán</p>
                         </div>
                       </div>
+                      {/* Pulpo patón - Con potencial de desarrollo */}
+                      <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-300 rounded-lg p-4 flex items-center space-x-4">
+                        <div className="flex-shrink-0">
+                          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                            <CheckCircle className="w-10 h-10 text-green-600" />
+                          </div>
                         </div>
+                        <div className="flex-1">
+                          <h4 className="font-bold text-green-800 mb-1">Con potencial de desarrollo</h4>
+                          <p className="text-sm text-gray-700 font-medium">Pulpo patón (Octopus americanus)</p>
+                          <p className="text-xs text-gray-600 mt-1">Península de Yucatán</p>
+                        </div>
+                      </div>
+                    </div>
 
                     {/* Estrategia */}
                     <div className="space-y-4">
                       <h3 className="text-xl font-bold text-yellow-800 border-b-2 border-yellow-200 pb-2">Estrategia</h3>
                       <div className="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
-                        <p className="text-gray-800 font-medium">Manejo sustentable mediante vedas reproductivas y control de esfuerzo</p>
+                        <p className="text-gray-800 font-medium">Cuota de captura por temporada de pesca</p>
                       </div>
                         </div>
 
@@ -723,19 +723,23 @@ export default function PulpoPage() {
                         <ul className="space-y-2 text-gray-800">
                           <li className="flex items-start">
                             <span className="text-amber-600 mr-2">•</span>
-                            <span>Vedas temporales en periodos reproductivos (enero-julio)</span>
+                            <span>Control del esfuerzo</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-amber-600 mr-2">•</span>
-                            <span>Control de talla mínima</span>
+                            <span>Talla mínima de captura</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-amber-600 mr-2">•</span>
-                            <span>Regulación de artes de pesca (jimbas)</span>
+                            <span>Veda reproductiva y de crecimiento</span>
                           </li>
                           <li className="flex items-start">
                             <span className="text-amber-600 mr-2">•</span>
-                            <span>Monitoreo continuo de poblaciones</span>
+                            <span>Regulación en el arte de pesca</span>
+                          </li>
+                          <li className="flex items-start">
+                            <span className="text-amber-600 mr-2">•</span>
+                            <span>Zona de refugio pesquero</span>
                           </li>
                         </ul>
                       </div>
@@ -791,62 +795,90 @@ export default function PulpoPage() {
                     <tbody className="divide-y-2 divide-gray-200">
                       <tr className="hover:bg-gradient-to-r hover:from-yellow-50 hover:to-amber-50 transition-all duration-300">
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
-                          <p className="text-sm text-gray-800 font-medium">
-                            Mantener y fortalecer el cumplimiento de vedas temporales establecidas.
-                          </p>
+                          <p className="text-sm text-gray-800 font-medium">Instrumentar las estrategias y acciones establecidas en el Plan de Manejo Pesquero.</p>
                         </td>
                         <td className="px-6 py-4 align-top">
-                          <p className="text-sm text-gray-700 leading-relaxed">
-                            Sin información de avance.
-                          </p>
+                          <p className="text-sm text-gray-700 leading-relaxed">Sin información</p>
                         </td>
                       </tr>
                       <tr className="hover:bg-gradient-to-r hover:from-amber-50 hover:to-orange-50 transition-all duration-300">
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
-                          <p className="text-sm text-gray-800 font-medium">
-                            Establecer cuotas de captura basadas en evaluaciones de stock.
-                          </p>
+                          <p className="text-sm text-gray-800 font-medium">Mantener el esfuerzo pesquero actual y no incrementarlo.</p>
                         </td>
                         <td className="px-6 py-4 align-top">
-                          <p className="text-sm text-gray-700 leading-relaxed">
-                            Sin información de avance.
-                          </p>
+                          <p className="text-sm text-gray-700 leading-relaxed">Sin información</p>
                         </td>
                       </tr>
                       <tr className="hover:bg-gradient-to-r hover:from-orange-50 hover:to-yellow-50 transition-all duration-300">
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
-                          <p className="text-sm text-gray-800 font-medium">
-                            Continuar con el monitoreo continuo de poblaciones y hábitats.
-                          </p>
+                          <p className="text-sm text-gray-800 font-medium">Actualizar el Plan de Manejo Pesquero y la NOM-008-SAG/PESC-2015.</p>
                         </td>
                         <td className="px-6 py-4 align-top">
-                          <p className="text-sm text-gray-700 leading-relaxed">
-                            Sin información de avance.
-                          </p>
+                          <p className="text-sm text-gray-700 leading-relaxed">Sin información</p>
                         </td>
                       </tr>
                       <tr className="hover:bg-gradient-to-r hover:from-yellow-50 hover:to-amber-50 transition-all duration-300">
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
-                          <p className="text-sm text-gray-800 font-medium">
-                            Proteger hábitats críticos de reproducción y crecimiento.
-                          </p>
+                          <p className="text-sm text-gray-800 font-medium">Fomentar el comanejo a través del Comité Consultivo de Manejo Pesquero.</p>
                         </td>
                         <td className="px-6 py-4 align-top">
-                          <p className="text-sm text-gray-700 leading-relaxed">
-                            Sin información de avance.
-                          </p>
+                          <p className="text-sm text-gray-700 leading-relaxed">Sin información</p>
                         </td>
                       </tr>
                       <tr className="hover:bg-gradient-to-r hover:from-amber-50 hover:to-orange-50 transition-all duration-300">
                         <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
-                          <p className="text-sm text-gray-800 font-medium">
-                            No incrementar el esfuerzo pesquero actual.
-                          </p>
+                          <p className="text-sm text-gray-800 font-medium">Implementar la productividad latente total promedio (PLT) como Punto de Referencia Límite y actualizarlo anualmente con la información pesquera disponible de cada año.</p>
                         </td>
                         <td className="px-6 py-4 align-top">
-                          <p className="text-sm text-gray-700 leading-relaxed">
-                            Sin información de avance.
-                          </p>
+                          <p className="text-sm text-gray-700 leading-relaxed">Sin información</p>
+                        </td>
+                      </tr>
+                      <tr className="hover:bg-gradient-to-r hover:from-orange-50 hover:to-yellow-50 transition-all duration-300">
+                        <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
+                          <p className="text-sm text-gray-800 font-medium">Regular el número de alijos permitidos por tipo de embarcación y verificar las artes de pesca de acuerdo a la NOM-008-SAG/PESC-2015.</p>
+                        </td>
+                        <td className="px-6 py-4 align-top">
+                          <p className="text-sm text-gray-700 leading-relaxed">Sin información</p>
+                        </td>
+                      </tr>
+                      <tr className="hover:bg-gradient-to-r hover:from-yellow-50 hover:to-amber-50 transition-all duration-300">
+                        <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
+                          <p className="text-sm text-gray-800 font-medium">Evitar el uso de grampines en el arte del garete cuando la pesca se realice por debajo y hasta la isobata de 30 m de profundidad, zona de mayor abundancia de Octopus maya.</p>
+                        </td>
+                        <td className="px-6 py-4 align-top">
+                          <p className="text-sm text-gray-700 leading-relaxed">Sin información</p>
+                        </td>
+                      </tr>
+                      <tr className="hover:bg-gradient-to-r hover:from-amber-50 hover:to-orange-50 transition-all duration-300">
+                        <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
+                          <p className="text-sm text-gray-800 font-medium">La cuota de pesca no debe sobrepasar el Punto de Referencia Límite.</p>
+                        </td>
+                        <td className="px-6 py-4 align-top">
+                          <p className="text-sm text-gray-700 leading-relaxed">Sin información</p>
+                        </td>
+                      </tr>
+                      <tr className="hover:bg-gradient-to-r hover:from-orange-50 hover:to-yellow-50 transition-all duration-300">
+                        <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
+                          <p className="text-sm text-gray-800 font-medium">Reforzar las acciones de inspección y vigilancia para evitar la pesca furtiva con buceo y demás artes no permitidas.</p>
+                        </td>
+                        <td className="px-6 py-4 align-top">
+                          <p className="text-sm text-gray-700 leading-relaxed">Sin información</p>
+                        </td>
+                      </tr>
+                      <tr className="hover:bg-gradient-to-r hover:from-yellow-50 hover:to-amber-50 transition-all duration-300">
+                        <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
+                          <p className="text-sm text-gray-800 font-medium">Prohibir el uso de especies que se encuentren en categoría de riesgo o bajo alguna protección especial en las normas nacionales o internacionales, como cebo o carnada para la captura de pulpo.</p>
+                        </td>
+                        <td className="px-6 py-4 align-top">
+                          <p className="text-sm text-gray-700 leading-relaxed">Sin información</p>
+                        </td>
+                      </tr>
+                      <tr className="hover:bg-gradient-to-r hover:from-amber-50 hover:to-orange-50 transition-all duration-300">
+                        <td className="border-r-2 border-gray-200 px-6 py-4 align-top">
+                          <p className="text-sm text-gray-800 font-medium">Desagregar las capturas por especie en los avisos de arribo.</p>
+                        </td>
+                        <td className="px-6 py-4 align-top">
+                          <p className="text-sm text-gray-700 leading-relaxed">Sin información</p>
                         </td>
                       </tr>
                     </tbody>

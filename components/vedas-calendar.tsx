@@ -234,7 +234,7 @@ export function VedasCalendar({ vedas }: VedasCalendarProps) {
             <div className="grid grid-cols-7 gap-1">
               {calendarDays.map((day, index) => {
                 if (day === null) {
-                  return <div key={index} className="p-2 h-12"></div>
+                  return <div key={`empty-${index}`} className="p-2 h-12"></div>
                 }
 
                 const dayVedas = getVedasForDay(day)
@@ -245,7 +245,7 @@ export function VedasCalendar({ vedas }: VedasCalendarProps) {
 
                 return (
                   <button
-                    key={day}
+                    key={`${currentYear}-${currentMonth}-${day}`}
                     onClick={() => setSelectedDay(day)}
                     className={`
                       p-2 h-12 text-sm rounded-lg border transition-all duration-200 relative

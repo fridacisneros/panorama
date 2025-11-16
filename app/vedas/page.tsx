@@ -135,12 +135,12 @@ export default function VedasPage() {
               Información Importante
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <h4 className="font-semibold text-gray-900 mb-2">¿Qué es una veda?</h4>
                 <p className="text-gray-700 text-sm">
-                  Las vedas son períodos de prohibición temporal o permanentede captura, extracción o aprovechamiento especies para permitir su
+                  Las vedas son períodos de prohibición temporal o permanente de captura, extracción o aprovechamiento de especies para permitir su
                   reproducción y conservación, garantizando la sustentabilidad de los recursos pesqueros.
                 </p>
               </div>
@@ -150,6 +150,71 @@ export default function VedasPage() {
                   El respeto a los períodos de veda es obligatorio y su incumplimiento está sujeto a sanciones
                   establecidas en la normatividad pesquera vigente.
                 </p>
+              </div>
+            </div>
+
+            {/* Tipos de Vedas */}
+            <div className="border-t border-gray-200 pt-6">
+              <h4 className="font-semibold text-gray-900 mb-4 text-lg">Tipos de Vedas</h4>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Veda Fija */}
+                <div className="bg-orange-50 border-2 border-orange-200 rounded-lg p-4">
+                  <h5 className="font-bold text-orange-800 mb-2 flex items-center">
+                    Veda Fija
+                  </h5>
+                  <ul className="space-y-2 text-sm text-gray-700">
+                    <li className="flex items-start">
+                      <span className="text-orange-600 mr-2">•</span>
+                      <span>Tiene fechas específicas que se repiten todos los años.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-orange-600 mr-2">•</span>
+                      <span>No cambia aunque varíen las condiciones climáticas o biológicas.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Veda Variable */}
+                <div className="bg-yellow-50 border-2 border-yellow-200 rounded-lg p-4">
+                  <h5 className="font-bold text-yellow-800 mb-2 flex items-center">
+                    Veda Variable
+                  </h5>
+                  <ul className="space-y-2 text-sm text-gray-700">
+                    <li className="flex items-start">
+                      <span className="text-yellow-600 mr-2">•</span>
+                      <span>No tiene fechas fijas: la autoridad la ajusta según información científica.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-yellow-600 mr-2">•</span>
+                      <span>Se basa en: periodos reales de reproducción, niveles de población, condiciones ambientales.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-yellow-600 mr-2">•</span>
+                      <span>Puede cambiar cada año o iniciarse solo cuando se detecta cierta condición biológica en la especie.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Veda Permanente */}
+                <div className="bg-red-50 border-2 border-red-200 rounded-lg p-4">
+                  <h5 className="font-bold text-red-800 mb-2 flex items-center">
+                    Veda Permanente
+                  </h5>
+                  <ul className="space-y-2 text-sm text-gray-700">
+                    <li className="flex items-start">
+                      <span className="text-red-600 mr-2">•</span>
+                      <span>Se establece por tiempo indefinido.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-red-600 mr-2">•</span>
+                      <span>Generalmente se aplica cuando una especie está muy presionada, en peligro, o para proteger zonas críticas (guarderías, arrecifes, manglares).</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-red-600 mr-2">•</span>
+                      <span>Prohíbe la captura todo el año, cada año.</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </CardContent>

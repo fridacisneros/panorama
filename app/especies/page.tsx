@@ -120,6 +120,17 @@ const especies = [
     captura: "7,956 toneladas",
     descripcion: "Peces eurihalinos de importancia comercial y deportiva",
   },
+  {
+    id: "almejas",
+    nombre: "Almejas",
+    nombreCientifico: "Rangia cuneata, Rangia flexuosa, Mercenaria campechiensis",
+    status: ["Aprovechado al máximo sustentable", "Con potencial de desarrollo", "En deterioro", "Indeterminado"],
+    statusColor: ["yellow", "green", "red", "gray"],
+    zona: "Golfo de México y Mar Caribe",
+    region: "Golfo de México y Mar Caribe",
+    captura: "30,211 toneladas",
+    descripcion: "Moluscos bivalvos de importancia comercial en sistemas lagunares y estuarinos",
+  },
 ]
 
 const toArray = <T,>(value: T | T[]): T[] => (Array.isArray(value) ? value : [value])
@@ -132,6 +143,8 @@ const getStatusIcon = (statusColor: string) => {
       return <XCircle className="w-4 h-4" />
     case "yellow":
       return <TrendingUp className="w-4 h-4" />
+    case "gray":
+      return <AlertTriangle className="w-4 h-4" />
     default:
       return <Fish className="w-4 h-4" />
   }
@@ -145,6 +158,8 @@ const getStatusBadgeClass = (statusColor: string) => {
       return "bg-red-100 text-red-800 border-red-200"
     case "yellow":
       return "bg-yellow-100 text-yellow-800 border-yellow-200"
+    case "gray":
+      return "bg-gray-100 text-gray-800 border-gray-200"
     default:
       return "bg-gray-100 text-gray-800 border-gray-200"
   }
@@ -282,6 +297,12 @@ export default function EspeciesPage() {
                         <div className="flex items-center gap-2">
                           <XCircle className="w-4 h-4 text-red-600" />
                           En deterioro
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="gray">
+                        <div className="flex items-center gap-2">
+                          <AlertTriangle className="w-4 h-4 text-gray-600" />
+                          Indeterminado
                         </div>
                       </SelectItem>
                     </SelectContent>

@@ -2,11 +2,12 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Fish, Waves, FileText, Calendar, Home } from "lucide-react"
+import { Fish, Waves, FileText, Calendar, Home, LayoutDashboard } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navigation = [
   { name: "Inicio", href: "/", icon: Home },
+  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Pesquerías", href: "/especies", icon: Fish },
   { name: "Vedas", href: "/vedas", icon: Calendar },
   { name: "Normativas", href: "/normativas", icon: FileText },

@@ -170,11 +170,11 @@ def create_table(conn, table_name: str):
     CREATE TABLE IF NOT EXISTS {table_name} (
         id SERIAL PRIMARY KEY,
         ano_archivo INTEGER NOT NULL,
-        rnp_activo VARCHAR(50),
+        rnp_activo BIGINT,
         nombre_activo VARCHAR(255),
         clave_sitio_desembarque VARCHAR(50),
         nombre_sitio_desembarque VARCHAR(255),
-        rnpa_unidad_economica VARCHAR(50),
+        rnpa_unidad_economica BIGINT,
         unidad_economica VARCHAR(500),
         nombre_estado VARCHAR(100),
         clave_oficina VARCHAR(20),
@@ -185,13 +185,13 @@ def create_table(conn, table_name: str):
         origen VARCHAR(100),
         clave_lugar_captura VARCHAR(50),
         nombre_lugar_captura VARCHAR(255),
-        numero_embarcaciones VARCHAR(50),
+        numero_embarcaciones INTEGER,
         mes_corte VARCHAR(50),
         ano_corte INTEGER,
         periodo_inicio VARCHAR(50),
         periodo_fin VARCHAR(50),
-        duracion VARCHAR(50),
-        dias_efectivos VARCHAR(50),
+        duracion INTEGER,
+        dias_efectivos INTEGER,
         tipo_zona VARCHAR(50),
         produccion_acuacultural VARCHAR(10),
         numero_permiso VARCHAR(100),
@@ -221,12 +221,26 @@ def create_table(conn, table_name: str):
     print(f"✓ Tabla '{table_name}' creada/verificada correctamente")
 
 
-def safe_int(value: str) -> Optional[int]:
-    """Convierte un string a int de forma segura."""
+def safe_int(value: str, max_value: Optional[int] = None) -> Optional[int]:
+    """Convierte un string a int de forma segura. Retorna None si excede max_value."""
     if not value or value.strip() == '':
         return None
     try:
         # Manejar notación científica (ej: 2.31E+11)
+        result = int(float(value.replace(',', '')))
+        # Si el valor excede el máximo permitido, es un error en los datos
+        if max_value is not None and (result > max_value or result < 0):
+            return None
+        return result
+    except (ValueError, TypeError):
+        return None
+
+
+def safe_bigint(value: str) -> Optional[int]:
+    """Convierte un string a bigint de forma segura."""
+    if not value or value.strip() == '':
+        return None
+    try:
         return int(float(value.replace(',', '')))
     except (ValueError, TypeError):
         return None
@@ -282,11 +296,25 @@ def load_csv_to_db(conn, file_path: Path, table_name: str, year: int):
                 value = value.strip()
                 header = NORMALIZED_HEADERS[i]
                 
-                # Convertir campos numéricos (solo ano_corte que debería ser confiable)
-                if header == 'ano_corte':
-                    int_val = safe_int(value)
+                # Convertir campos numéricos BIGINT (pueden ser muy grandes)
+                if header in ['rnp_activo', 'rnpa_unidad_economica']:
+                    int_val = safe_bigint(value)
+                    if value and int_val is None:
+                        print(f"  ⚠️  NULL en {header}: '{value}' (línea {rows_processed + 1})")
                     value = str(int_val) if int_val is not None else ''
-                # numero_embarcaciones, duracion, dias_efectivos se mantienen como string por datos erróneos
+                # Convertir campos numéricos INTEGER con límites
+                elif header in ['ano_corte', 'numero_embarcaciones', 'duracion', 'dias_efectivos']:
+                    if header == 'ano_corte':
+                        int_val = safe_int(value, max_value=2100)
+                    elif header == 'numero_embarcaciones':
+                        int_val = safe_int(value, max_value=10000)
+                    elif header in ['duracion', 'dias_efectivos']:
+                        int_val = safe_int(value, max_value=366)
+                    else:
+                        int_val = safe_int(value)
+                    if value and int_val is None:
+                        print(f"  ⚠️  NULL en {header}: '{value}' (línea {rows_processed + 1})")
+                    value = str(int_val) if int_val is not None else ''
                 elif header in ['peso_desembarcado_kilogramos', 'peso_vivo_kilogramos', 
                                'precio_pesos', 'valor_pesos']:
                     dec_val = safe_decimal(value)

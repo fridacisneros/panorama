@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS produccion_pesquera (
     ano_archivo INTEGER NOT NULL,  -- Año del archivo CSV de origen
     
     -- Información del activo/embarcación
-    rnp_activo VARCHAR(50),
+    rnp_activo BIGINT,  -- NULL si no es número válido
     nombre_activo VARCHAR(255),
     
     -- Sitio de desembarque
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS produccion_pesquera (
     nombre_sitio_desembarque VARCHAR(255),
     
     -- Unidad económica
-    rnpa_unidad_economica VARCHAR(50),
+    rnpa_unidad_economica BIGINT,  -- NULL si no es número válido
     unidad_economica VARCHAR(500),
     
     -- Ubicación/Oficina
@@ -37,13 +37,13 @@ CREATE TABLE IF NOT EXISTS produccion_pesquera (
     nombre_lugar_captura VARCHAR(255),
     
     -- Información de la operación
-    numero_embarcaciones VARCHAR(50),  -- VARCHAR porque algunos registros tienen valores erróneos
+    numero_embarcaciones INTEGER,  -- NULL si el valor original es inválido
     mes_corte VARCHAR(50),
     ano_corte INTEGER,
     periodo_inicio VARCHAR(50),
     periodo_fin VARCHAR(50),
-    duracion VARCHAR(50),  -- VARCHAR porque algunos registros tienen valores erróneos
-    dias_efectivos VARCHAR(50),  -- VARCHAR porque algunos registros tienen valores erróneos
+    duracion INTEGER,  -- NULL si el valor original es inválido
+    dias_efectivos INTEGER,  -- NULL si el valor original es inválido
     tipo_zona VARCHAR(50),
     produccion_acuacultural VARCHAR(10),
     

@@ -1,0 +1,3 @@
+# Dependencias para el script de carga de datos a PostgreSQL
+psycopg2-binary>=2.9.9
+

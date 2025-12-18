@@ -6,7 +6,6 @@ Este script:
 1. Verifica que todos los CSVs tengan la misma estructura (normalizando headers)
 2. Crea la tabla si no existe
 3. Carga los datos de forma eficiente usando COPY
-4. Agrega una columna 'ano_archivo' para identificar de qué archivo viene cada registro
 """
 
 import os
@@ -155,21 +154,12 @@ def validate_csv_structure(file_path: Path, reference_headers: list[str]) -> boo
     return True
 
 
-def extract_year_from_filename(filename: str) -> Optional[int]:
-    """Extrae el año del nombre del archivo."""
-    match = re.search(r'(\d{4})', filename)
-    if match:
-        return int(match.group(1))
-    return None
-
-
 def create_table(conn, table_name: str):
     """Crea la tabla si no existe."""
     import_psycopg2()
     create_sql = f"""
     CREATE TABLE IF NOT EXISTS {table_name} (
         id SERIAL PRIMARY KEY,
-        ano_archivo INTEGER NOT NULL,
         rnp_activo BIGINT,
         nombre_activo VARCHAR(255),
         clave_sitio_desembarque VARCHAR(50),
@@ -209,7 +199,6 @@ def create_table(conn, table_name: str):
     );
     
     -- Índices para mejorar consultas
-    CREATE INDEX IF NOT EXISTS idx_{table_name}_ano_archivo ON {table_name}(ano_archivo);
     CREATE INDEX IF NOT EXISTS idx_{table_name}_nombre_estado ON {table_name}(nombre_estado);
     CREATE INDEX IF NOT EXISTS idx_{table_name}_nombre_especie ON {table_name}(nombre_especie);
     CREATE INDEX IF NOT EXISTS idx_{table_name}_litoral ON {table_name}(litoral);
@@ -256,7 +245,7 @@ def safe_decimal(value: str) -> Optional[float]:
         return None
 
 
-def load_csv_to_db(conn, file_path: Path, table_name: str, year: int):
+def load_csv_to_db(conn, file_path: Path, table_name: str):
     """Carga un archivo CSV a la base de datos."""
     pg, pg_sql = import_psycopg2()
     
@@ -266,7 +255,7 @@ def load_csv_to_db(conn, file_path: Path, table_name: str, year: int):
     headers, header_row = get_csv_headers(file_path)
     
     # Columnas para insertar (excluyendo id y created_at)
-    columns = ['ano_archivo'] + NORMALIZED_HEADERS
+    columns = NORMALIZED_HEADERS
     
     # Preparar el COPY
     copy_sql = pg_sql.SQL("COPY {} ({}) FROM STDIN WITH CSV").format(
@@ -290,7 +279,7 @@ def load_csv_to_db(conn, file_path: Path, table_name: str, year: int):
                 continue  # Saltar filas con número incorrecto de columnas
             
             # Procesar y limpiar datos
-            processed_row = [str(year)]  # ano_archivo
+            processed_row = []
             
             for i, value in enumerate(row):
                 value = value.strip()
@@ -342,17 +331,6 @@ def load_csv_to_db(conn, file_path: Path, table_name: str, year: int):
     return rows_processed
 
 
-def get_existing_years(conn, table_name: str) -> set[int]:
-    """Obtiene los años que ya están cargados en la base de datos."""
-    pg, _ = import_psycopg2()
-    try:
-        with conn.cursor() as cur:
-            cur.execute(f"SELECT DISTINCT ano_archivo FROM {table_name}")
-            return {row[0] for row in cur.fetchall()}
-    except pg.errors.UndefinedTable:
-        return set()
-
-
 def main():
     parser = argparse.ArgumentParser(
         description='Carga archivos CSV de producción pesquera a PostgreSQL'
@@ -399,11 +377,6 @@ def main():
         help='Cargar un archivo específico en lugar de todos'
     )
     parser.add_argument(
-        '--force',
-        action='store_true',
-        help='Forzar recarga de años que ya existen en la BD'
-    )
-    parser.add_argument(
         '--dry-run',
         action='store_true',
         help='Solo validar archivos, no cargar datos'
@@ -423,8 +396,7 @@ def main():
     
     print(f"Encontrados {len(csv_files)} archivos CSV:")
     for f in csv_files:
-        year = extract_year_from_filename(f.name)
-        print(f"  - {f.name} (año: {year})")
+        print(f"  - {f.name}")
     
     # Validar estructura de todos los archivos
     print("\n📋 Validando estructura de archivos...")
@@ -469,34 +441,13 @@ def main():
         print(f"\n📦 Creando/verificando tabla '{args.table}'...")
         create_table(conn, args.table)
         
-        # Obtener años existentes
-        existing_years = get_existing_years(conn, args.table)
-        if existing_years:
-            print(f"ℹ️  Años ya cargados: {sorted(existing_years)}")
-        
         # Cargar archivos
         print("\n📤 Cargando datos...")
         total_rows = 0
         
         for csv_file in csv_files:
-            year = extract_year_from_filename(csv_file.name)
-            
-            if year is None:
-                print(f"⚠️  Saltando {csv_file.name}: no se pudo determinar el año")
-                continue
-            
-            if year in existing_years and not args.force:
-                print(f"⏭️  Saltando {csv_file.name}: año {year} ya está cargado (usa --force para recargar)")
-                continue
-            
-            if year in existing_years and args.force:
-                print(f"🗑️  Eliminando datos existentes del año {year}...")
-                with conn.cursor() as cur:
-                    cur.execute(f"DELETE FROM {args.table} WHERE ano_archivo = %s", (year,))
-                conn.commit()
-            
             print(f"\n📂 Procesando {csv_file.name}...")
-            rows = load_csv_to_db(conn, csv_file, args.table, year)
+            rows = load_csv_to_db(conn, csv_file, args.table)
             total_rows += rows
         
         print(f"\n✅ Carga completada: {total_rows:,} filas totales")
@@ -504,14 +455,12 @@ def main():
         # Mostrar estadísticas
         with conn.cursor() as cur:
             cur.execute(f"""
-                SELECT ano_archivo, COUNT(*) as registros 
-                FROM {args.table} 
-                GROUP BY ano_archivo 
-                ORDER BY ano_archivo
+                SELECT COUNT(*) as registros
+                FROM {args.table}
             """)
-            print("\n📊 Registros por año:")
-            for row in cur.fetchall():
-                print(f"  {row[0]}: {row[1]:,} registros")
+            row = cur.fetchone()
+            print("\n📊 Total de registros en tabla:")
+            print(f"  {row[0]:,} registros")
         
     finally:
         conn.close()

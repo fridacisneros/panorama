@@ -1,6 +1,17 @@
 // app/api/datos/route.js
-import { query } from '@/lib/db';
+import { db } from '@/lib/db';
+import { produccionPesquera } from '@/lib/schema';
 import { NextResponse } from 'next/server';
+import { 
+  eq, 
+  and, 
+  between, 
+  ilike, 
+  or,
+  desc, 
+  count,
+  sql
+} from 'drizzle-orm';
 
 export async function GET(request) {
   try {
@@ -20,94 +31,88 @@ export async function GET(request) {
     const litoral = searchParams.get('litoral');
     const origen = searchParams.get('origen');
     
-    // Construir query dinámicamente
-    let sql = `
-      SELECT 
-        id,
-        ano_corte,
-        nombre_activo,
-        nombre_sitio_desembarque,
-        unidad_economica,
-        nombre_estado,
-        nombre_oficina,
-        tipo_aviso,
-        folio_aviso,
-        fecha_aviso,
-        origen,
-        nombre_lugar_captura,
-        mes_corte,
-        ano_corte,
-        periodo_inicio,
-        periodo_fin,
-        duracion,
-        dias_efectivos,
-        tipo_zona,
-        produccion_acuacultural,
-        nombre_principal,
-        clave_especie,
-        nombre_especie,
-        peso_desembarcado_kilogramos,
-        peso_vivo_kilogramos,
-        precio_pesos,
-        valor_pesos,
-        litoral,
-        created_at
-      FROM produccion_pesquera
-      WHERE 1=1
-    `;
-    
-    const params = [];
-    let paramIndex = 1;
+    // Construir condiciones
+    const conditions = [];
     
     if (año) {
-      sql += ` AND ano_corte = $${paramIndex}`;
-      params.push(parseInt(año));
-      paramIndex++;
+      conditions.push(eq(produccionPesquera.anoCorte, parseInt(año)));
     }
     
     if (añoInicio && añoFin) {
-      sql += ` AND ano_corte BETWEEN $${paramIndex} AND $${paramIndex + 1}`;
-      params.push(parseInt(añoInicio), parseInt(añoFin));
-      paramIndex += 2;
+      conditions.push(between(produccionPesquera.anoCorte, parseInt(añoInicio), parseInt(añoFin)));
     }
     
     if (estado) {
-      sql += ` AND nombre_estado ILIKE $${paramIndex}`;
-      params.push(`%${estado}%`);
-      paramIndex++;
+      conditions.push(ilike(produccionPesquera.nombreEstado, `%${estado}%`));
     }
     
     if (especie) {
-      sql += ` AND (nombre_principal ILIKE $${paramIndex} OR nombre_especie ILIKE $${paramIndex})`;
-      params.push(`%${especie}%`);
-      paramIndex++;
+      conditions.push(
+        or(
+          ilike(produccionPesquera.nombrePrincipal, `%${especie}%`),
+          ilike(produccionPesquera.nombreEspecie, `%${especie}%`)
+        )
+      );
     }
     
     if (litoral) {
-      sql += ` AND litoral = $${paramIndex}`;
-      params.push(litoral);
-      paramIndex++;
+      conditions.push(eq(produccionPesquera.litoral, litoral));
     }
     
     if (origen) {
-      sql += ` AND origen ILIKE $${paramIndex}`;
-      params.push(`%${origen}%`);
-      paramIndex++;
+      conditions.push(ilike(produccionPesquera.origen, `%${origen}%`));
     }
     
+    const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
+    
     // Contar total
-    const countSql = sql.replace(/SELECT[\s\S]*?FROM/, 'SELECT COUNT(*) as count FROM');
-    const countResult = await query(countSql, params);
-    const total = parseInt(countResult.rows[0].count);
+    const [countResult] = await db
+      .select({ total: count() })
+      .from(produccionPesquera)
+      .where(whereClause);
     
-    // Agregar ordenamiento y paginación
-    sql += ` ORDER BY ano_corte DESC, id DESC LIMIT $${paramIndex} OFFSET $${paramIndex + 1}`;
-    params.push(limit, offset);
+    const total = countResult.total;
     
-    const result = await query(sql, params);
+    // Obtener datos paginados
+    const data = await db
+      .select({
+        id: produccionPesquera.id,
+        nombreActivo: produccionPesquera.nombreActivo,
+        nombreSitioDesembarque: produccionPesquera.nombreSitioDesembarque,
+        unidadEconomica: produccionPesquera.unidadEconomica,
+        nombreEstado: produccionPesquera.nombreEstado,
+        nombreOficina: produccionPesquera.nombreOficina,
+        tipoAviso: produccionPesquera.tipoAviso,
+        folioAviso: produccionPesquera.folioAviso,
+        fechaAviso: produccionPesquera.fechaAviso,
+        origen: produccionPesquera.origen,
+        nombreLugarCaptura: produccionPesquera.nombreLugarCaptura,
+        mesCorte: produccionPesquera.mesCorte,
+        anoCorte: produccionPesquera.anoCorte,
+        periodoInicio: produccionPesquera.periodoInicio,
+        periodoFin: produccionPesquera.periodoFin,
+        duracion: produccionPesquera.duracion,
+        diasEfectivos: produccionPesquera.diasEfectivos,
+        tipoZona: produccionPesquera.tipoZona,
+        produccionAcuacultural: produccionPesquera.produccionAcuacultural,
+        nombrePrincipal: produccionPesquera.nombrePrincipal,
+        claveEspecie: produccionPesquera.claveEspecie,
+        nombreEspecie: produccionPesquera.nombreEspecie,
+        pesoDesembarcadoKilogramos: produccionPesquera.pesoDesembarcadoKilogramos,
+        pesoVivoKilogramos: produccionPesquera.pesoVivoKilogramos,
+        precioPesos: produccionPesquera.precioPesos,
+        valorPesos: produccionPesquera.valorPesos,
+        litoral: produccionPesquera.litoral,
+        createdAt: produccionPesquera.createdAt,
+      })
+      .from(produccionPesquera)
+      .where(whereClause)
+      .orderBy(desc(produccionPesquera.anoCorte), desc(produccionPesquera.id))
+      .limit(limit)
+      .offset(offset);
     
     return NextResponse.json({
-      data: result.rows,
+      data,
       total,
       page,
       limit,
@@ -122,4 +127,3 @@ export async function GET(request) {
     }, { status: 500 });
   }
 }
-

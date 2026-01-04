@@ -1,6 +1,24 @@
 // app/api/stats/route.js
-import { query } from '@/lib/db';
+import { db, schema } from '@/lib/db';
+import { produccionPesquera } from '@/lib/schema';
 import { NextResponse } from 'next/server';
+import { 
+  eq, 
+  and, 
+  between, 
+  ilike, 
+  isNotNull, 
+  sql, 
+  desc, 
+  asc,
+  gt,
+  count,
+  sum,
+  avg,
+  min,
+  max,
+  countDistinct
+} from 'drizzle-orm';
 
 export async function GET(request) {
   try {
@@ -15,236 +33,193 @@ export async function GET(request) {
     let result;
     
     if (tipo === 'captura-anual') {
-      // Captura total por año (usando ano_corte o ano_corte)
-      let sql = `
-        SELECT 
-          ano_corte as año,
-          COALESCE(SUM(peso_vivo_kilogramos), 0) as total,
-          COALESCE(SUM(valor_pesos), 0) as valor_total,
-          COUNT(*) as registros
-        FROM produccion_pesquera
-        WHERE 1=1
-      `;
-      const params = [];
-      let paramIndex = 1;
+      // Construir condiciones dinámicamente
+      const conditions = [];
       
       if (añoInicio && añoFin) {
-        sql += ` AND ano_corte BETWEEN $${paramIndex} AND $${paramIndex + 1}`;
-        params.push(parseInt(añoInicio), parseInt(añoFin));
-        paramIndex += 2;
+        conditions.push(between(produccionPesquera.anoCorte, parseInt(añoInicio), parseInt(añoFin)));
       }
-      
       if (especie) {
-        sql += ` AND nombre_principal ILIKE $${paramIndex}`;
-        params.push(`%${especie}%`);
-        paramIndex++;
+        conditions.push(ilike(produccionPesquera.nombrePrincipal, `%${especie}%`));
       }
-      
       if (estado) {
-        sql += ` AND nombre_estado ILIKE $${paramIndex}`;
-        params.push(`%${estado}%`);
-        paramIndex++;
+        conditions.push(ilike(produccionPesquera.nombreEstado, `%${estado}%`));
       }
       
-      sql += ' GROUP BY ano_corte ORDER BY ano_corte';
-      
-      const res = await query(sql, params);
-      result = res.rows;
+      result = await db
+        .select({
+          año: produccionPesquera.anoCorte,
+          total: sql`COALESCE(SUM(${produccionPesquera.pesoVivoKilogramos}), 0)`,
+          valor_total: sql`COALESCE(SUM(${produccionPesquera.valorPesos}), 0)`,
+          registros: count(),
+        })
+        .from(produccionPesquera)
+        .where(conditions.length > 0 ? and(...conditions) : undefined)
+        .groupBy(produccionPesquera.anoCorte)
+        .orderBy(asc(produccionPesquera.anoCorte));
       
     } else if (tipo === 'captura-mensual') {
-      // Captura promedio mensual
-      let sql = `
-        SELECT 
-          mes_corte as mes,
-          AVG(peso_vivo_kilogramos) as promedio,
-          SUM(peso_vivo_kilogramos) as total,
-          COUNT(*) as registros
-        FROM produccion_pesquera
-        WHERE mes_corte IS NOT NULL
-      `;
-      const params = [];
-      let paramIndex = 1;
+      const conditions = [isNotNull(produccionPesquera.mesCorte)];
       
       if (año) {
-        sql += ` AND ano_corte = $${paramIndex}`;
-        params.push(parseInt(año));
-        paramIndex++;
+        conditions.push(eq(produccionPesquera.anoCorte, parseInt(año)));
       }
-      
       if (especie) {
-        sql += ` AND nombre_principal ILIKE $${paramIndex}`;
-        params.push(`%${especie}%`);
-        paramIndex++;
+        conditions.push(ilike(produccionPesquera.nombrePrincipal, `%${especie}%`));
       }
-      
       if (estado) {
-        sql += ` AND nombre_estado ILIKE $${paramIndex}`;
-        params.push(`%${estado}%`);
-        paramIndex++;
+        conditions.push(ilike(produccionPesquera.nombreEstado, `%${estado}%`));
       }
       
-      sql += ' GROUP BY mes_corte ORDER BY mes_corte';
-      
-      const res = await query(sql, params);
-      result = res.rows;
+      result = await db
+        .select({
+          mes: produccionPesquera.mesCorte,
+          promedio: avg(produccionPesquera.pesoVivoKilogramos),
+          total: sum(produccionPesquera.pesoVivoKilogramos),
+          registros: count(),
+        })
+        .from(produccionPesquera)
+        .where(and(...conditions))
+        .groupBy(produccionPesquera.mesCorte)
+        .orderBy(asc(produccionPesquera.mesCorte));
       
     } else if (tipo === 'precios') {
-      // Tendencia de precios
-      let sql = `
-        SELECT 
-          ano_corte as año,
-          AVG(precio_pesos) as precio_promedio,
-          MIN(precio_pesos) as precio_min,
-          MAX(precio_pesos) as precio_max,
-          COUNT(*) as registros
-        FROM produccion_pesquera
-        WHERE precio_pesos IS NOT NULL AND precio_pesos > 0
-      `;
-      const params = [];
-      let paramIndex = 1;
+      const conditions = [
+        isNotNull(produccionPesquera.precioPesos),
+        gt(produccionPesquera.precioPesos, '0')
+      ];
       
       if (añoInicio && añoFin) {
-        sql += ` AND ano_corte BETWEEN $${paramIndex} AND $${paramIndex + 1}`;
-        params.push(parseInt(añoInicio), parseInt(añoFin));
-        paramIndex += 2;
+        conditions.push(between(produccionPesquera.anoCorte, parseInt(añoInicio), parseInt(añoFin)));
       }
-      
       if (especie) {
-        sql += ` AND nombre_principal ILIKE $${paramIndex}`;
-        params.push(`%${especie}%`);
-        paramIndex++;
+        conditions.push(ilike(produccionPesquera.nombrePrincipal, `%${especie}%`));
       }
-      
       if (estado) {
-        sql += ` AND nombre_estado ILIKE $${paramIndex}`;
-        params.push(`%${estado}%`);
-        paramIndex++;
+        conditions.push(ilike(produccionPesquera.nombreEstado, `%${estado}%`));
       }
       
-      sql += ' GROUP BY ano_corte ORDER BY ano_corte';
-      
-      const res = await query(sql, params);
-      result = res.rows;
+      result = await db
+        .select({
+          año: produccionPesquera.anoCorte,
+          precio_promedio: avg(produccionPesquera.precioPesos),
+          precio_min: min(produccionPesquera.precioPesos),
+          precio_max: max(produccionPesquera.precioPesos),
+          registros: count(),
+        })
+        .from(produccionPesquera)
+        .where(and(...conditions))
+        .groupBy(produccionPesquera.anoCorte)
+        .orderBy(asc(produccionPesquera.anoCorte));
       
     } else if (tipo === 'especies-top') {
-      // Top especies por captura
-      let sql = `
-        SELECT 
-          COALESCE(nombre_principal, nombre_especie) as especie,
-          SUM(peso_vivo_kilogramos) as total_captura,
-          SUM(valor_pesos) as valor_total,
-          COUNT(*) as registros
-        FROM produccion_pesquera
-        WHERE nombre_principal IS NOT NULL OR nombre_especie IS NOT NULL
-      `;
-      const params = [];
-      let paramIndex = 1;
+      const conditions = [
+        sql`(${produccionPesquera.nombrePrincipal} IS NOT NULL OR ${produccionPesquera.nombreEspecie} IS NOT NULL)`
+      ];
       
       if (año) {
-        sql += ` AND ano_corte = $${paramIndex}`;
-        params.push(parseInt(año));
-        paramIndex++;
+        conditions.push(eq(produccionPesquera.anoCorte, parseInt(año)));
       }
-      
       if (estado) {
-        sql += ` AND nombre_estado ILIKE $${paramIndex}`;
-        params.push(`%${estado}%`);
-        paramIndex++;
+        conditions.push(ilike(produccionPesquera.nombreEstado, `%${estado}%`));
       }
       
-      sql += ' GROUP BY COALESCE(nombre_principal, nombre_especie) ORDER BY total_captura DESC NULLS LAST LIMIT 10';
-      
-      const res = await query(sql, params);
-      result = res.rows;
+      result = await db
+        .select({
+          especie: sql`COALESCE(${produccionPesquera.nombrePrincipal}, ${produccionPesquera.nombreEspecie})`,
+          total_captura: sum(produccionPesquera.pesoVivoKilogramos),
+          valor_total: sum(produccionPesquera.valorPesos),
+          registros: count(),
+        })
+        .from(produccionPesquera)
+        .where(and(...conditions))
+        .groupBy(sql`COALESCE(${produccionPesquera.nombrePrincipal}, ${produccionPesquera.nombreEspecie})`)
+        .orderBy(desc(sql`SUM(${produccionPesquera.pesoVivoKilogramos})`))
+        .limit(10);
       
     } else if (tipo === 'estados-top') {
-      // Top estados por captura
-      let sql = `
-        SELECT 
-          nombre_estado as estado,
-          SUM(peso_vivo_kilogramos) as total_captura,
-          SUM(valor_pesos) as valor_total,
-          COUNT(*) as registros
-        FROM produccion_pesquera
-        WHERE nombre_estado IS NOT NULL
-      `;
-      const params = [];
-      let paramIndex = 1;
+      const conditions = [isNotNull(produccionPesquera.nombreEstado)];
       
       if (año) {
-        sql += ` AND ano_corte = $${paramIndex}`;
-        params.push(parseInt(año));
-        paramIndex++;
+        conditions.push(eq(produccionPesquera.anoCorte, parseInt(año)));
       }
-      
       if (especie) {
-        sql += ` AND nombre_principal ILIKE $${paramIndex}`;
-        params.push(`%${especie}%`);
-        paramIndex++;
+        conditions.push(ilike(produccionPesquera.nombrePrincipal, `%${especie}%`));
       }
       
-      sql += ' GROUP BY nombre_estado ORDER BY total_captura DESC NULLS LAST LIMIT 10';
-      
-      const res = await query(sql, params);
-      result = res.rows;
+      result = await db
+        .select({
+          estado: produccionPesquera.nombreEstado,
+          total_captura: sum(produccionPesquera.pesoVivoKilogramos),
+          valor_total: sum(produccionPesquera.valorPesos),
+          registros: count(),
+        })
+        .from(produccionPesquera)
+        .where(and(...conditions))
+        .groupBy(produccionPesquera.nombreEstado)
+        .orderBy(desc(sql`SUM(${produccionPesquera.pesoVivoKilogramos})`))
+        .limit(10);
       
     } else if (tipo === 'litorales') {
-      // Producción por litoral
-      let sql = `
-        SELECT 
-          litoral,
-          SUM(peso_vivo_kilogramos) as total_captura,
-          SUM(valor_pesos) as valor_total,
-          COUNT(*) as registros
-        FROM produccion_pesquera
-        WHERE litoral IS NOT NULL
-      `;
-      const params = [];
-      let paramIndex = 1;
+      const conditions = [isNotNull(produccionPesquera.litoral)];
       
       if (año) {
-        sql += ` AND ano_corte = $${paramIndex}`;
-        params.push(parseInt(año));
-        paramIndex++;
+        conditions.push(eq(produccionPesquera.anoCorte, parseInt(año)));
       }
       
-      sql += ' GROUP BY litoral ORDER BY total_captura DESC NULLS LAST';
-      
-      const res = await query(sql, params);
-      result = res.rows;
+      result = await db
+        .select({
+          litoral: produccionPesquera.litoral,
+          total_captura: sum(produccionPesquera.pesoVivoKilogramos),
+          valor_total: sum(produccionPesquera.valorPesos),
+          registros: count(),
+        })
+        .from(produccionPesquera)
+        .where(and(...conditions))
+        .groupBy(produccionPesquera.litoral)
+        .orderBy(desc(sql`SUM(${produccionPesquera.pesoVivoKilogramos})`));
       
     } else if (tipo === 'resumen') {
-      // Resumen general
-      let sql = `
-        SELECT 
-          COUNT(*) as total_registros,
-          COUNT(DISTINCT nombre_principal) as total_especies,
-          COUNT(DISTINCT nombre_estado) as total_estados,
-          SUM(peso_vivo_kilogramos) as captura_total_kg,
-          SUM(valor_pesos) as valor_total_pesos,
-          MIN(ano_corte) as año_inicio,
-          MAX(ano_corte) as año_fin
-        FROM produccion_pesquera
-      `;
+      const [resumen] = await db
+        .select({
+          total_registros: count(),
+          total_especies: countDistinct(produccionPesquera.nombrePrincipal),
+          total_estados: countDistinct(produccionPesquera.nombreEstado),
+          captura_total_kg: sum(produccionPesquera.pesoVivoKilogramos),
+          valor_total_pesos: sum(produccionPesquera.valorPesos),
+          año_inicio: min(produccionPesquera.anoCorte),
+          año_fin: max(produccionPesquera.anoCorte),
+        })
+        .from(produccionPesquera);
       
-      const res = await query(sql, []);
-      result = res.rows[0];
+      result = resumen;
       
     } else if (tipo === 'filtros') {
-      // Obtener valores únicos para filtros
       const [años, estados, especies, litorales] = await Promise.all([
-        query('SELECT DISTINCT ano_corte FROM produccion_pesquera ORDER BY ano_corte'),
-        query('SELECT DISTINCT nombre_estado FROM produccion_pesquera WHERE nombre_estado IS NOT NULL ORDER BY nombre_estado'),
-        query('SELECT DISTINCT nombre_principal FROM produccion_pesquera WHERE nombre_principal IS NOT NULL ORDER BY nombre_principal'),
-        query('SELECT DISTINCT litoral FROM produccion_pesquera WHERE litoral IS NOT NULL ORDER BY litoral')
+        db.selectDistinct({ año: produccionPesquera.anoCorte })
+          .from(produccionPesquera)
+          .orderBy(asc(produccionPesquera.anoCorte)),
+        db.selectDistinct({ estado: produccionPesquera.nombreEstado })
+          .from(produccionPesquera)
+          .where(isNotNull(produccionPesquera.nombreEstado))
+          .orderBy(asc(produccionPesquera.nombreEstado)),
+        db.selectDistinct({ especie: produccionPesquera.nombrePrincipal })
+          .from(produccionPesquera)
+          .where(isNotNull(produccionPesquera.nombrePrincipal))
+          .orderBy(asc(produccionPesquera.nombrePrincipal)),
+        db.selectDistinct({ litoral: produccionPesquera.litoral })
+          .from(produccionPesquera)
+          .where(isNotNull(produccionPesquera.litoral))
+          .orderBy(asc(produccionPesquera.litoral)),
       ]);
       
       result = {
-        años: años.rows.map(r => r.ano_corte),
-        estados: estados.rows.map(r => r.nombre_estado),
-        especies: especies.rows.map(r => r.nombre_principal),
-        litorales: litorales.rows.map(r => r.litoral)
+        años: años.map(r => r.año),
+        estados: estados.map(r => r.estado),
+        especies: especies.map(r => r.especie),
+        litorales: litorales.map(r => r.litoral),
       };
+      
     } else {
       return NextResponse.json({ error: 'Tipo de consulta no válido' }, { status: 400 });
     }
@@ -259,4 +234,3 @@ export async function GET(request) {
     }, { status: 500 });
   }
 }
-

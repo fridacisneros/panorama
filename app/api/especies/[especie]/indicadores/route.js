@@ -1,130 +1,126 @@
 // app/api/especies/[especie]/indicadores/route.js
-import { query } from '@/lib/db';
+import { db } from '@/lib/db';
+import { produccionPesquera } from '@/lib/schema';
 import { NextResponse } from 'next/server';
+import { 
+  eq, 
+  and, 
+  or,
+  ilike, 
+  isNotNull, 
+  gt,
+  desc, 
+  asc,
+  count,
+  sum,
+  avg,
+  min,
+  max,
+  countDistinct,
+  sql
+} from 'drizzle-orm';
 
 export async function GET(request, { params }) {
   try {
-    const { especie } = params;
+    const { especie } = await params;
     const { searchParams } = new URL(request.url);
     const año = searchParams.get('año');
     
     // Decodificar el nombre de la especie (viene de la URL)
     const nombreEspecie = decodeURIComponent(especie).replace(/-/g, ' ');
     
-    // Query para obtener indicadores de la especie
-    const indicadoresSql = `
-      SELECT 
-        ano_corte as año,
-        SUM(peso_vivo_kilogramos) as captura_total_kg,
-        SUM(peso_desembarcado_kilogramos) as peso_desembarcado_kg,
-        SUM(valor_pesos) as valor_total,
-        AVG(precio_pesos) as precio_promedio,
-        COUNT(*) as registros,
-        COUNT(DISTINCT nombre_estado) as estados_productores
-      FROM produccion_pesquera
-      WHERE (
-        nombre_principal ILIKE $1 
-        OR nombre_especie ILIKE $1
-      )
-      ${año ? 'AND ano_corte = $2' : ''}
-      GROUP BY ano_corte
-      ORDER BY ano_corte DESC
-    `;
+    // Condición base para la especie
+    const especieCondition = or(
+      ilike(produccionPesquera.nombrePrincipal, `%${nombreEspecie}%`),
+      ilike(produccionPesquera.nombreEspecie, `%${nombreEspecie}%`)
+    );
     
-    const indicadoresParams = año 
-      ? [`%${nombreEspecie}%`, parseInt(año)]
-      : [`%${nombreEspecie}%`];
+    // Condiciones con año opcional
+    const conditionsWithYear = año 
+      ? and(especieCondition, eq(produccionPesquera.anoCorte, parseInt(año)))
+      : especieCondition;
     
-    const indicadores = await query(indicadoresSql, indicadoresParams);
+    // Query para indicadores anuales
+    const indicadoresAnuales = await db
+      .select({
+        año: produccionPesquera.anoCorte,
+        captura_total_kg: sum(produccionPesquera.pesoVivoKilogramos),
+        peso_desembarcado_kg: sum(produccionPesquera.pesoDesembarcadoKilogramos),
+        valor_total: sum(produccionPesquera.valorPesos),
+        precio_promedio: avg(produccionPesquera.precioPesos),
+        registros: count(),
+        estados_productores: countDistinct(produccionPesquera.nombreEstado),
+      })
+      .from(produccionPesquera)
+      .where(conditionsWithYear)
+      .groupBy(produccionPesquera.anoCorte)
+      .orderBy(desc(produccionPesquera.anoCorte));
     
     // Query para producción mensual
-    const mensualSql = `
-      SELECT 
-        mes_corte as mes,
-        SUM(peso_vivo_kilogramos) as captura_total,
-        AVG(peso_vivo_kilogramos) as promedio,
-        COUNT(*) as registros
-      FROM produccion_pesquera
-      WHERE (
-        nombre_principal ILIKE $1 
-        OR nombre_especie ILIKE $1
-      )
-      ${año ? 'AND ano_corte = $2' : ''}
-      AND mes_corte IS NOT NULL
-      GROUP BY mes_corte
-      ORDER BY mes_corte
-    `;
-    
-    const mensual = await query(mensualSql, indicadoresParams);
+    const produccionMensual = await db
+      .select({
+        mes: produccionPesquera.mesCorte,
+        captura_total: sum(produccionPesquera.pesoVivoKilogramos),
+        promedio: avg(produccionPesquera.pesoVivoKilogramos),
+        registros: count(),
+      })
+      .from(produccionPesquera)
+      .where(and(conditionsWithYear, isNotNull(produccionPesquera.mesCorte)))
+      .groupBy(produccionPesquera.mesCorte)
+      .orderBy(asc(produccionPesquera.mesCorte));
     
     // Query para producción por estado
-    const estadosSql = `
-      SELECT 
-        nombre_estado as estado,
-        SUM(peso_vivo_kilogramos) as captura_total,
-        SUM(valor_pesos) as valor_total,
-        COUNT(*) as registros
-      FROM produccion_pesquera
-      WHERE (
-        nombre_principal ILIKE $1 
-        OR nombre_especie ILIKE $1
-      )
-      ${año ? 'AND ano_corte = $2' : ''}
-      AND nombre_estado IS NOT NULL
-      GROUP BY nombre_estado
-      ORDER BY captura_total DESC NULLS LAST
-      LIMIT 10
-    `;
-    
-    const estados = await query(estadosSql, indicadoresParams);
+    const produccionPorEstado = await db
+      .select({
+        estado: produccionPesquera.nombreEstado,
+        captura_total: sum(produccionPesquera.pesoVivoKilogramos),
+        valor_total: sum(produccionPesquera.valorPesos),
+        registros: count(),
+      })
+      .from(produccionPesquera)
+      .where(and(conditionsWithYear, isNotNull(produccionPesquera.nombreEstado)))
+      .groupBy(produccionPesquera.nombreEstado)
+      .orderBy(desc(sql`SUM(${produccionPesquera.pesoVivoKilogramos})`))
+      .limit(10);
     
     // Query para resumen general
-    const resumenSql = `
-      SELECT 
-        SUM(peso_vivo_kilogramos) as captura_total_kg,
-        SUM(valor_pesos) as valor_total,
-        AVG(precio_pesos) as precio_promedio,
-        COUNT(*) as total_registros,
-        COUNT(DISTINCT nombre_estado) as total_estados,
-        MIN(ano_corte) as año_inicio,
-        MAX(ano_corte) as año_fin
-      FROM produccion_pesquera
-      WHERE (
-        nombre_principal ILIKE $1 
-        OR nombre_especie ILIKE $1
-      )
-      ${año ? 'AND ano_corte = $2' : ''}
-    `;
+    const [resumen] = await db
+      .select({
+        captura_total_kg: sum(produccionPesquera.pesoVivoKilogramos),
+        valor_total: sum(produccionPesquera.valorPesos),
+        precio_promedio: avg(produccionPesquera.precioPesos),
+        total_registros: count(),
+        total_estados: countDistinct(produccionPesquera.nombreEstado),
+        año_inicio: min(produccionPesquera.anoCorte),
+        año_fin: max(produccionPesquera.anoCorte),
+      })
+      .from(produccionPesquera)
+      .where(conditionsWithYear);
     
-    const resumen = await query(resumenSql, indicadoresParams);
-    
-    // Query para tendencia de precios
-    const preciosSql = `
-      SELECT 
-        ano_corte as año,
-        AVG(precio_pesos) as precio_promedio,
-        MIN(precio_pesos) as precio_min,
-        MAX(precio_pesos) as precio_max
-      FROM produccion_pesquera
-      WHERE (
-        nombre_principal ILIKE $1 
-        OR nombre_especie ILIKE $1
-      )
-      AND precio_pesos IS NOT NULL 
-      AND precio_pesos > 0
-      GROUP BY ano_corte
-      ORDER BY ano_corte
-    `;
-    
-    const precios = await query(preciosSql, [`%${nombreEspecie}%`]);
+    // Query para tendencia de precios (sin filtro de año)
+    const tendenciaPrecios = await db
+      .select({
+        año: produccionPesquera.anoCorte,
+        precio_promedio: avg(produccionPesquera.precioPesos),
+        precio_min: min(produccionPesquera.precioPesos),
+        precio_max: max(produccionPesquera.precioPesos),
+      })
+      .from(produccionPesquera)
+      .where(and(
+        especieCondition,
+        isNotNull(produccionPesquera.precioPesos),
+        gt(produccionPesquera.precioPesos, '0')
+      ))
+      .groupBy(produccionPesquera.anoCorte)
+      .orderBy(asc(produccionPesquera.anoCorte));
     
     return NextResponse.json({
       especie: nombreEspecie,
-      resumen: resumen.rows[0],
-      indicadoresAnuales: indicadores.rows,
-      produccionMensual: mensual.rows,
-      produccionPorEstado: estados.rows,
-      tendenciaPrecios: precios.rows
+      resumen,
+      indicadoresAnuales,
+      produccionMensual,
+      produccionPorEstado,
+      tendenciaPrecios,
     });
     
   } catch (error) {
@@ -135,4 +131,3 @@ export async function GET(request, { params }) {
     }, { status: 500 });
   }
 }
-

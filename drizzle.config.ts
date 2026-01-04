@@ -1,8 +1,8 @@
-// drizzle.config.js
+// drizzle.config.ts
 import { defineConfig } from 'drizzle-kit';
 
 export default defineConfig({
-  schema: './lib/schema.js',
+  schema: './lib/schema.ts',
   out: './drizzle',
   dialect: 'postgresql',
   dbCredentials: {

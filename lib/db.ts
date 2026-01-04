@@ -1,4 +1,4 @@
-// lib/db.js
+// lib/db.ts
 // Configuración de Drizzle ORM con PostgreSQL
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
@@ -24,3 +24,7 @@ export { schema };
 
 // Exportar el pool por si se necesita acceso directo
 export { pool };
+
+// Tipo de la base de datos
+export type Database = typeof db;
+

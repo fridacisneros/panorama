@@ -1,7 +1,7 @@
-// app/api/especies/[especie]/indicadores/route.js
+// app/api/especies/[especie]/indicadores/route.ts
 import { db } from '@/lib/db';
 import { produccionPesquera } from '@/lib/schema';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { 
   eq, 
   and, 
@@ -17,10 +17,66 @@ import {
   min,
   max,
   countDistinct,
-  sql
+  sql,
+  type SQL
 } from 'drizzle-orm';
 
-export async function GET(request, { params }) {
+// Tipos para las respuestas
+interface IndicadorAnual {
+  año: number | null;
+  captura_total_kg: string | null;
+  peso_desembarcado_kg: string | null;
+  valor_total: string | null;
+  precio_promedio: string | null;
+  registros: number;
+  estados_productores: number;
+}
+
+interface ProduccionMensual {
+  mes: string | null;
+  captura_total: string | null;
+  promedio: string | null;
+  registros: number;
+}
+
+interface ProduccionEstado {
+  estado: string | null;
+  captura_total: string | null;
+  valor_total: string | null;
+  registros: number;
+}
+
+interface Resumen {
+  captura_total_kg: string | null;
+  valor_total: string | null;
+  precio_promedio: string | null;
+  total_registros: number;
+  total_estados: number;
+  año_inicio: number | null;
+  año_fin: number | null;
+}
+
+interface TendenciaPrecio {
+  año: number | null;
+  precio_promedio: string | null;
+  precio_min: string | null;
+  precio_max: string | null;
+}
+
+interface IndicadoresResponse {
+  especie: string;
+  resumen: Resumen;
+  indicadoresAnuales: IndicadorAnual[];
+  produccionMensual: ProduccionMensual[];
+  produccionPorEstado: ProduccionEstado[];
+  tendenciaPrecios: TendenciaPrecio[];
+}
+
+interface RouteParams {
+  params: Promise<{ especie: string }>;
+}
+
+export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
     const { especie } = await params;
     const { searchParams } = new URL(request.url);
@@ -33,12 +89,12 @@ export async function GET(request, { params }) {
     const especieCondition = or(
       ilike(produccionPesquera.nombrePrincipal, `%${nombreEspecie}%`),
       ilike(produccionPesquera.nombreEspecie, `%${nombreEspecie}%`)
-    );
+    )!;
     
     // Condiciones con año opcional
-    const conditionsWithYear = año 
-      ? and(especieCondition, eq(produccionPesquera.anoCorte, parseInt(año)))
-      : especieCondition;
+    const conditionsWithYear: SQL[] = año 
+      ? [especieCondition, eq(produccionPesquera.anoCorte, parseInt(año))]
+      : [especieCondition];
     
     // Query para indicadores anuales
     const indicadoresAnuales = await db
@@ -52,7 +108,7 @@ export async function GET(request, { params }) {
         estados_productores: countDistinct(produccionPesquera.nombreEstado),
       })
       .from(produccionPesquera)
-      .where(conditionsWithYear)
+      .where(and(...conditionsWithYear))
       .groupBy(produccionPesquera.anoCorte)
       .orderBy(desc(produccionPesquera.anoCorte));
     
@@ -65,7 +121,7 @@ export async function GET(request, { params }) {
         registros: count(),
       })
       .from(produccionPesquera)
-      .where(and(conditionsWithYear, isNotNull(produccionPesquera.mesCorte)))
+      .where(and(...conditionsWithYear, isNotNull(produccionPesquera.mesCorte)))
       .groupBy(produccionPesquera.mesCorte)
       .orderBy(asc(produccionPesquera.mesCorte));
     
@@ -78,7 +134,7 @@ export async function GET(request, { params }) {
         registros: count(),
       })
       .from(produccionPesquera)
-      .where(and(conditionsWithYear, isNotNull(produccionPesquera.nombreEstado)))
+      .where(and(...conditionsWithYear, isNotNull(produccionPesquera.nombreEstado)))
       .groupBy(produccionPesquera.nombreEstado)
       .orderBy(desc(sql`SUM(${produccionPesquera.pesoVivoKilogramos})`))
       .limit(10);
@@ -95,7 +151,7 @@ export async function GET(request, { params }) {
         año_fin: max(produccionPesquera.anoCorte),
       })
       .from(produccionPesquera)
-      .where(conditionsWithYear);
+      .where(and(...conditionsWithYear));
     
     // Query para tendencia de precios (sin filtro de año)
     const tendenciaPrecios = await db
@@ -114,20 +170,25 @@ export async function GET(request, { params }) {
       .groupBy(produccionPesquera.anoCorte)
       .orderBy(asc(produccionPesquera.anoCorte));
     
-    return NextResponse.json({
+    const response: IndicadoresResponse = {
       especie: nombreEspecie,
       resumen,
       indicadoresAnuales,
       produccionMensual,
       produccionPorEstado,
       tendenciaPrecios,
-    });
+    };
+    
+    return NextResponse.json(response);
     
   } catch (error) {
     console.error('Error en indicadores de especie:', error);
+    const message = error instanceof Error ? error.message : 'Error desconocido';
+    const stack = error instanceof Error ? error.stack : undefined;
     return NextResponse.json({ 
-      error: error.message,
-      details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      error: message,
+      details: process.env.NODE_ENV === 'development' ? stack : undefined
     }, { status: 500 });
   }
 }
+

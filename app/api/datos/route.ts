@@ -1,7 +1,7 @@
-// app/api/datos/route.js
+// app/api/datos/route.ts
 import { db } from '@/lib/db';
-import { produccionPesquera } from '@/lib/schema';
-import { NextResponse } from 'next/server';
+import { produccionPesquera, type ProduccionPesquera } from '@/lib/schema';
+import { NextRequest, NextResponse } from 'next/server';
 import { 
   eq, 
   and, 
@@ -10,16 +10,25 @@ import {
   or,
   desc, 
   count,
-  sql
+  type SQL
 } from 'drizzle-orm';
 
-export async function GET(request) {
+// Tipos para la respuesta
+interface DatosResponse {
+  data: Partial<ProduccionPesquera>[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     
     // Parámetros de paginación
-    const page = parseInt(searchParams.get('page')) || 1;
-    const limit = parseInt(searchParams.get('limit')) || 50;
+    const page = parseInt(searchParams.get('page') || '1');
+    const limit = parseInt(searchParams.get('limit') || '50');
     const offset = (page - 1) * limit;
     
     // Filtros
@@ -32,7 +41,7 @@ export async function GET(request) {
     const origen = searchParams.get('origen');
     
     // Construir condiciones
-    const conditions = [];
+    const conditions: SQL[] = [];
     
     if (año) {
       conditions.push(eq(produccionPesquera.anoCorte, parseInt(año)));
@@ -51,7 +60,7 @@ export async function GET(request) {
         or(
           ilike(produccionPesquera.nombrePrincipal, `%${especie}%`),
           ilike(produccionPesquera.nombreEspecie, `%${especie}%`)
-        )
+        )!
       );
     }
     
@@ -111,19 +120,24 @@ export async function GET(request) {
       .limit(limit)
       .offset(offset);
     
-    return NextResponse.json({
+    const response: DatosResponse = {
       data,
       total,
       page,
       limit,
       totalPages: Math.ceil(total / limit)
-    });
+    };
+    
+    return NextResponse.json(response);
     
   } catch (error) {
     console.error('Error en API datos:', error);
+    const message = error instanceof Error ? error.message : 'Error desconocido';
+    const stack = error instanceof Error ? error.stack : undefined;
     return NextResponse.json({ 
-      error: error.message,
-      details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      error: message,
+      details: process.env.NODE_ENV === 'development' ? stack : undefined
     }, { status: 500 });
   }
 }
+

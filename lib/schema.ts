@@ -1,4 +1,4 @@
-// lib/schema.js
+// lib/schema.ts
 // Esquema de Drizzle para la base de datos de producción pesquera
 import { 
   pgTable, 
@@ -7,7 +7,9 @@ import {
   integer, 
   bigint, 
   decimal, 
-  timestamp 
+  timestamp,
+  type InferSelectModel,
+  type InferInsertModel
 } from 'drizzle-orm/pg-core';
 
 // Tabla principal de producción pesquera
@@ -74,4 +76,8 @@ export const produccionPesquera = pgTable('produccion_pesquera', {
   // Metadatos
   createdAt: timestamp('created_at').defaultNow(),
 });
+
+// Tipos inferidos del esquema
+export type ProduccionPesquera = InferSelectModel<typeof produccionPesquera>;
+export type NewProduccionPesquera = InferInsertModel<typeof produccionPesquera>;
 

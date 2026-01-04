@@ -1,7 +1,7 @@
-// app/api/stats/route.js
-import { db, schema } from '@/lib/db';
+// app/api/stats/route.ts
+import { db } from '@/lib/db';
 import { produccionPesquera } from '@/lib/schema';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { 
   eq, 
   and, 
@@ -17,10 +17,82 @@ import {
   avg,
   min,
   max,
-  countDistinct
+  countDistinct,
+  type SQL
 } from 'drizzle-orm';
 
-export async function GET(request) {
+// Tipos para las respuestas
+interface CapturaAnual {
+  año: number | null;
+  total: string;
+  valor_total: string;
+  registros: number;
+}
+
+interface CapturaMensual {
+  mes: string | null;
+  promedio: string | null;
+  total: string | null;
+  registros: number;
+}
+
+interface PrecioAnual {
+  año: number | null;
+  precio_promedio: string | null;
+  precio_min: string | null;
+  precio_max: string | null;
+  registros: number;
+}
+
+interface EspecieTop {
+  especie: string;
+  total_captura: string | null;
+  valor_total: string | null;
+  registros: number;
+}
+
+interface EstadoTop {
+  estado: string | null;
+  total_captura: string | null;
+  valor_total: string | null;
+  registros: number;
+}
+
+interface LitoralData {
+  litoral: string | null;
+  total_captura: string | null;
+  valor_total: string | null;
+  registros: number;
+}
+
+interface Resumen {
+  total_registros: number;
+  total_especies: number;
+  total_estados: number;
+  captura_total_kg: string | null;
+  valor_total_pesos: string | null;
+  año_inicio: number | null;
+  año_fin: number | null;
+}
+
+interface Filtros {
+  años: (number | null)[];
+  estados: (string | null)[];
+  especies: (string | null)[];
+  litorales: (string | null)[];
+}
+
+type StatsResult = 
+  | CapturaAnual[] 
+  | CapturaMensual[] 
+  | PrecioAnual[] 
+  | EspecieTop[] 
+  | EstadoTop[] 
+  | LitoralData[] 
+  | Resumen 
+  | Filtros;
+
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const tipo = searchParams.get('tipo');
@@ -30,11 +102,10 @@ export async function GET(request) {
     const especie = searchParams.get('especie');
     const estado = searchParams.get('estado');
     
-    let result;
+    let result: StatsResult;
     
     if (tipo === 'captura-anual') {
-      // Construir condiciones dinámicamente
-      const conditions = [];
+      const conditions: SQL[] = [];
       
       if (añoInicio && añoFin) {
         conditions.push(between(produccionPesquera.anoCorte, parseInt(añoInicio), parseInt(añoFin)));
@@ -49,8 +120,8 @@ export async function GET(request) {
       result = await db
         .select({
           año: produccionPesquera.anoCorte,
-          total: sql`COALESCE(SUM(${produccionPesquera.pesoVivoKilogramos}), 0)`,
-          valor_total: sql`COALESCE(SUM(${produccionPesquera.valorPesos}), 0)`,
+          total: sql<string>`COALESCE(SUM(${produccionPesquera.pesoVivoKilogramos}), 0)`,
+          valor_total: sql<string>`COALESCE(SUM(${produccionPesquera.valorPesos}), 0)`,
           registros: count(),
         })
         .from(produccionPesquera)
@@ -59,7 +130,7 @@ export async function GET(request) {
         .orderBy(asc(produccionPesquera.anoCorte));
       
     } else if (tipo === 'captura-mensual') {
-      const conditions = [isNotNull(produccionPesquera.mesCorte)];
+      const conditions: SQL[] = [isNotNull(produccionPesquera.mesCorte)];
       
       if (año) {
         conditions.push(eq(produccionPesquera.anoCorte, parseInt(año)));
@@ -84,7 +155,7 @@ export async function GET(request) {
         .orderBy(asc(produccionPesquera.mesCorte));
       
     } else if (tipo === 'precios') {
-      const conditions = [
+      const conditions: SQL[] = [
         isNotNull(produccionPesquera.precioPesos),
         gt(produccionPesquera.precioPesos, '0')
       ];
@@ -113,7 +184,7 @@ export async function GET(request) {
         .orderBy(asc(produccionPesquera.anoCorte));
       
     } else if (tipo === 'especies-top') {
-      const conditions = [
+      const conditions: SQL[] = [
         sql`(${produccionPesquera.nombrePrincipal} IS NOT NULL OR ${produccionPesquera.nombreEspecie} IS NOT NULL)`
       ];
       
@@ -126,7 +197,7 @@ export async function GET(request) {
       
       result = await db
         .select({
-          especie: sql`COALESCE(${produccionPesquera.nombrePrincipal}, ${produccionPesquera.nombreEspecie})`,
+          especie: sql<string>`COALESCE(${produccionPesquera.nombrePrincipal}, ${produccionPesquera.nombreEspecie})`,
           total_captura: sum(produccionPesquera.pesoVivoKilogramos),
           valor_total: sum(produccionPesquera.valorPesos),
           registros: count(),
@@ -138,7 +209,7 @@ export async function GET(request) {
         .limit(10);
       
     } else if (tipo === 'estados-top') {
-      const conditions = [isNotNull(produccionPesquera.nombreEstado)];
+      const conditions: SQL[] = [isNotNull(produccionPesquera.nombreEstado)];
       
       if (año) {
         conditions.push(eq(produccionPesquera.anoCorte, parseInt(año)));
@@ -161,7 +232,7 @@ export async function GET(request) {
         .limit(10);
       
     } else if (tipo === 'litorales') {
-      const conditions = [isNotNull(produccionPesquera.litoral)];
+      const conditions: SQL[] = [isNotNull(produccionPesquera.litoral)];
       
       if (año) {
         conditions.push(eq(produccionPesquera.anoCorte, parseInt(año)));
@@ -228,9 +299,12 @@ export async function GET(request) {
     
   } catch (error) {
     console.error('Error en stats:', error);
+    const message = error instanceof Error ? error.message : 'Error desconocido';
+    const stack = error instanceof Error ? error.stack : undefined;
     return NextResponse.json({ 
-      error: error.message,
-      details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      error: message,
+      details: process.env.NODE_ENV === 'development' ? stack : undefined
     }, { status: 500 });
   }
 }
+

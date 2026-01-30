@@ -1400,6 +1400,8 @@ export default function NormativasPage() {
                               variant="outline"
                               className="border-teal-200 hover:bg-teal-50 bg-transparent"
                               onClick={() => window.open(doc.url, '_blank')}
+                              aria-label="Ver documento"
+                              title="Ver documento"
                             >
                               <Eye className="w-4 h-4" />
                             </Button>

@@ -101,6 +101,20 @@ export async function GET(request: NextRequest) {
     const añoFin = searchParams.get('añoFin');
     const especie = searchParams.get('especie');
     const estado = searchParams.get('estado');
+    const litoral = searchParams.get('litoral');
+    
+    // Helper para agregar filtros comunes
+    const addCommonFilters = (conditions: SQL[]) => {
+      if (especie) {
+        conditions.push(eq(produccionPesquera.nombrePrincipal, especie));
+      }
+      if (estado) {
+        conditions.push(eq(produccionPesquera.nombreEstado, estado));
+      }
+      if (litoral) {
+        conditions.push(eq(produccionPesquera.litoral, litoral));
+      }
+    };
     
     let result: StatsResult;
     
@@ -110,12 +124,7 @@ export async function GET(request: NextRequest) {
       if (añoInicio && añoFin) {
         conditions.push(between(produccionPesquera.anoCorte, parseInt(añoInicio), parseInt(añoFin)));
       }
-      if (especie) {
-        conditions.push(ilike(produccionPesquera.nombrePrincipal, `%${especie}%`));
-      }
-      if (estado) {
-        conditions.push(ilike(produccionPesquera.nombreEstado, `%${estado}%`));
-      }
+      addCommonFilters(conditions);
       
       result = await db
         .select({
@@ -135,12 +144,7 @@ export async function GET(request: NextRequest) {
       if (año) {
         conditions.push(eq(produccionPesquera.anoCorte, parseInt(año)));
       }
-      if (especie) {
-        conditions.push(ilike(produccionPesquera.nombrePrincipal, `%${especie}%`));
-      }
-      if (estado) {
-        conditions.push(ilike(produccionPesquera.nombreEstado, `%${estado}%`));
-      }
+      addCommonFilters(conditions);
       
       result = await db
         .select({
@@ -163,12 +167,7 @@ export async function GET(request: NextRequest) {
       if (añoInicio && añoFin) {
         conditions.push(between(produccionPesquera.anoCorte, parseInt(añoInicio), parseInt(añoFin)));
       }
-      if (especie) {
-        conditions.push(ilike(produccionPesquera.nombrePrincipal, `%${especie}%`));
-      }
-      if (estado) {
-        conditions.push(ilike(produccionPesquera.nombreEstado, `%${estado}%`));
-      }
+      addCommonFilters(conditions);
       
       result = await db
         .select({
@@ -192,7 +191,10 @@ export async function GET(request: NextRequest) {
         conditions.push(eq(produccionPesquera.anoCorte, parseInt(año)));
       }
       if (estado) {
-        conditions.push(ilike(produccionPesquera.nombreEstado, `%${estado}%`));
+        conditions.push(eq(produccionPesquera.nombreEstado, estado));
+      }
+      if (litoral) {
+        conditions.push(eq(produccionPesquera.litoral, litoral));
       }
       
       result = await db
@@ -215,7 +217,10 @@ export async function GET(request: NextRequest) {
         conditions.push(eq(produccionPesquera.anoCorte, parseInt(año)));
       }
       if (especie) {
-        conditions.push(ilike(produccionPesquera.nombrePrincipal, `%${especie}%`));
+        conditions.push(eq(produccionPesquera.nombrePrincipal, especie));
+      }
+      if (litoral) {
+        conditions.push(eq(produccionPesquera.litoral, litoral));
       }
       
       result = await db
@@ -237,6 +242,12 @@ export async function GET(request: NextRequest) {
       if (año) {
         conditions.push(eq(produccionPesquera.anoCorte, parseInt(año)));
       }
+      if (especie) {
+        conditions.push(eq(produccionPesquera.nombrePrincipal, especie));
+      }
+      if (estado) {
+        conditions.push(eq(produccionPesquera.nombreEstado, estado));
+      }
       
       result = await db
         .select({
@@ -251,6 +262,15 @@ export async function GET(request: NextRequest) {
         .orderBy(desc(sql`SUM(${produccionPesquera.pesoVivoKilogramos})`));
       
     } else if (tipo === 'resumen') {
+      const conditions: SQL[] = [];
+      
+      if (añoInicio && añoFin) {
+        conditions.push(between(produccionPesquera.anoCorte, parseInt(añoInicio), parseInt(añoFin)));
+      } else if (año) {
+        conditions.push(eq(produccionPesquera.anoCorte, parseInt(año)));
+      }
+      addCommonFilters(conditions);
+      
       const [resumen] = await db
         .select({
           total_registros: count(),
@@ -261,7 +281,8 @@ export async function GET(request: NextRequest) {
           año_inicio: min(produccionPesquera.anoCorte),
           año_fin: max(produccionPesquera.anoCorte),
         })
-        .from(produccionPesquera);
+        .from(produccionPesquera)
+        .where(conditions.length > 0 ? and(...conditions) : undefined);
       
       result = resumen;
       

@@ -1,19 +1,21 @@
 // lib/db.ts
-// Configuración de Drizzle ORM con PostgreSQL
+// Configuración de Drizzle ORM con PostgreSQL (Neon)
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 import * as schema from './schema';
 
-// Configuración del pool de conexiones
+// Configuración del pool de conexiones con soporte SSL para Neon
 const pool = new Pool({
-  host: process.env.POSTGRES_HOST || 'localhost',
-  port: parseInt(process.env.POSTGRES_PORT || '5432'),
-  database: process.env.POSTGRES_DB || 'fisheries',
-  user: process.env.POSTGRES_USER || 'postgres',
-  password: process.env.POSTGRES_PASSWORD || 'postgres',
+  host: process.env.PGHOST || 'localhost',
+  port: parseInt(process.env.PGPORT || '5432'),
+  database: process.env.PGDATABASE || 'fisheries',
+  user: process.env.PGUSER || 'postgres',
+  password: process.env.PGPASSWORD || 'postgres',
   max: 20,
   idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000,
+  connectionTimeoutMillis: 10000,
+  // SSL requerido para Neon
+  ssl: process.env.PGSSLMODE === 'require' ? { rejectUnauthorized: false } : false,
 });
 
 // Crear instancia de Drizzle con el esquema
@@ -27,4 +29,3 @@ export { pool };
 
 // Tipo de la base de datos
 export type Database = typeof db;
-

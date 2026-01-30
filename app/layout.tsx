@@ -8,9 +8,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Sistema de Pesca Sustentable",
+  title: "Panorama - Sistema de Pesca Sustentable",
   description: "Plataforma integral para la gestión y monitoreo de recursos pesqueros",
-    generator: 'v0.app'
 }
 
 export default function RootLayout({
@@ -19,11 +18,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <Navbar />
-          <main className="min-h-screen bg-gradient-to-br from-blue-50 to-teal-50">{children}</main>
+          <main className="min-h-screen">{children}</main>
         </ThemeProvider>
       </body>
     </html>

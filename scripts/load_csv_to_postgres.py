@@ -17,6 +17,31 @@ import argparse
 from pathlib import Path
 from typing import Optional
 
+
+def load_env_file(env_path: Path) -> None:
+    """Carga variables de entorno desde un archivo .env"""
+    if not env_path.exists():
+        return
+    
+    with open(env_path, 'r') as f:
+        for line in f:
+            line = line.strip()
+            # Ignorar comentarios y líneas vacías
+            if not line or line.startswith('#'):
+                continue
+            # Parsear KEY=value
+            if '=' in line:
+                key, value = line.split('=', 1)
+                key = key.strip()
+                value = value.strip().strip('"').strip("'")
+                os.environ.setdefault(key, value)
+
+
+# Cargar .env.local desde la raíz del proyecto
+PROJECT_ROOT = Path(__file__).parent.parent
+load_env_file(PROJECT_ROOT / '.env.local')
+load_env_file(PROJECT_ROOT / '.env')
+
 # psycopg2 es opcional para el modo dry-run
 psycopg2 = None
 sql = None
@@ -381,6 +406,11 @@ def main():
         action='store_true',
         help='Solo validar archivos, no cargar datos'
     )
+    parser.add_argument(
+        '--sslmode',
+        default=os.environ.get('PGSSLMODE', ''),
+        help='Modo SSL (require para Neon)'
+    )
     
     args = parser.parse_args()
     
@@ -423,13 +453,16 @@ def main():
     # Conectar a la base de datos
     print(f"\n🔌 Conectando a PostgreSQL ({args.host}:{args.port}/{args.database})...")
     try:
-        conn = pg.connect(
-            host=args.host,
-            port=args.port,
-            database=args.database,
-            user=args.user,
-            password=args.password
-        )
+        connect_kwargs = {
+            'host': args.host,
+            'port': args.port,
+            'database': args.database,
+            'user': args.user,
+            'password': args.password,
+        }
+        if args.sslmode:
+            connect_kwargs['sslmode'] = args.sslmode
+        conn = pg.connect(**connect_kwargs)
     except pg.Error as e:
         print(f"❌ Error de conexión: {e}")
         sys.exit(1)

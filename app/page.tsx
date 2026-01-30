@@ -1,7 +1,6 @@
 import Link from "next/link"
 import {
   ArrowRight,
-  UsersIcon,
   Fish,
   Waves,
   TrendingUp,
@@ -9,16 +8,12 @@ import {
   Calendar,
   BookOpen,
   Clock,
-  Activity,
-  Send,
-  MessageSquare,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
+import { Footer } from "@/components/footer"
+import { BuzonSugerencias } from "@/components/buzon-sugerencias"
 
 export default function Home() {
   return (
@@ -235,85 +230,9 @@ export default function Home() {
       </section>
 
 
-      {/* CTA Section */}
+      <BuzonSugerencias />
 
-      {/* Buzón de Sugerencias Simplificado */}
-      <section
-        id="buzon-sugerencias"
-        className="py-16 bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-700 text-white"
-      >
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
-            <div className="text-center mb-8">
-              <div className="flex justify-center mb-4">
-                <div className="bg-gradient-to-r from-teal-500 to-cyan-500 p-3 rounded-full">
-                  <MessageSquare className="w-6 h-6 text-white" />
-                </div>
-              </div>
-              <h2 className="text-3xl font-bold text-white mb-3">Buzón de Sugerencias</h2>
-              <p className="text-teal-100">Comparte tus ideas y comentarios para mejorar nuestra plataforma</p>
-            </div>
-
-            <Card className="shadow-lg border-0 bg-white">
-              <CardContent className="p-6">
-                <form className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="nombre" className="text-sm font-medium text-gray-700">
-                      Nombre
-                    </Label>
-                    <Input
-                      type="text"
-                      id="nombre"
-                      name="nombre"
-                      placeholder="Tu nombre"
-                      className="h-11 border-gray-300 focus:border-teal-500 focus:ring-teal-500"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="text-sm font-medium text-gray-700">
-                      Correo electrónico
-                    </Label>
-                    <Input
-                      type="email"
-                      id="email"
-                      name="email"
-                      placeholder="tu@email.com"
-                      className="h-11 border-gray-300 focus:border-teal-500 focus:ring-teal-500"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="sugerencia" className="text-sm font-medium text-gray-700">
-                      Sugerencia o comentario
-                    </Label>
-                    <Textarea
-                      id="sugerencia"
-                      name="sugerencia"
-                      rows={5}
-                      placeholder="Comparte tu sugerencia, comentario o idea para mejorar la plataforma..."
-                      className="border-gray-300 focus:border-teal-500 focus:ring-teal-500 resize-none"
-                    />
-                  </div>
-
-                  <Button
-                    type="submit"
-                    className="w-full bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white font-medium py-3"
-                  >
-                    <Send className="w-4 h-4 mr-2" />
-                    Enviar Sugerencia
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-
-            <div className="text-center mt-6"></div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12"></footer>
+      <Footer />
     </div>
   )
 }

@@ -65,9 +65,9 @@ export default function VedasPage() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-white-100 text-sm font-medium">Vedas Inactivas</p>
+                  <p className="text-yellow-100 text-sm font-medium">Vedas Inactivas</p>
                   <p className="text-3xl font-bold">{mounted ? inactiveVedas.length : "..."}</p>
-                  <p className="text-orange-200 text-xs">En curso</p>
+                  <p className="text-yellow-200 text-xs">No vigentes</p>
                 </div>
                 <div className="bg-white/20 p-3 rounded-full">
                   <Clock className="w-6 h-6" />

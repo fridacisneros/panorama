@@ -105,6 +105,31 @@ export async function GET(request: NextRequest) {
         .map(r => ({ ...r, mes_num: r.mes ? MES_ORDER[r.mes.toLowerCase()] || 0 : 0 }))
         .sort((a, b) => (a.mes_num || 0) - (b.mes_num || 0));
     
+    // 1.2b Heatmap de captura mensual por año
+    } else if (tipo === 'captura-mensual-heatmap') {
+      const conditions: SQL[] = [
+        isNotNull(produccionPesquera.mesCorte),
+        isNotNull(produccionPesquera.anoCorte)
+      ];
+      addYearFilter(conditions);
+      addCommonFilters(conditions);
+      
+      const rawResult = await db
+        .select({
+          año: produccionPesquera.anoCorte,
+          mes: produccionPesquera.mesCorte,
+          peso_desembarcado: sum(produccionPesquera.pesoDesembarcadoKilogramos),
+        })
+        .from(produccionPesquera)
+        .where(and(...conditions))
+        .groupBy(produccionPesquera.anoCorte, produccionPesquera.mesCorte)
+        .orderBy(asc(produccionPesquera.anoCorte));
+      
+      result = rawResult.map(r => ({
+        ...r,
+        mes_num: r.mes ? MES_ORDER[r.mes.toLowerCase()] || 0 : 0,
+      }));
+    
     // 1.3 Captura por estado
     } else if (tipo === 'captura-estado') {
       const conditions: SQL[] = [isNotNull(produccionPesquera.nombreEstado)];
@@ -539,6 +564,105 @@ export async function GET(request: NextRequest) {
         .orderBy(desc(sql`SUM(${produccionPesquera.pesoDesembarcadoKilogramos})`))
         .limit(15);
     
+    // 3.1b Unidades económicas por estado
+    } else if (tipo === 'ue-por-estado') {
+      const conditions: SQL[] = [
+        isNotNull(produccionPesquera.unidadEconomica),
+        isNotNull(produccionPesquera.nombreEstado)
+      ];
+      addYearFilter(conditions);
+      addCommonFilters(conditions);
+      
+      result = await db
+        .select({
+          estado: produccionPesquera.nombreEstado,
+          num_ue: countDistinct(produccionPesquera.rnpaUnidadEconomica),
+          peso_desembarcado: sum(produccionPesquera.pesoDesembarcadoKilogramos),
+          valor_total: sum(produccionPesquera.valorPesos),
+        })
+        .from(produccionPesquera)
+        .where(and(...conditions))
+        .groupBy(produccionPesquera.nombreEstado)
+        .orderBy(desc(sql`COUNT(DISTINCT ${produccionPesquera.rnpaUnidadEconomica})`));
+    
+    // 3.1c Tendencia de UE activas por año
+    } else if (tipo === 'ue-tendencia') {
+      const conditions: SQL[] = [isNotNull(produccionPesquera.unidadEconomica)];
+      addYearFilter(conditions);
+      addCommonFilters(conditions);
+      
+      result = await db
+        .select({
+          año: produccionPesquera.anoCorte,
+          num_ue: countDistinct(produccionPesquera.rnpaUnidadEconomica),
+          num_embarcaciones: sum(produccionPesquera.numeroEmbarcaciones),
+          peso_desembarcado: sum(produccionPesquera.pesoDesembarcadoKilogramos),
+        })
+        .from(produccionPesquera)
+        .where(and(...conditions))
+        .groupBy(produccionPesquera.anoCorte)
+        .orderBy(asc(produccionPesquera.anoCorte));
+    
+    // 3.1d Pareto de Unidades Económicas (concentración)
+    } else if (tipo === 'pareto-ue') {
+      const conditions: SQL[] = [isNotNull(produccionPesquera.unidadEconomica)];
+      addYearFilter(conditions);
+      addCommonFilters(conditions);
+      
+      const ues = await db
+        .select({
+          unidad: produccionPesquera.unidadEconomica,
+          peso_desembarcado: sum(produccionPesquera.pesoDesembarcadoKilogramos),
+        })
+        .from(produccionPesquera)
+        .where(and(...conditions))
+        .groupBy(produccionPesquera.unidadEconomica)
+        .orderBy(desc(sql`SUM(${produccionPesquera.pesoDesembarcadoKilogramos})`));
+      
+      const total = ues.reduce((sum, e) => sum + parseFloat(e.peso_desembarcado || '0'), 0);
+      let acumulado = 0;
+      result = ues.slice(0, 30).map((e, i) => {
+        acumulado += parseFloat(e.peso_desembarcado || '0');
+        return {
+          unidad: e.unidad,
+          peso_desembarcado: e.peso_desembarcado,
+          porcentaje: ((parseFloat(e.peso_desembarcado || '0') / total) * 100).toFixed(2),
+          porcentaje_acumulado: ((acumulado / total) * 100).toFixed(2),
+          posicion: i + 1,
+        };
+      });
+    
+    // 3.1e Distribución de tamaño de flota
+    } else if (tipo === 'distribucion-flota') {
+      const conditions: SQL[] = [
+        isNotNull(produccionPesquera.numeroEmbarcaciones),
+        gt(produccionPesquera.numeroEmbarcaciones, 0)
+      ];
+      addYearFilter(conditions);
+      addCommonFilters(conditions);
+      
+      result = await db
+        .select({
+          rango: sql<string>`CASE 
+            WHEN ${produccionPesquera.numeroEmbarcaciones} = 1 THEN '1 embarcación'
+            WHEN ${produccionPesquera.numeroEmbarcaciones} BETWEEN 2 AND 5 THEN '2-5 embarcaciones'
+            WHEN ${produccionPesquera.numeroEmbarcaciones} BETWEEN 6 AND 10 THEN '6-10 embarcaciones'
+            ELSE '11+ embarcaciones'
+          END`,
+          cantidad: count(),
+          peso_desembarcado: sum(produccionPesquera.pesoDesembarcadoKilogramos),
+          valor_total: sum(produccionPesquera.valorPesos),
+        })
+        .from(produccionPesquera)
+        .where(and(...conditions))
+        .groupBy(sql`CASE 
+            WHEN ${produccionPesquera.numeroEmbarcaciones} = 1 THEN '1 embarcación'
+            WHEN ${produccionPesquera.numeroEmbarcaciones} BETWEEN 2 AND 5 THEN '2-5 embarcaciones'
+            WHEN ${produccionPesquera.numeroEmbarcaciones} BETWEEN 6 AND 10 THEN '6-10 embarcaciones'
+            ELSE '11+ embarcaciones'
+          END`)
+        .orderBy(desc(sql`SUM(${produccionPesquera.pesoDesembarcadoKilogramos})`));
+    
     // 3.2 Duración promedio de viajes
     } else if (tipo === 'duracion-viajes') {
       const conditions: SQL[] = [
@@ -579,6 +703,24 @@ export async function GET(request: NextRequest) {
         .where(and(...conditions))
         .groupBy(produccionPesquera.tipoAviso)
         .orderBy(desc(count()));
+    
+    // 3.3b Distribución por origen
+    } else if (tipo === 'distribucion-origen') {
+      const conditions: SQL[] = [isNotNull(produccionPesquera.origen)];
+      addYearFilter(conditions);
+      addCommonFilters(conditions);
+      
+      result = await db
+        .select({
+          origen: produccionPesquera.origen,
+          cantidad: count(),
+          peso_desembarcado: sum(produccionPesquera.pesoDesembarcadoKilogramos),
+          valor_total: sum(produccionPesquera.valorPesos),
+        })
+        .from(produccionPesquera)
+        .where(and(...conditions))
+        .groupBy(produccionPesquera.origen)
+        .orderBy(desc(sql`SUM(${produccionPesquera.pesoDesembarcadoKilogramos})`));
     
     // 3.4 Eficiencia por flota
     } else if (tipo === 'eficiencia-flota') {
@@ -891,6 +1033,7 @@ export async function GET(request: NextRequest) {
           total_registros: count(),
           total_especies: countDistinct(produccionPesquera.nombrePrincipal),
           total_estados: countDistinct(produccionPesquera.nombreEstado),
+          total_unidades_economicas: countDistinct(produccionPesquera.rnpaUnidadEconomica),
           captura_total_kg: sum(produccionPesquera.pesoDesembarcadoKilogramos),
           valor_total_pesos: sum(produccionPesquera.valorPesos),
           año_inicio: min(produccionPesquera.anoCorte),

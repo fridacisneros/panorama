@@ -86,6 +86,7 @@ interface Resumen {
   total_registros: number
   total_especies: number
   total_estados: number
+  total_unidades_economicas: number
   captura_total_kg: string | null
   valor_total_pesos: string | null
 }
@@ -100,68 +101,92 @@ function EmptyState({ message }: { message: string }) {
   )
 }
 
-// Componente Heatmap para estacionalidad
-function HeatmapChart({ data }: { data: { especie: string; mes: string; mes_num: number; peso_desembarcado: string }[] }) {
-  if (!data || data.length === 0) return <EmptyState message="Sin datos de estacionalidad" />
+// Componente Heatmap para captura mensual por año
+function MonthlyHeatmap({ data }: { data: { año: number; mes: string; mes_num: number; peso_desembarcado: string }[] }) {
+  if (!data || data.length === 0) return <EmptyState message="Sin datos de captura mensual" />
 
-  const especies = [...new Set(data.map(d => d.especie))].filter(Boolean)
+  const años = [...new Set(data.map(d => d.año))].filter(Boolean).sort((a, b) => a - b)
   const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
   
-  const matrix: { [especie: string]: { [mes: number]: number } } = {}
+  const matrix: { [año: number]: { [mes: number]: number } } = {}
   let maxValue = 0
   
-  especies.forEach(esp => {
-    matrix[esp] = {}
+  años.forEach(año => {
+    matrix[año] = {}
     for (let i = 1; i <= 12; i++) {
-      const found = data.find(d => d.especie === esp && d.mes_num === i)
+      const found = data.find(d => d.año === año && d.mes_num === i)
       const value = found ? parseFloat(found.peso_desembarcado || '0') : 0
-      matrix[esp][i] = value
+      matrix[año][i] = value
       if (value > maxValue) maxValue = value
     }
   })
 
+  // Formatear valor para mostrar en celda (en millones o miles)
+  const formatCellValue = (value: number) => {
+    if (value === 0) return ''
+    if (value >= 1000000000) return `${(value / 1000000000).toFixed(1)}B`
+    if (value >= 1000000) return `${(value / 1000000).toFixed(1)}M`
+    if (value >= 1000) return `${(value / 1000).toFixed(0)}K`
+    return value.toFixed(0)
+  }
+
   const getColor = (value: number) => {
-    if (value === 0) return HEATMAP_COLORS[0]
+    if (value === 0) return '#f8fafc'
     const intensity = Math.min(Math.floor((value / maxValue) * 7), 7)
     return HEATMAP_COLORS[intensity]
   }
 
+  // Determinar si el texto debe ser claro u oscuro basado en la intensidad
+  const getTextColor = (value: number) => {
+    if (value === 0) return '#9ca3af'
+    const intensity = Math.floor((value / maxValue) * 7)
+    return intensity >= 4 ? '#ffffff' : '#374151'
+  }
+
   return (
     <div className="overflow-x-auto">
-      <div className="min-w-[600px]">
-        <div className="grid gap-1" style={{ gridTemplateColumns: `120px repeat(12, 1fr)` }}>
-          <div className="text-xs font-medium text-gray-500 p-1"></div>
+      <div>
+        <div className="grid gap-1" style={{ gridTemplateColumns: `60px repeat(12, 1fr)` }}>
+          <div className="text-xs font-medium text-gray-500 p-2"></div>
           {meses.map((mes, i) => (
-            <div key={i} className="text-[10px] font-medium text-gray-500 p-1 text-center">{mes}</div>
+            <div key={i} className="text-xs font-semibold text-gray-600 p-2 text-center bg-gray-50 rounded-t">{mes}</div>
           ))}
           
-          {especies.slice(0, 8).map(especie => (
-            <div key={especie} className="contents">
-              <div className="text-[11px] text-gray-700 p-1 truncate" title={especie}>
-                {especie.length > 15 ? especie.substring(0, 15) + '...' : especie}
+          {años.map(año => (
+            <div key={año} className="contents">
+              <div className="text-sm text-gray-700 p-2 font-semibold flex items-center">
+                {año}
               </div>
               {Array.from({ length: 12 }, (_, i) => i + 1).map(mes => {
-                const value = matrix[especie]?.[mes] || 0
+                const value = matrix[año]?.[mes] || 0
                 return (
                   <div
-                    key={`${especie}-${mes}`}
-                    className="rounded-sm p-0.5 text-center cursor-pointer hover:opacity-80"
+                    key={`${año}-${mes}`}
+                    className="rounded p-2 min-h-[48px] flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity"
                     style={{ backgroundColor: getColor(value) }}
-                    title={`${especie} - ${meses[mes - 1]}: ${formatNumber(value)} kg`}
+                    title={`${meses[mes - 1]} ${año}: ${formatNumber(value)} kg`}
                   >
-                    <span className="text-[8px] text-gray-700">{value > 0 ? formatNumber(value) : ''}</span>
+                    <span 
+                      className="text-xs font-medium"
+                      style={{ color: getTextColor(value) }}
+                    >
+                      {formatCellValue(value)}
+                    </span>
                   </div>
                 )
               })}
             </div>
           ))}
         </div>
-        <div className="flex items-center justify-end gap-1 mt-3">
-          <span className="text-[10px] text-gray-500">Menor</span>
-          {HEATMAP_COLORS.map((color, i) => (
-            <div key={i} className="w-3 h-3 rounded-sm" style={{ backgroundColor: color }} />
-          ))}
-          <span className="text-[10px] text-gray-500">Mayor</span>
+        <div className="flex items-center justify-between mt-4 pt-3 border-t">
+          <span className="text-xs text-gray-500">Valores en kg (K=miles, M=millones)</span>
+          <div className="flex items-center gap-1">
+            <span className="text-xs text-gray-500">Menor</span>
+            {HEATMAP_COLORS.map((color, i) => (
+              <div key={i} className="w-4 h-4 rounded" style={{ backgroundColor: color }} />
+            ))}
+            <span className="text-xs text-gray-500">Mayor</span>
+          </div>
         </div>
       </div>
     </div>
@@ -176,19 +201,25 @@ export default function Dashboard() {
   const [especiesTop, setEspeciesTop] = useState([])
   const [litorales, setLitorales] = useState([])
   const [estacionalidad, setEstacionalidad] = useState([])
+  const [acuaculturaVsPesca, setAcuaculturaVsPesca] = useState([])
+  const [tiposAviso, setTiposAviso] = useState([])
+  const [distribucionOrigen, setDistribucionOrigen] = useState([])
 
   // Estados de datos - Tab Economía
   const [preciosTendencia, setPreciosTendencia] = useState([])
-  const [valorMensual, setValorMensual] = useState([])
+  const [valorAnual, setValorAnual] = useState([])
   const [precioVolumen, setPrecioVolumen] = useState([])
   const [roi, setRoi] = useState([])
 
-  // Estados de datos - Tab Análisis
+  // Estados de datos - Tab Operacional
   const [unidadesEconomicas, setUnidadesEconomicas] = useState([])
-  const [eficiencia, setEficiencia] = useState([])
-  const [biodiversidad, setBiodiversidad] = useState([])
-  const [paretoEspecies, setParetoEspecies] = useState([])
-  const [tipoZona, setTipoZona] = useState([])
+  const [uePorEstado, setUePorEstado] = useState([])
+  const [ueTendencia, setUeTendencia] = useState([])
+  const [paretoUe, setParetoUe] = useState([])
+  const [distribucionFlota, setDistribucionFlota] = useState([])
+  const [sitiosDesembarque, setSitiosDesembarque] = useState([])
+  const [lugaresCaptura, setLugaresCaptura] = useState([])
+  const [duracionViajes, setDuracionViajes] = useState([])
 
   // Estados generales
   const [filtrosDisponibles, setFiltrosDisponibles] = useState<Filtros | null>(null)
@@ -260,47 +291,59 @@ export default function Dashboard() {
 
       // Cargar datos según el tab activo
       if (activeTab === "produccion") {
-        const [r1, r2, r3, r4, r5, r6] = await Promise.all([
+        const [r1, r2, r3, r4, r5, r6, r7, r8, r9] = await Promise.all([
           fetch(`/api/stats?tipo=captura-anual&${params}`),
-          fetch(`/api/stats?tipo=captura-mensual&${añoParam}&${params}`),
+          fetch(`/api/stats?tipo=captura-mensual-heatmap&${params}`),
           fetch(`/api/stats?tipo=captura-estado&${params}`),
           fetch(`/api/stats?tipo=especies-top&${params}&limit=10`),
           fetch(`/api/stats?tipo=litorales&${params}`),
           fetch(`/api/stats?tipo=estacionalidad&${params}`),
+          fetch(`/api/stats?tipo=acuacultural-vs-captura&${params}`),
+          fetch(`/api/stats?tipo=tipos-aviso&${params}`),
+          fetch(`/api/stats?tipo=distribucion-origen&${params}`),
         ])
-        const data = await Promise.all([r1, r2, r3, r4, r5, r6].map(r => r.json()))
+        const data = await Promise.all([r1, r2, r3, r4, r5, r6, r7, r8, r9].map(r => r.json()))
         setCapturaAnual(data[0].data || [])
         setCapturaMensual(data[1].data || [])
         setCapturaEstado(data[2].data || [])
         setEspeciesTop(data[3].data || [])
         setLitorales(data[4].data || [])
         setEstacionalidad(data[5].data || [])
+        setAcuaculturaVsPesca(data[6].data || [])
+        setTiposAviso(data[7].data || [])
+        setDistribucionOrigen(data[8].data || [])
       } else if (activeTab === "economia") {
         const [r1, r2, r3, r4] = await Promise.all([
           fetch(`/api/stats?tipo=precios-tendencia&${params}`),
-          fetch(`/api/stats?tipo=valor-mensual&${añoParam}&${params}`),
+          fetch(`/api/stats?tipo=captura-anual&${params}`),
           fetch(`/api/stats?tipo=precio-volumen&${params}`),
           fetch(`/api/stats?tipo=roi&${params}`),
         ])
         const data = await Promise.all([r1, r2, r3, r4].map(r => r.json()))
         setPreciosTendencia(data[0].data || [])
-        setValorMensual(data[1].data || [])
+        setValorAnual(data[1].data || [])
         setPrecioVolumen(data[2].data || [])
         setRoi(data[3].data || [])
-      } else if (activeTab === "analisis") {
-        const [r1, r2, r3, r4, r5] = await Promise.all([
+      } else if (activeTab === "operacional") {
+        const [r1, r2, r3, r4, r5, r6, r7, r8] = await Promise.all([
           fetch(`/api/stats?tipo=unidades-economicas&${params}`),
-          fetch(`/api/stats?tipo=eficiencia&${params}`),
-          fetch(`/api/stats?tipo=biodiversidad&${params}`),
-          fetch(`/api/stats?tipo=pareto-especies&${params}`),
-          fetch(`/api/stats?tipo=tipo-zona&${params}`),
+          fetch(`/api/stats?tipo=ue-por-estado&${params}`),
+          fetch(`/api/stats?tipo=ue-tendencia&${params}`),
+          fetch(`/api/stats?tipo=pareto-ue&${params}`),
+          fetch(`/api/stats?tipo=distribucion-flota&${params}`),
+          fetch(`/api/stats?tipo=sitios-desembarque&${params}`),
+          fetch(`/api/stats?tipo=lugares-captura&${params}`),
+          fetch(`/api/stats?tipo=duracion-viajes&${params}`),
         ])
-        const data = await Promise.all([r1, r2, r3, r4, r5].map(r => r.json()))
+        const data = await Promise.all([r1, r2, r3, r4, r5, r6, r7, r8].map(r => r.json()))
         setUnidadesEconomicas(data[0].data || [])
-        setEficiencia(data[1].data || [])
-        setBiodiversidad(data[2].data || [])
-        setParetoEspecies(data[3].data || [])
-        setTipoZona(data[4].data || [])
+        setUePorEstado(data[1].data || [])
+        setUeTendencia(data[2].data || [])
+        setParetoUe(data[3].data || [])
+        setDistribucionFlota(data[4].data || [])
+        setSitiosDesembarque(data[5].data || [])
+        setLugaresCaptura(data[6].data || [])
+        setDuracionViajes(data[7].data || [])
       }
     } catch (err) {
       setError("Error al cargar datos")
@@ -403,10 +446,10 @@ export default function Dashboard() {
               <CardContent className="p-3">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-purple-100 text-xs">Estados</p>
-                    <p className="text-xl font-bold">{resumen.total_estados}</p>
+                    <p className="text-purple-100 text-xs">Unidades Económicas</p>
+                    <p className="text-xl font-bold">{resumen.total_unidades_economicas?.toLocaleString() || 0}</p>
                   </div>
-                  <MapPin className="w-6 h-6 text-purple-200" />
+                  <Building2 className="w-6 h-6 text-purple-200" />
                 </div>
               </CardContent>
             </Card>
@@ -498,8 +541,8 @@ export default function Dashboard() {
             <TabsTrigger value="economia" className="data-[state=active]:bg-amber-100 text-sm py-2.5">
               <DollarSign className="w-4 h-4 mr-2" /> Economía
             </TabsTrigger>
-            <TabsTrigger value="analisis" className="data-[state=active]:bg-blue-100 text-sm py-2.5">
-              <Activity className="w-4 h-4 mr-2" /> Análisis
+            <TabsTrigger value="operacional" className="data-[state=active]:bg-blue-100 text-sm py-2.5">
+              <Building2 className="w-4 h-4 mr-2" /> Operacional
             </TabsTrigger>
           </TabsList>
 
@@ -510,40 +553,25 @@ export default function Dashboard() {
               <Card>
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm flex items-center gap-2">
-                    <BarChart3 className="w-4 h-4 text-teal-600" /> Captura por Año
+                    <TrendingUp className="w-4 h-4 text-teal-600" /> Captura por Año
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   {capturaAnual.length > 0 ? (
                     <ResponsiveContainer width="100%" height={280}>
-                      <BarChart data={capturaAnual}>
+                      <LineChart data={capturaAnual}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                         <XAxis dataKey="año" fontSize={11} />
                         <YAxis fontSize={11} tickFormatter={v => formatNumber(v)} />
                         <Tooltip formatter={(v: number) => [formatNumber(v) + " kg", "Captura"]} />
-                        <Bar dataKey="peso_desembarcado" fill="#0d9488" radius={[4, 4, 0, 0]} />
-                      </BarChart>
-                    </ResponsiveContainer>
-                  ) : <EmptyState message="Sin datos" />}
-                </CardContent>
-              </Card>
-
-              {/* Captura por Mes */}
-              <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-cyan-600" /> Captura Mensual ({añoSeleccionado})
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {capturaMensual.length > 0 ? (
-                    <ResponsiveContainer width="100%" height={280}>
-                      <LineChart data={capturaMensual}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                        <XAxis dataKey="mes" fontSize={10} tickFormatter={v => v?.substring(0, 3)} />
-                        <YAxis fontSize={11} tickFormatter={v => formatNumber(v)} />
-                        <Tooltip formatter={(v: number) => [formatNumber(v) + " kg", "Captura"]} />
-                        <Line type="monotone" dataKey="peso_desembarcado" stroke="#06b6d4" strokeWidth={2} dot={{ r: 4 }} />
+                        <Line 
+                          type="monotone" 
+                          dataKey="peso_desembarcado" 
+                          stroke="#0d9488" 
+                          strokeWidth={2} 
+                          dot={{ r: 4, fill: "#0d9488" }}
+                          activeDot={{ r: 6 }}
+                        />
                       </LineChart>
                     </ResponsiveContainer>
                   ) : <EmptyState message="Sin datos" />}
@@ -581,69 +609,132 @@ export default function Dashboard() {
                 </CardHeader>
                 <CardContent>
                   {litorales.length > 0 ? (
-                    <ResponsiveContainer width="100%" height={320}>
-                      <PieChart>
-                        <Pie 
-                          data={litorales} 
-                          dataKey="peso_desembarcado" 
-                          nameKey="litoral" 
-                          cx="50%" 
-                          cy="50%" 
-                          outerRadius={100}
-                          innerRadius={40}
-                          label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-                          labelLine={{ stroke: '#64748b', strokeWidth: 1 }}
-                        >
-                          {litorales.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
-                        </Pie>
-                        <Tooltip formatter={(v: number) => formatNumber(v) + " kg"} />
-                      </PieChart>
-                    </ResponsiveContainer>
+                    <div className="space-y-4">
+                      <ResponsiveContainer width="100%" height={200}>
+                        <PieChart>
+                          <Pie 
+                            data={litorales.map((l: { litoral: string; peso_desembarcado: string | number }) => ({
+                              ...l,
+                              peso_desembarcado: typeof l.peso_desembarcado === 'string' ? parseFloat(l.peso_desembarcado) : l.peso_desembarcado
+                            }))} 
+                            dataKey="peso_desembarcado" 
+                            nameKey="litoral" 
+                            cx="50%" 
+                            cy="50%" 
+                            outerRadius={80}
+                            innerRadius={40}
+                            label={false}
+                          >
+                            {litorales.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
+                          </Pie>
+                          <Tooltip formatter={(v: number) => formatNumber(v) + " kg"} />
+                        </PieChart>
+                      </ResponsiveContainer>
+                      {/* Leyenda personalizada */}
+                      <div className="space-y-2">
+                        {litorales.map((item: { litoral: string; peso_desembarcado: string | number }, i: number) => {
+                          const itemValue = typeof item.peso_desembarcado === 'string' ? parseFloat(item.peso_desembarcado) : item.peso_desembarcado
+                          const total = litorales.reduce((sum: number, l: { peso_desembarcado: string | number }) => {
+                            const val = typeof l.peso_desembarcado === 'string' ? parseFloat(l.peso_desembarcado) : l.peso_desembarcado
+                            return sum + (val || 0)
+                          }, 0)
+                          const percent = total > 0 ? ((itemValue / total) * 100).toFixed(1) : '0.0'
+                          return (
+                            <div key={i} className="flex items-center justify-between text-sm">
+                              <div className="flex items-center gap-2">
+                                <div 
+                                  className="w-3 h-3 rounded-full" 
+                                  style={{ backgroundColor: COLORS[i % COLORS.length] }} 
+                                />
+                                <span className="text-gray-700">{item.litoral}</span>
+                              </div>
+                              <div className="flex items-center gap-3">
+                                <span className="text-gray-500">{formatNumber(itemValue)} kg</span>
+                                <span className="font-semibold text-gray-900 w-12 text-right">{percent}%</span>
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  ) : <EmptyState message="Sin datos" />}
+                </CardContent>
+              </Card>
+
+              {/* Distribución por Tipo de Aviso */}
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 text-amber-600" /> Por Tipo de Aviso
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {tiposAviso.length > 0 ? (
+                    <div className="space-y-4">
+                      <ResponsiveContainer width="100%" height={200}>
+                        <PieChart>
+                          <Pie 
+                            data={tiposAviso.map((item: { tipo_aviso: string; peso_desembarcado: string | number }) => ({
+                              ...item,
+                              peso_desembarcado: typeof item.peso_desembarcado === 'string' ? parseFloat(item.peso_desembarcado) : item.peso_desembarcado
+                            }))} 
+                            dataKey="peso_desembarcado" 
+                            nameKey="tipo_aviso" 
+                            cx="50%" 
+                            cy="50%" 
+                            outerRadius={80}
+                            innerRadius={40}
+                            label={false}
+                          >
+                            {tiposAviso.map((_: unknown, i: number) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
+                          </Pie>
+                          <Tooltip formatter={(v: number) => formatNumber(v) + " kg"} />
+                        </PieChart>
+                      </ResponsiveContainer>
+                      {/* Leyenda personalizada */}
+                      <div className="space-y-2">
+                        {tiposAviso.map((item: { tipo_aviso: string; peso_desembarcado: string | number }, i: number) => {
+                          const itemValue = typeof item.peso_desembarcado === 'string' ? parseFloat(item.peso_desembarcado) : item.peso_desembarcado
+                          const total = tiposAviso.reduce((sum: number, t: { peso_desembarcado: string | number }) => {
+                            const val = typeof t.peso_desembarcado === 'string' ? parseFloat(t.peso_desembarcado) : t.peso_desembarcado
+                            return sum + (val || 0)
+                          }, 0)
+                          const percent = total > 0 ? ((itemValue / total) * 100).toFixed(1) : '0.0'
+                          return (
+                            <div key={i} className="flex items-center justify-between text-sm">
+                              <div className="flex items-center gap-2">
+                                <div 
+                                  className="w-3 h-3 rounded-full" 
+                                  style={{ backgroundColor: COLORS[i % COLORS.length] }} 
+                                />
+                                <span className="text-gray-700">{item.tipo_aviso}</span>
+                              </div>
+                              <div className="flex items-center gap-3">
+                                <span className="text-gray-500">{formatNumber(itemValue)} kg</span>
+                                <span className="font-semibold text-gray-900 w-12 text-right">{percent}%</span>
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
                   ) : <EmptyState message="Sin datos" />}
                 </CardContent>
               </Card>
             </div>
 
-            {/* Top 10 Especies */}
+            {/* Captura Mensual - Heatmap (ancho completo) */}
             <Card>
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm flex items-center gap-2">
-                  <Fish className="w-4 h-4 text-teal-600" /> Top 10 Especies por Captura
+                  <Calendar className="w-4 h-4 text-cyan-600" /> Captura Mensual por Año
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                {especiesTop.length > 0 ? (
-                  <ResponsiveContainer width="100%" height={350}>
-                    <BarChart data={especiesTop} layout="vertical">
-                      <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                      <XAxis type="number" fontSize={11} tickFormatter={v => formatNumber(v)} />
-                      <YAxis 
-                        dataKey="especie" 
-                        type="category" 
-                        width={140} 
-                        fontSize={10} 
-                        tickFormatter={v => v?.length > 20 ? v.substring(0, 20) + '...' : v} 
-                      />
-                      <Tooltip formatter={(v: number) => [formatNumber(v) + " kg", "Captura"]} />
-                      <Bar dataKey="peso_desembarcado" fill="#0d9488" radius={[0, 4, 4, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                ) : <EmptyState message="Sin datos" />}
+                <MonthlyHeatmap data={capturaMensual} />
               </CardContent>
             </Card>
 
-            {/* Estacionalidad */}
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-amber-600" /> Estacionalidad por Especie
-                </CardTitle>
-                <CardDescription className="text-xs">Captura mensual de las principales especies</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <HeatmapChart data={estacionalidad} />
-              </CardContent>
-            </Card>
           </TabsContent>
 
           {/* ==================== TAB 2: ECONOMÍA ==================== */}
@@ -674,23 +765,30 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              {/* Valor Mensual */}
+              {/* Valor Anual */}
               <Card>
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-cyan-600" /> Valor Económico Mensual ({añoSeleccionado})
+                    <DollarSign className="w-4 h-4 text-cyan-600" /> Valor Económico por Año
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {valorMensual.length > 0 ? (
+                  {valorAnual.length > 0 ? (
                     <ResponsiveContainer width="100%" height={300}>
-                      <BarChart data={valorMensual}>
+                      <LineChart data={valorAnual}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                        <XAxis dataKey="mes" fontSize={10} tickFormatter={v => v?.substring(0, 3)} />
+                        <XAxis dataKey="año" fontSize={11} />
                         <YAxis fontSize={11} tickFormatter={v => formatCurrency(v)} />
                         <Tooltip formatter={(v: number) => [formatCurrency(v), "Valor"]} />
-                        <Bar dataKey="valor_total" fill="#06b6d4" radius={[4, 4, 0, 0]} />
-                      </BarChart>
+                        <Line 
+                          type="monotone" 
+                          dataKey="valor_total" 
+                          stroke="#06b6d4" 
+                          strokeWidth={2} 
+                          dot={{ r: 4, fill: "#06b6d4" }}
+                          activeDot={{ r: 6 }}
+                        />
+                      </LineChart>
                     </ResponsiveContainer>
                   ) : <EmptyState message="Sin datos" />}
                 </CardContent>
@@ -757,14 +855,14 @@ export default function Dashboard() {
             </div>
           </TabsContent>
 
-          {/* ==================== TAB 3: ANÁLISIS ==================== */}
-          <TabsContent value="analisis" className="space-y-4">
+          {/* ==================== TAB 3: OPERACIONAL ==================== */}
+          <TabsContent value="operacional" className="space-y-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              {/* Unidades Económicas */}
+              {/* Top 10 Unidades Económicas por Captura */}
               <Card>
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm flex items-center gap-2">
-                    <Building2 className="w-4 h-4 text-blue-600" /> Top Unidades Económicas
+                    <Building2 className="w-4 h-4 text-blue-600" /> Top 10 Unidades Económicas por Captura
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -788,76 +886,190 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              {/* Eficiencia */}
+              {/* UE por Estado */}
               <Card>
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm flex items-center gap-2">
-                    <Activity className="w-4 h-4 text-emerald-600" /> Eficiencia: Días vs Captura
+                    <MapPin className="w-4 h-4 text-purple-600" /> Unidades Económicas por Estado
                   </CardTitle>
-                  <CardDescription className="text-xs">Relación entre días de pesca y captura obtenida</CardDescription>
+                  <CardDescription className="text-xs">Distribución geográfica de unidades económicas activas</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  {eficiencia.length > 0 ? (
+                  {uePorEstado.length > 0 ? (
                     <ResponsiveContainer width="100%" height={320}>
-                      <ScatterChart>
+                      <BarChart data={uePorEstado.slice(0, 10)} layout="vertical">
                         <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                        <XAxis dataKey="dias_efectivos" name="Días" fontSize={11} />
-                        <YAxis dataKey="peso_capturado" name="Peso" fontSize={11} tickFormatter={v => formatNumber(v)} />
-                        <Tooltip 
-                          formatter={(v: number, name) => [
-                            name === 'peso_capturado' ? formatNumber(v) + ' kg' : v, 
-                            name === 'dias_efectivos' ? 'Días' : 'Captura'
-                          ]} 
+                        <XAxis type="number" fontSize={11} />
+                        <YAxis 
+                          dataKey="estado" 
+                          type="category" 
+                          width={100} 
+                          fontSize={10} 
                         />
-                        <Scatter data={eficiencia} fill="#10b981" />
-                      </ScatterChart>
+                        <Tooltip formatter={(v: number) => [v, "UE"]} />
+                        <Bar dataKey="num_ue" fill="#8b5cf6" radius={[0, 4, 4, 0]} />
+                      </BarChart>
                     </ResponsiveContainer>
                   ) : <EmptyState message="Sin datos" />}
                 </CardContent>
               </Card>
 
-              {/* Biodiversidad */}
+              {/* Tendencia de UE Activas */}
               <Card>
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm flex items-center gap-2">
-                    <Fish className="w-4 h-4 text-green-600" /> Biodiversidad por Año
+                    <TrendingUp className="w-4 h-4 text-teal-600" /> Evolución de UE Activas
                   </CardTitle>
-                  <CardDescription className="text-xs">Número de especies y estados con actividad pesquera</CardDescription>
+                  <CardDescription className="text-xs">Número de unidades económicas que reportaron actividad por año</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  {biodiversidad.length > 0 ? (
+                  {ueTendencia.length > 0 ? (
                     <ResponsiveContainer width="100%" height={300}>
-                      <ComposedChart data={biodiversidad}>
+                      <ComposedChart data={ueTendencia}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                         <XAxis dataKey="año" fontSize={11} />
                         <YAxis yAxisId="left" fontSize={11} />
-                        <YAxis yAxisId="right" orientation="right" fontSize={11} />
+                        <YAxis yAxisId="right" orientation="right" fontSize={11} tickFormatter={v => formatNumber(v)} />
                         <Tooltip />
                         <Legend />
-                        <Bar yAxisId="left" dataKey="num_especies" fill="#10b981" name="Especies" radius={[4, 4, 0, 0]} />
-                        <Line yAxisId="right" type="monotone" dataKey="num_estados" stroke="#6366f1" strokeWidth={2} name="Estados" dot={{ r: 4 }} />
+                        <Bar yAxisId="left" dataKey="num_ue" fill="#0d9488" name="UE Activas" radius={[4, 4, 0, 0]} />
+                        <Line yAxisId="right" type="monotone" dataKey="peso_desembarcado" stroke="#f59e0b" strokeWidth={2} name="Captura (kg)" dot={{ r: 4 }} />
                       </ComposedChart>
                     </ResponsiveContainer>
                   ) : <EmptyState message="Sin datos" />}
                 </CardContent>
               </Card>
 
-              {/* Tipo de Zona */}
+              {/* Distribución de Flota */}
               <Card>
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-indigo-600" /> Captura por Tipo de Zona
+                    <Anchor className="w-4 h-4 text-cyan-600" /> Distribución por Tamaño de Flota
+                  </CardTitle>
+                  <CardDescription className="text-xs">Operaciones según número de embarcaciones</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {distribucionFlota.length > 0 ? (
+                    <div className="space-y-4">
+                      <ResponsiveContainer width="100%" height={200}>
+                        <PieChart>
+                          <Pie 
+                            data={distribucionFlota.map((item: { rango: string; peso_desembarcado: string | number }) => ({
+                              ...item,
+                              peso_desembarcado: typeof item.peso_desembarcado === 'string' ? parseFloat(item.peso_desembarcado) : item.peso_desembarcado
+                            }))} 
+                            dataKey="peso_desembarcado" 
+                            nameKey="rango" 
+                            cx="50%" 
+                            cy="50%" 
+                            outerRadius={80}
+                            innerRadius={40}
+                            label={false}
+                          >
+                            {distribucionFlota.map((_: unknown, i: number) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
+                          </Pie>
+                          <Tooltip formatter={(v: number) => formatNumber(v) + " kg"} />
+                        </PieChart>
+                      </ResponsiveContainer>
+                      <div className="space-y-2">
+                        {distribucionFlota.map((item: { rango: string; peso_desembarcado: string | number; cantidad: number }, i: number) => {
+                          const itemValue = typeof item.peso_desembarcado === 'string' ? parseFloat(item.peso_desembarcado) : item.peso_desembarcado
+                          const total = distribucionFlota.reduce((sum: number, f: { peso_desembarcado: string | number }) => {
+                            const val = typeof f.peso_desembarcado === 'string' ? parseFloat(f.peso_desembarcado) : f.peso_desembarcado
+                            return sum + (val || 0)
+                          }, 0)
+                          const percent = total > 0 ? ((itemValue / total) * 100).toFixed(1) : '0.0'
+                          return (
+                            <div key={i} className="flex items-center justify-between text-sm">
+                              <div className="flex items-center gap-2">
+                                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS[i % COLORS.length] }} />
+                                <span className="text-gray-700">{item.rango}</span>
+                              </div>
+                              <div className="flex items-center gap-3">
+                                <span className="text-gray-500">{formatNumber(itemValue)} kg</span>
+                                <span className="font-semibold text-gray-900 w-12 text-right">{percent}%</span>
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  ) : <EmptyState message="Sin datos" />}
+                </CardContent>
+              </Card>
+
+              {/* Sitios de Desembarque */}
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <Anchor className="w-4 h-4 text-indigo-600" /> Top Sitios de Desembarque
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  {tipoZona.length > 0 ? (
+                  {sitiosDesembarque.length > 0 ? (
                     <ResponsiveContainer width="100%" height={300}>
-                      <BarChart data={tipoZona}>
+                      <BarChart data={sitiosDesembarque.slice(0, 8)} layout="vertical">
+                        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                        <XAxis type="number" fontSize={11} tickFormatter={v => formatNumber(v)} />
+                        <YAxis 
+                          dataKey="sitio" 
+                          type="category" 
+                          width={120} 
+                          fontSize={9} 
+                          tickFormatter={v => v?.length > 18 ? v.substring(0, 18) + '...' : v} 
+                        />
+                        <Tooltip formatter={(v: number) => [formatNumber(v) + " kg", "Captura"]} />
+                        <Bar dataKey="peso_desembarcado" fill="#6366f1" radius={[0, 4, 4, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  ) : <EmptyState message="Sin datos" />}
+                </CardContent>
+              </Card>
+
+              {/* Lugares de Captura */}
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-emerald-600" /> Lugares de Captura más Productivos
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {lugaresCaptura.length > 0 ? (
+                    <ResponsiveContainer width="100%" height={300}>
+                      <BarChart data={lugaresCaptura.slice(0, 8)} layout="vertical">
+                        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                        <XAxis type="number" fontSize={11} tickFormatter={v => formatNumber(v)} />
+                        <YAxis 
+                          dataKey="lugar" 
+                          type="category" 
+                          width={120} 
+                          fontSize={9} 
+                          tickFormatter={v => v?.length > 18 ? v.substring(0, 18) + '...' : v} 
+                        />
+                        <Tooltip formatter={(v: number) => [formatNumber(v) + " kg", "Captura"]} />
+                        <Bar dataKey="peso_desembarcado" fill="#10b981" radius={[0, 4, 4, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  ) : <EmptyState message="Sin datos" />}
+                </CardContent>
+              </Card>
+
+              {/* Duración de Viajes */}
+              <Card>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm flex items-center gap-2">
+                    <Calendar className="w-4 h-4 text-amber-600" /> Duración Promedio de Viajes por Zona
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {duracionViajes.length > 0 ? (
+                    <ResponsiveContainer width="100%" height={300}>
+                      <BarChart data={duracionViajes}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                         <XAxis dataKey="tipo_zona" fontSize={10} />
-                        <YAxis fontSize={11} tickFormatter={v => formatNumber(v)} />
-                        <Tooltip formatter={(v: number) => [formatNumber(v) + " kg", "Captura"]} />
-                        <Bar dataKey="peso_desembarcado" fill="#6366f1" radius={[4, 4, 0, 0]} />
+                        <YAxis fontSize={11} />
+                        <Tooltip formatter={(v: number) => [v.toFixed(1) + " días", "Duración"]} />
+                        <Bar dataKey="duracion_promedio" fill="#f59e0b" radius={[4, 4, 0, 0]} />
                       </BarChart>
                     </ResponsiveContainer>
                   ) : <EmptyState message="Sin datos" />}
@@ -865,32 +1077,32 @@ export default function Dashboard() {
               </Card>
             </div>
 
-            {/* Curva de Pareto */}
+            {/* Concentración del Mercado (Pareto de UE) */}
             <Card>
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm flex items-center gap-2">
-                  <PieChartIcon className="w-4 h-4 text-purple-600" /> Concentración de Captura (Pareto)
+                  <PieChartIcon className="w-4 h-4 text-purple-600" /> Concentración del Mercado (Pareto de UE)
                 </CardTitle>
                 <CardDescription className="text-xs">
-                  Las primeras especies concentran la mayor parte de la captura total
+                  Las primeras unidades económicas concentran la mayor parte de la captura total
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                {paretoEspecies.length > 0 ? (
+                {paretoUe.length > 0 ? (
                   <ResponsiveContainer width="100%" height={350}>
-                    <ComposedChart data={paretoEspecies.slice(0, 20)}>
+                    <ComposedChart data={paretoUe.slice(0, 20)}>
                       <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                       <XAxis dataKey="posicion" fontSize={11} />
                       <YAxis yAxisId="left" fontSize={11} tickFormatter={v => formatNumber(v)} />
                       <YAxis yAxisId="right" orientation="right" fontSize={11} domain={[0, 100]} tickFormatter={v => v + '%'} />
                       <Tooltip 
                         formatter={(v: number, name) => [
-                          name === 'porcentaje_acumulado' ? v.toFixed(1) + '%' : formatNumber(v) + ' kg', 
+                          name === 'porcentaje_acumulado' ? parseFloat(String(v)).toFixed(1) + '%' : formatNumber(v) + ' kg', 
                           name === 'porcentaje_acumulado' ? '% Acumulado' : 'Captura'
                         ]} 
                       />
                       <Legend />
-                      <Bar yAxisId="left" dataKey="peso_desembarcado" fill="#8b5cf6" name="Captura (kg)" radius={[4, 4, 0, 0]} />
+                      <Bar yAxisId="left" dataKey="peso_desembarcado" fill="#3b82f6" name="Captura (kg)" radius={[4, 4, 0, 0]} />
                       <Line yAxisId="right" type="monotone" dataKey="porcentaje_acumulado" stroke="#ef4444" strokeWidth={2} name="% Acumulado" dot={{ r: 3 }} />
                     </ComposedChart>
                   </ResponsiveContainer>

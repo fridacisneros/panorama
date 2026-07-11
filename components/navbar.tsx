@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Fish, Waves, FileText, Calendar, Home, LayoutDashboard, Menu } from "lucide-react"
+import { Fish, Waves, FileText, Calendar, Home, Menu } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -16,7 +16,6 @@ import {
 
 const navigation = [
   { name: "Inicio", href: "/", icon: Home },
-  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Pesquerías", href: "/especies", icon: Fish },
   { name: "Vedas", href: "/vedas", icon: Calendar },
   { name: "Normativas", href: "/normativas", icon: FileText },
@@ -52,10 +51,10 @@ export function Navbar() {
                   key={item.name}
                   href={item.href}
                   className={cn(
-                    "flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200",
+                    "flex items-center space-x-2 py-2 text-sm font-medium border-b-2 transition-colors duration-200",
                     isActive(item.href)
-                      ? "bg-teal-100 text-teal-700 shadow-sm"
-                      : "text-gray-600 hover:text-teal-600 hover:bg-teal-50"
+                      ? "border-teal-500 text-teal-700"
+                      : "border-transparent text-gray-600 hover:text-teal-600"
                   )}
                 >
                   <Icon className="h-4 w-4" />

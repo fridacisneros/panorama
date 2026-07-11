@@ -2,136 +2,15 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Fish, Search, Filter, TrendingUp, AlertTriangle, CheckCircle, XCircle, MapPin } from "lucide-react"
+import { Fish, TrendingUp, AlertTriangle, CheckCircle, XCircle, MapPin, LayoutGrid, List } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
+import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-
-const especies = [
-  {
-    id: "bagre-bandera",
-    nombre: "Bagres marinos",
-    nombreCientifico: "Bagre marinus, Ariopsis felis",
-    status: "Aprovechado al Máximo Sustentable",
-    statusColor: "yellow",
-    zona: "Golfo de México y Caribe",
-    region: "Golfo de México y Mar Caribe",
-    captura: "4,921 toneladas",
-    descripcion: "Especie de bagre marino de alto valor comercial en el Golfo de México",
-  },
-  {
-    id: "mero-negrillo",
-    nombre: "Mero y Negrillo",
-    nombreCientifico: "Epinephelus morio, Mycteroperca bonaci",
-    status: "En deterioro",
-    statusColor: "red",
-    zona: "Golfo de México y Mar Caribe",
-    region: "Golfo de México y Mar Caribe",
-    captura: "3,700 toneladas",
-    descripcion: "Especies de mero de lento crecimiento y alto valor comercial",
-  },
-  {
-    id: "pepino-mar",
-    nombre: "Pepino de Mar",
-    nombreCientifico: "Isostichopus badionotus",
-    status: "En Deterioro",
-    statusColor: "red",
-    zona: "Golfo de México y Mar Caribe",
-    region: "Golfo de México y Mar Caribe",
-    captura: "1,458 toneladas",
-    descripcion: "Equinodermo de alto valor comercial en mercados asiáticos",
-  },
-  {
-    id: "pez-espada",
-    nombre: "Pez Espada",
-    nombreCientifico: "Xiphias gladius",
-    status: "Con Potencial de Desarrollo",
-    statusColor: "green",
-    zona: "Golfo de México y Mar Caribe",
-    region: "Golfo de México y Mar Caribe",
-    captura: "31 toneladas",
-    descripcion: "Especie altamente migratoria con gran potencial de desarrollo",
-  },
-  {
-    id: "camaron-cafe",
-    nombre: "Camarón Café",
-    nombreCientifico: "Penaeus aztecus",
-    status: "Aprovechado al máximo sustentable ",
-    statusColor: "yellow",
-    zona: "Golfo de México y Mar Caribe",
-    region: "Golfo de México y Mar Caribe",
-    captura: "11,071 toneladas",
-    descripcion: "Una de las especies de camarón más importantes comercialmente",
-  },
-  {
-    id: "camaron-rojo-roca",
-    nombre: "Camarón rojo y roca",
-    nombreCientifico: "Penaeus brasiliensis, Sicyonia brevirostris",
-    status: "En deterioro",
-    statusColor: "red",
-    zona: "Golfo de México y Mar Caribe",
-    region: "Golfo de México y Mar Caribe",
-    captura: "336 toneladas",
-    descripcion: "Camarón de aguas profundas de alto valor comercial",
-  },
-  {
-    id: "caracoles",
-    nombre: "Caracoles",
-    nombreCientifico: "varios",
-    status: ["Aprovechado al máximo sustentable","En deterioro"],
-    statusColor: ["yellow","red"],
-    zona: "Golfo de México y Mar Caribe",
-    region: "Golfo de México y Mar Caribe",
-    captura: "14,062 toneladas",
-    descripcion: "Molusco de lento crecimiento altamente valorado",
-  },
-  {
-    id: "langostinos",
-    nombre: "Langostinos",
-    nombreCientifico: "Macrobrachium carcinus, Macrobrachium acanthurus, Macrobrachium heterochirus",
-    status: "En deterioro",
-    statusColor: "red",
-    zona: "Golfo de México y Mar Caribe",
-    region: "Golfo de México y Mar Caribe",
-    captura: "2,061 toneladas",
-    descripcion: "Crustáceo de acuacultura con gran potencial de crecimiento",
-  },
-  {
-    id: "pulpo",
-    nombre: "Pulpo",
-    nombreCientifico: "Octopus maya, Octopus americanus",
-    status: ["Aprovechado al máximo sustentable", "Con potencial de desarrollo"],
-    statusColor: ["yellow", "green"],
-    zona: "Golfo de México y Mar Caribe",
-    region: "Golfo de México y Mar Caribe",
-    captura: "37,000 toneladas",
-    descripcion: "Especie endémica de alto valor comercial y cultural",
-  },
-  {
-    id: "robalo-chucumite",
-    nombre: "Robalo y Chucumite",
-    nombreCientifico: "Centropomus undecimalis, Centropomus poeyi, Centropomus parallelus",
-    status: "Aprovechado al máximo sustentable",
-    statusColor: "yellow",
-    zona: "Golfo de México y Mar Caribe",
-    region: "Golfo de México y Mar Caribe",
-    captura: "7,956 toneladas",
-    descripcion: "Peces eurihalinos de importancia comercial y deportiva",
-  },
-  {
-    id: "almejas",
-    nombre: "Almejas",
-    nombreCientifico: "Rangia cuneata, Rangia flexuosa, Mercenaria campechiensis",
-    status: ["Aprovechado al máximo sustentable", "Con potencial de desarrollo", "En deterioro", "Indeterminado"],
-    statusColor: ["yellow", "green", "red", "gray"],
-    zona: "Golfo de México y Mar Caribe",
-    region: "Golfo de México y Mar Caribe",
-    captura: "30,211 toneladas",
-    descripcion: "Moluscos bivalvos de importancia comercial en sistemas lagunares y estuarinos",
-  },
-]
+import { PageHeader } from "@/components/page-header"
+import { FilterBar } from "@/components/filter-bar"
+import { cn } from "@/lib/utils"
+import { especies } from "@/lib/especies-data"
 
 const toArray = <T,>(value: T | T[]): T[] => (Array.isArray(value) ? value : [value])
 
@@ -171,10 +50,40 @@ const getUniqueRegions = () => {
   return [...new Set(regions)].sort()
 }
 
+// Imagen de la especie con respaldo (ícono) si aún no existe la foto.
+// Coloca las fotos en public/images/especies/{id}.jpg
+function EspecieImagen({
+  especie,
+  className,
+}: {
+  especie: { id: string; nombre: string }
+  className?: string
+}) {
+  const [error, setError] = useState(false)
+
+  if (error) {
+    return (
+      <div className={cn("flex items-center justify-center bg-gradient-to-br from-teal-100 to-cyan-100", className)}>
+        <Fish className="w-1/3 h-1/3 text-teal-400" />
+      </div>
+    )
+  }
+
+  return (
+    <img
+      src={`/images/especies/${especie.id}.jpg`}
+      alt={especie.nombre}
+      className={className}
+      onError={() => setError(true)}
+    />
+  )
+}
+
 export default function EspeciesPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [statusFilter, setStatusFilter] = useState("todos")
   const [regionFilter, setRegionFilter] = useState("todas")
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
 
   const filteredEspecies = especies.filter((especie) => {
     const statusColors = toArray(especie.statusColor)
@@ -189,208 +98,170 @@ export default function EspeciesPage() {
     return matchesSearch && matchesStatus && matchesRegion
   })
 
-  // Estadísticas por estado de conservación
-  const estadisticas = {
-    saludable: especies.filter((e) => toArray(e.statusColor).includes("green")).length,
-    critico: especies.filter((e) => toArray(e.statusColor).includes("red")).length,
-    desarrollo: especies.filter((e) => toArray(e.statusColor).includes("yellow")).length,
-  }
-
   const uniqueRegions = getUniqueRegions()
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50">
       <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full mb-4">
-            <Fish className="w-8 h-8 text-white" />
-          </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-4">
-            Pesquerías
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Información sobre las principales pesquerías de México de acuerdo a la Carta Nacional Pesquera.
-          </p>
-        </div>
+        <PageHeader
+          icon={Fish}
+          title="Pesquerías"
+          subtitle="Información sobre las principales pesquerías de México de acuerdo a la Carta Nacional Pesquera."
+        />
 
-        {/* Estadísticas */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white border-0">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-green-100 text-sm font-medium">Con potencial de desarrollo</p>
-                  <p className="text-3xl font-bold">{estadisticas.saludable}</p>
+        <FilterBar
+          searchValue={searchTerm}
+          onSearchChange={setSearchTerm}
+          searchPlaceholder="Buscar especies..."
+          onClear={() => {
+            setSearchTerm("")
+            setStatusFilter("todos")
+            setRegionFilter("todas")
+          }}
+        >
+          <Select value={statusFilter} onValueChange={setStatusFilter}>
+            <SelectTrigger className="h-9 w-full md:w-52 bg-white border-gray-200">
+              <SelectValue placeholder="Estado" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="todos">Todos los estados</SelectItem>
+              <SelectItem value="green">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-green-600" />
+                  Con potencial de desarrollo
                 </div>
-                <CheckCircle className="w-8 h-8 text-green-200" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white border-0">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-yellow-100 text-sm font-medium">Aprovechado al máximo sustentable</p>
-                  <p className="text-3xl font-bold">{estadisticas.desarrollo}</p>
+              </SelectItem>
+              <SelectItem value="yellow">
+                <div className="flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4 text-yellow-600" />
+                  Aprovechado al máximo sustentable
                 </div>
-                <TrendingUp className="w-8 h-8 text-yellow-200" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-to-r from-red-500 to-red-600 text-white border-0">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-red-100 text-sm font-medium">En deterioro</p>
-                  <p className="text-3xl font-bold">{estadisticas.critico}</p>
+              </SelectItem>
+              <SelectItem value="red">
+                <div className="flex items-center gap-2">
+                  <XCircle className="w-4 h-4 text-red-600" />
+                  En deterioro
                 </div>
-                <XCircle className="w-8 h-8 text-red-200" />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Filtros */}
-        <Card className="mb-6 bg-white/80 backdrop-blur-sm border-blue-200">
-          <CardContent className="p-6">
-            <div className="flex items-center gap-2 mb-4">
-              <Filter className="w-5 h-5 text-blue-600" />
-              <h3 className="text-lg font-semibold text-gray-900">Filtros de Búsqueda</h3>
-            </div>
-
-            {/* Search input moved inside */}
-            <div className="mb-4">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                  <Input
-                    placeholder="Buscar especies..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 bg-white border-blue-200"
-                  />
+              </SelectItem>
+              <SelectItem value="gray">
+                <div className="flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4 text-gray-600" />
+                  Indeterminado
                 </div>
+              </SelectItem>
+            </SelectContent>
+          </Select>
 
-                <div>
-                  <Select value={statusFilter} onValueChange={setStatusFilter}>
-                    <SelectTrigger className="bg-white border-blue-200">
-                      <SelectValue placeholder="Estado" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="todos">Todos los estados</SelectItem>
-                      <SelectItem value="green">
-                        <div className="flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 text-green-600" />
-                          Con potencial de desarrollo
-                        </div>
-                      </SelectItem>
-                      <SelectItem value="yellow">
-                        <div className="flex items-center gap-2">
-                          <TrendingUp className="w-4 h-4 text-yellow-600" />
-                          Aprovechado al máximo sustentable
-                        </div>
-                      </SelectItem>
-                      <SelectItem value="red">
-                        <div className="flex items-center gap-2">
-                          <XCircle className="w-4 h-4 text-red-600" />
-                          En deterioro
-                        </div>
-                      </SelectItem>
-                      <SelectItem value="gray">
-                        <div className="flex items-center gap-2">
-                          <AlertTriangle className="w-4 h-4 text-gray-600" />
-                          Indeterminado
-                        </div>
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
+          <Select value={regionFilter} onValueChange={setRegionFilter}>
+            <SelectTrigger className="h-9 w-full md:w-52 bg-white border-gray-200">
+              <SelectValue placeholder="Región" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="todas">
+                <div className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4 text-blue-600" />
+                  Todas las regiones
                 </div>
-
-                <div>
-                  <Select value={regionFilter} onValueChange={setRegionFilter}>
-                    <SelectTrigger className="bg-white border-blue-200">
-                      <SelectValue placeholder="Región" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="todas">
-                        <div className="flex items-center gap-2">
-                          <MapPin className="w-4 h-4 text-blue-600" />
-                          Todas las regiones
-                        </div>
-                      </SelectItem>
-                      {uniqueRegions.map((region) => (
-                        <SelectItem key={region} value={region}>
-                          <div className="flex items-center gap-2">
-                            <MapPin className="w-4 h-4 text-blue-600" />
-                            {region}
-                          </div>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      setSearchTerm("")
-                      setStatusFilter("todos")
-                      setRegionFilter("todas")
-                    }}
-                    className="w-full border-blue-200 text-blue-700 hover:bg-blue-50 bg-white"
-                  >
-                    Limpiar
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            {/* Resultados de filtros */}
-          </CardContent>
-        </Card>
-
-        {/* Grid de especies */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredEspecies.map((especie) => (
-            <Link key={especie.id} href={`/especies/${especie.id}`}>
-              <Card className="h-full hover:shadow-lg transition-all duration-300 bg-white/90 backdrop-blur-sm border-blue-200 hover:border-blue-300 cursor-pointer group">
-                <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <CardTitle className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
-                        {especie.nombre}
-                      </CardTitle>
-                      <p className="text-sm text-gray-600 italic mt-1">{especie.nombreCientifico}</p>
-                    </div>
-                    <Fish className="w-6 h-6 text-blue-500 flex-shrink-0" />
+              </SelectItem>
+              {uniqueRegions.map((region) => (
+                <SelectItem key={region} value={region}>
+                  <div className="flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-blue-600" />
+                    {region}
                   </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </FilterBar>
 
-                    
+        {/* Selector de vista */}
+        <div className="flex items-center justify-between mb-4">
+          <p className="text-sm text-gray-600">
+            {filteredEspecies.length} {filteredEspecies.length === 1 ? "pesquería" : "pesquerías"}
+          </p>
+          <div className="inline-flex rounded-lg border border-teal-200 bg-white p-1">
+            <button
+              type="button"
+              onClick={() => setViewMode("grid")}
+              aria-pressed={viewMode === "grid"}
+              className={cn(
+                "flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                viewMode === "grid" ? "bg-teal-100 text-teal-700" : "text-gray-500 hover:text-teal-600"
+              )}
+            >
+              <LayoutGrid className="w-4 h-4" />
+              Fichas
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMode("list")}
+              aria-pressed={viewMode === "list"}
+              className={cn(
+                "flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                viewMode === "list" ? "bg-teal-100 text-teal-700" : "text-gray-500 hover:text-teal-600"
+              )}
+            >
+              <List className="w-4 h-4" />
+              Lista
+            </button>
+          </div>
+        </div>
 
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Región:</span>
-                      <Badge variant="outline" className="text-xs">
-                        <MapPin className="w-3 h-3 mr-1" />
-                        {especie.region}
-                      </Badge>
+        {/* Vista de fichas: imagen + nombre + región */}
+        {viewMode === "grid" && (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+            {filteredEspecies.map((especie) => (
+              <Link key={especie.id} href={`/especies/${especie.id}`}>
+                <Card className="h-full overflow-hidden hover:shadow-lg transition-all duration-300 bg-white/90 backdrop-blur-sm border-teal-200 hover:border-teal-300 cursor-pointer group">
+                  <div className="aspect-square w-full overflow-hidden">
+                    <EspecieImagen
+                      especie={especie}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                  <CardContent className="p-3">
+                    <h3 className="text-sm font-bold text-gray-900 group-hover:text-teal-700 transition-colors leading-tight">
+                      {especie.nombre}
+                    </h3>
+                    <div className="mt-1.5 flex items-start text-xs text-gray-600">
+                      <MapPin className="w-3.5 h-3.5 mr-1 text-teal-600 flex-shrink-0 mt-px" />
+                      <span>{especie.region}</span>
                     </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        )}
 
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Fuente:</span>
-                      <span className="text-sm font-medium">CNP, 2025</span>
-                    </div>
+        {/* Vista de lista: foto + especie + nombre científico + región + fuente + estado */}
+        {viewMode === "list" && (
+          <div className="space-y-3">
+            {filteredEspecies.map((especie) => (
+              <Link key={especie.id} href={`/especies/${especie.id}`}>
+                <Card className="hover:shadow-md transition-all duration-300 bg-white/90 backdrop-blur-sm border-teal-200 hover:border-teal-300 cursor-pointer group">
+                  <CardContent className="p-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                      <div className="w-full sm:w-20 h-40 sm:h-20 flex-shrink-0 rounded-lg overflow-hidden">
+                        <EspecieImagen especie={especie} className="w-full h-full object-cover" />
+                      </div>
 
-                    <div className="flex items-center justify-between pt-2 border-t">
-                      <span className="text-sm text-gray-600">Estado:</span>
-                      <div className="flex flex-wrap gap-1 justify-end">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-base font-bold text-gray-900 group-hover:text-teal-700 transition-colors">
+                          {especie.nombre}
+                        </h3>
+                        <p className="text-sm text-gray-600 italic">{especie.nombreCientifico}</p>
+                        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-600">
+                          <span className="flex items-center gap-1">
+                            <MapPin className="w-3.5 h-3.5 text-teal-600" />
+                            {especie.region}
+                          </span>
+                          <span>Fuente: CNP, 2025</span>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap gap-1 sm:justify-end sm:max-w-[45%]">
                         {toArray(especie.status).map((status, i) => {
                           const statusColor = toArray(especie.statusColor)[i] ?? toArray(especie.statusColor)[0]
                           return (
@@ -405,12 +276,12 @@ export default function EspeciesPage() {
                         })}
                       </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        )}
 
         {filteredEspecies.length === 0 && (
           <div className="text-center py-12">
@@ -424,7 +295,7 @@ export default function EspeciesPage() {
                 setStatusFilter("todos")
                 setRegionFilter("todas")
               }}
-              className="border-blue-200 text-blue-700 hover:bg-blue-50"
+              className="border-teal-200 text-teal-700 hover:bg-teal-50"
             >
               Limpiar todos los filtros
             </Button>

@@ -1,10 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Search, Filter } from "lucide-react"
-import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Button } from "@/components/ui/button"
+import { FilterBar } from "@/components/filter-bar"
 
 import { type VedaData, isVedaActive } from "@/lib/vedas-data"
 
@@ -74,86 +72,67 @@ export function VedasFilters({ vedas, onFilter }: VedasFiltersProps) {
   }
 
   return (
-    <div className="space-y-4">
-      {/* Búsqueda */}
-      <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-        <Input
-          type="text"
-          placeholder="Búsqueda por especie, región o descripción..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="pl-10 bg-white border-teal-200 focus:border-teal-400 h-9"
-        />
-      </div>
+    <FilterBar
+      searchValue={searchTerm}
+      onSearchChange={setSearchTerm}
+      searchPlaceholder="Búsqueda por especie, región o descripción..."
+      onClear={clearFilters}
+    >
+      <Select value={selectedPesqueria} onValueChange={setSelectedPesqueria}>
+        <SelectTrigger className="h-9 w-full md:w-44 bg-white border-gray-200 focus:border-teal-400">
+          <SelectValue placeholder="Pesquería" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">Todas las pesquerías</SelectItem>
+          {pesquerias.map((pesqueria) => (
+            <SelectItem key={pesqueria} value={pesqueria}>
+              {pesqueria}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
 
-      {/* Filtros */}
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-        <Select value={selectedPesqueria} onValueChange={setSelectedPesqueria}>
-          <SelectTrigger className="bg-white border-teal-200 focus:border-teal-400 h-9">
-            <SelectValue placeholder="Pesquería" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Todas las pesquerías</SelectItem>
-            {pesquerias.map((pesqueria) => (
-              <SelectItem key={pesqueria} value={pesqueria}>
-                {pesqueria}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      <Select value={selectedEstado} onValueChange={setSelectedEstado}>
+        <SelectTrigger className="h-9 w-full md:w-44 bg-white border-gray-200 focus:border-teal-400">
+          <SelectValue placeholder="Status" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">Todos los status</SelectItem>
+          {estado.map((estadoItem) => (
+            <SelectItem key={estadoItem} value={estadoItem}>
+              {estadoItem === "Activa" ? "Vedas Activas" : "Vedas Inactivas"}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
 
-        <Select value={selectedEstado} onValueChange={setSelectedEstado}>
-          <SelectTrigger className="bg-white border-teal-200 focus:border-teal-400 h-9">
-            <SelectValue placeholder="Status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Todos los status</SelectItem>
-            {estado.map((estadoItem) => (
-              <SelectItem key={estadoItem} value={estadoItem}>
-                {estadoItem === "Activa" ? "Vedas Activas" : "Vedas Inactivas"}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      <Select value={selectedTipoVeda} onValueChange={setSelectedTipoVeda}>
+        <SelectTrigger className="h-9 w-full md:w-44 bg-white border-gray-200 focus:border-teal-400">
+          <SelectValue placeholder="Tipo de Veda" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">Todos los tipos de veda</SelectItem>
+          {tiposVeda.map((tipo) => (
+            <SelectItem key={tipo} value={tipo}>
+              {tipo}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
 
-        <Select value={selectedTipoVeda} onValueChange={setSelectedTipoVeda}>
-          <SelectTrigger className="bg-white border-teal-200 focus:border-teal-400 h-9">
-            <SelectValue placeholder="Tipo de Veda" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Todos los tipos de veda</SelectItem>
-            {tiposVeda.map((tipo) => (
-              <SelectItem key={tipo} value={tipo}>
-                {tipo}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
-        <Select value={selectedZona} onValueChange={setSelectedZona}>
-          <SelectTrigger className="bg-white border-teal-200 focus:border-teal-400 h-9">
-            <SelectValue placeholder="Zona" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Todas las zonas</SelectItem>
-            {zonas.map((zona) => (
-              <SelectItem key={zona} value={zona}>
-                {zona}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
-        <Button
-          variant="outline"
-          onClick={clearFilters}
-          className="border-teal-200 hover:bg-teal-50 bg-transparent h-9"
-        >
-          <Filter className="w-4 h-4 mr-2" />
-          Limpiar
-        </Button>
-      </div>
-    </div>
+      <Select value={selectedZona} onValueChange={setSelectedZona}>
+        <SelectTrigger className="h-9 w-full md:w-44 bg-white border-gray-200 focus:border-teal-400">
+          <SelectValue placeholder="Zona" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">Todas las zonas</SelectItem>
+          {zonas.map((zona) => (
+            <SelectItem key={zona} value={zona}>
+              {zona}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </FilterBar>
   )
 }

@@ -1,9 +1,8 @@
 import Link from "next/link"
-import { Fish, Calendar, FileText, Home, LayoutDashboard, Waves } from "lucide-react"
+import { Fish, Calendar, FileText, Home, Waves } from "lucide-react"
 
 const enlaces = [
   { name: "Inicio", href: "/", icon: Home },
-  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Pesquerías", href: "/especies", icon: Fish },
   { name: "Vedas", href: "/vedas", icon: Calendar },
   { name: "Normativas", href: "/normativas", icon: FileText },

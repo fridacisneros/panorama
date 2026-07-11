@@ -67,3 +67,29 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Olas animadas del hero (página principal). El SVG mide el doble de ancho
+   y se desplaza media pista para un bucle sin cortes. */
+@keyframes wave-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-wave-slow {
+  animation: wave-scroll 18s linear infinite;
+}
+
+.animate-wave-fast {
+  animation: wave-scroll 11s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-wave-slow,
+  .animate-wave-fast {
+    animation: none;
+  }
+}

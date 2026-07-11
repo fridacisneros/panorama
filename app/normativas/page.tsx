@@ -1,12 +1,13 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { Search, Download, Eye, FileText, Scale, Clipboard, Map } from "lucide-react"
+import { Download, Eye, FileText, Scale, Clipboard, Map } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { PageHeader } from "@/components/page-header"
+import { FilterBar } from "@/components/filter-bar"
 
 interface DocumentItem {
   id: string
@@ -1271,37 +1272,17 @@ export default function NormativasPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50">
       <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center space-x-3 mb-4">
-            <div className="bg-gradient-to-r from-teal-500 to-cyan-500 p-3 rounded-full">
-              <FileText className="w-8 h-8 text-white" />
-            </div>
-          </div>
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent mb-4">
-            Biblioteca Normativa
-          </h1>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Accede a leyes, reglamentos, normas oficiales y documentos técnicos de la pesca sustentable
-          </p>
-        </div>
+        <PageHeader
+          icon={FileText}
+          title="Biblioteca Normativa"
+          subtitle="Accede a leyes, reglamentos, normas oficiales y documentos técnicos de la pesca sustentable"
+        />
 
-
-        {/* Search */}
-        <Card className="bg-white/80 backdrop-blur-sm border-teal-200 mb-6">
-          <CardContent className="p-6">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <Input
-                type="text"
-                placeholder="Buscar documentos, leyes, normas..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-white border-teal-200 focus:border-teal-400"
-              />
-            </div>
-          </CardContent>
-        </Card>
+        <FilterBar
+          searchValue={searchTerm}
+          onSearchChange={setSearchTerm}
+          searchPlaceholder="Buscar documentos, leyes, normas..."
+        />
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">

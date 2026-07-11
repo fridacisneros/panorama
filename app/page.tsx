@@ -1,33 +1,68 @@
 import Link from "next/link"
-import {
-  ArrowRight,
-  Fish,
-  Waves,
-  TrendingUp,
-  Shield,
-  Calendar,
-  BookOpen,
-  Clock,
-} from "lucide-react"
+import { ArrowRight, Fish, Waves, Shield, Calendar, BookOpen } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Card, CardContent } from "@/components/ui/card"
 import { Footer } from "@/components/footer"
 import { BuzonSugerencias } from "@/components/buzon-sugerencias"
+import { EspeciesCarrusel } from "@/components/especies-carrusel"
+
+// Trazo de ola que se repite (dos pistas idénticas) para animarse sin cortes.
+const WAVE_PATH =
+  "M0 60 C 240 30, 480 90, 720 60 C 960 30, 1200 90, 1440 60 C 1680 30, 1920 90, 2160 60 C 2400 30, 2640 90, 2880 60 L 2880 120 L 0 120 Z"
+
+const stats = [
+  {
+    label: "Pesquerías",
+    value: "10",
+    sub: "registradas",
+    href: "/especies",
+    icon: Fish,
+    card: "from-teal-500 to-teal-600",
+    label2: "text-teal-100",
+    sub2: "text-teal-200",
+    chip: "bg-teal-400/30",
+  },
+  {
+    label: "Vedas",
+    value: "147",
+    sub: "programadas",
+    href: "/vedas",
+    icon: Shield,
+    card: "from-cyan-500 to-cyan-600",
+    label2: "text-cyan-100",
+    sub2: "text-cyan-200",
+    chip: "bg-cyan-400/30",
+  },
+  {
+    label: "Normativas",
+    value: "114",
+    sub: "registradas",
+    href: "/normativas",
+    icon: Waves,
+    card: "from-blue-500 to-blue-600",
+    label2: "text-blue-100",
+    sub2: "text-blue-200",
+    chip: "bg-blue-400/30",
+  },
+  {
+    label: "Carta Nacional Pesquera",
+    value: "2025",
+    sub: "última actualización",
+    href: "/normativas",
+    icon: BookOpen,
+    card: "from-emerald-500 to-emerald-600",
+    label2: "text-emerald-100",
+    sub2: "text-emerald-200",
+    chip: "bg-emerald-400/30",
+  },
+]
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50">
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-teal-600 via-cyan-600 to-blue-700 text-white">
-        {/* Background Effects */}
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-72 h-72 bg-teal-400/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-20 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-400/10 rounded-full blur-3xl"></div>
-        </div>
-
-        <div className="relative container mx-auto px-4 py-24">
+        <div className="relative z-10 container mx-auto px-4 py-24">
           <div className="text-center max-w-4xl mx-auto">
             <div className="flex justify-center mb-6"></div>
 
@@ -60,175 +95,80 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        {/* Olas animadas del encabezado */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 leading-none" aria-hidden="true">
+          <svg
+            className="animate-wave-slow relative block h-16 w-[200%] md:h-24"
+            viewBox="0 0 2880 120"
+            preserveAspectRatio="none"
+          >
+            <path d={WAVE_PATH} fill="rgba(255,255,255,0.12)" />
+          </svg>
+          <svg
+            className="animate-wave-fast absolute bottom-0 left-0 block h-11 w-[200%] md:h-16"
+            viewBox="0 0 2880 120"
+            preserveAspectRatio="none"
+          >
+            <path d={WAVE_PATH} fill="rgba(255,255,255,0.2)" />
+          </svg>
+        </div>
       </section>
 
-      {/* Stats Section */}
+      {/* Stats Section (tarjetas clicables) */}
       <section className="py-16 -mt-12 relative z-10">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <Card className="bg-gradient-to-br from-teal-500 to-teal-600 text-white border-0 shadow-xl">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-teal-100 text-sm font-medium"> Pesquerías</p>
-                    <p className="text-3xl font-bold">10</p>
-                    <p className="text-teal-200 text-xs">registradas</p>
-                  </div>
-                  <div className="bg-teal-400/30 p-3 rounded-full">
-                    <Fish className="w-6 h-6" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-gradient-to-br from-cyan-500 to-cyan-600 text-white border-0 shadow-xl">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-cyan-100 text-sm font-medium">Vedas</p>
-                    <p className="text-3xl font-bold">147</p>
-                    <p className="text-cyan-200 text-xs">programadas</p>
-                  </div>
-                  <div className="bg-cyan-400/30 p-3 rounded-full">
-                    <Shield className="w-6 h-6" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-gradient-to-br from-blue-500 to-blue-600 text-white border-0 shadow-xl">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-blue-100 text-sm font-medium">Normativas</p>
-                    <p className="text-3xl font-bold">114</p>
-                    <p className="text-blue-200 text-xs">registradas</p>
-                  </div>
-                  <div className="bg-blue-400/30 p-3 rounded-full">
-                    <Waves className="w-6 h-6" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-gradient-to-br from-emerald-500 to-emerald-600 text-white border-0 shadow-xl">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-emerald-100 text-sm font-medium">Carta Nacional Pesquera</p>
-                    <p className="text-3xl font-bold">2025</p>
-                    <p className="text-emerald-200 text-xs">última actualización</p>
-                  </div>
-                  <div className="bg-emerald-400/30 p-3 rounded-full">
-                    <BookOpen className="w-6 h-6" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            {stats.map((stat) => {
+              const Icon = stat.icon
+              return (
+                <Link key={stat.label} href={stat.href} className="group">
+                  <Card
+                    className={`bg-gradient-to-br ${stat.card} text-white border-0 shadow-xl transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-2xl`}
+                  >
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className={`${stat.label2} text-sm font-medium`}>{stat.label}</p>
+                          <p className="text-3xl font-bold">{stat.value}</p>
+                          <p className={`${stat.sub2} text-xs`}>{stat.sub}</p>
+                        </div>
+                        <div className={`${stat.chip} p-3 rounded-full transition-transform duration-300 group-hover:scale-110`}>
+                          <Icon className="w-6 h-6" />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              )
+            })}
           </div>
         </div>
       </section>
 
-      {/* Main Sections */}
+      {/* Explora las pesquerías (carrusel de fichas) */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-800 mb-4">Explora las secciones</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Accede a información detallada sobre pesquerías, vedas y normativas
-            </p>
+          <div className="mb-10 flex flex-col items-center gap-4 text-center md:flex-row md:justify-between md:text-left">
+            <div>
+              <h2 className="text-4xl font-bold text-gray-800 mb-2">Explora las pesquerías</h2>
+              <p className="text-xl text-gray-600">
+                Desliza para ver algunas de las principales especies de la Carta Nacional Pesquera
+              </p>
+            </div>
+            <Button asChild className="bg-teal-600 hover:bg-teal-700 text-white flex-shrink-0">
+              <Link href="/especies">
+                Ver todas
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+            </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Link href="/especies">
-              <Card className="group cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 bg-gradient-to-br from-teal-50 to-cyan-50 border-teal-200">
-                <CardHeader className="pb-4">
-                  <div className="flex items-center justify-between">
-                    <div className="bg-teal-500 p-3 rounded-full text-white group-hover:bg-teal-600 transition-colors">
-                      <Fish className="w-8 h-8" />
-                    </div>
-                    <Badge className="bg-teal-100 text-teal-700 border-teal-300">10 Pesquerías</Badge>
-                  </div>
-                  <CardTitle className="text-2xl text-teal-800 group-hover:text-teal-900">Pesquerías</CardTitle>
-                  <CardDescription className="text-teal-600">
-                    Información detallada sobre pesquerías comerciales y su estado de acuerdo con CNP
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center justify-between text-sm text-teal-600 mb-4">
-                    <span className="flex items-center">
-                      <TrendingUp className="w-4 h-4 mr-1" /> CNP 2025
-                    </span>
-                  </div>
-                  <Button className="w-full bg-teal-500 hover:bg-teal-600 text-white group-hover:bg-teal-600">
-                    Explorar Pesquerías
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </CardContent>
-              </Card>
-            </Link>
-
-            <Link href="/vedas">
-              <Card className="group cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 bg-gradient-to-br from-cyan-50 to-blue-50 border-cyan-200">
-                <CardHeader className="pb-4">
-                  <div className="flex items-center justify-between">
-                    <div className="bg-cyan-500 p-3 rounded-full text-white group-hover:bg-cyan-600 transition-colors">
-                      <Calendar className="w-8 h-8" />
-                    </div>
-                    <Badge className="bg-cyan-100 text-cyan-700 border-cyan-300">8 Activas</Badge>
-                  </div>
-                  <CardTitle className="text-2xl text-cyan-800 group-hover:text-cyan-900">Vedas y Temporadas</CardTitle>
-                  <CardDescription className="text-cyan-600">
-                    Calendario de vedas, períodos de protección y regulaciones temporales
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center justify-between text-sm text-cyan-600 mb-4">
-                    <span className="flex items-center">
-                      <Clock className="w-4 h-4 mr-1" /> 147 programadas
-                    </span>
-                  </div>
-                  <Button className="w-full bg-cyan-500 hover:bg-cyan-600 text-white group-hover:bg-cyan-600">
-                    Ver Calendario
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </CardContent>
-              </Card>
-            </Link>
-
-            <Link href="/normativas">
-              <Card className="group cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 bg-gradient-to-br from-blue-50 to-emerald-50 border-blue-200">
-                <CardHeader className="pb-4">
-                  <div className="flex items-center justify-between">
-                    <div className="bg-blue-500 p-3 rounded-full text-white group-hover:bg-blue-600 transition-colors">
-                      <BookOpen className="w-8 h-8" />
-                    </div>
-                    <Badge className="bg-blue-100 text-blue-700 border-blue-300">114 Documentos</Badge>
-                  </div>
-                  <CardTitle className="text-2xl text-blue-800 group-hover:text-blue-900">
-                    Biblioteca Normativa
-                  </CardTitle>
-                  <CardDescription className="text-blue-600">
-                    Acceso a leyes, reglamentos y normativas del sector pesquero
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center justify-between text-sm text-blue-600 mb-4">
-                    <span className="flex items-center">
-                      <BookOpen className="w-4 h-4 mr-1" /> Para descargar
-                    </span>
-                  </div>
-                  <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white group-hover:bg-blue-600">
-                    Consultar Biblioteca
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </CardContent>
-              </Card>
-            </Link>
+          <div className="px-2 sm:px-12">
+            <EspeciesCarrusel />
           </div>
         </div>
       </section>
-
 
       <BuzonSugerencias />
 

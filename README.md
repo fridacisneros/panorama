@@ -154,11 +154,13 @@ Crear un archivo `.env.local` en la raíz del proyecto:
 
 ```env
 # PostgreSQL
-POSTGRES_HOST=localhost
-POSTGRES_PORT=5432
-POSTGRES_DB=fisheries
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=tu_contraseña
+PGHOST=localhost
+PGPORT=5432
+PGDATABASE=fisheries
+PGUSER=postgres
+PGPASSWORD=tu_contraseña
+# Usar "require" para Postgres alojado (p. ej. Neon); omitir para local
+PGSSLMODE=
 
 # Next.js
 NODE_ENV=development

@@ -1,11 +1,11 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { Download, Eye, FileText, Scale, Clipboard, Map } from "lucide-react"
+import { Download, FileText } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { PageHeader } from "@/components/page-header"
 import { FilterBar } from "@/components/filter-bar"
 
@@ -1169,9 +1169,51 @@ const documents: DocumentItem[] = [
   },
 ]
 
+// Etiqueta corta y colores por categoría (riel, badge y punto del filtro)
+const CATEGORY_META: Record<
+  DocumentItem["category"],
+  { short: string; full: string; rail: string; badge: string; dot: string }
+> = {
+  leyes: {
+    short: "Leyes",
+    full: "Leyes y Reglamentos",
+    rail: "bg-blue-500",
+    badge: "bg-blue-50 text-blue-700 border-blue-200",
+    dot: "bg-blue-500",
+  },
+  noms: {
+    short: "NOM",
+    full: "NOMs",
+    rail: "bg-green-500",
+    badge: "bg-green-50 text-green-700 border-green-200",
+    dot: "bg-green-500",
+  },
+  planes: {
+    short: "Plan",
+    full: "Planes de Manejo Pesquero",
+    rail: "bg-purple-500",
+    badge: "bg-purple-50 text-purple-700 border-purple-200",
+    dot: "bg-purple-500",
+  },
+  zrp: {
+    short: "ZRP",
+    full: "Zonas de Refugio Pesquero",
+    rail: "bg-orange-500",
+    badge: "bg-orange-50 text-orange-700 border-orange-200",
+    dot: "bg-orange-500",
+  },
+  cnp: {
+    short: "CNP",
+    full: "Carta Nacional Pesquera",
+    rail: "bg-amber-500",
+    badge: "bg-amber-50 text-amber-700 border-amber-200",
+    dot: "bg-amber-500",
+  },
+}
+
 export default function NormativasPage() {
   const [searchTerm, setSearchTerm] = useState("")
-  const [activeTab, setActiveTab] = useState("leyes")
+  const [selectedCategory, setSelectedCategory] = useState("all")
 
   const filteredDocuments = useMemo(() => {
     return documents.filter((doc) => {
@@ -1179,22 +1221,10 @@ export default function NormativasPage() {
         doc.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         doc.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
         doc.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
-      const matchesCategory = doc.category === activeTab
+      const matchesCategory = selectedCategory === "all" || doc.category === selectedCategory
       return matchesSearch && matchesCategory
     })
-  }, [searchTerm, activeTab])
-
-  const getDocumentsByCategory = (category: string) => {
-    return documents.filter((doc) => doc.category === category)
-  }
-
-  const categoryStats = {
-    leyes: getDocumentsByCategory("leyes").length,
-    noms: getDocumentsByCategory("noms").length,
-    planes: getDocumentsByCategory("planes").length,
-    zrp: getDocumentsByCategory("zrp").length,
-    cnp: getDocumentsByCategory("cnp").length,
-  }
+  }, [searchTerm, selectedCategory])
 
   const handleDownload = async (doc: DocumentItem) => {
     try {
@@ -1218,57 +1248,6 @@ export default function NormativasPage() {
     }
   }
 
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case "leyes":
-        return Scale
-      case "noms":
-        return Clipboard
-      case "planes":
-        return FileText
-      case "zrp":
-        return Map
-      case "cnp":
-        return FileText
-      default:
-        return FileText
-    }
-  }
-
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case "leyes":
-        return "from-blue-500 to-blue-600"
-      case "noms":
-        return "from-green-500 to-green-600"
-      case "planes":
-        return "from-purple-500 to-purple-600"
-      case "zrp":
-        return "from-orange-500 to-orange-600"
-      case "cnp":
-        return "from-yellow-500 to-yellow-600"
-      default:
-        return "from-gray-500 to-gray-600"
-    }
-  }
-
-  const getCategoryName = (category: string) => {
-    switch (category) {
-      case "leyes":
-        return "Leyes y Reglamentos"
-      case "noms":
-        return "NOMs"
-      case "planes":
-        return "Planes de Manejo Pesquero"
-      case "zrp":
-        return "Zonas de Refugio Pesquero"
-      case "cnp":
-        return "Carta Nacional Pesquera"
-      default:
-        return category
-    }
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50">
       <div className="container mx-auto px-4 py-8">
@@ -1282,132 +1261,83 @@ export default function NormativasPage() {
           searchValue={searchTerm}
           onSearchChange={setSearchTerm}
           searchPlaceholder="Buscar documentos, leyes, normas..."
-        />
+          onClear={
+            searchTerm || selectedCategory !== "all"
+              ? () => {
+                  setSearchTerm("")
+                  setSelectedCategory("all")
+                }
+              : undefined
+          }
+        >
+          <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+            <SelectTrigger className="h-9 w-full md:w-56 bg-white border-gray-200 focus:border-teal-400">
+              <SelectValue placeholder="Categoría" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Todas las categorías</SelectItem>
+              {(Object.keys(CATEGORY_META) as DocumentItem["category"][]).map((cat) => (
+                <SelectItem key={cat} value={cat}>
+                  <span className="flex items-center gap-2">
+                    <span className={`w-2.5 h-2.5 rounded-full ${CATEGORY_META[cat].dot}`} />
+                    {CATEGORY_META[cat].full}
+                  </span>
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </FilterBar>
 
-        {/* Tabs */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5 bg-white/80 backdrop-blur-sm border border-teal-200">
-            <TabsTrigger
-              value="leyes"
-              className="flex items-center data-[state=active]:bg-blue-100 data-[state=active]:text-blue-800"
-            >
-              <Scale className="w-4 h-4 mr-2" />
-              Leyes
-            </TabsTrigger>
-            <TabsTrigger
-              value="noms"
-              className="flex items-center data-[state=active]:bg-green-100 data-[state=active]:text-green-800"
-            >
-              <Clipboard className="w-4 h-4 mr-2" />
-              NOMs
-            </TabsTrigger>
-            <TabsTrigger
-              value="planes"
-              className="flex items-center data-[state=active]:bg-purple-100 data-[state=active]:text-purple-800"
-            >
-              <FileText className="w-4 h-4 mr-2" />
-              Planes
-            </TabsTrigger>
-            <TabsTrigger
-              value="zrp"
-              className="flex items-center data-[state=active]:bg-orange-100 data-[state=active]:text-orange-800"
-            >
-              <Map className="w-4 h-4 mr-2" />
-              ZRP
-            </TabsTrigger>
-            <TabsTrigger
-              value="cnp"
-              className="flex items-center data-[state=active]:bg-yellow-100 data-[state=active]:text-yellow-800"
-            >
-              <FileText className="w-4 h-4 mr-2" />
-              CNP
-            </TabsTrigger>
-          </TabsList>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredDocuments.map((doc) => {
+            const meta = CATEGORY_META[doc.category]
+            return (
+              <Card
+                key={doc.id}
+                className="relative overflow-hidden bg-white/90 backdrop-blur-sm border-teal-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+              >
+                <span className={`absolute left-0 top-0 bottom-0 w-1 ${meta.rail}`} aria-hidden="true" />
+                <CardContent className="flex h-full flex-col gap-3 p-5 pl-6">
+                  <Badge variant="outline" className={`w-fit text-xs font-semibold ${meta.badge}`}>
+                    {meta.short}
+                  </Badge>
 
-          {/* Tab Contents */}
-          {["leyes", "noms", "planes", "zrp", "cnp"].map((category) => (
-            <TabsContent key={category} value={category}>
-              <div className="space-y-4">
-                {filteredDocuments.map((doc) => (
-                  <Card
-                    key={doc.id}
-                    className="bg-white/90 backdrop-blur-sm border-teal-200 hover:shadow-lg transition-all duration-300"
-                  >
-                    <CardContent className="p-6">
-                      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                        <div className="flex-1">
-                          <div className="flex items-start gap-3 mb-3">
-                            <FileText className="w-5 h-5 text-teal-600 mt-1 flex-shrink-0" />
-                            <div className="flex-1">
-                              <h3 className="text-lg font-semibold text-gray-900 mb-2">{doc.title}</h3>
-                              <p className="text-gray-700 mb-3">{doc.description}</p>
+                  <h3 className="flex-1 text-base font-semibold leading-snug text-gray-900">
+                    {doc.title}
+                  </h3>
 
-                              <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-3">
-                                <div>Fecha: {new Date(doc.date).toLocaleDateString("es-MX")}</div>
-                              </div>
+                  <div className="mt-auto flex items-center justify-between gap-3">
+                    <span className="text-sm text-gray-500 tabular-nums">
+                      {new Date(doc.date).toLocaleDateString("es-MX")}
+                    </span>
+                    <Button
+                      size="sm"
+                      onClick={() => handleDownload(doc)}
+                      className="bg-teal-600 hover:bg-teal-700"
+                    >
+                      <Download className="w-4 h-4 mr-1" />
+                      Descargar
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )
+          })}
+        </div>
 
-                              <div className="flex flex-wrap gap-1">
-                                {doc.tags.slice(0, 3).map((tag, index) => (
-                                  <Badge key={index} variant="outline" className="text-xs">
-                                    {tag}
-                                  </Badge>
-                                ))}
-                                {doc.tags.length > 3 && (
-                                  <Badge variant="outline" className="text-xs">
-                                    +{doc.tags.length - 3}
-                                  </Badge>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-                          <Badge variant="secondary" className="flex-shrink-0">
-                            {doc.type}
-                          </Badge>
-
-                          <div className="flex gap-2">
-                            <Button
-                              size="sm"
-                              onClick={() => handleDownload(doc)}
-                              className="bg-teal-600 hover:bg-teal-700"
-                            >
-                              <Download className="w-4 h-4 mr-1" />
-                              Descargar
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="border-teal-200 hover:bg-teal-50 bg-transparent"
-                              onClick={() => window.open(doc.url, '_blank')}
-                            >
-                              <Eye className="w-4 h-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-
-              {filteredDocuments.length === 0 && (
-                <Card className="bg-white/90 backdrop-blur-sm border-teal-200">
-                  <CardContent className="p-12 text-center">
-                    <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">No se encontraron documentos</h3>
-                    <p className="text-gray-600">
-                      {searchTerm
-                        ? `No hay documentos que coincidan con "${searchTerm}" en esta categoría.`
-                        : "No hay documentos disponibles en esta categoría."}
-                    </p>
-                  </CardContent>
-                </Card>
-              )}
-            </TabsContent>
-          ))}
-        </Tabs>
+        {filteredDocuments.length === 0 && (
+          <Card className="bg-white/90 backdrop-blur-sm border-teal-200">
+            <CardContent className="p-12 text-center">
+              <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">No se encontraron documentos</h3>
+              <p className="text-gray-600">
+                {searchTerm
+                  ? `No hay documentos que coincidan con "${searchTerm}".`
+                  : "No hay documentos disponibles en esta categoría."}
+              </p>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   )

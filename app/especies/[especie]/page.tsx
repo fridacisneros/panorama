@@ -35,13 +35,14 @@ const especiesData = {
 }
 
 interface PageProps {
-  params: {
+  params: Promise<{
     especie: string
-  }
+  }>
 }
 
-export default function EspeciePage({ params }: PageProps) {
-  const especie = especiesData[params.especie as keyof typeof especiesData]
+export default async function EspeciePage({ params }: PageProps) {
+  const { especie: especieParam } = await params
+  const especie = especiesData[especieParam as keyof typeof especiesData]
 
   if (!especie) {
     notFound()

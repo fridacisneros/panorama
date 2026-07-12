@@ -5,6 +5,8 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Footer } from "@/components/footer"
 import { BuzonSugerencias } from "@/components/buzon-sugerencias"
 import { EspeciesCarrusel } from "@/components/especies-carrusel"
+import { especies } from "@/lib/especies-data"
+import { vedasData } from "@/lib/vedas-data"
 
 // Trazo de ola que se repite (dos pistas idénticas) para animarse sin cortes.
 const WAVE_PATH =
@@ -13,7 +15,7 @@ const WAVE_PATH =
 const stats = [
   {
     label: "Pesquerías",
-    value: "10",
+    value: String(especies.length),
     sub: "registradas",
     href: "/especies",
     icon: Fish,
@@ -24,7 +26,7 @@ const stats = [
   },
   {
     label: "Vedas",
-    value: "147",
+    value: String(vedasData.length),
     sub: "programadas",
     href: "/vedas",
     icon: Shield,

@@ -1,11 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import { Calendar, Fish, Info } from "lucide-react"
+import { Calendar, Fish, Info, GanttChartSquare } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { VedasFilters } from "@/components/vedas-filters"
-import { VedasCalendar } from "@/components/vedas-calendar"
+import { VedasTimeline } from "@/components/vedas-timeline"
 import { VedasList } from "@/components/vedas-list"
 import { PageHeader } from "@/components/page-header"
 import { vedasData } from "@/lib/vedas-data"
@@ -32,8 +32,8 @@ export default function VedasPage() {
               value="calendar"
               className="flex items-center data-[state=active]:bg-teal-100 data-[state=active]:text-teal-800"
             >
-              <Calendar className="w-4 h-4 mr-2" />
-              Vista Calendario
+              <GanttChartSquare className="w-4 h-4 mr-2" />
+              Línea de Tiempo
             </TabsTrigger>
             <TabsTrigger
               value="list"
@@ -45,7 +45,7 @@ export default function VedasPage() {
           </TabsList>
 
           <TabsContent value="calendar">
-            <VedasCalendar vedas={filteredVedas} />
+            <VedasTimeline vedas={filteredVedas} />
           </TabsContent>
 
           <TabsContent value="list">

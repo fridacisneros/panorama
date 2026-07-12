@@ -51,6 +51,12 @@ export function Footer() {
             <p className="text-gray-500 text-xs">
               © {año} Panorama. Sistema de consulta en pesca sustentable.
             </p>
+            <Link
+              href="/aviso-de-privacidad"
+              className="mt-2 inline-block text-gray-400 hover:text-teal-400 transition-colors text-xs"
+            >
+              Aviso de Privacidad
+            </Link>
           </div>
         </div>
       </div>

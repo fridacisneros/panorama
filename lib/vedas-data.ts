@@ -2720,59 +2720,33 @@ export const formatDateToDDMM = (dateStr: string): string => {
 export const isVedaActive = (veda: VedaData): boolean => {
   if (veda.tipoVeda === "Permanente") return true
 
-  const today = new Date()
-  const currentYear = today.getFullYear()
+  // Se compara solo por mes y día (sin importar el año): si la fecha de hoy cae
+  // dentro del periodo mes/día de la veda, se considera activa.
+  const now = new Date()
+  const hoy = (now.getMonth() + 1) * 100 + now.getDate()
 
-  // Parse ISO date strings (YYYY-MM-DD)
-  const parseISODate = (dateStr: string) => {
+  // Devuelve mes*100 + día de una fecha ISO (YYYY-MM-DD), o null.
+  const mesDia = (dateStr: string): number | null => {
     if (!dateStr || dateStr === "Todo el año" || dateStr === "Por definir") return null
-    
-    try {
-      const date = new Date(dateStr)
-      return {
-        year: date.getFullYear(),
-        month: date.getMonth() + 1,
-        day: date.getDate()
-      }
-    } catch {
-      return null
-    }
+    const m = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})/)
+    if (!m) return null
+    return Number(m[2]) * 100 + Number(m[3])
   }
 
-  const start1 = parseISODate(veda.fechaInicio1)
-  const end1 = parseISODate(veda.fechaTermino1)
-
-  if (!start1 || !end1) return false
-
-  // Check if current date is within the veda period
-  const isInPeriod = (start: { year: number; month: number; day: number }, end: { year: number; month: number; day: number }) => {
-    const startDate = new Date(start.year, start.month - 1, start.day)
-    const endDate = new Date(end.year, end.month - 1, end.day)
-    
-    return today >= startDate && today <= endDate
+  // Activa si hoy cae en [inicio, fin] por mes/día; si el periodo cruza el fin
+  // de año (inicio > fin), es activa cuando hoy >= inicio o hoy <= fin.
+  const enPeriodo = (ini: string, fin: string): boolean => {
+    const s = mesDia(ini)
+    const e = mesDia(fin)
+    if (s == null || e == null) return false
+    return s <= e ? hoy >= s && hoy <= e : hoy >= s || hoy <= e
   }
 
-  let active = isInPeriod(start1, end1)
-
-  // Check second period if exists
-  if (veda.fechaInicio2 && veda.fechaTermino2) {
-    const start2 = parseISODate(veda.fechaInicio2)
-    const end2 = parseISODate(veda.fechaTermino2)
-    if (start2 && end2) {
-      active = active || isInPeriod(start2, end2)
-    }
-  }
-
-  // Check third period if exists
-  if (veda.fechaInicio3 && veda.fechaTermino3) {
-    const start3 = parseISODate(veda.fechaInicio3)
-    const end3 = parseISODate(veda.fechaTermino3)
-    if (start3 && end3) {
-      active = active || isInPeriod(start3, end3)
-    }
-  }
-
-  return active
+  return (
+    enPeriodo(veda.fechaInicio1, veda.fechaTermino1) ||
+    enPeriodo(veda.fechaInicio2, veda.fechaTermino2) ||
+    enPeriodo(veda.fechaInicio3, veda.fechaTermino3)
+  )
 }
 
 // Export alias for compatibility

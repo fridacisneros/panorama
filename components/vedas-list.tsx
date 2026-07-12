@@ -1,6 +1,6 @@
 "use client"
 
-import { Calendar, MapPin, Fish, Clock, AlertTriangle } from "lucide-react"
+import { MapPin, Fish, Clock, AlertTriangle } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -100,21 +100,8 @@ export function VedasList({ vedas }: VedasListProps) {
                           )}
                         </div>
 
-                        {/* Nombre del acuerdo */}
-                        <div className="pt-2 border-t border-gray-200">
-                          <div className="text-gray-600">
-                            <span className="font-medium">Acuerdo:</span>
-                            <p className="ml-1 text-xs mt-1 leading-relaxed">{veda.nombreAcuerdo}</p>
-                          </div>
-                        </div>
-
-                        {/* Fecha de publicación y botón DOF */}
-                        <div className="flex items-center justify-between text-gray-600">
-                          <div className="flex items-center">
-                            <Calendar className="w-4 h-4 mr-2 text-gray-400" />
-                            <span className="font-medium">Publicación:</span>
-                            <span className="ml-1">{veda.fechaPublicacion}</span>
-                          </div>
+                        {/* Botón DOF */}
+                        <div className="flex items-center justify-end pt-2 border-t border-gray-200">
                           <Button
                             asChild
                             size="sm"

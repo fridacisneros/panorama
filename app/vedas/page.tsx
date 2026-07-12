@@ -1,18 +1,15 @@
 "use client"
 
 import { useState } from "react"
-import { Calendar, Info, GanttChartSquare, List } from "lucide-react"
+import { Calendar, Info } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { VedasFilters } from "@/components/vedas-filters"
 import { VedasTimeline } from "@/components/vedas-timeline"
-import { VedasList } from "@/components/vedas-list"
 import { PageHeader } from "@/components/page-header"
 import { vedasData } from "@/lib/vedas-data"
-import { cn } from "@/lib/utils"
 
 export default function VedasPage() {
   const [filteredVedas, setFilteredVedas] = useState(vedasData)
-  const [viewMode, setViewMode] = useState<"timeline" | "list">("timeline")
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50">
@@ -25,38 +22,7 @@ export default function VedasPage() {
 
         <VedasFilters vedas={vedasData} onFilter={setFilteredVedas} />
 
-        {/* Selector de vista */}
-        <div className="flex items-center justify-end mb-6">
-          <div className="inline-flex rounded-lg border border-teal-200 bg-white p-1">
-            <button
-              type="button"
-              onClick={() => setViewMode("timeline")}
-              aria-pressed={viewMode === "timeline"}
-              className={cn(
-                "flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
-                viewMode === "timeline" ? "bg-teal-100 text-teal-700" : "text-gray-500 hover:text-teal-600"
-              )}
-            >
-              <GanttChartSquare className="w-4 h-4" />
-              Línea de Tiempo
-            </button>
-            <button
-              type="button"
-              onClick={() => setViewMode("list")}
-              aria-pressed={viewMode === "list"}
-              className={cn(
-                "flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
-                viewMode === "list" ? "bg-teal-100 text-teal-700" : "text-gray-500 hover:text-teal-600"
-              )}
-            >
-              <List className="w-4 h-4" />
-              Vista Lista
-            </button>
-          </div>
-        </div>
-
-        {viewMode === "timeline" && <VedasTimeline vedas={filteredVedas} />}
-        {viewMode === "list" && <VedasList vedas={filteredVedas} />}
+        <VedasTimeline vedas={filteredVedas} />
 
         {/* Información adicional */}
         <Card className="bg-white/90 backdrop-blur-sm border-teal-200 mt-8">

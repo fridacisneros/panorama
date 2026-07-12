@@ -8,6 +8,8 @@ import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { PageHeader } from "@/components/page-header"
 import { FilterBar } from "@/components/filter-bar"
+import { VedasList } from "@/components/vedas-list"
+import { vedasData, type VedaData } from "@/lib/vedas-data"
 
 interface DocumentItem {
   id: string
@@ -19,6 +21,9 @@ interface DocumentItem {
   tags: string[]
   url: string
 }
+
+// Categoría de la biblioteca: documentos descargables o la lista de vedas
+type LibraryCategory = DocumentItem["category"] | "vedas"
 
 const documents: DocumentItem[] = [
   // Leyes y Reglamentos
@@ -1171,7 +1176,7 @@ const documents: DocumentItem[] = [
 
 // Etiqueta corta y colores por categoría (riel, badge y punto del filtro)
 const CATEGORY_META: Record<
-  DocumentItem["category"],
+  LibraryCategory,
   { short: string; full: string; rail: string; badge: string; dot: string }
 > = {
   leyes: {
@@ -1209,11 +1214,23 @@ const CATEGORY_META: Record<
     badge: "bg-amber-50 text-amber-700 border-amber-200",
     dot: "bg-amber-500",
   },
+  vedas: {
+    short: "Veda",
+    full: "Vedas",
+    rail: "bg-teal-500",
+    badge: "bg-teal-50 text-teal-700 border-teal-200",
+    dot: "bg-teal-500",
+  },
 }
 
 export default function NormativasPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
+
+  // Documentos y vedas se muestran según la categoría seleccionada:
+  // "vedas" solo lista vedas, cualquier otra solo documentos, y "all" ambos.
+  const showDocuments = selectedCategory !== "vedas"
+  const showVedas = selectedCategory === "all" || selectedCategory === "vedas"
 
   const filteredDocuments = useMemo(() => {
     return documents.filter((doc) => {
@@ -1225,6 +1242,15 @@ export default function NormativasPage() {
       return matchesSearch && matchesCategory
     })
   }, [searchTerm, selectedCategory])
+
+  const filteredVedas = useMemo<VedaData[]>(() => {
+    const term = searchTerm.toLowerCase()
+    return vedasData.filter((veda) =>
+      [veda.pesqueria, veda.nombreCientifico, veda.region, veda.zona, veda.tipoVeda].some((campo) =>
+        campo.toLowerCase().includes(term),
+      ),
+    )
+  }, [searchTerm])
 
   const handleDownload = async (doc: DocumentItem) => {
     try {
@@ -1276,7 +1302,7 @@ export default function NormativasPage() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">Todas las categorías</SelectItem>
-              {(Object.keys(CATEGORY_META) as DocumentItem["category"][]).map((cat) => (
+              {(Object.keys(CATEGORY_META) as LibraryCategory[]).map((cat) => (
                 <SelectItem key={cat} value={cat}>
                   <span className="flex items-center gap-2">
                     <span className={`w-2.5 h-2.5 rounded-full ${CATEGORY_META[cat].dot}`} />
@@ -1288,6 +1314,7 @@ export default function NormativasPage() {
           </Select>
         </FilterBar>
 
+        {showDocuments && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredDocuments.map((doc) => {
             const meta = CATEGORY_META[doc.category]
@@ -1324,8 +1351,9 @@ export default function NormativasPage() {
             )
           })}
         </div>
+        )}
 
-        {filteredDocuments.length === 0 && (
+        {showDocuments && filteredDocuments.length === 0 && (
           <Card className="bg-white/90 backdrop-blur-sm border-teal-200">
             <CardContent className="p-12 text-center">
               <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
@@ -1337,6 +1365,12 @@ export default function NormativasPage() {
               </p>
             </CardContent>
           </Card>
+        )}
+
+        {showVedas && (
+          <div className={showDocuments ? "mt-6" : ""}>
+            <VedasList vedas={filteredVedas} />
+          </div>
         )}
       </div>
     </div>

@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
-import { Fish, MapPin, Clock, X } from "lucide-react"
+import { Fish, MapPin, Clock, X, ExternalLink } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { type VedaData, isVedaActive, formatDateToDDMM } from "@/lib/vedas-data"
@@ -129,24 +129,41 @@ export function VedasTimeline({ vedas }: VedasTimelineProps) {
               </Badge>
               <Badge variant="outline">{seleccion.tipoVeda}</Badge>
             </div>
-            <p className="mb-3 text-sm italic text-gray-600">{seleccion.nombreCientifico}</p>
-            <div className="grid grid-cols-1 gap-2 text-sm text-gray-700 sm:grid-cols-2">
-              <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-teal-600" /> {seleccion.region} · {seleccion.zona}
+            <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 text-sm text-gray-700">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                {seleccion.nombreCientifico && (
+                  <>
+                    <span className="italic text-gray-600">{seleccion.nombreCientifico}</span>
+                    <span className="text-gray-400">·</span>
+                  </>
+                )}
+                <MapPin className="h-4 w-4 shrink-0 text-teal-600" />
+                <span>{seleccion.region} · {seleccion.zona}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Clock className="h-4 w-4 text-teal-600" />
-                {seleccion.tipoVeda === "Permanente"
-                  ? "Todo el año"
-                  : [
-                      [seleccion.fechaInicio1, seleccion.fechaTermino1],
-                      [seleccion.fechaInicio2, seleccion.fechaTermino2],
-                      [seleccion.fechaInicio3, seleccion.fechaTermino3],
-                    ]
-                      .filter(([a, b]) => a && b)
-                      .map(([a, b]) => `${formatDateToDDMM(a)}–${formatDateToDDMM(b)}`)
-                      .join(" · ")}
-              </div>
+              {seleccion.enlaceDOF && (
+                <a
+                  href={seleccion.enlaceDOF}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-700 transition-colors hover:bg-blue-100 hover:border-blue-300"
+                >
+                  <ExternalLink className="h-3.5 w-3.5" />
+                  Ver DOF
+                </a>
+              )}
+            </div>
+            <div className="mt-2 flex items-center gap-2 text-sm text-gray-700">
+              <Clock className="h-4 w-4 shrink-0 text-teal-600" />
+              {seleccion.tipoVeda === "Permanente"
+                ? "Todo el año"
+                : [
+                    [seleccion.fechaInicio1, seleccion.fechaTermino1],
+                    [seleccion.fechaInicio2, seleccion.fechaTermino2],
+                    [seleccion.fechaInicio3, seleccion.fechaTermino3],
+                  ]
+                    .filter(([a, b]) => a && b)
+                    .map(([a, b]) => `${formatDateToDDMM(a)}–${formatDateToDDMM(b)}`)
+                    .join(" · ")}
             </div>
           </CardContent>
         </Card>
@@ -189,7 +206,7 @@ export function VedasTimeline({ vedas }: VedasTimelineProps) {
                         {/* Marcador de hoy */}
                         {hoy != null && (
                           <div
-                            className="absolute inset-y-0 w-px bg-teal-600/70"
+                            className="absolute inset-y-0 z-10 -translate-x-1/2 border-l-2 border-dashed border-teal-500"
                             style={{ left: `${hoy * 100}%` }}
                           />
                         )}

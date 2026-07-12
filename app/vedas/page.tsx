@@ -1,18 +1,18 @@
 "use client"
 
 import { useState } from "react"
-import { Calendar, Fish, Info, GanttChartSquare } from "lucide-react"
+import { Calendar, Info, GanttChartSquare, List } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { VedasFilters } from "@/components/vedas-filters"
 import { VedasTimeline } from "@/components/vedas-timeline"
 import { VedasList } from "@/components/vedas-list"
 import { PageHeader } from "@/components/page-header"
 import { vedasData } from "@/lib/vedas-data"
+import { cn } from "@/lib/utils"
 
 export default function VedasPage() {
   const [filteredVedas, setFilteredVedas] = useState(vedasData)
-  const [activeTab, setActiveTab] = useState("calendar")
+  const [viewMode, setViewMode] = useState<"timeline" | "list">("timeline")
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50">
@@ -25,33 +25,38 @@ export default function VedasPage() {
 
         <VedasFilters vedas={vedasData} onFilter={setFilteredVedas} />
 
-        {/* Tabs */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2 bg-white/80 backdrop-blur-sm border border-teal-200">
-            <TabsTrigger
-              value="calendar"
-              className="flex items-center data-[state=active]:bg-teal-100 data-[state=active]:text-teal-800"
+        {/* Selector de vista */}
+        <div className="flex items-center justify-end mb-6">
+          <div className="inline-flex rounded-lg border border-teal-200 bg-white p-1">
+            <button
+              type="button"
+              onClick={() => setViewMode("timeline")}
+              aria-pressed={viewMode === "timeline"}
+              className={cn(
+                "flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                viewMode === "timeline" ? "bg-teal-100 text-teal-700" : "text-gray-500 hover:text-teal-600"
+              )}
             >
-              <GanttChartSquare className="w-4 h-4 mr-2" />
+              <GanttChartSquare className="w-4 h-4" />
               Línea de Tiempo
-            </TabsTrigger>
-            <TabsTrigger
-              value="list"
-              className="flex items-center data-[state=active]:bg-teal-100 data-[state=active]:text-teal-800"
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMode("list")}
+              aria-pressed={viewMode === "list"}
+              className={cn(
+                "flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                viewMode === "list" ? "bg-teal-100 text-teal-700" : "text-gray-500 hover:text-teal-600"
+              )}
             >
-              <Fish className="w-4 h-4 mr-2" />
+              <List className="w-4 h-4" />
               Vista Lista
-            </TabsTrigger>
-          </TabsList>
+            </button>
+          </div>
+        </div>
 
-          <TabsContent value="calendar">
-            <VedasTimeline vedas={filteredVedas} />
-          </TabsContent>
-
-          <TabsContent value="list">
-            <VedasList vedas={filteredVedas} />
-          </TabsContent>
-        </Tabs>
+        {viewMode === "timeline" && <VedasTimeline vedas={filteredVedas} />}
+        {viewMode === "list" && <VedasList vedas={filteredVedas} />}
 
         {/* Información adicional */}
         <Card className="bg-white/90 backdrop-blur-sm border-teal-200 mt-8">

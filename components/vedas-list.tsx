@@ -1,6 +1,6 @@
 "use client"
 
-import { MapPin, Fish, Clock, AlertTriangle } from "lucide-react"
+import { MapPin, Fish, Clock } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -18,111 +18,91 @@ export function VedasList({ vedas }: VedasListProps) {
     <div className="space-y-6">
 
       {/* Lista de vedas */}
-      <div className="grid grid-cols-1 gap-4">
+      <div className="grid grid-cols-1 gap-2">
         {filteredVedas.length > 0 ? (
           filteredVedas.map((veda, index) => {
             const active = isVedaActive(veda)
+
+            // Períodos de la veda (uno o varios), listos para mostrar en línea
+            const periodos =
+              veda.tipoVeda === "Permanente"
+                ? ["Todo el año"]
+                : [
+                    `${formatDateToDDMM(veda.fechaInicio1)} - ${formatDateToDDMM(veda.fechaTermino1)}`,
+                    veda.fechaInicio2 && veda.fechaTermino2
+                      ? `${formatDateToDDMM(veda.fechaInicio2)} - ${formatDateToDDMM(veda.fechaTermino2)}`
+                      : null,
+                    veda.fechaInicio3 && veda.fechaTermino3
+                      ? `${formatDateToDDMM(veda.fechaInicio3)} - ${formatDateToDDMM(veda.fechaTermino3)}`
+                      : null,
+                  ].filter(Boolean)
+
             return (
               <Card
                 key={index}
-                className={`bg-white/90 backdrop-blur-sm transition-all duration-200 hover:shadow-lg ${
-                  active ? "border-red-200 hover:border-red-300" : "border-gray-200 hover:border-gray-300"
+                className={`relative overflow-hidden border backdrop-blur-sm transition-all duration-200 hover:shadow-md ${
+                  active ? "border-red-200 bg-red-50/70 hover:border-red-300" : "border-gray-200 bg-white/90 hover:border-gray-300"
                 }`}
               >
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-3 mb-2">
-                        <Fish className="w-5 h-5 text-teal-600" />
-                        <h3 className="text-lg font-semibold text-gray-900">{veda.pesqueria}</h3>
-                        <Badge
-                          variant={active ? "default" : "secondary"}
-                          className={`${active ? "bg-red-600 hover:bg-red-700" : "bg-gray-500 hover:bg-gray-600"}`}
-                        >
-                          {active ? "ACTIVA" : "INACTIVA"}
-                        </Badge>
-                      </div>
-                      <p className="text-sm text-gray-600 italic mb-3">{veda.nombreCientifico}</p>
+                {/* Barra de acento lateral: rojo = activa, gris = inactiva */}
+                <span
+                  className={`absolute left-0 top-0 bottom-0 w-1 ${active ? "bg-red-600" : "bg-gray-400"}`}
+                  aria-hidden="true"
+                />
+                <CardContent className="py-3.5 pl-5 pr-4 text-sm">
+                  {/* Encabezado: nombre, estado y nombre científico */}
+                  <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
+                    <Fish className="w-4 h-4 text-teal-600 shrink-0" />
+                    <h3 className="text-base font-semibold text-gray-900">{veda.pesqueria}</h3>
+                    <Badge
+                      variant={active ? "default" : "secondary"}
+                      className={`${active ? "bg-red-600 hover:bg-red-700" : "bg-gray-500 hover:bg-gray-600"}`}
+                    >
+                      {active ? "ACTIVA" : "INACTIVA"}
+                    </Badge>
+                    <span className="text-gray-600 italic">{veda.nombreCientifico}</span>
+                  </div>
 
-                      {/* Información reorganizada según el orden solicitado */}
-                      <div className="space-y-4 text-sm">
-                        {/* Primera fila: Región, Zona, Tipo */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          <div className="flex items-center text-gray-600">
-                            <MapPin className="w-4 h-4 mr-2 text-gray-400" />
-                            <span className="font-medium">Región:</span>
-                            <span className="ml-1">{veda.region}</span>
-                          </div>
+                  {/* Datos en una sola línea con separadores */}
+                  <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-gray-600">
+                    <MapPin className="w-4 h-4 text-gray-400 shrink-0" />
+                    <span>{veda.zona}</span>
+                    <span className="text-gray-400">·</span>
+                    <span>{veda.region}</span>
+                    <span className="text-gray-400">·</span>
+                    <span>{veda.tipoVeda}</span>
+                  </div>
 
-                          <div className="flex items-center text-gray-600">
-                            <MapPin className="w-4 h-4 mr-2 text-gray-400" />
-                            <span className="font-medium">Zona:</span>
-                            <span className="ml-1">{veda.zona}</span>
-                          </div>
-
-                          <div className="flex items-center text-gray-600">
-                            <AlertTriangle className="w-4 h-4 mr-2 text-gray-400" />
-                            <span className="font-medium">Tipo:</span>
-                            <span className="ml-1">{veda.tipoVeda}</span>
-                          </div>
-                        </div>
-
-                        {/* Segunda fila: Períodos */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          <div className="flex items-center text-gray-600">
-                            <Clock className="w-4 h-4 mr-2 text-gray-400" />
-                            <span className="font-medium">Período 1:</span>
-                            <span className="ml-1">
-                              {veda.tipoVeda === "Permanente"
-                                ? "Todo el año"
-                                : `${formatDateToDDMM(veda.fechaInicio1)} - ${formatDateToDDMM(veda.fechaTermino1)}`}
-                            </span>
-                          </div>
-
-                          {veda.fechaInicio2 && veda.fechaTermino2 && (
-                            <div className="flex items-center text-gray-600">
-                              <Clock className="w-4 h-4 mr-2 text-gray-400" />
-                              <span className="font-medium">Período 2:</span>
-                              <span className="ml-1">
-                                {formatDateToDDMM(veda.fechaInicio2)} - {formatDateToDDMM(veda.fechaTermino2)}
-                              </span>
-                            </div>
-                          )}
-
-                          {veda.fechaInicio3 && veda.fechaTermino3 && (
-                            <div className="flex items-center text-gray-600">
-                              <Clock className="w-4 h-4 mr-2 text-gray-400" />
-                              <span className="font-medium">Período 3:</span>
-                              <span className="ml-1">
-                                {formatDateToDDMM(veda.fechaInicio3)} - {formatDateToDDMM(veda.fechaTermino3)}
-                              </span>
-                            </div>
-                          )}
-                        </div>
-
-                        {/* Botón DOF */}
-                        <div className="flex items-center justify-end pt-2 border-t border-gray-200">
-                          <Button
-                            asChild
-                            size="sm"
-                            variant="outline"
-                            className="h-8 px-3 text-xs bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100 hover:border-blue-300"
-                          >
-                            <a
-                              href={veda.enlaceDOF}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center gap-1"
-                            >
-                              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                              </svg>
-                              Ver DOF
-                            </a>
-                          </Button>
-                        </div>
-                      </div>
+                  {/* Períodos y enlace al DOF */}
+                  <div className="mt-2.5 flex flex-wrap items-center justify-between gap-2">
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-gray-600">
+                      <Clock className="w-4 h-4 text-gray-400 shrink-0" />
+                      <span className="font-medium">{periodos.length > 1 ? "Períodos:" : "Período:"}</span>
+                      {periodos.map((p, i) => (
+                        <span key={i} className="flex items-center gap-x-2">
+                          {i > 0 && <span className="text-gray-400">·</span>}
+                          <span>{p}</span>
+                        </span>
+                      ))}
                     </div>
+                    <Button
+                      asChild
+                      size="sm"
+                      variant="outline"
+                      className="h-8 px-3 text-xs bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100 hover:border-blue-300"
+                    >
+                      <a
+                        href={veda.enlaceDOF}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1"
+                      >
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        Ver DOF
+                      </a>
+                    </Button>
                   </div>
                 </CardContent>
               </Card>

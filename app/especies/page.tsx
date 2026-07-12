@@ -20,19 +20,6 @@ import { especies } from "@/lib/especies-data"
 
 const toArray = <T,>(value: T | T[]): T[] => (Array.isArray(value) ? value : [value])
 
-const statusDotColor = (color: string) => {
-  switch (color) {
-    case "green":
-      return "bg-green-500"
-    case "red":
-      return "bg-red-500"
-    case "yellow":
-      return "bg-yellow-500"
-    default:
-      return "bg-gray-400"
-  }
-}
-
 const getUniqueRegions = () => [...new Set(especies.map((e) => e.region))].sort()
 
 function EspecieMiniatura({ id, nombre, className }: { id: string; nombre: string; className?: string }) {
@@ -202,7 +189,6 @@ export default function EspeciesPage() {
             ) : (
               <div className="flex flex-col gap-1">
                 {filteredEspecies.map((especie) => {
-                  const colores = toArray(especie.statusColor)
                   const activo = selected?.id === especie.id
                   return (
                     <button
@@ -226,11 +212,6 @@ export default function EspeciesPage() {
                           {especie.nombre}
                         </p>
                         <p className="text-xs text-gray-500 truncate">{especie.region}</p>
-                      </div>
-                      <div className="flex flex-shrink-0 gap-0.5">
-                        {colores.map((c, i) => (
-                          <span key={i} className={cn("w-2.5 h-2.5 rounded-full", statusDotColor(c))} />
-                        ))}
                       </div>
                     </button>
                   )

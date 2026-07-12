@@ -16,6 +16,7 @@ import {
   CheckCircle,
   XCircle,
   AlertTriangle,
+  ChevronRight,
 } from "lucide-react"
 import {
   XAxis,
@@ -202,7 +203,7 @@ function Generalidades({ ficha }: { ficha: Ficha }) {
           </CardHeader>
           <CardContent className="space-y-3">
             {g.descripcion.map((p, i) => (
-              <p key={i} className="text-gray-700 leading-relaxed">
+              <p key={i} className="text-sm text-gray-700 leading-relaxed">
                 {p}
               </p>
             ))}
@@ -363,7 +364,7 @@ function Ambiente({ ficha }: { ficha: Ficha }) {
       </CardHeader>
       <CardContent className="space-y-3">
         {ficha.ambiente.map((p, i) => (
-          <p key={i} className="text-gray-700 leading-relaxed">
+          <p key={i} className="text-sm text-gray-700 leading-relaxed">
             {p}
           </p>
         ))}
@@ -372,43 +373,111 @@ function Ambiente({ ficha }: { ficha: Ficha }) {
   )
 }
 
+function AplicaBadge({ aplica }: { aplica: boolean | null }) {
+  if (aplica === true) {
+    return (
+      <Badge className="gap-1 border border-green-200 bg-green-100 text-green-800 hover:bg-green-100">
+        <CheckCircle className="h-3 w-3" /> Aplica
+      </Badge>
+    )
+  }
+  if (aplica === false) {
+    return (
+      <Badge className="gap-1 border border-red-200 bg-red-100 text-red-800 hover:bg-red-100">
+        <XCircle className="h-3 w-3" /> No aplica
+      </Badge>
+    )
+  }
+  return (
+    <Badge className="border border-gray-200 bg-gray-100 text-gray-600 hover:bg-gray-100">Sin dato</Badge>
+  )
+}
+
 function Normatividad({ ficha }: { ficha: Ficha }) {
+  const [abiertos, setAbiertos] = useState<Set<number>>(new Set())
   if (!ficha.normatividad?.length) return null
+
+  const toggle = (i: number) =>
+    setAbiertos((prev) => {
+      const next = new Set(prev)
+      if (next.has(i)) next.delete(i)
+      else next.add(i)
+      return next
+    })
+
   return (
     <Card className="border-teal-200">
       <CardHeader className="pb-3">
         <SectionTitle icon={Shield}>Normatividad e instrumentos de manejo</SectionTitle>
       </CardHeader>
       <CardContent>
-        <div className="overflow-x-auto rounded-lg border border-gray-200">
-          <table className="w-full border-collapse text-sm">
-            <thead>
-              <tr className="bg-teal-50 text-left">
-                <th className="px-4 py-3 font-bold text-gray-700 border-b border-gray-200">Instrumento de manejo</th>
-                <th className="px-3 py-3 font-bold text-gray-700 border-b border-gray-200 text-center">Aplica</th>
-                <th className="px-4 py-3 font-bold text-gray-700 border-b border-gray-200">Disposición</th>
-                <th className="px-4 py-3 font-bold text-gray-700 border-b border-gray-200">Sustento</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {ficha.normatividad.map((row, i) => (
-                <tr key={i} className="hover:bg-teal-50/40 align-top">
-                  <td className="px-4 py-3 font-semibold text-gray-800">{row.instrumento}</td>
-                  <td className="px-3 py-3 text-center">
-                    {row.aplica === true ? (
-                      <span className="text-green-700 font-bold">✓ Sí</span>
-                    ) : row.aplica === false ? (
-                      <span className="text-red-600 font-bold">✗ No</span>
-                    ) : (
-                      <span className="text-gray-400">—</span>
+        <div className="divide-y divide-gray-200 overflow-hidden rounded-lg border border-gray-200">
+          {ficha.normatividad.map((row, i) => {
+            // Solo son expandibles las filas con disposición o sustento
+            const tieneContenido = Boolean(row.disposicion || row.sustento)
+            const abierto = abiertos.has(i)
+            return (
+              <div key={i}>
+                <button
+                  type="button"
+                  onClick={() => tieneContenido && toggle(i)}
+                  disabled={!tieneContenido}
+                  aria-expanded={tieneContenido ? abierto : undefined}
+                  className={cn(
+                    "flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors",
+                    tieneContenido ? "cursor-pointer hover:bg-teal-50/60" : "cursor-default",
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "flex-1 font-semibold",
+                      tieneContenido ? "text-gray-800" : "text-gray-500",
                     )}
-                  </td>
-                  <td className="px-4 py-3 text-gray-700 leading-relaxed">{row.disposicion}</td>
-                  <td className="px-4 py-3 text-gray-700 leading-relaxed">{row.sustento}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  >
+                    {row.instrumento}
+                  </span>
+                  <AplicaBadge aplica={row.aplica} />
+                  {tieneContenido && (
+                    <ChevronRight
+                      className={cn(
+                        "h-4 w-4 shrink-0 text-gray-400 transition-transform duration-200",
+                        abierto && "rotate-90",
+                      )}
+                      aria-hidden="true"
+                    />
+                  )}
+                </button>
+
+                {tieneContenido && (
+                  <div
+                    className="grid transition-[grid-template-rows] duration-200 ease-in-out"
+                    style={{ gridTemplateRows: abierto ? "1fr" : "0fr" }}
+                  >
+                    <div className="overflow-hidden">
+                      <div className="space-y-3 px-4 pb-4 pt-1 text-sm">
+                        {row.disposicion && (
+                          <div>
+                            <p className="mb-1 text-xs font-bold uppercase tracking-wide text-gray-500">
+                              Disposición
+                            </p>
+                            <p className="leading-relaxed text-gray-700">{row.disposicion}</p>
+                          </div>
+                        )}
+                        {row.sustento && (
+                          <div>
+                            <p className="mb-1 text-xs font-bold uppercase tracking-wide text-gray-500">
+                              Sustento
+                            </p>
+                            <p className="leading-relaxed text-gray-700">{row.sustento}</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )
+          })}
         </div>
       </CardContent>
     </Card>
@@ -448,7 +517,7 @@ function StatusSeccion({ ficha }: { ficha: Ficha }) {
           <div>
             <h3 className="text-base font-bold text-teal-800 border-b border-teal-200 pb-1.5 mb-2">Estrategia</h3>
             <div className="bg-green-50 rounded-lg p-3 border border-green-200">
-              <p className="text-gray-800">{s.estrategia}</p>
+              <p className="text-sm text-gray-800">{s.estrategia}</p>
             </div>
           </div>
         )}
@@ -459,7 +528,7 @@ function StatusSeccion({ ficha }: { ficha: Ficha }) {
             <div className="bg-blue-50 rounded-lg p-3 border border-blue-200">
               <ul className="space-y-1.5">
                 {s.tacticas.map((t, i) => (
-                  <li key={i} className="flex items-start text-gray-800">
+                  <li key={i} className="flex items-start text-sm text-gray-800">
                     <span className="text-blue-600 mr-2">•</span>
                     <span>{t}</span>
                   </li>
@@ -481,24 +550,45 @@ function Recomendaciones({ ficha }: { ficha: Ficha }) {
         <SectionTitle icon={FileText}>Recomendaciones de manejo</SectionTitle>
       </CardHeader>
       <CardContent>
-        <div className="overflow-x-auto rounded-lg border border-gray-200">
-          <table className="w-full border-collapse text-sm">
-            <thead>
-              <tr className="bg-teal-50 text-left">
-                <th className="px-4 py-3 font-bold text-gray-700 border-b border-gray-200">Recomendación</th>
-                <th className="px-4 py-3 font-bold text-gray-700 border-b border-gray-200">Implementado / Avance</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {ficha.recomendaciones.map((row, i) => (
-                <tr key={i} className="hover:bg-teal-50/40 align-top">
-                  <td className="px-4 py-3 text-gray-800 font-medium">{row.recomendacion}</td>
-                  <td className="px-4 py-3 text-gray-700 leading-relaxed">{row.avance}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <ol className="divide-y divide-gray-200 overflow-hidden rounded-lg border border-gray-200">
+          {ficha.recomendaciones.map((row, i) => {
+            // "Sin información de avance" (o vacío) se marca como sin avance; el resto, con avance
+            const conAvance =
+              Boolean(row.avance.trim()) && !/sin (informaci[oó]n de )?avance/i.test(row.avance)
+            return (
+              <li key={i} className="flex gap-4 px-4 py-4 transition-colors hover:bg-teal-50/40">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-teal-100 text-sm font-bold tabular-nums text-teal-700">
+                  {i + 1}
+                </span>
+                <div className="min-w-0 flex-1 space-y-1.5">
+                  <p className="font-medium leading-snug text-gray-800">{row.recomendacion}</p>
+                  {row.avance && (
+                    <div className="flex flex-wrap items-center gap-2 text-sm text-gray-600">
+                      <span
+                        className={cn(
+                          "inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-xs font-semibold",
+                          conAvance
+                            ? "border-teal-200 bg-teal-50 text-teal-700"
+                            : "border-gray-200 bg-gray-100 text-gray-500",
+                        )}
+                      >
+                        <span
+                          className={cn(
+                            "h-1.5 w-1.5 rounded-full",
+                            conAvance ? "bg-teal-500" : "bg-gray-400",
+                          )}
+                          aria-hidden="true"
+                        />
+                        {conAvance ? "Con avance" : "Sin avance"}
+                      </span>
+                      <span className="leading-relaxed">{row.avance}</span>
+                    </div>
+                  )}
+                </div>
+              </li>
+            )
+          })}
+        </ol>
       </CardContent>
     </Card>
   )

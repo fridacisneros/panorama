@@ -90,7 +90,7 @@ export function EspeciesCarrusel() {
             key={especie.id}
             className="pl-3 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6"
           >
-            <Link href={`/especies/${especie.id}`} className="group block">
+            <Link href={`/especies?id=${especie.id}`} className="group block">
               <Card className="overflow-hidden border-teal-200 bg-white/90 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-teal-300 hover:shadow-lg">
                 <div className="aspect-square w-full overflow-hidden">
                   <EspecieImagen especie={especie} />

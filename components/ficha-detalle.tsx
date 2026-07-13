@@ -18,6 +18,7 @@ import {
   AlertTriangle,
   ChevronRight,
   Info,
+  CalendarClock,
 } from "lucide-react"
 import {
   XAxis,
@@ -108,9 +109,11 @@ export function FichaDetalle({ especie }: { especie: Especie }) {
               <MapPin className="w-4 h-4 text-teal-600" />
               {especie.region}
             </span>
-            {especie.captura && (
-              <span>
-                Captura: <span className="font-semibold text-gray-900 tabular-nums">{especie.captura}</span>
+            {especie.ultimaActualizacion && (
+              <span className="flex items-center gap-1">
+                <CalendarClock className="w-4 h-4 text-teal-600" />
+                Última actualización CNP:{" "}
+                <span className="font-semibold text-gray-900 tabular-nums">{especie.ultimaActualizacion}</span>
               </span>
             )}
           </div>

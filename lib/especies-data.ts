@@ -110,6 +110,7 @@ export const especies: Especie[] = [
     region: "Golfo de México y Mar Caribe",
     captura: "4,921 toneladas",
     descripcion: "Especie de bagre marino de alto valor comercial en el Golfo de México",
+    ultimaActualizacion: 2025,
   },
   {
     id: "mero-negrillo",
@@ -121,6 +122,7 @@ export const especies: Especie[] = [
     region: "Golfo de México y Mar Caribe",
     captura: "3,700 toneladas",
     descripcion: "Especies de mero de lento crecimiento y alto valor comercial",
+    ultimaActualizacion: 2025,
   },
   {
     id: "pepino-mar",
@@ -132,6 +134,7 @@ export const especies: Especie[] = [
     region: "Golfo de México y Mar Caribe",
     captura: "1,458 toneladas",
     descripcion: "Equinodermo de alto valor comercial en mercados asiáticos",
+    ultimaActualizacion: 2025,
   },
   {
     id: "pez-espada",
@@ -143,6 +146,7 @@ export const especies: Especie[] = [
     region: "Golfo de México y Mar Caribe",
     captura: "31 toneladas",
     descripcion: "Especie altamente migratoria con gran potencial de desarrollo",
+    ultimaActualizacion: 2025,
   },
   {
     id: "camaron-cafe",
@@ -154,6 +158,7 @@ export const especies: Especie[] = [
     region: "Golfo de México y Mar Caribe",
     captura: "11,071 toneladas",
     descripcion: "Una de las especies de camarón más importantes comercialmente",
+    ultimaActualizacion: 2025,
   },
   {
     id: "camaron-rojo-roca",
@@ -165,6 +170,7 @@ export const especies: Especie[] = [
     region: "Golfo de México y Mar Caribe",
     captura: "336 toneladas",
     descripcion: "Camarón de aguas profundas de alto valor comercial",
+    ultimaActualizacion: 2025,
   },
   {
     id: "caracoles",
@@ -176,6 +182,7 @@ export const especies: Especie[] = [
     region: "Golfo de México y Mar Caribe",
     captura: "14,062 toneladas",
     descripcion: "Molusco de lento crecimiento altamente valorado",
+    ultimaActualizacion: 2025,
   },
   {
     id: "langostinos",
@@ -187,6 +194,7 @@ export const especies: Especie[] = [
     region: "Golfo de México y Mar Caribe",
     captura: "2,061 toneladas",
     descripcion: "Crustáceo de acuacultura con gran potencial de crecimiento",
+    ultimaActualizacion: 2025,
   },
   {
     id: "pulpo",
@@ -198,6 +206,7 @@ export const especies: Especie[] = [
     region: "Golfo de México y Mar Caribe",
     captura: "37,000 toneladas",
     descripcion: "Especie endémica de alto valor comercial y cultural",
+    ultimaActualizacion: 2025,
   },
   {
     id: "robalo-chucumite",
@@ -209,6 +218,7 @@ export const especies: Especie[] = [
     region: "Golfo de México y Mar Caribe",
     captura: "7,956 toneladas",
     descripcion: "Peces eurihalinos de importancia comercial y deportiva",
+    ultimaActualizacion: 2025,
   },
   {
     id: "almejas",
@@ -220,6 +230,7 @@ export const especies: Especie[] = [
     region: "Golfo de México y Mar Caribe",
     captura: "30,211 toneladas",
     descripcion: "Moluscos bivalvos de importancia comercial en sistemas lagunares y estuarinos",
+    ultimaActualizacion: 2023,
   },
   // -------------------------------------------------------------------------
   // Pesquerías marinas del catálogo de la Carta Nacional Pesquera sin ficha

@@ -17,7 +17,7 @@ export default function VedasPage() {
         <PageHeader
           icon={Calendar}
           title="Calendario de Vedas"
-          subtitle="Consulta los períodos de veda por especie y región para una pesca responsable"
+          subtitle="Consulta los períodos de veda por especie y región"
         />
 
         <VedasFilters vedas={vedasData} onFilter={setFilteredVedas} />

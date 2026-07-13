@@ -15,6 +15,20 @@ export interface PuntoCaptura {
   valor: number
 }
 
+// Serie de captura de un estado a lo largo de los años (puntos posiblemente
+// dispersos: la CNP suele citar sólo años clave). Se usa para gráficas
+// multi-estado, como la de bagres marinos.
+export interface SerieCapturaEstado {
+  estado: string
+  color?: string
+  datos: { año: number; captura: number }[]
+}
+
+export interface GraficaCapturaEstados {
+  titulo: string
+  series: SerieCapturaEstado[]
+}
+
 export interface ParticipacionEstado {
   estado: string
   porcentaje: number
@@ -54,6 +68,7 @@ export interface FichaPesqueria {
     empleos?: string
     embarcaciones?: string
     capturaHistorica?: PuntoCaptura[]
+    capturaPorEstado?: GraficaCapturaEstados[]
     participacionEstados?: ParticipacionEstado[]
   }
   ambiente?: string[]
@@ -696,27 +711,62 @@ fichas["bagre-bandera"] = {
     ],
   },
   indicadores: {
-    capturaAnual: "2,450",
-    valorProduccion: "$280",
-    empleos: "3,800",
-    embarcaciones: "1,200",
-    capturaHistorica: [
-      { año: 2000, captura: 2100, valor: 180 },
-      { año: 2002, captura: 2200, valor: 190 },
-      { año: 2004, captura: 2250, valor: 200 },
-      { año: 2006, captura: 2300, valor: 210 },
-      { año: 2008, captura: 2350, valor: 220 },
-      { año: 2010, captura: 2380, valor: 230 },
-      { año: 2012, captura: 2400, valor: 240 },
-      { año: 2014, captura: 2420, valor: 250 },
-      { año: 2016, captura: 2430, valor: 260 },
-      { año: 2018, captura: 2440, valor: 270 },
-      { año: 2020, captura: 2450, valor: 280 },
+    // Promedio regional de bagre bandera 2016-2020 (suma de promedios estatales, CNP 2025).
+    capturaAnual: "5,631",
+    // Capturas históricas por estado (CNP 2025). La Carta Nacional cita sólo años
+    // clave, por lo que las series son de puntos dispersos.
+    capturaPorEstado: [
+      {
+        titulo: "Bagre bandera (Bagre marinus) — captura por estado",
+        series: [
+          {
+            estado: "Tabasco",
+            color: "#0d9488",
+            datos: [
+              { año: 2009, captura: 1631 }, // mínimo del periodo decreciente
+              { año: 2017, captura: 4921 }, // máximo histórico
+            ],
+          },
+          {
+            estado: "Campeche",
+            color: "#0891b2",
+            datos: [
+              { año: 1994, captura: 600 }, // estabilidad relativa 1990-1998 (aprox.)
+              { año: 2001, captura: 1956 }, // máximo histórico
+              { año: 2013, captura: 1311 }, // fin de la tendencia a la baja
+            ],
+          },
+          {
+            estado: "Veracruz",
+            color: "#f59e0b",
+            datos: [
+              { año: 1998, captura: 1089 }, // máximo histórico
+            ],
+          },
+        ],
+      },
+      {
+        titulo: "Curuco (Ariopsis felis) — captura en Veracruz",
+        series: [
+          {
+            estado: "Veracruz",
+            color: "#8b5cf6",
+            datos: [
+              { año: 1996, captura: 1000 }, // periodo de mayor producción 1993-1999 (aprox.)
+              { año: 2013, captura: 228 }, // mínimo
+              { año: 2020, captura: 166 }, // último valor
+            ],
+          },
+        ],
+      },
     ],
+    // Participación de bagre bandera por estado, promedio 2016-2020 (CNP 2025).
     participacionEstados: [
-      { estado: "Campeche", porcentaje: 45.0, captura: 1103 },
-      { estado: "Tabasco", porcentaje: 30.0, captura: 735 },
-      { estado: "Veracruz", porcentaje: 25.0, captura: 613 },
+      { estado: "Tabasco", porcentaje: 54.8, captura: 3083 },
+      { estado: "Campeche", porcentaje: 29.5, captura: 1663 },
+      { estado: "Yucatán", porcentaje: 7.6, captura: 430 },
+      { estado: "Veracruz", porcentaje: 6.3, captura: 356 },
+      { estado: "Tamaulipas", porcentaje: 1.8, captura: 99 },
     ],
   },
   ambiente: [

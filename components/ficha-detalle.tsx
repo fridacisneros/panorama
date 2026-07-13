@@ -32,7 +32,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
-import type { Especie } from "@/lib/especies-data"
+import type { Especie, GraficaCapturaEstados } from "@/lib/especies-data"
 
 const toArray = <T,>(value: T | T[]): T[] => (Array.isArray(value) ? value : [value])
 
@@ -291,6 +291,57 @@ function Kpi({ label, value, unit, icon: Icon }: { label: string; value: string;
   )
 }
 
+// Paleta de reserva para series de estado sin color explícito.
+const COLORES_SERIE = ["#0d9488", "#0891b2", "#f59e0b", "#8b5cf6", "#ec4899", "#65a30d"]
+
+function GraficaEstados({ grafica }: { grafica: GraficaCapturaEstados }) {
+  // Combina las series (posiblemente con años distintos) en filas por año.
+  const años = Array.from(new Set(grafica.series.flatMap((s) => s.datos.map((d) => d.año)))).sort((a, b) => a - b)
+  const data = años.map((año) => {
+    const fila: Record<string, number> = { año }
+    for (const s of grafica.series) {
+      const punto = s.datos.find((d) => d.año === año)
+      if (punto) fila[s.estado] = punto.captura
+    }
+    return fila
+  })
+  return (
+    <Card className="border-teal-200">
+      <CardHeader className="pb-3">
+        <CardTitle className="text-teal-700 text-base">{grafica.titulo}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="h-72">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={data}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="año" tick={{ fontSize: 12 }} />
+              <YAxis tick={{ fontSize: 12 }} label={{ value: "Toneladas", angle: -90, position: "insideLeft" }} />
+              <Tooltip
+                formatter={(value: number, name: string) => [`${value.toLocaleString()} ton`, name]}
+                labelFormatter={(label) => `Año: ${label}`}
+              />
+              {grafica.series.length > 1 && <Legend />}
+              {grafica.series.map((s, i) => (
+                <Line
+                  key={s.estado}
+                  type="monotone"
+                  dataKey={s.estado}
+                  stroke={s.color ?? COLORES_SERIE[i % COLORES_SERIE.length]}
+                  strokeWidth={2}
+                  name={s.estado}
+                  connectNulls
+                  dot={{ r: 3 }}
+                />
+              ))}
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
 function Indicadores({ ficha }: { ficha: Ficha }) {
   const ind = ficha.indicadores
   if (!ind) return null
@@ -303,6 +354,8 @@ function Indicadores({ ficha }: { ficha: Ficha }) {
         {ind.empleos && <Kpi label="Empleos directos" value={ind.empleos} unit="pescadores" icon={Users} />}
         {ind.embarcaciones && <Kpi label="Embarcaciones" value={ind.embarcaciones} unit="activas" icon={Anchor} />}
       </div>
+
+      {ind.capturaPorEstado?.map((grafica, i) => <GraficaEstados key={i} grafica={grafica} />)}
 
       {hist.length > 0 && (
         <Card className="border-teal-200">

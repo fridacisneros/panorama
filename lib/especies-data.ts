@@ -67,6 +67,8 @@ export interface FichaPesqueria {
     valorProduccion?: string
     empleos?: string
     embarcaciones?: string
+    // Oraciones sueltas de la CNP que se muestran como recuadros de "datos importantes".
+    datosDestacados?: string[]
     capturaHistorica?: PuntoCaptura[]
     capturaPorEstado?: GraficaCapturaEstados[]
     participacionEstados?: ParticipacionEstado[]
@@ -245,14 +247,58 @@ export const especies: Especie[] = [
   { id: "gm-cangrejo-marino", nombre: "Cangrejo marino", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2006 },
   { id: "gm-sardina", nombre: "Sardina", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2006 },
   { id: "gm-trucha-de-mar", nombre: "Trucha de mar", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2006 },
-  { id: "pac-abulon", nombre: "Abulón", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  {
+    id: "pac-abulon",
+    nombre: "Abulón",
+    nombreCientifico: "Haliotis fulgens, Haliotis corrugata",
+    status: "En deterioro",
+    statusColor: "red",
+    zona: "Litoral del Pacífico",
+    region: "Litoral del Pacífico",
+    captura: "128 toneladas",
+    descripcion: "Gasterópodos de la familia Haliotidae de zonas rocosas y mantos de algas, de gran importancia comercial en la costa occidental de Baja California",
+    ultimaActualizacion: 2023,
+  },
   { id: "pac-almeja-blanca-o-mantequilla", nombre: "Almeja blanca o mantequilla", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
-  { id: "pac-almeja-catarina", nombre: "Almeja catarina", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  {
+    id: "pac-almeja-catarina",
+    nombre: "Almeja catarina",
+    nombreCientifico: "Argopecten ventricosus",
+    status: ["Aprovechado al máximo sustentable", "En deterioro", "Indeterminado"],
+    statusColor: ["yellow", "red", "gray"],
+    zona: "Litoral del Pacífico",
+    region: "Litoral del Pacífico",
+    captura: "1,200 toneladas",
+    descripcion: "Molusco bivalvo (pectínido) de fondos arenosos y fangosos del noroeste de México, capturado por buceo",
+    ultimaActualizacion: 2023,
+  },
   { id: "pac-almeja-chocolata", nombre: "Almeja chocolata", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
   { id: "pac-almeja-concha-espina", nombre: "Almeja concha espina", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
-  { id: "pac-almeja-generosa", nombre: "Almeja generosa", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  {
+    id: "pac-almeja-generosa",
+    nombre: "Almeja generosa",
+    nombreCientifico: "Panopea generosa, Panopea globosa",
+    status: ["Aprovechado al máximo sustentable", "Indeterminado"],
+    statusColor: ["yellow", "gray"],
+    zona: "Litoral del Pacífico",
+    region: "Litoral del Pacífico",
+    captura: "2,350 toneladas",
+    descripcion: "Almeja de sifón del género Panopea de sustratos blandos, capturada por buceo con remoción hidráulica del sustrato en el noroeste de México",
+    ultimaActualizacion: 2023,
+  },
   { id: "pac-almeja-pata-de-mula", nombre: "Almeja pata de mula", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
-  { id: "pac-almeja-ronosa", nombre: "Almeja roñosa", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  {
+    id: "pac-almeja-ronosa",
+    nombre: "Almeja roñosa",
+    nombreCientifico: "Chione californiensis, Chione undatella, Chionista fluctifraga, Chionopsis gnidia",
+    status: ["Aprovechado al máximo sustentable", "Indeterminado"],
+    statusColor: ["yellow", "gray"],
+    zona: "Litoral del Pacífico",
+    region: "Litoral del Pacífico",
+    captura: "600 toneladas",
+    descripcion: "Almejas del género Chione de sustratos arenosos y fangosos del noroeste de México, capturadas por buceo",
+    ultimaActualizacion: 2023,
+  },
   { id: "pac-botete", nombre: "Botete", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
   { id: "pac-callo-de-hacha", nombre: "Callo de hacha", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
   { id: "pac-caracol-chino", nombre: "Caracol chino", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
@@ -260,21 +306,64 @@ export const especies: Especie[] = [
   { id: "pac-cucaracha-de-mar", nombre: "Cucaracha de mar", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
   { id: "pac-curvina-golfina", nombre: "Curvina golfina", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
   { id: "pac-dorado-pesca-deportiva", nombre: "Dorado (Pesca deportiva)", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
-  { id: "pac-erizo-de-mar", nombre: "Erizo de mar", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  {
+    id: "pac-erizo-de-mar",
+    nombre: "Erizo de mar",
+    nombreCientifico: "Strongylocentrotus franciscanus, Strongylocentrotus purpuratus",
+    status: ["En deterioro", "Con potencial de desarrollo", "Indeterminado"],
+    statusColor: ["red", "green", "gray"],
+    zona: "Litoral del Pacífico",
+    region: "Litoral del Pacífico",
+    captura: "1,400 toneladas",
+    descripcion: "Erizos rojo y morado de sustratos rocosos y mantos de macroalgas en la costa occidental de Baja California",
+    ultimaActualizacion: 2023,
+  },
   { id: "pac-huachinango-y-pargos-del-pacifico", nombre: "Huachinango y pargos del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
-  { id: "pac-jaiba-del-pacifico", nombre: "Jaiba del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  {
+    id: "pac-jaiba-del-pacifico",
+    nombre: "Jaiba del Pacífico",
+    nombreCientifico: "Callinectes bellicosus, Callinectes arcuatus, Callinectes toxotes",
+    status: ["Aprovechado al máximo sustentable", "Indeterminado"],
+    statusColor: ["yellow", "gray"],
+    zona: "Litoral del Pacífico",
+    region: "Litoral del Pacífico",
+    descripcion: "Jaibas del género Callinectes capturadas con trampas y aros en lagunas costeras y el litoral del Pacífico, incluido el Golfo de California",
+    ultimaActualizacion: 2023,
+  },
   { id: "pac-langostas-espinosas-del-pacifico", nombre: "Langostas espinosas del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
   { id: "pac-langostino", nombre: "Langostino", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
   { id: "pac-lisa-del-pacifico", nombre: "Lisa del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
   { id: "pac-medusa-bola-de-canon", nombre: "Medusa bola de cañón", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
   { id: "pac-mejillon", nombre: "Mejillón", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
   { id: "pac-ostion-del-pacifico", nombre: "Ostión del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
-  { id: "pac-pepino-de-mar-del-pacifico", nombre: "Pepino de mar del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  {
+    id: "pac-pepino-de-mar-del-pacifico",
+    nombre: "Pepino de mar del Pacífico",
+    nombreCientifico: "Apostichopus parvimensis (sin. Parastichopus parvimensis)",
+    status: ["En deterioro", "Indeterminado"],
+    statusColor: ["red", "gray"],
+    zona: "Litoral del Pacífico",
+    region: "Litoral del Pacífico",
+    captura: "135 toneladas",
+    descripcion: "Equinodermo holoturoideo de la costa occidental de Baja California; pesquería alterna al erizo rojo",
+    ultimaActualizacion: 2023,
+  },
   { id: "pac-pulpo-del-pacifico", nombre: "Pulpo del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
   { id: "pac-robalo-del-pacifico", nombre: "Robalo del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
   { id: "pac-sierra-del-pacifico", nombre: "Sierra del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
   { id: "pac-tiburones-del-pacifico", nombre: "Tiburones del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
-  { id: "pac-tunidos-del-pacifico", nombre: "Túnidos del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  {
+    id: "pac-tunidos-del-pacifico",
+    nombre: "Túnidos del Pacífico",
+    nombreCientifico: "Thunnus albacares, Thunnus orientalis",
+    status: ["Aprovechado al máximo sustentable", "En deterioro (fase de recuperación)"],
+    statusColor: ["yellow", "red"],
+    zona: "Litoral del Pacífico",
+    region: "Litoral del Pacífico",
+    captura: "116,500 toneladas",
+    descripcion: "Peces pelágicos altamente migratorios capturados con red de cerco y vara en el Pacífico Oriental",
+    ultimaActualizacion: 2023,
+  },
   { id: "pac-verdillo", nombre: "Verdillo", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
   { id: "pac-calamar-gigante", nombre: "Calamar gigante", region: "Litoral del Pacífico", ultimaActualizacion: 2022 },
   { id: "pac-marlin-pesca-deportiva", nombre: "Marlin (pesca deportiva)", region: "Litoral del Pacífico", ultimaActualizacion: 2022 },
@@ -312,6 +401,1814 @@ export const especies: Especie[] = [
 // ---------------------------------------------------------------------------
 
 const fichas: Record<string, FichaPesqueria> = {
+  "pac-almeja-ronosa": {
+    generalidades: {
+      descripcion: [
+        "Las almejas roñosas poseen una concha caracterizada por una ornamentación de costillas que forman laminillas concéntricas delgadas. Presentan una forma moderadamente comprimida, con tonos blancos, amarillos y cremosos. Al igual que otros bivalvos, se alimentan principalmente de fitoplancton por medio de filtración. En adultos, las tallas oscilan entre 4 y 7 centímetros de longitud de concha.",
+        "La distribución varía dependiendo de la especie, pero de manera general se encuentran en la costa occidental de la península de Baja California y en sistemas lagunares dentro del Golfo de California. Habitan en sustratos de arena fina, limos y fango, desde la zona intermareal hasta los 90 metros de profundidad. En México, la captura de almeja roñosa se lleva a cabo en la zona noroeste del país: Baja California, Baja California Sur, Sonora y Sinaloa.",
+      ],
+      embarcaciones:
+        "En la operación de pesca se utilizan embarcaciones menores de fibra de vidrio con motor fuera de borda y un equipo de buceo semiautónomo con compresor tipo «Hooka». En cada embarcación participan hasta tres pescadores (buzo, cabo de vida y motorista). La extracción se realiza de manera manual empleando un gancho y una bolsa de malla denominada «jaba» para la colecta de los organismos. La captura se realiza hasta los 10 metros de profundidad.",
+      especiesObjetivo: [
+        { nombre: "Almeja roñosa, arrocera o chirla", cientifico: "Chione californiensis" },
+        { nombre: "Almeja roñosa", cientifico: "Chione undatella" },
+        { nombre: "Almeja roñosa o negra", cientifico: "Chionista fluctifraga" },
+        { nombre: "Almeja roñosa o china", cientifico: "Chionopsis gnidia" },
+      ],
+    },
+    indicadores: {
+      datosDestacados: [
+        "Sinaloa concentra el 60.8% de la captura, Baja California Sur el 32.7%, Baja California el 5.7% y Sonora el 0.8%.",
+      ],
+      // Tendencia de la captura de almeja roñosa en BC, BCS, Sonora y Sinaloa, 2000-2020 (Fuente: CONAPESCA).
+      capturaPorEstado: [
+        {
+          titulo: "Captura de almeja roñosa por estado, 2000–2020 (CONAPESCA)",
+          series: [
+            {
+              estado: "Sinaloa",
+              color: "#8b5cf6",
+              datos: [
+                { año: 2000, captura: 60 },
+                { año: 2001, captura: 50 },
+                { año: 2002, captura: 90 },
+                { año: 2003, captura: 395 },
+                { año: 2004, captura: 520 },
+                { año: 2005, captura: 580 },
+                { año: 2006, captura: 585 },
+                { año: 2007, captura: 950 },
+                { año: 2008, captura: 1180 },
+                { año: 2009, captura: 1520 },
+                { año: 2010, captura: 1290 },
+                { año: 2011, captura: 800 },
+                { año: 2012, captura: 835 },
+                { año: 2013, captura: 880 },
+                { año: 2014, captura: 620 },
+                { año: 2015, captura: 800 },
+                { año: 2016, captura: 1020 },
+                { año: 2017, captura: 1585 },
+                { año: 2018, captura: 1260 },
+                { año: 2019, captura: 1185 },
+                { año: 2020, captura: 270 },
+              ],
+            },
+            {
+              estado: "Baja California Sur",
+              color: "#0891b2",
+              datos: [
+                { año: 2004, captura: 35 },
+                { año: 2009, captura: 125 },
+                { año: 2010, captura: 245 },
+                { año: 2011, captura: 640 },
+                { año: 2012, captura: 520 },
+                { año: 2013, captura: 560 },
+                { año: 2015, captura: 670 },
+                { año: 2016, captura: 665 },
+                { año: 2017, captura: 475 },
+                { año: 2018, captura: 520 },
+                { año: 2019, captura: 385 },
+                { año: 2020, captura: 150 },
+              ],
+            },
+            {
+              estado: "Baja California",
+              color: "#0d9488",
+              datos: [
+                { año: 2000, captura: 440 },
+                { año: 2001, captura: 330 },
+                { año: 2002, captura: 90 },
+                { año: 2003, captura: 200 },
+                { año: 2004, captura: 220 },
+                { año: 2005, captura: 200 },
+                { año: 2006, captura: 280 },
+                { año: 2007, captura: 95 },
+                { año: 2013, captura: 140 },
+                { año: 2014, captura: 185 },
+                { año: 2015, captura: 140 },
+                { año: 2016, captura: 250 },
+                { año: 2017, captura: 245 },
+                { año: 2018, captura: 115 },
+                { año: 2019, captura: 155 },
+                { año: 2020, captura: 150 },
+              ],
+            },
+            {
+              estado: "Sonora",
+              color: "#f59e0b",
+              datos: [
+                { año: 2015, captura: 30 },
+                { año: 2016, captura: 30 },
+                { año: 2017, captura: 35 },
+                { año: 2019, captura: 70 },
+                { año: 2020, captura: 30 },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    ambiente: [
+      "La temperatura y la disponibilidad de alimento son los principales factores que controlan diversos procesos biológicos en las especies de almeja roñosa. En la almeja roñosa (Chione californiensis) se ha reportado un crecimiento estacional que se interrumpe en invierno; además, el incremento de la temperatura del mar por efecto de «El Niño» favorece los desoves, mientras que la disminución de la temperatura provocada por «La Niña» reduce la intensidad del desove. El desarrollo de los gametos se presenta cuando hay mayores concentraciones de clorofila a. En la almeja roñosa (Chionista fluctifraga) se ha observado un periodo de desove continuo, con desoves más intensos durante los meses más cálidos (> 28 °C); la actividad reproductiva en invierno se ha asociado a la acumulación de nutrientes a partir del aumento de la biomasa de fitoplancton.",
+    ],
+    normatividad: [
+      { instrumento: "1. Norma Oficial Mexicana", aplica: false, disposicion: "", sustento: "" },
+      { instrumento: "2. Plan de Manejo Pesquero", aplica: false, disposicion: "", sustento: "" },
+      {
+        instrumento: "3. Tipo de acceso",
+        aplica: true,
+        disposicion: "Permiso para pesca comercial de almeja roñosa.",
+        sustento: "Opinión técnica del INAPESCA. Artículo 36, Fracción III de la LGPAS (DOF: 19/01/2023).",
+      },
+      {
+        instrumento: "4. Talla mínima",
+        aplica: true,
+        disposicion:
+          "Para Baja California, Baja California Sur, Sonora y Sinaloa: 45 mm de longitud de concha para Chione californiensis; 57 mm para Chione undatella; 35 mm para Chionista fluctifraga; 65 mm para Chionopsis gnidia.",
+        sustento: "Dictamen técnico del INAPESCA.",
+      },
+      {
+        instrumento: "5. Arte de pesca y método de captura",
+        aplica: true,
+        disposicion:
+          "Extracción manual con gancho y bolsa de malla llamada «jaba», y buceo semiautónomo tipo «Hooka» a bordo de embarcación menor.",
+        sustento: "Dictamen técnico del INAPESCA.",
+      },
+      { instrumento: "6. Veda", aplica: false, disposicion: "", sustento: "" },
+      {
+        instrumento: "7. Cuota",
+        aplica: true,
+        disposicion:
+          "Cuota de captura bienal (por recurso y zona), previa solicitud del usuario a través de la CONAPESCA. Tasa: hasta un 30% del tamaño de la población mayor a la talla mínima de captura, en función del estatus del recurso.",
+        sustento: "Dictamen técnico del INAPESCA.",
+      },
+      {
+        instrumento: "8. Unidad de pesca",
+        aplica: true,
+        disposicion:
+          "Embarcación menor con motor fuera de borda, equipada con compresor de aire y equipo de buceo semiautónomo tipo «Hooka», y hasta tres pescadores (buzo, cabo de vida y motorista).",
+        sustento: "Dictamen técnico del INAPESCA. Artículo 4, Fracción XVII de la LGPAS (DOF: 19/01/2023).",
+      },
+      {
+        instrumento: "9. Esfuerzo nominal autorizado",
+        aplica: true,
+        disposicion:
+          "Baja California: 1 embarcación. Baja California Sur: 5 embarcaciones. Sonora: 13 embarcaciones. Sinaloa: 19 embarcaciones.",
+        sustento:
+          "Registros de Permisos y Concesiones de Pesca Comercial autorizadas y registradas en el Sistema de Administración Pesquera en diciembre de 2021.",
+      },
+      {
+        instrumento: "10. Zona de pesca",
+        aplica: true,
+        disposicion:
+          "Aguas marinas de jurisdicción federal y sistemas lagunares de Baja California Sur, Baja California, Sonora y Sinaloa, definidas en los permisos de pesca comercial, respetando los lineamientos de los Programas de Manejo de las Áreas Naturales Protegidas y Zonas de Refugio Pesquero publicadas en el DOF.",
+        sustento:
+          "Permiso para pesca comercial. Decretos de declaración de Áreas Naturales Protegidas y Zonas de Refugio Pesquero.",
+      },
+    ],
+    status: {
+      cards: [
+        {
+          categoria: "Aprovechado al máximo sustentable",
+          color: "yellow",
+          especie: "Almeja roñosa (Chione spp.)",
+          zona: "San Felipe (Baja California)",
+        },
+        {
+          categoria: "Aprovechado al máximo sustentable",
+          color: "yellow",
+          especie: "Almeja roñosa (Chione spp.)",
+          zona: "Bahía Magdalena (Baja California Sur)",
+        },
+        {
+          categoria: "Aprovechado al máximo sustentable",
+          color: "yellow",
+          especie: "Almeja roñosa (Chione spp.)",
+          zona: "Sinaloa",
+        },
+        {
+          categoria: "Indeterminado",
+          color: "gray",
+          especie: "Almeja roñosa (Chione spp.)",
+          zona: "Resto de Baja California, Baja California Sur y Sonora",
+        },
+      ],
+      estrategia: "Tasa de aprovechamiento para mantener la población Aprovechada al Máximo Sustentable.",
+      tacticas: [
+        "Cuota de captura",
+        "Control del esfuerzo pesquero",
+        "Talla mínima de captura",
+        "Rotación de bancos",
+        "Veda reproductiva",
+        "Zona de refugio pesquero",
+      ],
+    },
+    recomendaciones: [
+      {
+        recomendacion:
+          "Con base en la LGPAS y en los instrumentos normativos aplicables, no incrementar el número de embarcaciones en los sistemas lagunares y zonas de pesca Aprovechadas al Máximo Sustentable en Baja California, Baja California Sur y Sinaloa.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "En zonas con estatus Indeterminado, el número de embarcaciones se definirá en función de la disponibilidad del recurso por zona, previa evaluación y opinión del INAPESCA, considerando criterios de rentabilidad y administración definidos por la autoridad pesquera.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "En solicitudes de permisos para pesca comercial en nuevas zonas con estatus Indeterminado, el INAPESCA —con apoyo de los solicitantes— realizará una prospección para ubicar los bancos y estimar una cuota preliminar; el dictamen técnico con la cuota total se emitirá tras la evaluación poblacional.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "En caso de que los estudios del INAPESCA determinen que alguna población se ubique como Deteriorada, el INAPESCA emitirá opinión técnica con las recomendaciones y estrategias para su recuperación.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion: "Establecer vedas temporales para proteger el periodo reproductivo en todas las zonas de pesca.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion: "Elaborar y publicar la Norma Oficial Mexicana para regular el aprovechamiento del recurso.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Instrumentar programas de ordenamiento y manejo por sistema lagunar y/o áreas definidas, conforme a la LGPAS y a los instrumentos normativos aplicables.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Implementar un programa de monitoreo y seguimiento de la pesquería mediante el llenado veraz y fidedigno de bitácoras de pesca.",
+        avance: "Sin información",
+      },
+    ],
+  },
+  "pac-almeja-generosa": {
+    generalidades: {
+      descripcion: [
+        "La almeja generosa en México se distribuye en la costa del Océano Pacífico, desde Playas de Tijuana hasta Bahía Magdalena, Baja California Sur, y en la costa del Golfo de California, desde el Alto Golfo de California hasta el sistema estuarino-lagunar Altata-Ensenada de Pabellón, en Sinaloa. Habita en sustratos blandos arenosos, arcillosos y areno-lodosos, desde la zona intermareal hasta los 110 metros de profundidad.",
+        "La captura de almeja generosa se lleva a cabo en la zona noroeste del país, principalmente en Baja California, Baja California Sur, Sonora y Sinaloa. En Baja California se captura en ambos litorales, con mayor registro en la región de San Felipe, en el Golfo de California. En Baja California Sur, la principal zona de captura comercial es Bahía Magdalena. En Sonora se captura de Bahía Lobos al Colorado y de Puerto Lobos a Bahía Adair.",
+      ],
+      embarcaciones:
+        "En la operación de pesca se utilizan embarcaciones menores de fibra de vidrio con motor fuera de borda, un equipo de buceo semiautónomo con compresor tipo «Hooka» y una motobomba para el envío de agua a presión que remueve el sustrato; la extracción es manual, empleando una bolsa de malla denominada «jaba» para la colecta de los organismos. En cada embarcación participan hasta tres pescadores (buzo, cabo de vida y motorista).",
+      especiesObjetivo: [
+        { nombre: "Almeja generosa, almeja de sifón o almeja chiluda", cientifico: "Panopea generosa" },
+        { nombre: "Almeja generosa, globosa, almeja de sifón o almeja chiluda", cientifico: "Panopea globosa" },
+      ],
+    },
+    indicadores: {
+      datosDestacados: [
+        "La pesquería de almeja generosa inició de manera formal en 2005.",
+        "La mayor captura se registra en Baja California (60%), seguida de Sonora (24%) y Baja California Sur (16%).",
+      ],
+      // Tendencia de la captura de almeja generosa en BC, BCS y Sonora, 2005-2020 (Fuente: CONAPESCA).
+      capturaPorEstado: [
+        {
+          titulo: "Captura de almeja generosa por estado, 2005–2020 (CONAPESCA)",
+          series: [
+            {
+              estado: "Sonora",
+              color: "#f59e0b",
+              datos: [
+                { año: 2009, captura: 100 },
+                { año: 2010, captura: 1000 },
+                { año: 2011, captura: 1300 },
+                { año: 2012, captura: 1400 },
+                { año: 2013, captura: 1650 },
+                { año: 2014, captura: 2100 },
+                { año: 2015, captura: 1050 },
+                { año: 2016, captura: 1080 },
+                { año: 2017, captura: 650 },
+                { año: 2018, captura: 1000 },
+                { año: 2019, captura: 1180 },
+                { año: 2020, captura: 1450 },
+              ],
+            },
+            {
+              estado: "Baja California",
+              color: "#0d9488",
+              datos: [
+                { año: 2005, captura: 250 },
+                { año: 2006, captura: 100 },
+                { año: 2007, captura: 50 },
+                { año: 2008, captura: 350 },
+                { año: 2009, captura: 100 },
+                { año: 2010, captura: 300 },
+                { año: 2011, captura: 150 },
+                { año: 2012, captura: 500 },
+                { año: 2013, captura: 850 },
+                { año: 2014, captura: 800 },
+                { año: 2015, captura: 600 },
+                { año: 2016, captura: 600 },
+                { año: 2017, captura: 250 },
+                { año: 2018, captura: 250 },
+                { año: 2019, captura: 400 },
+                { año: 2020, captura: 800 },
+              ],
+            },
+            {
+              estado: "Baja California Sur",
+              color: "#0891b2",
+              datos: [
+                { año: 2005, captura: 250 },
+                { año: 2006, captura: 100 },
+                { año: 2007, captura: 50 },
+                { año: 2008, captura: 350 },
+                { año: 2009, captura: 20 },
+                { año: 2010, captura: 350 },
+                { año: 2011, captura: 250 },
+                { año: 2012, captura: 220 },
+                { año: 2013, captura: 320 },
+                { año: 2014, captura: 520 },
+                { año: 2015, captura: 250 },
+                { año: 2016, captura: 300 },
+                { año: 2017, captura: 220 },
+                { año: 2018, captura: 250 },
+                { año: 2019, captura: 230 },
+                { año: 2020, captura: 100 },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    ambiente: [
+      "Las condiciones ambientales en las que se desarrolla el ciclo de vida de la almeja generosa del género Panopea indican que es un organismo que se adapta y reproduce en un rango de entre 22 y 26 °C; temperaturas de 18 y 30 °C afectan negativamente su crecimiento y desarrollo, y a 14-16 °C el desarrollo embrionario es más corto. En las costas del Pacífico noroeste se ha reportado que Panopea generosa alcanza la madurez sexual en tres años cuando los organismos se encuentran en sitios con alimento y temperatura óptima (12-14 °C). También se reporta que salinidades de 36 ups influyen negativamente en su crecimiento. Modelos de reconstrucción ambiental de Panopea generosa en la península de Baja California señalan que la variación en la temperatura superficial del mar se relaciona directamente con el crecimiento individual del organismo, provocando una disminución de sus atributos biológicos —estructura de tallas, edades y crecimiento—, lo que puede ser evidencia de condiciones de estrés ambiental resultado de la variabilidad ambiental (Oscilación Decadal del Pacífico, El Niño-Oscilación del Sur e Índice del Régimen Climático del Ártico) y de su distribución geográfica.",
+    ],
+    normatividad: [
+      {
+        instrumento: "1. Norma Oficial Mexicana",
+        aplica: true,
+        disposicion:
+          "NOM-014-SAG/PESC-2015, Especificaciones para regular el aprovechamiento de almeja generosa (Panopea generosa y Panopea globosa) en aguas de jurisdicción federal del litoral del Océano Pacífico y Golfo de California.",
+        sustento: "DOF: 25/06/2015.",
+      },
+      {
+        instrumento: "2. Plan de Manejo Pesquero",
+        aplica: true,
+        disposicion:
+          "Plan de Manejo para la Pesquería de Almeja Generosa (Panopea spp.) en las costas de Baja California. Plan de Manejo para la Pesquería de Almeja Generosa (Panopea globosa) en las costas de Sonora.",
+        sustento: "DOF: 23/03/2012 (Baja California) y 07/11/2012 (Sonora).",
+      },
+      {
+        instrumento: "3. Tipo de acceso",
+        aplica: true,
+        disposicion: "Permiso para pesca comercial de almeja generosa.",
+        sustento: "Opinión técnica del INAPESCA. Artículo 36, Fracción III de la LGPAS (DOF: 19/01/2023).",
+      },
+      {
+        instrumento: "4. Talla mínima",
+        aplica: true,
+        disposicion:
+          "Panopea globosa: 130 mm de longitud de concha en el Alto Golfo de California hasta Puertecitos (Baja California), Bahía Magdalena y Punta Eugenia (Baja California Sur) y Sonora; 115 mm en Bahía de Los Ángeles (Baja California). Panopea generosa: 100 mm de longitud de concha en la costa Pacífico de Santa Rosalillita (Baja California) hasta Punta Eugenia (Baja California Sur); 130 mm en el resto de la zona.",
+        sustento: "Dictamen técnico del INAPESCA.",
+      },
+      {
+        instrumento: "5. Arte de pesca y método de captura",
+        aplica: true,
+        disposicion:
+          "Buceo semiautónomo tipo «Hooka» con una motobomba para el envío de agua a presión (remoción del sustrato) y extracción manual empleando una bolsa de malla denominada «jaba» para la colecta de los organismos a bordo.",
+        sustento: "Numeral 4.3 de la NOM-014-SAG/PESC-2015 (DOF: 25/06/2015).",
+      },
+      {
+        instrumento: "6. Veda",
+        aplica: true,
+        disposicion: "Panopea globosa: veda temporal del 25 de enero al 30 de abril de cada año en Bahía Magdalena, Baja California Sur.",
+        sustento:
+          "Acuerdo por el que se establece veda temporal para el aprovechamiento de almeja generosa (Panopea globosa) en Bahía Magdalena, Baja California Sur (DOF: 16/04/2021).",
+      },
+      {
+        instrumento: "7. Cuota",
+        aplica: true,
+        disposicion: "Cuota de captura variable por zona, con base hasta el 1% del tamaño mayor a la talla mínima de captura.",
+        sustento: "Dictamen técnico del INAPESCA.",
+      },
+      {
+        instrumento: "8. Unidad de pesca",
+        aplica: true,
+        disposicion:
+          "Embarcación menor con un motor fuera de borda de potencia nominal de hasta 85.76 kilowatts (equivalentes a 115 caballos de fuerza), un compresor de aire para buceo semiautónomo («Hooka») y una motobomba para el envío de agua a presión que remueve el sustrato para la selección y extracción manual de organismos. En la extracción, hasta tres pescadores (buzo, cabo de vida y motorista) por embarcación.",
+        sustento: "Numeral 4.3 de la NOM-014-SAG/PESC-2015 (DOF: 25/06/2015). Artículo 4, Fracción XVII de la LGPAS (DOF: 19/01/2023).",
+      },
+      {
+        instrumento: "9. Esfuerzo nominal autorizado",
+        aplica: true,
+        disposicion: "Baja California: 229 embarcaciones. Baja California Sur: 169 embarcaciones. Sonora: 44 embarcaciones.",
+        sustento:
+          "Registros de Permisos y Concesiones de Pesca Comercial autorizadas y registradas en el Sistema de Administración Pesquera en diciembre de 2021.",
+      },
+      {
+        instrumento: "10. Zona de pesca",
+        aplica: true,
+        disposicion:
+          "Aguas marinas de jurisdicción federal y sistemas lagunares de Baja California Sur, Baja California, Sonora y Sinaloa, definidas en los permisos de pesca comercial, respetando los lineamientos de los Programas de Manejo de las Áreas Naturales Protegidas y Zonas de Refugio Pesquero publicadas en el DOF.",
+        sustento:
+          "Permiso para pesca comercial. Decretos de declaración de Áreas Naturales Protegidas y Zonas de Refugio Pesquero.",
+      },
+    ],
+    status: {
+      cards: [
+        {
+          categoria: "Aprovechado al máximo sustentable",
+          color: "yellow",
+          especie: "Almeja generosa (Panopea spp.)",
+          zona: "Costa Pacífico y Golfo de California de Baja California",
+        },
+        {
+          categoria: "Aprovechado al máximo sustentable",
+          color: "yellow",
+          especie: "Almeja generosa (Panopea spp.)",
+          zona: "Bahía Magdalena (Baja California Sur)",
+        },
+        {
+          categoria: "Aprovechado al máximo sustentable",
+          color: "yellow",
+          especie: "Almeja generosa (Panopea globosa)",
+          zona: "Bahía Lobos al Colorado y de Puerto Lobos a Bahía Adair (Sonora)",
+        },
+        {
+          categoria: "Indeterminado",
+          color: "gray",
+          especie: "Almeja generosa (Panopea spp.)",
+          zona: "Sinaloa y resto de Baja California Sur y Sonora",
+        },
+      ],
+      estrategia: "Tasa de aprovechamiento para mantener la población Aprovechada al Máximo Sustentable.",
+      tacticas: [
+        "Cuota de captura",
+        "Control del esfuerzo pesquero",
+        "Talla mínima de captura",
+        "Rotación de bancos",
+        "Veda reproductiva",
+        "Zona de refugio pesquero",
+      ],
+    },
+    recomendaciones: [
+      {
+        recomendacion:
+          "Con base en la LGPAS y en la NOM-014-SAG/PESC-2015, no incrementar el esfuerzo pesquero en los sistemas lagunares y zonas de pesca Aprovechadas al Máximo Sustentable.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "La asignación de cuotas para los usuarios que ya cuentan con permiso de pesca comercial se realizará bajo el siguiente procedimiento: (a) presentar una solicitud de cuota a la CONAPESCA con al menos tres meses de anticipación al inicio de la temporada, tras lo cual el INAPESCA comunicará el programa de trabajo para el estudio de evaluación y el apoyo logístico necesario; y (b) realizada la evaluación, el INAPESCA emitirá el dictamen técnico correspondiente.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "En solicitudes de permisos para pesca comercial en nuevas zonas con estatus Indeterminado, el INAPESCA —con apoyo de los solicitantes— realizará una prospección para ubicar los bancos y estimar una cuota preliminar; el dictamen técnico con la cuota total se emitirá tras la evaluación poblacional.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "En zonas con estatus Indeterminado, el número de embarcaciones se definirá en función de la disponibilidad del recurso por zona, previa evaluación y opinión del INAPESCA, considerando criterios de rentabilidad y administración definidos por la autoridad pesquera.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "En caso de que los estudios del INAPESCA determinen que alguna población se ubique como Deteriorada, el INAPESCA emitirá opinión técnica con las recomendaciones y estrategias para su recuperación. Establecer vedas temporales para proteger el periodo reproductivo en todas las zonas de pesca.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion: "Instrumentar programas de ordenamiento y manejo por sistema lagunar y/o áreas definidas.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Implementar un programa de monitoreo y seguimiento de la pesquería mediante el llenado veraz y fidedigno de bitácoras de pesca, con base en la LGPAS y en la NOM-014-SAG/PESC-2015.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Con el fin de garantizar la seguridad de los buzos, limitar las actividades de buceo a profundidades menores de 30 metros, con base en la NOM-014-SAG/PESC-2015 (apartado 4.11, inciso e).",
+        avance: "Sin información",
+      },
+    ],
+  },
+  "pac-almeja-catarina": {
+    generalidades: {
+      descripcion: [
+        "La almeja catarina se distribuye desde Isla de Cedros, Baja California, en el litoral Pacífico, y en todo el Golfo de California hasta Paita, Perú. Presenta una concha dura, oblicua y muy convexa, entre mediana y grande, ligeramente más larga que alta, con una altura máxima de 90 milímetros. Su coloración es variable, con manchas concéntricas que van de tonalidades blanco, gris, naranja, marrón rojizo o violeta. Habita sobre fondos arenosos y fangosos, desde pocos metros de profundidad hasta los 180 metros.",
+        "La captura se lleva a cabo en la zona noroeste del país, principalmente en Baja California, Baja California Sur y Sonora. En la costa occidental de Baja California se captura en la Laguna Manuela y el estero San José. En Baja California Sur, las principales zonas de captura comercial son el complejo Bahía Magdalena-Almejas y Puerto Adolfo López Mateos. En Sonora se captura en la zona comprendida de Puerto Lobos a Bahía Adair.",
+      ],
+      embarcaciones:
+        "En la operación de pesca se utilizan embarcaciones menores de fibra de vidrio con motor fuera de borda y un equipo de buceo semiautónomo con compresor tipo «Hooka». En cada embarcación participan hasta tres pescadores (buzo, cabo de vida y motorista). La extracción se realiza de manera manual y se utiliza una bolsa de malla denominada «jaba» para la colecta de los organismos.",
+      especiesObjetivo: [{ nombre: "Almeja catarina", cientifico: "Argopecten ventricosus" }],
+    },
+    indicadores: {
+      datosDestacados: [
+        "Baja California Sur concentra el 96.91% de la captura, Sonora el 3.08% y Baja California el 0.01%.",
+      ],
+      // Tendencia de la captura de almeja catarina en BC, BCS y Sonora, 1979-2020 (Fuente: CONAPESCA).
+      capturaPorEstado: [
+        {
+          titulo: "Captura de almeja catarina por estado, 1979–2020 (CONAPESCA)",
+          series: [
+            {
+              estado: "Baja California Sur",
+              color: "#0891b2",
+              datos: [
+                { año: 1979, captura: 2500 },
+                { año: 1980, captura: 3000 },
+                { año: 1981, captura: 6000 },
+                { año: 1982, captura: 5500 },
+                { año: 1983, captura: 2500 },
+                { año: 1984, captura: 4800 },
+                { año: 1985, captura: 5000 },
+                { año: 1986, captura: 5500 },
+                { año: 1987, captura: 10000 },
+                { año: 1988, captura: 8500 },
+                { año: 1989, captura: 14000 },
+                { año: 1990, captura: 22000 },
+                { año: 1991, captura: 33000 },
+                { año: 1992, captura: 500 },
+                { año: 1993, captura: 15000 },
+                { año: 1994, captura: 20500 },
+                { año: 1995, captura: 10500 },
+                { año: 1996, captura: 18500 },
+                { año: 1997, captura: 23500 },
+                { año: 1998, captura: 10000 },
+                { año: 1999, captura: 24000 },
+                { año: 2000, captura: 10500 },
+                { año: 2001, captura: 29000 },
+                { año: 2002, captura: 24500 },
+                { año: 2003, captura: 29500 },
+                { año: 2004, captura: 6500 },
+                { año: 2005, captura: 17000 },
+                { año: 2006, captura: 15500 },
+                { año: 2007, captura: 17500 },
+                { año: 2008, captura: 14500 },
+                { año: 2009, captura: 16500 },
+                { año: 2010, captura: 3500 },
+                { año: 2011, captura: 12000 },
+                { año: 2012, captura: 12000 },
+                { año: 2013, captura: 6500 },
+                { año: 2014, captura: 1500 },
+                { año: 2015, captura: 500 },
+                { año: 2016, captura: 200 },
+                { año: 2017, captura: 100 },
+                { año: 2018, captura: 15000 },
+                { año: 2019, captura: 6500 },
+                { año: 2020, captura: 1000 },
+              ],
+            },
+            {
+              estado: "Sonora",
+              color: "#f59e0b",
+              datos: [
+                { año: 2000, captura: 4000 },
+                { año: 2001, captura: 500 },
+                { año: 2002, captura: 0 },
+                { año: 2003, captura: 0 },
+                { año: 2004, captura: 1000 },
+                { año: 2005, captura: 800 },
+                { año: 2006, captura: 700 },
+                { año: 2007, captura: 600 },
+                { año: 2008, captura: 500 },
+                { año: 2009, captura: 600 },
+                { año: 2010, captura: 1000 },
+                { año: 2011, captura: 500 },
+                { año: 2012, captura: 6500 },
+                { año: 2013, captura: 1500 },
+                { año: 2014, captura: 500 },
+                { año: 2015, captura: 300 },
+                { año: 2016, captura: 200 },
+                { año: 2017, captura: 100 },
+                { año: 2018, captura: 100 },
+                { año: 2019, captura: 200 },
+                { año: 2020, captura: 100 },
+              ],
+            },
+            {
+              estado: "Baja California",
+              color: "#0d9488",
+              datos: [
+                { año: 2003, captura: 300 },
+                { año: 2004, captura: 500 },
+                { año: 2005, captura: 300 },
+                { año: 2006, captura: 250 },
+                { año: 2007, captura: 400 },
+                { año: 2008, captura: 350 },
+                { año: 2009, captura: 500 },
+                { año: 2010, captura: 400 },
+                { año: 2011, captura: 450 },
+                { año: 2012, captura: 300 },
+                { año: 2013, captura: 250 },
+                { año: 2014, captura: 200 },
+                { año: 2015, captura: 150 },
+                { año: 2016, captura: 100 },
+                { año: 2017, captura: 100 },
+                { año: 2018, captura: 100 },
+                { año: 2019, captura: 150 },
+                { año: 2020, captura: 100 },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    ambiente: [
+      "La ocurrencia de periodos anormalmente fríos en los centros de actividad biológica de Bahía Magdalena favorece el incremento de las poblaciones de almeja catarina, ya que contribuye al desarrollo de pastizales donde las larvas se fijan. El incremento de la temperatura superficial del mar y el debilitamiento de la Corriente de California registrados en 2015 y 2016 afectaron el reclutamiento, la sobrevivencia y el crecimiento de la almeja catarina en Bahía Magdalena, Baja California Sur.",
+    ],
+    normatividad: [
+      {
+        instrumento: "1. Norma Oficial Mexicana",
+        aplica: true,
+        disposicion:
+          "NOM-004-SAG/PESC-2015, Especificaciones para el aprovechamiento de la almeja catarina (Argopecten circularis) en aguas de jurisdicción federal de los Estados Unidos Mexicanos.",
+        sustento: "DOF: 06/10/2015.",
+      },
+      { instrumento: "2. Plan de Manejo Pesquero", aplica: false, disposicion: "", sustento: "" },
+      {
+        instrumento: "3. Tipo de acceso",
+        aplica: true,
+        disposicion: "Permiso para pesca comercial de almeja catarina.",
+        sustento:
+          "Numeral 4.3 de la NOM-004-SAG/PESC-2015 (DOF: 06/10/2015). Opinión técnica del INAPESCA. Artículo 36, Fracción III de la LGPAS (DOF: 19/01/2023).",
+      },
+      {
+        instrumento: "4. Talla mínima",
+        aplica: true,
+        disposicion:
+          "Dentro de las zonas lagunares (lagunas Manuela, Guerrero Negro o Estero San José, Ojo de Liebre, San Ignacio, los canales y esteros de Puerto Adolfo López Mateos y la Ensenada de La Paz): 56 milímetros de longitud del diámetro mayor de la concha. En aguas de jurisdicción federal de Baja California y Baja California Sur, con excepción de las anteriores: 60 milímetros del diámetro mayor de la concha.",
+        sustento: "Numerales 4.2.1 y 4.2.2 de la NOM-004-SAG/PESC-2015 (DOF: 06/10/2015).",
+      },
+      {
+        instrumento: "5. Arte de pesca y método de captura",
+        aplica: true,
+        disposicion:
+          "Extracción manual con bolsa de malla llamada «jaba» y buceo semiautónomo tipo «Hooka» a bordo de embarcación menor.",
+        sustento: "Numeral 4.4.2 de la NOM-004-SAG/PESC-2015 (DOF: 06/10/2015).",
+      },
+      {
+        instrumento: "6. Veda",
+        aplica: true,
+        disposicion:
+          "Veda temporal del 15 de diciembre al 31 de marzo de cada año en aguas marinas de jurisdicción federal de Baja California y Baja California Sur.",
+        sustento:
+          "Aviso por el que se da a conocer el establecimiento de épocas y zonas de veda para la pesca de diferentes especies de la fauna acuática en aguas de jurisdicción federal (DOF: 16/03/1994).",
+      },
+      {
+        instrumento: "7. Cuota",
+        aplica: true,
+        disposicion: "Cuota de captura variable por zona, con base en un 60% del tamaño mayor a la talla mínima de captura.",
+        sustento: "Dictamen técnico del INAPESCA.",
+      },
+      {
+        instrumento: "8. Unidad de pesca",
+        aplica: true,
+        disposicion:
+          "Embarcación menor con motor fuera de borda, equipada con compresor de aire y equipo de buceo semiautónomo tipo «Hooka», y hasta tres pescadores (buzo, cabo de vida y motorista).",
+        sustento: "Numeral 4.4.1 de la NOM-004-SAG/PESC-2015 (DOF: 06/10/2015). Artículo 4, Fracción XVII de la LGPAS (DOF: 19/01/2023).",
+      },
+      {
+        instrumento: "9. Esfuerzo nominal autorizado",
+        aplica: true,
+        disposicion: "Baja California: 9 embarcaciones. Baja California Sur: 376 embarcaciones. Sonora: 89 embarcaciones.",
+        sustento:
+          "Registros de Permisos y Concesiones de Pesca Comercial autorizadas y registradas en el Sistema de Administración Pesquera en diciembre de 2021.",
+      },
+      {
+        instrumento: "10. Zona de pesca",
+        aplica: true,
+        disposicion:
+          "Aguas marinas de jurisdicción federal y sistemas lagunares de Baja California Sur, Baja California y Sonora, definidas en los permisos de pesca comercial, respetando los lineamientos de los Programas de Manejo de las Áreas Naturales Protegidas y Zonas de Refugio Pesquero publicadas en el DOF.",
+        sustento:
+          "Permisos para pesca comercial. Decretos de declaración de Áreas Naturales Protegidas y Zonas de Refugio Pesquero.",
+      },
+    ],
+    status: {
+      cards: [
+        {
+          categoria: "En deterioro",
+          color: "red",
+          especie: "Almeja catarina (Argopecten ventricosus)",
+          zona: "Bahía Concepción, laguna de San Ignacio y laguna Ojo de Liebre (Baja California Sur)",
+        },
+        {
+          categoria: "Aprovechado al máximo sustentable",
+          color: "yellow",
+          especie: "Almeja catarina (Argopecten ventricosus)",
+          zona: "Estero San José y Laguna Manuela (Baja California)",
+        },
+        {
+          categoria: "Aprovechado al máximo sustentable",
+          color: "yellow",
+          especie: "Almeja catarina (Argopecten ventricosus)",
+          zona: "Bahía Magdalena, Bahía Almejas y esteros adyacentes a López Mateos (Baja California Sur)",
+        },
+        {
+          categoria: "Indeterminado",
+          color: "gray",
+          especie: "Almeja catarina (Argopecten ventricosus)",
+          zona: "Sonora y resto de Baja California y Baja California Sur",
+        },
+      ],
+      estrategia: "Cuota de captura y tasa de aprovechamiento.",
+      tacticas: [
+        "Control del esfuerzo pesquero",
+        "Talla mínima de captura",
+        "Veda reproductiva",
+        "Zona de refugio pesquero",
+      ],
+    },
+    recomendaciones: [
+      {
+        recomendacion:
+          "Con base en la LGPAS y en la NOM-004-SAG/PESC-2015, no incrementar el esfuerzo pesquero en los sistemas lagunares y zonas de pesca Aprovechadas al Máximo Sustentable en Baja California y Baja California Sur.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "En zonas con estatus Indeterminado, el número de embarcaciones se definirá en función de la disponibilidad del recurso por zona, previa evaluación y opinión del INAPESCA, considerando criterios de rentabilidad y administración definidos por la autoridad pesquera.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "La asignación de cuotas para los usuarios que ya cuentan con permiso de pesca comercial se realizará bajo el siguiente procedimiento: (a) presentar una solicitud de cuota a la CONAPESCA, de preferencia tres meses antes del inicio de la temporada, tras lo cual el INAPESCA comunicará el programa de trabajo para el estudio de evaluación y el apoyo logístico necesario; y (b) realizada la evaluación, el INAPESCA emitirá el dictamen técnico correspondiente.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "En solicitudes de permisos para pesca comercial en nuevas zonas con estatus Indeterminado, el INAPESCA —con apoyo de los solicitantes— realizará una prospección para ubicar los bancos y estimar una cuota preliminar; el dictamen técnico con la cuota total se emitirá tras la evaluación poblacional.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion: "En las zonas con estatus Deteriorado, instrumentar estrategias para la recuperación de sus poblaciones.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Instrumentar programas de ordenamiento y manejo por sistema lagunar y/o áreas definidas, conforme a la LGPAS y a la NOM-004-SAG/PESC-2015.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Implementar un programa de monitoreo y seguimiento de la pesquería mediante el llenado veraz y fidedigno de bitácoras de pesca, con base en la LGPAS y en la NOM-004-SAG/PESC-2015.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Con el fin de garantizar la seguridad de los buzos, limitar las actividades de buceo a profundidades menores de 30 metros, análogo a lo establecido en la NOM-014-SAG/PESC-2015 (apartado 4.11, inciso e).",
+        avance: "Sin información",
+      },
+    ],
+  },
+  "pac-pepino-de-mar-del-pacifico": {
+    generalidades: {
+      descripcion: [
+        "El pepino de mar corresponde a un grupo de invertebrados marinos que forman parte de los equinodermos y se encuentran dentro de la clase Holothuroidea. Varias de las especies de holoturoideos que habitan en aguas mexicanas tienen valor económico directo, y se estima un importante potencial de existencia en nuestros litorales. El pepino de mar berrugoso es un recurso de relevancia socioeconómica local y regional que conforma una pesquería alterna al erizo rojo en Baja California.",
+        "En el Pacífico mexicano se aprovecha comercialmente la especie Apostichopus parvimensis (sinónimo de Parastichopus parvimensis), la cual habita aguas templadas. Se captura principalmente en la costa occidental de la península de Baja California, desde la frontera con Estados Unidos hasta Punta Abreojos, en Baja California Sur.",
+      ],
+      embarcaciones:
+        "En la captura de pepino de mar se emplea una embarcación menor con motor fuera de borda y equipo de buceo semiautónomo tipo «Hooka». La extracción es manual y se colecta en bolsa de pesca («jaba»). Participan tres pescadores: buzo, cabo de vida y motorista.",
+      especiesObjetivo: [
+        { nombre: "Pepino de mar berrugoso", cientifico: "Apostichopus parvimensis (sin. Parastichopus parvimensis)" },
+        { nombre: "Pepino de mar blanco o aguado", cientifico: "Holothuria inhabilis" },
+        { nombre: "Pepino de mar", cientifico: "Holothuria impatiens" },
+      ],
+      especiesAsociadas: [
+        { nombre: "Pepino de mar", cientifico: "Parastichopus californicus" },
+        { nombre: "Erizo rojo", cientifico: "Strongylocentrotus franciscanus" },
+        { nombre: "Erizo morado", cientifico: "Strongylocentrotus purpuratus" },
+        { nombre: "Caracol panocha", cientifico: "Megastraea undosa" },
+        { nombre: "Caracol turbante", cientifico: "Megastraea turbanica" },
+        { nombre: "Concha lapa", cientifico: "Megathura crenulata" },
+        { nombre: "Caracol tornillo", cientifico: "Kelletia kelletii" },
+        { nombre: "Caracol turbo o burgado", cientifico: "Turbo fluctuosus" },
+        { nombre: "Abulón (azul, amarillo, negro, chino y rojo)", cientifico: "Haliotis spp." },
+      ],
+    },
+    indicadores: {
+      datosDestacados: [
+        "Baja California concentra el 83% de la captura de pepino de mar y Baja California Sur el 17%.",
+      ],
+      // Tendencia de la captura de pepino de mar (peso vivo) en BC y BCS, 1991-2020 (Fuente: CONAPESCA).
+      capturaPorEstado: [
+        {
+          titulo: "Captura de pepino de mar (peso vivo) por estado, 1991–2020 (CONAPESCA)",
+          series: [
+            {
+              estado: "Baja California",
+              color: "#0d9488",
+              datos: [
+                { año: 1991, captura: 160 },
+                { año: 1992, captura: 300 },
+                { año: 1993, captura: 80 },
+                { año: 1994, captura: 750 },
+                { año: 1995, captura: 680 },
+                { año: 1996, captura: 620 },
+                { año: 1997, captura: 370 },
+                { año: 1998, captura: 400 },
+                { año: 1999, captura: 270 },
+                { año: 2000, captura: 400 },
+                { año: 2001, captura: 410 },
+                { año: 2002, captura: 260 },
+                { año: 2003, captura: 190 },
+                { año: 2004, captura: 305 },
+                { año: 2005, captura: 280 },
+                { año: 2006, captura: 340 },
+                { año: 2007, captura: 250 },
+                { año: 2008, captura: 180 },
+                { año: 2009, captura: 210 },
+                { año: 2010, captura: 135 },
+                { año: 2011, captura: 135 },
+                { año: 2012, captura: 140 },
+                { año: 2013, captura: 60 },
+                { año: 2014, captura: 90 },
+                { año: 2015, captura: 55 },
+                { año: 2016, captura: 95 },
+                { año: 2017, captura: 145 },
+                { año: 2018, captura: 100 },
+                { año: 2019, captura: 60 },
+                { año: 2020, captura: 120 },
+              ],
+            },
+            {
+              estado: "Baja California Sur",
+              color: "#0891b2",
+              datos: [
+                { año: 2000, captura: 30 },
+                { año: 2001, captura: 32 },
+                { año: 2002, captura: 32 },
+                { año: 2003, captura: 10 },
+                { año: 2004, captura: 85 },
+                { año: 2005, captura: 135 },
+                { año: 2006, captura: 120 },
+                { año: 2007, captura: 140 },
+                { año: 2008, captura: 185 },
+                { año: 2009, captura: 200 },
+                { año: 2010, captura: 180 },
+                { año: 2011, captura: 160 },
+                { año: 2012, captura: 150 },
+                { año: 2013, captura: 40 },
+                { año: 2014, captura: 45 },
+                { año: 2015, captura: 20 },
+                { año: 2016, captura: 5 },
+                { año: 2017, captura: 3 },
+                { año: 2018, captura: 5 },
+                { año: 2019, captura: 12 },
+                { año: 2020, captura: 15 },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    ambiente: [
+      "El pepino de mar, de manera similar a muchos organismos bentónicos, es altamente susceptible a la variabilidad ambiental y a los cambios en la temperatura del agua. Entre 2013 y 2015 se originó un fenómeno oceanográfico denominado «La Mancha», entre las Aleutianas y el Golfo de Alaska, favorecido por la combinación de tres variables hidrometeorológicas: altas presiones atmosféricas, alta radiación solar y poca rapidez del viento sobre la superficie marina. Esto provocó que la superficie del mar se calentara con anomalías positivas extremas que, arrastradas posteriormente al sur por la Corriente de California, se unieron al efecto «El Niño» 2015-2016 frente a la península de Baja California, situación que inhibió la liberación de gametos y el transporte de nutrientes en detrimento de la producción primaria.",
+    ],
+    normatividad: [
+      { instrumento: "1. Norma Oficial Mexicana", aplica: false, disposicion: "", sustento: "" },
+      { instrumento: "2. Plan de Manejo Pesquero", aplica: false, disposicion: "", sustento: "" },
+      {
+        instrumento: "3. Tipo de acceso",
+        aplica: true,
+        disposicion: "Permiso para pesca comercial de pepino de mar.",
+        sustento: "Opinión técnica del INAPESCA. Artículo 36, Fracción III de la LGPAS (DOF: 19/01/2023).",
+      },
+      { instrumento: "4. Talla mínima", aplica: false, disposicion: "", sustento: "" },
+      {
+        instrumento: "5. Arte de pesca y método de captura",
+        aplica: true,
+        disposicion: "Extracción manual con bolsa de malla llamada «jaba». Buceo semiautónomo tipo «Hooka».",
+        sustento: "Dictamen técnico del INAPESCA.",
+      },
+      { instrumento: "6. Veda", aplica: false, disposicion: "", sustento: "" },
+      {
+        instrumento: "7. Cuota",
+        aplica: true,
+        disposicion:
+          "Cuota de captura anual (por zona y banco), previa solicitud del usuario a través de la CONAPESCA, la cual será ratificada cada año mediante dictamen técnico del INAPESCA.",
+        sustento: "Dictamen técnico del INAPESCA.",
+      },
+      {
+        instrumento: "8. Unidad de pesca",
+        aplica: true,
+        disposicion:
+          "Embarcación menor con motor fuera de borda, equipada con compresor de aire y equipo de buceo semiautónomo tipo «Hooka», y hasta tres pescadores (buzo, cabo de vida y motorista).",
+        sustento: "Dictamen técnico del INAPESCA. Artículo 4, Fracción XVII de la LGPAS (DOF: 19/01/2023).",
+      },
+      {
+        instrumento: "9. Esfuerzo nominal autorizado",
+        aplica: true,
+        disposicion: "Baja California: 178 embarcaciones. Baja California Sur: 88 embarcaciones. Sonora: 6 embarcaciones.",
+        sustento:
+          "Registros de Permisos y Concesiones de Pesca Comercial autorizadas y registradas en el Sistema de Administración Pesquera en diciembre de 2021.",
+      },
+      {
+        instrumento: "10. Zona de pesca",
+        aplica: true,
+        disposicion:
+          "Aguas marinas de jurisdicción federal en la costa occidental de la península de Baja California, desde la frontera con Estados Unidos hasta Punta Abreojos (Baja California Sur) e islas adyacentes al macizo peninsular; en el Golfo de California y costa del Pacífico mexicano, previo dictamen técnico del INAPESCA. Restricciones establecidas en las Zonas de Refugio Pesquero del Corredor San Cosme–Punta Coyote e Isla Natividad.",
+        sustento:
+          "Permiso para pesca comercial. Decretos de declaración de Áreas Naturales Protegidas y Zonas de Refugio Pesquero.",
+      },
+    ],
+    status: {
+      cards: [
+        {
+          categoria: "En deterioro",
+          color: "red",
+          especie: "Pepino de mar berrugoso (Apostichopus parvimensis)",
+          zona: "Baja California",
+        },
+        {
+          categoria: "En deterioro (con tendencia a la recuperación)",
+          color: "red",
+          especie: "Pepino de mar berrugoso (Apostichopus parvimensis)",
+          zona: "Baja California Sur",
+        },
+        {
+          categoria: "Indeterminado",
+          color: "gray",
+          especie: "Holothuria inhabilis y Holothuria impatiens",
+          zona: "Península de Baja California",
+        },
+      ],
+      estrategia:
+        "Tasa de aprovechamiento por zona y banco, menor al 10% del tamaño de la población estimado con respecto al peso promedio del tegumento, en función del estatus del recurso.",
+      tacticas: [
+        "Control del esfuerzo pesquero",
+        "Veda temporal",
+        "Zonas de pesca por cooperativa",
+        "Cierre de la pesca ante contingencias ambientales (ENSO, florecimientos algales nocivos, entre otros)",
+      ],
+    },
+    recomendaciones: [
+      {
+        recomendacion:
+          "Con base en la LGPAS y en los instrumentos normativos aplicables, no incrementar el esfuerzo pesquero para el aprovechamiento de Apostichopus parvimensis en las zonas de pesca donde el recurso se encuentra Deteriorado.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Para Holothuria inhabilis y Holothuria impatiens, con estatus Indeterminado, el número de embarcaciones se definirá en función de la disponibilidad del recurso por zona, previa evaluación y opinión del INAPESCA, considerando criterios de rentabilidad y administración definidos por la autoridad pesquera. En nuevas zonas con estatus Indeterminado, el INAPESCA —con apoyo de los solicitantes— realizará una prospección para ubicar los bancos y estimar una cuota preliminar; el dictamen técnico con la cuota total se emitirá tras la evaluación poblacional.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "La asignación de cuotas para los usuarios que ya cuentan con permiso de pesca comercial se realizará bajo el siguiente procedimiento: (a) presentar una solicitud de cuota a la CONAPESCA, de preferencia tres meses antes del inicio de la temporada, tras lo cual el INAPESCA comunicará el programa de trabajo para el estudio de evaluación y el apoyo logístico necesario; y (b) realizada la evaluación, el INAPESCA emitirá el dictamen técnico correspondiente.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Implementar un programa de monitoreo y seguimiento de la pesquería mediante el llenado veraz y fidedigno de bitácoras de pesca, con base en la LGPAS y en los instrumentos normativos aplicables.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Con el fin de garantizar la seguridad de los buzos, limitar las actividades de buceo a profundidades menores de 30 metros, análogo a lo establecido en la NOM-014-SAG/PESC-2015 (apartado 4.11, inciso e).",
+        avance: "Sin información",
+      },
+      {
+        recomendacion: "Elaborar y publicar la Norma Oficial Mexicana para regular el aprovechamiento del recurso.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Instrumentar el programa de ordenamiento y manejo por área definida, con énfasis en la región de Baja California, para promover zonas integrales de pesca de recursos bentónicos o semi-sésiles de importancia comercial, de manera que un solo permisionario u organización pueda aprovechar todos los recursos en una misma zona de pesca.",
+        avance: "Sin información",
+      },
+    ],
+  },
+  "pac-jaiba-del-pacifico": {
+    generalidades: {
+      descripcion: [
+        "Los juveniles y adultos de jaiba (Callinectes bellicosus, Callinectes arcuatus y Callinectes toxotes) son depredadores, omnívoros oportunistas, detritívoros, carnívoros y caníbales. Los juveniles se alimentan por la noche o en la mañana, y los adultos durante el día. Respecto a su biología y ecología reproductiva, las jaibas son de estrategia «r»: especies que se caracterizan por alta fecundidad, crecimiento rápido, madurez sexual temprana y ciclo de vida corto.",
+        "Las zonas de captura comprenden lagunas costeras y el litoral del Pacífico mexicano, incluyendo el Golfo de California, en profundidades menores a 30 metros. En algunas localidades la pesquería de jaiba azul (Callinectes arcuatus) se realiza en zonas estuarinas de baja profundidad, como el área lagunar costera del sur de Sonora (bahías Las Guásimas, Lobos, Tóbari, Yavaros y norte de Agiabampo), Sinaloa (laguna de Agua Grande), Marismas Nacionales de Nayarit, Laguna de Cuyutlán (Colima) y lagunas costeras de Oaxaca y Chiapas.",
+      ],
+      embarcaciones:
+        "Para la captura se utilizan embarcaciones menores de fibra de vidrio de 1 a 7 metros de eslora, con y/o sin motor fuera de borda, sin cubierta y con capacidad máxima de carga de una a tres toneladas; en algunos casos las embarcaciones son de madera, de 3 a 4.5 metros de eslora. Las artes de pesca son, en general, trampas rígidas tipo Chesapeake de diferentes tamaños, aros sencillos de diámetro variable construidos de material metálico y/o alambre galvanizado, nasas o aros dobles («chupones») y chinchorros (estos últimos están prohibidos).",
+      especiesObjetivo: [
+        { nombre: "Jaiba verde, guerrera, café o jaibón", cientifico: "Callinectes bellicosus" },
+        { nombre: "Jaiba azul o jaiba cuata", cientifico: "Callinectes arcuatus" },
+        { nombre: "Jaiba negra, gigante o guacho", cientifico: "Callinectes toxotes" },
+      ],
+      especiesAsociadas: [
+        { nombre: "Botete", cientifico: "Sphoeroides annulatus" },
+        { nombre: "Mojarra", cientifico: "Calamus brachysomus" },
+        { nombre: "Pez escorpión", cientifico: "Scorpaena mystes" },
+        { nombre: "Cabrilla pinta", cientifico: "Epinephelus analogus" },
+        { nombre: "Caracol chino rosa", cientifico: "Hexaplex erythrostomus" },
+        { nombre: "Caracol chino negro", cientifico: "Muricanthus nigritus" },
+        { nombre: "Langosta azul", cientifico: "Panulirus inflatus" },
+        { nombre: "Cangrejo tanque", cientifico: "Hepatus lineatus" },
+      ],
+    },
+    indicadores: {
+      datosDestacados: [
+        "En los cinco últimos años (2015–2020) la captura se ha incrementado a una tasa de crecimiento anual superior al 10%.",
+        "Durante el periodo 2000–2020, Sinaloa y Sonora aportaron el 92.8% de la captura.",
+      ],
+    },
+    ambiente: [
+      "Se ha observado una relación inversa entre la biomasa y la tasa instantánea de producción de la jaiba café, y se ha comparado la tasa de producción con la Oscilación Decadal del Pacífico, un índice ambiental regional cuyos valores pueden ser negativos o positivos. La fase positiva de la Oscilación Decadal del Pacífico se asocia con anomalías positivas de la temperatura superficial del mar en el Pacífico oriental tropical. Un análisis preliminar mostró dos fases en la serie de la Oscilación Decadal del Pacífico respecto a la tasa de producción de la jaiba café: 1) de 1986 a 1997 y 2) de 1998 a 2019. En el segundo periodo, el logaritmo de la tasa de producción tiene una correlación directa significativa con la Oscilación Decadal del Pacífico (r² = -0.42, p = 0.001). Esto permite inferir que la biomasa de la jaiba café puede estar siendo beneficiada por el calentamiento global.",
+    ],
+    normatividad: [
+      {
+        instrumento: "1. Norma Oficial Mexicana",
+        aplica: true,
+        disposicion:
+          "NOM-039-PESC-2003, Pesca responsable de jaiba en aguas de jurisdicción federal del litoral del Océano Pacífico. Especificaciones para su aprovechamiento.",
+        sustento: "DOF: 26/07/2006.",
+      },
+      {
+        instrumento: "2. Plan de Manejo Pesquero",
+        aplica: true,
+        disposicion: "Plan de Manejo Pesquero de Jaiba (Callinectes spp.) de Sinaloa y Sonora.",
+        sustento: "DOF: 15/07/2014.",
+      },
+      {
+        instrumento: "3. Tipo de acceso",
+        aplica: true,
+        disposicion: "Permiso para pesca comercial de jaiba.",
+        sustento: "Opinión técnica del INAPESCA. Artículo 36, Fracción III de la LGPAS (DOF: 19/01/2023).",
+      },
+      {
+        instrumento: "4. Talla mínima",
+        aplica: true,
+        disposicion:
+          "Tallas mínimas de captura autorizadas en el Océano Pacífico, incluido el Golfo de California: 115 mm de ancho de caparazón (Ac) para la jaiba café, guerrera, verde o jaibón (C. bellicosus); 95 mm de Ac para la jaiba azul o cuata (C. arcuatus); 120 mm de Ac para la jaiba gigante, negra o guacho (C. toxotes).",
+        sustento: "Numeral 4.8 de la NOM-039-PESC-2003 (DOF: 26/07/2006).",
+      },
+      {
+        instrumento: "5. Arte de pesca y método de captura",
+        aplica: true,
+        disposicion:
+          "Se autoriza: trampas con estructura rígida tipo Chesapeake o similar, con dimensiones máximas de 60 cm de largo y ancho por 40 cm de altura, en el litoral Pacífico; aros con paño de red de tamaño de malla igual o superior a 76 mm (3 pulgadas) en todo el litoral; sacadores con tamaño de malla mínimo de 76 mm en todo el litoral; y ganchos metálicos de 1 m de longitud exclusivamente en Nayarit.",
+        sustento: "Numeral 4.2 de la NOM-039-PESC-2003 (DOF: 26/07/2006).",
+      },
+      {
+        instrumento: "6. Veda",
+        aplica: true,
+        disposicion:
+          "Para organismos de ambos sexos de cada especie, del 1 de mayo al 30 de junio de cada año. Solo para hembras de estas especies, del 1 al 9 de julio de cada año.",
+        sustento:
+          "Acuerdo por el que se modifica el aviso de épocas y zonas de veda (publicado el 16 de marzo de 1994) para modificar el periodo de veda de jaiba frente al litoral de Sonora y Sinaloa (DOF: 13/06/2014).",
+      },
+      { instrumento: "7. Cuota", aplica: false, disposicion: "", sustento: "" },
+      {
+        instrumento: "8. Unidad de pesca",
+        aplica: true,
+        disposicion:
+          "Embarcación menor de menos de 10.5 metros de eslora, sin cubierta, con capacidad máxima de carga de 3.0 toneladas. Se establece un máximo de 80 trampas y/o aros, un sacador o un gancho por embarcación, excepto en los casos en que se especifique una cantidad menor de artes de pesca por estado.",
+        sustento:
+          "Numeral 4.11 de la NOM-039-PESC-2003 (DOF: 26/07/2006). Artículo 4, Fracción XVII de la LGPAS (DOF: 19/01/2023).",
+      },
+      {
+        instrumento: "9. Esfuerzo nominal autorizado",
+        aplica: true,
+        disposicion:
+          "Baja California: 59 embarcaciones. Baja California Sur: 179. Sonora: 746. Sinaloa: 1,069. Nayarit: 164. Jalisco: 21. Colima: 24. Michoacán: 18. Guerrero: 15. Oaxaca: 174. Chiapas: 106 embarcaciones.",
+        sustento:
+          "Registros de Permisos y Concesiones de Pesca Comercial autorizadas y registradas en el Sistema de Administración Pesquera en diciembre de 2021.",
+      },
+      {
+        instrumento: "10. Zona de pesca",
+        aplica: true,
+        disposicion:
+          "Aguas de jurisdicción federal del Océano Pacífico, incluyendo el Golfo de California, así como aguas protegidas (esteros y sistemas lagunares), respetando los lineamientos de los Programas de Manejo de las Áreas Naturales Protegidas, Reservas de la Biosfera y Zonas de Refugio Pesquero publicadas en el DOF.",
+        sustento:
+          "Permisos para pesca comercial. Decretos de declaración de Áreas Naturales Protegidas y Zonas de Refugio Pesquero.",
+      },
+    ],
+    status: {
+      cards: [
+        {
+          categoria: "Aprovechado al máximo sustentable",
+          color: "yellow",
+          especie: "Jaiba (Callinectes spp.)",
+          zona: "Baja California Sur, Sonora, Sinaloa, Colima, Oaxaca y Chiapas",
+        },
+        {
+          categoria: "Indeterminado",
+          color: "gray",
+          especie: "Jaiba (Callinectes spp.)",
+          zona: "Baja California, Nayarit, Jalisco y Michoacán",
+        },
+      ],
+      estrategia: "Tasa de aprovechamiento para mantener la población Aprovechada al Máximo Sustentable.",
+      tacticas: [
+        "Control del esfuerzo pesquero",
+        "Talla mínima de captura",
+        "Veda reproductiva",
+        "Zonas de refugio",
+        "Liberación de hembras ovígeras y juveniles",
+      ],
+    },
+    recomendaciones: [
+      {
+        recomendacion:
+          "Con base en la LGPAS y en la NOM-039-PESC-2003, no incrementar el esfuerzo de pesca actual en los sistemas lagunares y zonas de pesca Aprovechadas al Máximo Sustentable en Baja California Sur, Sonora, Sinaloa, Colima, Oaxaca y Chiapas.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "En las zonas con estatus Indeterminado, el esfuerzo pesquero se definirá en función de la disponibilidad del recurso por zona, previa evaluación y opinión del INAPESCA.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion: "Establecer vedas temporales para proteger el periodo reproductivo en Baja California Sur y Nayarit.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Instrumentar programas de ordenamiento y manejo por sistema lagunar y/o áreas definidas, conforme a la LGPAS y a la NOM-039-PESC-2003.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Implementar e instrumentar las regulaciones establecidas para las artes de pesca conforme a las especificaciones de la NOM-039-PESC-2003.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Implementar un programa de monitoreo y seguimiento de la pesquería mediante el llenado veraz y fidedigno de bitácoras de pesca, con base en la LGPAS y en la NOM-039-PESC-2003.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Instrumentar acciones para el cumplimiento de la NOM-039-PESC-2003, Pesca responsable de jaiba en aguas de jurisdicción federal del litoral del Océano Pacífico.",
+        avance: "Sin información",
+      },
+    ],
+  },
+  "pac-erizo-de-mar": {
+    generalidades: {
+      descripcion: [
+        "En la pesquería de erizo de mar en la costa occidental de la Península de Baja California se aprovechan dos especies: erizo rojo (Strongylocentrotus franciscanus) y erizo morado (Strongylocentrotus purpuratus). Se distribuyen desde la línea divisoria con Estados Unidos de América hasta Punta Eugenia, Baja California Sur, incluyendo las islas adyacentes al macizo peninsular, en sustratos rocosos y asociados a los mantos de macroalgas, desde la bajamar (erizo morado) hasta los 30 metros de profundidad (erizo rojo). Aunque no se cuenta con información suficiente de aprovechamiento, el erizo de mar (Tripneustes depressus) se encuentra en arrecifes rocosos entre los 3 y los 30 metros de profundidad; se distribuye dentro del Golfo de California (29° N) y es común en la parte sur del Golfo de California y a lo largo de la costa mexicana e islas oceánicas hasta Galápagos, Ecuador.",
+        "En Baja California, la pesquería de erizo de mar está delimitada en cuatro zonas administrativas: Zona I, de la frontera con Estados Unidos de América a Punta Banda; Zona II, de Punta Banda a Punta Colonet; Zona III, de Punta Colonet a El Socorro (al sur de Bahía Falsa); y Zona IV, de El Socorro a Punta Blanca.",
+      ],
+      embarcaciones:
+        "En la pesquería de erizo de mar se utilizan embarcaciones menores de 10.5 metros de eslora con motor fuera de borda de capacidad máxima de 115 caballos de fuerza, equipadas con un compresor de aire para suministrar aire al buzo. Participan tres pescadores (buzo, cabo de vida y motorista) y se utiliza equipo de buceo semiautónomo tipo «Hooka». La extracción es manual con gancho metálico o un «arrancador» para desprender a los organismos del sustrato.",
+      especiesObjetivo: [
+        { nombre: "Erizo rojo", cientifico: "Strongylocentrotus franciscanus" },
+        { nombre: "Erizo morado", cientifico: "Strongylocentrotus purpuratus" },
+        { nombre: "Erizo de mar", cientifico: "Tripneustes depressus" },
+      ],
+      especiesAsociadas: [
+        { nombre: "Pepino de mar", cientifico: "Parastichopus parvimensis" },
+        { nombre: "Caracol panocha", cientifico: "Megastraea undosa" },
+        { nombre: "Caracol turbante", cientifico: "Megastraea turbanica" },
+        { nombre: "Concha lapa", cientifico: "Megathura crenulata" },
+        { nombre: "Caracol tornillo", cientifico: "Kelletia kelletii" },
+        { nombre: "Caracol turbo o burgado", cientifico: "Turbo fluctuosus" },
+        { nombre: "Abulón (azul, amarillo, negro, chino y rojo)", cientifico: "Haliotis spp." },
+      ],
+    },
+    indicadores: {
+      datosDestacados: [
+        "En Baja California Sur se tienen escasos registros oficiales entre 2004 y 2007.",
+        "En Isla Natividad se cuenta con registros para el erizo rojo, con una captura máxima de 60.5 toneladas en 2005 y 6.8 toneladas en 2007.",
+      ],
+      // Tendencia de las capturas de erizo rojo y morado en Baja California, 1973-2020 (Fuente: CONAPESCA).
+      capturaPorEstado: [
+        {
+          titulo: "Captura de erizo rojo y morado en Baja California, 1973–2020 (CONAPESCA)",
+          series: [
+            {
+              estado: "Erizo rojo",
+              color: "#dc2626",
+              datos: [
+                { año: 1973, captura: 300 },
+                { año: 1974, captura: 800 },
+                { año: 1975, captura: 700 },
+                { año: 1976, captura: 1200 },
+                { año: 1977, captura: 2500 },
+                { año: 1978, captura: 3600 },
+                { año: 1979, captura: 4200 },
+                { año: 1980, captura: 5700 },
+                { año: 1981, captura: 1700 },
+                { año: 1982, captura: 1100 },
+                { año: 1983, captura: 1100 },
+                { año: 1984, captura: 1000 },
+                { año: 1985, captura: 2800 },
+                { año: 1986, captura: 4500 },
+                { año: 1987, captura: 8500 },
+                { año: 1988, captura: 4000 },
+                { año: 1989, captura: 3900 },
+                { año: 1990, captura: 5600 },
+                { año: 1991, captura: 3900 },
+                { año: 1992, captura: 2600 },
+                { año: 1993, captura: 2200 },
+                { año: 1994, captura: 2800 },
+                { año: 1995, captura: 2800 },
+                { año: 1996, captura: 1900 },
+                { año: 1997, captura: 2200 },
+                { año: 1998, captura: 1300 },
+                { año: 1999, captura: 700 },
+                { año: 2000, captura: 1900 },
+                { año: 2001, captura: 2200 },
+                { año: 2002, captura: 1600 },
+                { año: 2003, captura: 1000 },
+                { año: 2004, captura: 1600 },
+                { año: 2005, captura: 1700 },
+                { año: 2006, captura: 2400 },
+                { año: 2007, captura: 1700 },
+                { año: 2008, captura: 1800 },
+                { año: 2009, captura: 2200 },
+                { año: 2010, captura: 2500 },
+                { año: 2011, captura: 3000 },
+                { año: 2012, captura: 3000 },
+                { año: 2013, captura: 3000 },
+                { año: 2014, captura: 3400 },
+                { año: 2015, captura: 2900 },
+                { año: 2016, captura: 2500 },
+                { año: 2017, captura: 1600 },
+                { año: 2018, captura: 1900 },
+                { año: 2019, captura: 2000 },
+                { año: 2020, captura: 1100 },
+              ],
+            },
+            {
+              estado: "Erizo morado",
+              color: "#8b5cf6",
+              datos: [
+                { año: 1995, captura: 600 },
+                { año: 1996, captura: 750 },
+                { año: 1997, captura: 800 },
+                { año: 1998, captura: 400 },
+                { año: 1999, captura: 300 },
+                { año: 2000, captura: 400 },
+                { año: 2001, captura: 100 },
+                { año: 2002, captura: 450 },
+                { año: 2003, captura: 400 },
+                { año: 2004, captura: 350 },
+                { año: 2005, captura: 200 },
+                { año: 2006, captura: 400 },
+                { año: 2007, captura: 150 },
+                { año: 2008, captura: 100 },
+                { año: 2009, captura: 200 },
+                { año: 2010, captura: 250 },
+                { año: 2011, captura: 200 },
+                { año: 2012, captura: 250 },
+                { año: 2013, captura: 500 },
+                { año: 2014, captura: 200 },
+                { año: 2015, captura: 250 },
+                { año: 2016, captura: 250 },
+                { año: 2017, captura: 400 },
+                { año: 2018, captura: 900 },
+                { año: 2019, captura: 400 },
+                { año: 2020, captura: 300 },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    ambiente: [
+      "Entre 2013 y 2015 se originó un fenómeno oceanográfico denominado «La Mancha», entre las Aleutianas y el Golfo de Alaska, favorecido por la combinación de tres variables hidrometeorológicas: altas presiones atmosféricas, alta radiación solar y poca rapidez del viento sobre la superficie marina. Esto provocó que la superficie del mar se calentara con anomalías positivas extremas que, arrastradas posteriormente al sur por la Corriente de California, se unieron al efecto «El Niño» 2015-2016 frente a la Península de Baja California. Debido a que las poblaciones de erizo dependen de la producción primaria, de 2013 a 2015 el fenómeno inhibió el transporte de nutrientes en detrimento de la producción primaria, disminuyendo la densidad poblacional del erizo.",
+    ],
+    normatividad: [
+      {
+        instrumento: "1. Norma Oficial Mexicana",
+        aplica: true,
+        disposicion:
+          "NOM-007-SAG/PESC-2015, para regular el aprovechamiento de las poblaciones de erizo rojo y morado en aguas de jurisdicción federal del Océano Pacífico de la costa oeste de Baja California.",
+        sustento: "DOF: 24/06/2015.",
+      },
+      {
+        instrumento: "2. Plan de Manejo Pesquero",
+        aplica: true,
+        disposicion:
+          "Plan de Manejo Pesquero de erizo rojo (Strongylocentrotus franciscanus) y erizo morado (Strongylocentrotus purpuratus) en la Península de Baja California, México.",
+        sustento: "DOF: 20/12/2012.",
+      },
+      {
+        instrumento: "3. Tipo de acceso",
+        aplica: true,
+        disposicion: "Permiso para pesca comercial o concesión de erizo de mar.",
+        sustento: "Opinión técnica del INAPESCA. Artículo 36, Fracción III de la LGPAS (DOF: 19/01/2023).",
+      },
+      {
+        instrumento: "4. Talla mínima",
+        aplica: true,
+        disposicion:
+          "Erizo rojo: 8 centímetros de diámetro de caparazón. Erizo morado: 4.5 centímetros de diámetro de caparazón.",
+        sustento: "Numeral 4.2 de la NOM-007-SAG/PESC-2015 (DOF: 24/06/2015).",
+      },
+      {
+        instrumento: "5. Arte de pesca y método de captura",
+        aplica: true,
+        disposicion:
+          "La extracción se realiza mediante buceo semiautónomo con equipo tipo «Hooka». Se podrá auxiliar de un gancho metálico o un «arrancador» para desprender a los organismos del sustrato.",
+        sustento: "Numeral 4.6 de la NOM-007-SAG/PESC-2015 (DOF: 24/06/2015).",
+      },
+      {
+        instrumento: "6. Veda",
+        aplica: true,
+        disposicion:
+          "Erizo rojo (Strongylocentrotus franciscanus) en las aguas de jurisdicción federal del Océano Pacífico que colindan con la costa oeste de Baja California, delimitadas entre la línea fronteriza con Estados Unidos de América y el paralelo 28° 30' de latitud norte, durante el periodo del 1 de marzo al 30 de junio de cada año.",
+        sustento:
+          "Aviso por el que se da a conocer el establecimiento de épocas y zonas de veda para la pesca de diferentes especies de la fauna acuática en aguas de jurisdicción federal (DOF: 16/03/1994).",
+      },
+      { instrumento: "7. Cuota", aplica: false, disposicion: "", sustento: "" },
+      {
+        instrumento: "8. Unidad de pesca",
+        aplica: true,
+        disposicion:
+          "Embarcación menor, sin cubierta corrida, con motor fuera de borda de potencia nominal máxima de 115 caballos de fuerza y equipada con un compresor de aire para suministrar aire al buzo. La extracción se realiza mediante buceo semiautónomo tipo «Hooka», auxiliándose de un gancho metálico o un «arrancador». La tripulación debe estar compuesta por un buzo, un bombero o motorista y un cabo de vida.",
+        sustento:
+          "Numerales 4.5, 4.6 y 4.8 de la NOM-007-SAG/PESC-2015 (DOF: 24/06/2015). Artículo 4, Fracción XVII de la LGPAS (DOF: 19/01/2023).",
+      },
+      {
+        instrumento: "9. Esfuerzo nominal autorizado",
+        aplica: true,
+        disposicion: "Baja California: 350 embarcaciones. Baja California Sur: 6 embarcaciones.",
+        sustento:
+          "Registros de Permisos y Concesiones de Pesca Comercial autorizadas y registradas en el Sistema de Administración Pesquera en diciembre de 2021.",
+      },
+      {
+        instrumento: "10. Zona de pesca",
+        aplica: true,
+        disposicion:
+          "Aguas marinas de jurisdicción federal en la costa Pacífico de Baja California, en zonas definidas en los permisos de pesca comercial, respetando los lineamientos de los Programas de Manejo de las Áreas Naturales Protegidas y Zonas de Refugio Pesquero publicadas en el DOF.",
+        sustento:
+          "Permiso para pesca comercial. Decretos de declaración de Áreas Naturales Protegidas y Zonas de Refugio Pesquero.",
+      },
+    ],
+    status: {
+      cards: [
+        {
+          categoria: "En deterioro",
+          color: "red",
+          especie: "Erizo rojo (Strongylocentrotus franciscanus)",
+          zona: "Baja California",
+        },
+        {
+          categoria: "Con potencial de desarrollo",
+          color: "green",
+          especie: "Erizo morado (Strongylocentrotus purpuratus)",
+          zona: "Baja California",
+        },
+        {
+          categoria: "Indeterminado",
+          color: "gray",
+          especie: "Erizo rojo (Strongylocentrotus franciscanus)",
+          zona: "Baja California Sur — sin registro reciente de captura; información insuficiente para determinar su estatus poblacional",
+        },
+      ],
+      estrategia: "Cuota de captura y tasa de aprovechamiento.",
+      tacticas: [
+        "Control del esfuerzo pesquero",
+        "Talla mínima de captura",
+        "Veda reproductiva temporal fija",
+      ],
+    },
+    recomendaciones: [
+      {
+        recomendacion:
+          "Con base en la LGPAS y en la NOM-007-SAG/PESC-2015, no incrementar el esfuerzo pesquero en las cuatro zonas administrativas, con excepción de algunas áreas de pesca sin permisos vigentes y de la parte sur de la zona IV (desde Punta San Carlos hasta el paralelo 28), previo dictamen del INAPESCA.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion: "En las zonas con estatus Deteriorado, instrumentar estrategias para la recuperación de sus poblaciones.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Otorgar permiso de pesca de erizo morado (Strongylocentrotus purpuratus) a los permisionarios que lo soliciten y cuenten con permiso de pesca comercial de erizo rojo (Strongylocentrotus franciscanus), en sus mismas áreas de captura.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "En solicitudes de permisos para pesca comercial en nuevas zonas con estatus Indeterminado, el INAPESCA —con apoyo de los solicitantes— realizará una prospección para ubicar los bancos y estimar una cuota preliminar; el dictamen técnico con la cuota total se emitirá tras la evaluación poblacional.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Implementar un programa de monitoreo y seguimiento de la pesquería mediante el llenado veraz y fidedigno de bitácoras de pesca, con base en la LGPAS y en la NOM-007-SAG/PESC-2015.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Instrumentar el programa de ordenamiento y manejo por área definida, con énfasis en la región de Baja California, para promover zonas integrales de pesca de recursos bentónicos o semi-sésiles de importancia comercial, de manera que un solo permisionario u organización pueda aprovechar todos los recursos en una misma zona de pesca.",
+        avance: "Sin información",
+      },
+    ],
+  },
+  "pac-abulon": {
+    generalidades: {
+      descripcion: [
+        "Los abulones son gasterópodos de la familia Haliotidae que habitan en zonas rocosas, asociadas principalmente a mantos de algas y pastos marinos, así como a poblaciones de erizos y otros organismos bentónicos, con los que establecen relaciones tróficas de protección y competencia por sustrato y alimento. Son de hábitos nocturnos y fototropismo negativo, tienen sexos separados (dioicos) y su fertilización es externa. Las especies de abulón en México se distribuyen únicamente en la costa occidental de la península de Baja California y son de gran importancia comercial.",
+        "La pesquería de abulón constituye una de las actividades más importantes que se desarrollan en la costa occidental de la península de Baja California, desde la frontera con Estados Unidos de América hasta Isla Margarita en Baja California Sur. La administración pesquera es específica para las zonas de pesca I, II, III y IV, establecidas en la NOM-005-PESC-1993.",
+      ],
+      embarcaciones:
+        "La operación de captura se realiza a bordo de una embarcación menor con motor fuera de borda y equipo de buceo semiautónomo tipo «Hooka». La extracción es manual con arrancador graduado y se colecta en bolsa de pesca («jaba»). Participan tres pescadores: buzo, cabo de vida y motorista.",
+      especiesObjetivo: [
+        { nombre: "Abulón azul", cientifico: "Haliotis fulgens" },
+        { nombre: "Abulón amarillo", cientifico: "Haliotis corrugata" },
+        { nombre: "Abulón negro", cientifico: "Haliotis cracherodii" },
+        { nombre: "Abulón chino", cientifico: "Haliotis sorenseni" },
+        { nombre: "Abulón rojo", cientifico: "Haliotis rufescens" },
+      ],
+      especiesAsociadas: [
+        { nombre: "Caracol panocha", cientifico: "Megastraea undosa" },
+        { nombre: "Caracol turbante", cientifico: "Megastraea turbanica" },
+        { nombre: "Erizo rojo", cientifico: "Strongylocentrotus franciscanus" },
+        { nombre: "Erizo morado", cientifico: "Strongylocentrotus purpuratus" },
+        { nombre: "Pepino de mar", cientifico: "Parastichopus parvimensis" },
+        { nombre: "Concha lapa", cientifico: "Megathura crenulata" },
+        { nombre: "Caracol tornillo", cientifico: "Kelletia kelletii" },
+        { nombre: "Caracol turbo o burgado", cientifico: "Turbo fluctuosus" },
+      ],
+    },
+    indicadores: {
+      datosDestacados: [
+        "En los últimos diez años la captura se distribuye en: 78.4% abulón azul, 21.1% abulón amarillo, 0.5% abulón chino, 0.3% abulón negro y 0.2% abulón rojo.",
+      ],
+      // Tendencia de la captura de abulón (peso callo) en BC y BCS, 2000-2020 (Fuente: CONAPESCA).
+      capturaPorEstado: [
+        {
+          titulo: "Captura de abulón (peso callo) por estado, 2000–2020 (CONAPESCA)",
+          series: [
+            {
+              estado: "Baja California",
+              color: "#0d9488",
+              datos: [
+                { año: 2000, captura: 170 },
+                { año: 2001, captura: 120 },
+                { año: 2002, captura: 135 },
+                { año: 2003, captura: 175 },
+                { año: 2004, captura: 172 },
+                { año: 2005, captura: 168 },
+                { año: 2006, captura: 195 },
+                { año: 2007, captura: 175 },
+                { año: 2008, captura: 190 },
+                { año: 2009, captura: 210 },
+                { año: 2010, captura: 155 },
+                { año: 2011, captura: 80 },
+                { año: 2012, captura: 120 },
+                { año: 2013, captura: 68 },
+                { año: 2014, captura: 60 },
+                { año: 2015, captura: 53 },
+                { año: 2016, captura: 55 },
+                { año: 2017, captura: 57 },
+                { año: 2018, captura: 22 },
+                { año: 2019, captura: 22 },
+                { año: 2020, captura: 28 },
+              ],
+            },
+            {
+              estado: "Baja California Sur",
+              color: "#0891b2",
+              datos: [
+                { año: 2000, captura: 265 },
+                { año: 2001, captura: 265 },
+                { año: 2002, captura: 265 },
+                { año: 2003, captura: 290 },
+                { año: 2004, captura: 305 },
+                { año: 2005, captura: 345 },
+                { año: 2006, captura: 360 },
+                { año: 2007, captura: 395 },
+                { año: 2008, captura: 385 },
+                { año: 2009, captura: 345 },
+                { año: 2010, captura: 290 },
+                { año: 2011, captura: 245 },
+                { año: 2012, captura: 250 },
+                { año: 2013, captura: 248 },
+                { año: 2014, captura: 200 },
+                { año: 2015, captura: 220 },
+                { año: 2016, captura: 195 },
+                { año: 2017, captura: 125 },
+                { año: 2018, captura: 58 },
+                { año: 2019, captura: 62 },
+                { año: 2020, captura: 100 },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    ambiente: [
+      "Las anomalías positivas de temperatura del mar asociadas al evento El Niño/Oscilación del Sur tienen efectos negativos en las comunidades de los bancos abuloneros. Se ha observado una alta sensibilidad de los abulones a los cambios de temperatura provocados por fenómenos climáticos como «El Niño», con efecto negativo sobre las larvas de abulón —con menor tolerancia a altas temperaturas—, además de la disminución de los mantos de algas gigantes (kelps, Macrocystis pyrifera), con la consecuente pérdida de alimento y reducción del éxito en el reclutamiento. Los eventos oceanográficos cálidos del norte («La Mancha»), ocurridos por primera vez del 2013 al 2015, afectaron negativamente a las poblaciones de abulón de la península de Baja California al inhibir el transporte de nutrientes y disminuir la producción primaria. En periodos de El Niño/Oscilación del Sur, las condiciones de mal tiempo disminuyen los días efectivos de pesca, desde Alaska (Estados Unidos de América) hasta Baja California Sur.",
+    ],
+    normatividad: [
+      {
+        instrumento: "1. Norma Oficial Mexicana",
+        aplica: true,
+        disposicion:
+          "NOM-005-PESC-1993, para regular el aprovechamiento de las poblaciones de las distintas especies de abulón en aguas de jurisdicción federal de la Península de Baja California.",
+        sustento: "DOF: 21/12/1993.",
+      },
+      {
+        instrumento: "2. Plan de Manejo Pesquero",
+        aplica: false,
+        disposicion: "En proceso de actualización.",
+        sustento: "",
+      },
+      {
+        instrumento: "3. Tipo de acceso",
+        aplica: true,
+        disposicion: "Permiso para pesca comercial de abulón.",
+        sustento: "Opinión técnica del INAPESCA. Artículo 36, Fracción III de la LGPAS (DOF: 19/01/2023).",
+      },
+      {
+        instrumento: "4. Talla mínima",
+        aplica: true,
+        disposicion:
+          "Zona I: 165 mm abulón rojo; 150 mm abulón azul; 140 mm abulón amarillo y chino; 120 mm abulón negro. Zona II: 145 mm abulón azul; 135 mm abulón amarillo y chino; 120 mm abulón negro. Zona III: 140 mm abulón azul; 130 mm abulón amarillo. Zona IV: 120 mm abulón azul; 110 mm abulón amarillo.",
+        sustento: "Numeral 3.4 de la NOM-005-PESC-1993 (DOF: 21/12/1993).",
+      },
+      {
+        instrumento: "5. Arte de pesca y método de captura",
+        aplica: true,
+        disposicion:
+          "Buceo semiautónomo tipo «Hooka»; se recolecta manualmente en bolsa de pesca («jaba») con arrancador graduado y certificado por AGRICULTURA.",
+        sustento: "NOM-005-PESC-1993 (DOF: 21/12/1993).",
+      },
+      {
+        instrumento: "6. Veda",
+        aplica: true,
+        disposicion:
+          "Zona I: del 1 de agosto al 31 de diciembre de cada año. Zona II: del 1 de septiembre al 31 de enero de cada año. Zona III: del 1 de septiembre al 31 de enero de cada año. Zona IV: del 1 de octubre al 28 de febrero de cada año.",
+        sustento:
+          "Acuerdo por el que se modifica la veda de abulón establecida en el aviso de épocas y zonas de veda publicado el 16 de marzo de 1994 en el DOF (DOF: 07/07/2021).",
+      },
+      {
+        instrumento: "7. Cuota",
+        aplica: true,
+        disposicion: "Cuota de captura anual variable por especie y zona de pesca.",
+        sustento: "Dictamen técnico del INAPESCA.",
+      },
+      {
+        instrumento: "8. Unidad de pesca",
+        aplica: true,
+        disposicion:
+          "Embarcación menor con motor fuera de borda y equipo de buceo semiautónomo tipo «Hooka». La extracción es manual con arrancador graduado certificado por AGRICULTURA, con la marca que indica la talla mínima de captura para cada especie. Participan tres pescadores: buzo, cabo de vida y motorista.",
+        sustento: "NOM-005-PESC-1993 (DOF: 21/12/1993). Artículo 4, Fracción XVII de la LGPAS (DOF: 19/01/2023).",
+      },
+      {
+        instrumento: "9. Esfuerzo nominal autorizado",
+        aplica: true,
+        disposicion: "Baja California: 141 embarcaciones. Baja California Sur: 205 embarcaciones.",
+        sustento:
+          "Registros de Permisos y Concesiones de Pesca Comercial autorizadas y registradas en el Sistema de Administración Pesquera en diciembre de 2021.",
+      },
+      {
+        instrumento: "10. Zona de pesca",
+        aplica: true,
+        disposicion:
+          "Aguas marinas de jurisdicción federal del Océano Pacífico de la costa occidental de la península de Baja California: bosques de macroalgas, arrecifes rocosos y zonas definidas en los permisos de pesca.",
+        sustento: "Permisos para pesca comercial.",
+      },
+    ],
+    status: {
+      cards: [
+        {
+          categoria: "En deterioro",
+          color: "red",
+          especie: "Abulón azul (Haliotis fulgens)",
+          zona: "Península de Baja California",
+        },
+        {
+          categoria: "En deterioro",
+          color: "red",
+          especie: "Abulón amarillo (Haliotis corrugata)",
+          zona: "Península de Baja California",
+        },
+      ],
+      estrategia:
+        "Cuota de captura anual variable por especie y zona de pesca, estimada con base en objetivos de manejo derivados de puntos de referencia límite y objetivo.",
+      tacticas: [
+        "Control del esfuerzo pesquero",
+        "Talla mínima de captura por especie y por zona de pesca",
+        "Veda reproductiva temporal fija por zona",
+        "Regulación en el arte y métodos de pesca",
+        "Zonas de refugio pesquero",
+      ],
+    },
+    recomendaciones: [
+      {
+        recomendacion:
+          "Con base en la LGPAS y en la NOM-005-PESC-1993, no incrementar el esfuerzo pesquero en toda la península de Baja California de la costa del Pacífico.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "La asignación de cuotas para los usuarios que ya cuentan con permiso de pesca comercial se realizará bajo el siguiente procedimiento: (a) presentar una solicitud de cuota a la CONAPESCA, de preferencia tres meses antes del inicio de la temporada; (b) el INAPESCA comunicará a la CONAPESCA el programa de trabajo para el estudio de evaluación y el apoyo logístico necesario por parte de los usuarios; y (c) realizada la evaluación, el INAPESCA emitirá el dictamen técnico correspondiente.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "En caso de que los estudios del INAPESCA determinen que alguna población se ubique como deteriorada, el INAPESCA emitirá opinión técnica con las recomendaciones y estrategias para su recuperación.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Instrumentar programas de ordenamiento y manejo por región y/o áreas definidas conforme a lo previsto en la LGPAS y en la NOM-005-PESC-1993.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Implementar un programa de monitoreo y seguimiento de la pesquería mediante el llenado veraz y fidedigno de bitácoras de pesca.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Con el fin de garantizar la seguridad de los buzos, limitar las actividades de buceo a profundidades menores de 30 metros, análogo a lo establecido en la NOM-014-SAG/PESC-2015 (apartado 4.11, inciso e).",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Promover zonas integrales de pesca de recursos bentónicos o semi-sésiles de importancia comercial, de manera que un solo permisionario u organización pueda aprovechar todos los recursos en una misma zona de pesca.",
+        avance: "Sin información",
+      },
+    ],
+  },
+  "pac-tunidos-del-pacifico": {
+    generalidades: {
+      descripcion: [
+        "Los atunes pertenecen a la familia Scombridae, tienen hábitos pelágicos; por lo general se encuentran en la porción epipelágica de la columna de agua y rara vez por debajo de los 200 metros de profundidad. Los atunes del género Thunnus se dividen en una docena de especies de peces oceánicos. Nadan con velocidades de crucero de 3 a 7 kilómetros por hora, pero pueden alcanzar los 70 kilómetros por hora y, excepcionalmente, superar los 110 kilómetros por hora en recorridos cortos. La captura se realiza en la Zona Económica Exclusiva de México y en aguas internacionales del Océano Pacífico Oriental (hasta los 150° Oeste).",
+      ],
+      embarcaciones:
+        "La unidad de pesca está compuesta por barcos cerqueros con capacidad de bodega variable (40 a 1,542 toneladas) y red de cerco de hasta 1,850 metros de longitud, pudiendo alcanzar 28 paños de altura. Asimismo, existe una flota varera y se capturan en la pesca deportiva.",
+      especiesObjetivo: [
+        { nombre: "Atún aleta amarilla", cientifico: "Thunnus albacares" },
+        { nombre: "Atún aleta azul", cientifico: "Thunnus orientalis" },
+      ],
+      especiesAsociadas: [
+        { nombre: "Barrilete", cientifico: "Katsuwonus pelamis" },
+        { nombre: "Albacora", cientifico: "Thunnus alalunga" },
+        { nombre: "Patudo", cientifico: "Thunnus obesus" },
+        { nombre: "Barrilete negro", cientifico: "Euthynnus lineatus" },
+        { nombre: "Bonito", cientifico: "Sarda spp." },
+      ],
+    },
+    indicadores: {
+      datosDestacados: [
+        "En 2003 se registró la captura histórica de 183,000 toneladas.",
+        "Mazatlán, Sinaloa es el principal puerto de descargas, seguido de Manzanillo, Colima y Puerto Chiapas, Chiapas.",
+        "Estos puertos acumulan el 80% de las descargas de atún en México.",
+        "En México existen 61 embarcaciones de cerco y 13 de vara, de acuerdo con la CIAT.",
+      ],
+      // Tendencia de la captura de atún aleta amarilla, 1983-2018 (Fuente: CONAPESCA).
+      capturaPorEstado: [
+        {
+          titulo: "Captura de atún aleta amarilla, 1983–2018 (CONAPESCA)",
+          series: [
+            {
+              estado: "Captura (t)",
+              color: "#0d9488",
+              datos: [
+                { año: 1983, captura: 18500 },
+                { año: 1984, captura: 81500 },
+                { año: 1985, captura: 95500 },
+                { año: 1986, captura: 102000 },
+                { año: 1987, captura: 113500 },
+                { año: 1988, captura: 116500 },
+                { año: 1989, captura: 116500 },
+                { año: 1990, captura: 114500 },
+                { año: 1991, captura: 120000 },
+                { año: 1992, captura: 105500 },
+                { año: 1993, captura: 107500 },
+                { año: 1994, captura: 107500 },
+                { año: 1995, captura: 123000 },
+                { año: 1996, captura: 137000 },
+                { año: 1997, captura: 126000 },
+                { año: 1998, captura: 120000 },
+                { año: 1999, captura: 110500 },
+                { año: 2000, captura: 122500 },
+                { año: 2001, captura: 152000 },
+                { año: 2002, captura: 163500 },
+                { año: 2003, captura: 141000 },
+                { año: 2004, captura: 108000 },
+                { año: 2005, captura: 100000 },
+                { año: 2006, captura: 83000 },
+                { año: 2007, captura: 86500 },
+                { año: 2008, captura: 93000 },
+                { año: 2009, captura: 106500 },
+                { año: 2010, captura: 115000 },
+                { año: 2011, captura: 107000 },
+                { año: 2012, captura: 99500 },
+                { año: 2013, captura: 131000 },
+                { año: 2014, captura: 158500 },
+                { año: 2015, captura: 128500 },
+                { año: 2016, captura: 111000 },
+                { año: 2017, captura: 95500 },
+                { año: 2018, captura: 116500 },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    ambiente: [
+      "Las variaciones en la temperatura del mar generan una serie de cambios en la distribución de los túnidos, por sus fluctuaciones en las poblaciones que constituyen su alimento y, en el caso del atún aleta amarilla, en el reclutamiento.",
+    ],
+    normatividad: [
+      {
+        instrumento: "1. Norma Oficial Mexicana",
+        aplica: true,
+        disposicion:
+          "NOM-001-SAG/PESC-2013, Pesca responsable de túnidos: especificaciones para las operaciones de pesca con red de cerco. NOM-022-SAG/PESC-2015, para regular el aprovechamiento de las especies de túnidos con embarcaciones vareras en aguas de jurisdicción federal.",
+        sustento: "DOF: 16/01/2014 y 12/06/2015.",
+      },
+      {
+        instrumento: "2. Plan de Manejo Pesquero",
+        aplica: true,
+        disposicion:
+          "Plan de Manejo Pesquero de Atún Aleta Amarilla (Thunnus albacares) del Océano Pacífico Mexicano. Plan de Manejo para la pesquería de Atún Aleta Azul (Thunnus orientalis) en el Pacífico Oriental.",
+        sustento: "DOF: 16/07/2014 y 07/04/2021.",
+      },
+      {
+        instrumento: "3. Tipo de acceso",
+        aplica: true,
+        disposicion: "Permiso para pesca comercial y concesiones.",
+        sustento: "Opinión técnica del INAPESCA. Artículo 36, Fracción III de la LGPAS (DOF: 19/01/2023).",
+      },
+      { instrumento: "4. Talla mínima", aplica: false, disposicion: "", sustento: "" },
+      {
+        instrumento: "5. Arte de pesca y método de captura",
+        aplica: true,
+        disposicion:
+          "Red de cerco (con paño de seguridad para la pesca de aleta amarilla) de hasta 1,850 metros de longitud y hasta 200 metros de altura (12 a 18 paños de profundidad), según el tamaño y capacidad de la embarcación; para capturar el atún se utiliza el método de encierre. Vara de bambú, acrílico o fibra de vidrio de 2.5 a 3 metros de longitud y anzuelos con dimensiones mínimas de 68 mm de largo por 33.5 mm de ancho, máximo 20 varas por embarcación.",
+        sustento:
+          "Numeral 4.2 de la NOM-001-SAG/PESC-2013 (DOF: 16/01/2014). Numerales 4.7 y 4.8 de la NOM-022-SAG/PESC-2015 (DOF: 12/06/2015). Numeral 4.6 del Plan de Manejo Pesquero de Atún Aleta Amarilla (DOF: 16/07/2014).",
+      },
+      {
+        instrumento: "6. Veda",
+        aplica: true,
+        disposicion:
+          "Con el propósito de inducir al aprovechamiento sustentable de las especies de túnidos, la Secretaría establece periodos y zonas de veda mediante el procedimiento de la NOM-009-ESC-1993, y adopta las medidas de manejo acordadas en el marco de la CIAT, dándolas a conocer por Acuerdos publicados en el DOF.",
+        sustento:
+          "Resolución de la Comisión Interamericana del Atún Tropical (CIAT). Dictamen técnico del INAPESCA. Numerales 4.1.9 y 4.1.10 de la NOM-001-SAG/PESC-2013 (DOF: 16/01/2014).",
+      },
+      {
+        instrumento: "7. Cuota",
+        aplica: true,
+        disposicion: "Atún aleta azul: cuota de captura bienal basada en los análisis del stock de la CIAT.",
+        sustento:
+          "Resolución de la Comisión Interamericana del Atún Tropical (CIAT). Dictamen técnico del INAPESCA (DOF: 30/04/2020).",
+      },
+      {
+        instrumento: "8. Unidad de pesca",
+        aplica: true,
+        disposicion:
+          "Embarcaciones mayores cerqueras, vareras y de pesca deportiva. La embarcación varera es una embarcación mayor con eslora máxima de 28 metros, con sistema de conservación de la captura, motor estacionario y capacidad de acarreo entre 50 y 200 toneladas, que utiliza como arte de pesca varas de fibra de vidrio y en ocasiones de bambú provistas de un cordel y un anzuelo sin muerte y con señuelo.",
+        sustento: "Permiso para pesca comercial. Numeral 3.7 de la NOM-022-SAG/PESC-2015 (DOF: 12/06/2015).",
+      },
+      {
+        instrumento: "9. Esfuerzo nominal autorizado",
+        aplica: true,
+        disposicion:
+          "Embarcaciones mayores: 57 con red de cerco y 7 con vara. Embarcaciones menores: Oaxaca, 215 embarcaciones; Nayarit, 20 embarcaciones.",
+        sustento:
+          "Registros de Permisos y Concesiones de Pesca Comercial autorizadas y registradas en el Sistema de Administración Pesquera en diciembre de 2021.",
+      },
+      {
+        instrumento: "10. Zona de pesca",
+        aplica: true,
+        disposicion:
+          "Zona Económica Exclusiva de México y aguas internacionales del Océano Pacífico Oriental (hasta los 150° Oeste), considerando las disposiciones normativas y lineamientos de los programas de manejo de la Reserva de la Biósfera Islas del Pacífico de la Península de Baja California.",
+        sustento: "DOF: 07/12/2016.",
+      },
+    ],
+    status: {
+      cards: [
+        {
+          categoria: "Aprovechado al máximo sustentable",
+          color: "yellow",
+          especie: "Atún aleta amarilla (Thunnus albacares)",
+          zona: "Océano Pacífico Oriental (CIAT, 2021)",
+        },
+        {
+          categoria: "Deteriorado, en fase de recuperación",
+          color: "red",
+          especie: "Atún aleta azul (Thunnus orientalis)",
+          zona: "Pacífico Oriental",
+        },
+      ],
+      estrategia: "Tasa de aprovechamiento para mantener la población en el Aprovechamiento Máximo Sustentable.",
+      tacticas: ["Control del esfuerzo pesquero", "Veda temporal", "Cuota de captura"],
+    },
+    recomendaciones: [
+      {
+        recomendacion:
+          "No incrementar el esfuerzo de pesca en general. No autorizar el ingreso de nuevos buques (no incluidos en el registro de la flota cerquera del Océano Pacífico Oriental), excepto para reemplazar buques eliminados del registro, siempre que la capacidad del buque o buques sustitutos no supere la de los reemplazados.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Para la pesca con vara, no incrementar el número de embarcaciones en el registro regional de buques de la CIAT.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion:
+          "Coadyuvar a la regulación de la pesca con objetos flotantes en el Pacífico Oriental para reducir la mortalidad de atunes de aleta amarilla menores a la talla comercial y permitir incrementar el Aprovechamiento Máximo Sustentable.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion: "Mantener baja la captura de organismos menores de dos años de edad o 12 kg para el atún aleta azul.",
+        avance: "Sin información",
+      },
+      {
+        recomendacion: "Coadyuvar en la evaluación y manejo de los recursos atuneros en los foros internacionales pertinentes.",
+        avance: "Sin información",
+      },
+    ],
+  },
   "camaron-cafe": {
     generalidades: {
       descripcion: [

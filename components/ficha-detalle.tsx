@@ -17,6 +17,7 @@ import {
   XCircle,
   AlertTriangle,
   ChevronRight,
+  Info,
 } from "lucide-react"
 import {
   XAxis,
@@ -208,28 +209,32 @@ function Generalidades({ ficha }: { ficha: Ficha }) {
       )}
 
       {(g.embarcaciones || g.artesPesca) && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {g.embarcaciones && (
-            <Card className="border-teal-200">
-              <CardHeader className="pb-3">
-                <SectionTitle icon={Ship}>Tipos de embarcaciones</SectionTitle>
-              </CardHeader>
-              <CardContent>
+        <Card className="border-teal-200">
+          <CardHeader className="pb-3">
+            <SectionTitle icon={Ship}>Embarcaciones y artes de pesca</SectionTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {g.embarcaciones && (
+              <div>
+                {/* El subtítulo solo aparece cuando conviven ambos apartados */}
+                {g.artesPesca && (
+                  <p className="mb-1 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-gray-500">
+                    <Ship className="h-3.5 w-3.5" /> Embarcaciones
+                  </p>
+                )}
                 <p className="text-gray-700 leading-relaxed text-sm">{g.embarcaciones}</p>
-              </CardContent>
-            </Card>
-          )}
-          {g.artesPesca && (
-            <Card className="border-teal-200">
-              <CardHeader className="pb-3">
-                <SectionTitle icon={Anchor}>Artes de pesca</SectionTitle>
-              </CardHeader>
-              <CardContent>
+              </div>
+            )}
+            {g.artesPesca && (
+              <div>
+                <p className="mb-1 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-gray-500">
+                  <Anchor className="h-3.5 w-3.5" /> Artes de pesca
+                </p>
                 <p className="text-gray-700 leading-relaxed text-sm">{g.artesPesca}</p>
-              </CardContent>
-            </Card>
-          )}
-        </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
       )}
 
       {(g.especiesObjetivo?.length || g.especiesAsociadas?.length) && (
@@ -344,12 +349,25 @@ function Indicadores({ ficha }: { ficha: Ficha }) {
   const hist = ind.capturaHistorica ?? []
   return (
     <>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {ind.capturaAnual && <Kpi label="Captura anual" value={ind.capturaAnual} unit="toneladas" icon={TrendingUp} />}
-        {ind.valorProduccion && <Kpi label="Valor producción" value={ind.valorProduccion} unit="millones MXN" icon={DollarSign} />}
-        {ind.empleos && <Kpi label="Empleos directos" value={ind.empleos} unit="pescadores" icon={Users} />}
-        {ind.embarcaciones && <Kpi label="Embarcaciones" value={ind.embarcaciones} unit="activas" icon={Anchor} />}
-      </div>
+      {(ind.capturaAnual || ind.valorProduccion || ind.empleos || ind.embarcaciones) && (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {ind.capturaAnual && <Kpi label="Captura anual" value={ind.capturaAnual} unit="toneladas" icon={TrendingUp} />}
+          {ind.valorProduccion && <Kpi label="Valor producción" value={ind.valorProduccion} unit="millones MXN" icon={DollarSign} />}
+          {ind.empleos && <Kpi label="Empleos directos" value={ind.empleos} unit="pescadores" icon={Users} />}
+          {ind.embarcaciones && <Kpi label="Embarcaciones" value={ind.embarcaciones} unit="activas" icon={Anchor} />}
+        </div>
+      )}
+
+      {!!ind.datosDestacados?.length && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {ind.datosDestacados.map((dato, i) => (
+            <div key={i} className="flex gap-3 rounded-lg border border-teal-200 bg-teal-50/60 p-4">
+              <Info className="mt-0.5 h-5 w-5 shrink-0 text-teal-600" />
+              <p className="text-sm leading-relaxed text-gray-700">{dato}</p>
+            </div>
+          ))}
+        </div>
+      )}
 
       {ind.capturaPorEstado?.map((grafica, i) => <GraficaEstados key={i} grafica={grafica} />)}
 

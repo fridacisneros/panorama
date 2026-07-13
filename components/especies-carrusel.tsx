@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
-import { Fish, MapPin } from "lucide-react"
+import { MapPin } from "lucide-react"
 import {
   Carousel,
   CarouselContent,
@@ -12,7 +12,8 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel"
 import { Card } from "@/components/ui/card"
-import { especies, type Especie } from "@/lib/especies-data"
+import { EspecieImagen } from "@/components/especie-imagen"
+import { especies } from "@/lib/especies-data"
 
 // Especies destacadas (más consultadas / de mayor relevancia comercial).
 const DESTACADAS = [
@@ -32,29 +33,6 @@ const destacadas = (() => {
   seleccion.sort((a, b) => (orden.get(a.id) ?? 0) - (orden.get(b.id) ?? 0))
   return seleccion.length > 0 ? seleccion : especies
 })()
-
-// Imagen de la especie con respaldo (ícono) si aún no existe la foto.
-// Coloca las fotos en public/images/especies/{id}.jpg
-function EspecieImagen({ especie }: { especie: Especie }) {
-  const [error, setError] = useState(false)
-
-  if (error) {
-    return (
-      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-teal-100 to-cyan-100 transition-transform duration-500 group-hover:scale-105">
-        <Fish className="h-1/3 w-1/3 text-teal-400" />
-      </div>
-    )
-  }
-
-  return (
-    <img
-      src={`/images/especies/${especie.id}.jpg`}
-      alt={especie.nombre}
-      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-      onError={() => setError(true)}
-    />
-  )
-}
 
 export function EspeciesCarrusel() {
   const [api, setApi] = useState<CarouselApi>()
@@ -93,7 +71,11 @@ export function EspeciesCarrusel() {
             <Link href={`/especies?id=${especie.id}`} className="group block">
               <Card className="overflow-hidden border-teal-200 bg-white/90 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-teal-300 hover:shadow-lg">
                 <div className="aspect-square w-full overflow-hidden">
-                  <EspecieImagen especie={especie} />
+                  <EspecieImagen
+                    id={especie.id}
+                    nombre={especie.nombre}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
                 </div>
                 <div className="p-2.5">
                   <h3 className="truncate text-sm font-bold leading-tight text-gray-900 transition-colors group-hover:text-teal-700">

@@ -84,13 +84,16 @@ export interface FichaPesqueria {
 export interface Especie {
   id: string
   nombre: string
-  nombreCientifico: string
-  status: string | string[]
-  statusColor: string | string[]
-  zona: string
   region: string
-  captura: string
-  descripcion: string
+  // Los campos siguientes son opcionales: las pesquerías sin ficha ("Próximamente")
+  // sólo tienen nombre, región y año de última actualización.
+  nombreCientifico?: string
+  status?: string | string[]
+  statusColor?: string | string[]
+  zona?: string
+  captura?: string
+  descripcion?: string
+  ultimaActualizacion?: number // año de la última actualización en la CNP
   ficha?: FichaPesqueria
 }
 
@@ -216,6 +219,91 @@ export const especies: Especie[] = [
     captura: "30,211 toneladas",
     descripcion: "Moluscos bivalvos de importancia comercial en sistemas lagunares y estuarinos",
   },
+  // -------------------------------------------------------------------------
+  // Pesquerías marinas del catálogo de la Carta Nacional Pesquera sin ficha
+  // detallada todavía (se muestran como "Próximamente"). Fuente: historial de
+  // actualizaciones de la CNP (litorales del Pacífico y del Golfo/Caribe).
+  // -------------------------------------------------------------------------
+  { id: "gm-camaron-rosado-del-golfo-de-mexico", nombre: "Camarón rosado del Golfo de México", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2023 },
+  { id: "gm-huachinango-y-pargos-del-golfo-de-mexico-y-mar-caribe", nombre: "Huachinango y pargos del Golfo de México y Mar Caribe", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2023 },
+  { id: "gm-ostion-del-golfo-de-mexico", nombre: "Ostión del Golfo de México", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2023 },
+  { id: "gm-jaiba-del-golfo-de-mexico", nombre: "Jaiba del Golfo de México", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2022 },
+  { id: "gm-jurel-y-cojinuda-del-golfo-de-mexico-y-mar-caribe", nombre: "Jurel y cojinuda del Golfo de México y Mar Caribe", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2022 },
+  { id: "gm-langosta-del-golfo-de-mexico-y-mar-caribe", nombre: "Langosta del Golfo de México y Mar Caribe", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2022 },
+  { id: "gm-lisa-y-liseta-o-lebrancha-del-golfo-de-mexico", nombre: "Lisa y liseta o lebrancha del Golfo de México", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2022 },
+  { id: "gm-rayas-del-golfo-de-mexico", nombre: "Rayas del Golfo de México", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2022 },
+  { id: "gm-sierra-y-peto-del-golfo-de-mexico", nombre: "Sierra y peto del Golfo de México", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2022 },
+  { id: "gm-tiburones-del-golfo-de-mexico-y-mar-caribe", nombre: "Tiburones del Golfo de México y Mar Caribe", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2022 },
+  { id: "gm-bandera-y-bagres", nombre: "Bandera y bagres", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2010 },
+  { id: "gm-camaron-siete-barbas", nombre: "Camarón siete barbas", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2010 },
+  { id: "gm-cangrejos-semiterrestres", nombre: "Cangrejos semiterrestres", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2010 },
+  { id: "gm-peces-marinos-escama", nombre: "Peces marinos escama", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2010 },
+  { id: "gm-sabalo-pesca-deportiva", nombre: "Sábalo (pesca deportiva)", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2010 },
+  { id: "gm-tunidos", nombre: "Túnidos", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2010 },
+  { id: "gm-armado-y-xlavita", nombre: "Armado y xlavita", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2006 },
+  { id: "gm-burrito", nombre: "Burrito", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2006 },
+  { id: "gm-cangrejo-marino", nombre: "Cangrejo marino", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2006 },
+  { id: "gm-sardina", nombre: "Sardina", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2006 },
+  { id: "gm-trucha-de-mar", nombre: "Trucha de mar", region: "Golfo de México y Mar Caribe", ultimaActualizacion: 2006 },
+  { id: "pac-abulon", nombre: "Abulón", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-almeja-blanca-o-mantequilla", nombre: "Almeja blanca o mantequilla", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-almeja-catarina", nombre: "Almeja catarina", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-almeja-chocolata", nombre: "Almeja chocolata", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-almeja-concha-espina", nombre: "Almeja concha espina", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-almeja-generosa", nombre: "Almeja generosa", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-almeja-pata-de-mula", nombre: "Almeja pata de mula", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-almeja-ronosa", nombre: "Almeja roñosa", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-botete", nombre: "Botete", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-callo-de-hacha", nombre: "Callo de hacha", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-caracol-chino", nombre: "Caracol chino", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-caracol-panocha", nombre: "Caracol panocha", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-cucaracha-de-mar", nombre: "Cucaracha de mar", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-curvina-golfina", nombre: "Curvina golfina", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-dorado-pesca-deportiva", nombre: "Dorado (Pesca deportiva)", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-erizo-de-mar", nombre: "Erizo de mar", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-huachinango-y-pargos-del-pacifico", nombre: "Huachinango y pargos del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-jaiba-del-pacifico", nombre: "Jaiba del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-langostas-espinosas-del-pacifico", nombre: "Langostas espinosas del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-langostino", nombre: "Langostino", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-lisa-del-pacifico", nombre: "Lisa del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-medusa-bola-de-canon", nombre: "Medusa bola de cañón", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-mejillon", nombre: "Mejillón", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-ostion-del-pacifico", nombre: "Ostión del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-pepino-de-mar-del-pacifico", nombre: "Pepino de mar del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-pulpo-del-pacifico", nombre: "Pulpo del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-robalo-del-pacifico", nombre: "Robalo del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-sierra-del-pacifico", nombre: "Sierra del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-tiburones-del-pacifico", nombre: "Tiburones del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-tunidos-del-pacifico", nombre: "Túnidos del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-verdillo", nombre: "Verdillo", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  { id: "pac-calamar-gigante", nombre: "Calamar gigante", region: "Litoral del Pacífico", ultimaActualizacion: 2022 },
+  { id: "pac-marlin-pesca-deportiva", nombre: "Marlin (pesca deportiva)", region: "Litoral del Pacífico", ultimaActualizacion: 2022 },
+  { id: "pac-merluza-del-pacifico-norte", nombre: "Merluza del Pacífico norte", region: "Litoral del Pacífico", ultimaActualizacion: 2022 },
+  { id: "pac-pelagicos-menores", nombre: "Pelágicos menores", region: "Litoral del Pacífico", ultimaActualizacion: 2022 },
+  { id: "pac-calamar-loligo", nombre: "Calamar loligo", region: "Litoral del Pacífico", ultimaActualizacion: 2018 },
+  { id: "pac-camaron-del-pacifico", nombre: "Camarón del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2018 },
+  { id: "pac-almeja-mano-de-leon", nombre: "Almeja mano de león", region: "Litoral del Pacífico", ultimaActualizacion: 2012 },
+  { id: "pac-estrella-de-mar", nombre: "Estrella de Mar", region: "Litoral del Pacífico", ultimaActualizacion: 2012 },
+  { id: "pac-macroalgas", nombre: "Macroalgas", region: "Litoral del Pacífico", ultimaActualizacion: 2012 },
+  { id: "pac-peces-marinos-bacalao-negro-costa-del-pacifico-de-bc", nombre: "Peces Marinos: Bacalao negro Costa del Pacífico de BC", region: "Litoral del Pacífico", ultimaActualizacion: 2012 },
+  { id: "pac-peces-marinos-barrilete-negro-y-bonito", nombre: "Peces Marinos: Barrilete negro y bonito.", region: "Litoral del Pacífico", ultimaActualizacion: 2012 },
+  { id: "pac-peces-marinos-rocotes", nombre: "Peces Marinos: Rocotes", region: "Litoral del Pacífico", ultimaActualizacion: 2012 },
+  { id: "pac-pez-espada", nombre: "Pez espada", region: "Litoral del Pacífico", ultimaActualizacion: 2012 },
+  { id: "pac-pez-vela-pesca-deportivo-recreativa", nombre: "Pez vela (Pesca deportivo-recreativa)", region: "Litoral del Pacífico", ultimaActualizacion: 2012 },
+  { id: "pac-almejas", nombre: "Almejas", region: "Litoral del Pacífico", ultimaActualizacion: 2010 },
+  { id: "pac-baquetas-cabrillas-y-verdillos", nombre: "Baquetas, cabrillas y verdillos", region: "Litoral del Pacífico", ultimaActualizacion: 2010 },
+  { id: "pac-cangrejo-costa-pacifica-de-bc", nombre: "Cangrejo costa pacífica de BC", region: "Litoral del Pacífico", ultimaActualizacion: 2010 },
+  { id: "pac-caracoles", nombre: "Caracoles", region: "Litoral del Pacífico", ultimaActualizacion: 2010 },
+  { id: "pac-curvinas-y-berrugatas", nombre: "Curvinas y berrugatas", region: "Litoral del Pacífico", ultimaActualizacion: 2010 },
+  { id: "pac-jureles-y-medregales", nombre: "Jureles y medregales", region: "Litoral del Pacífico", ultimaActualizacion: 2010 },
+  { id: "pac-lenguados", nombre: "Lenguados", region: "Litoral del Pacífico", ultimaActualizacion: 2010 },
+  { id: "pac-peces-marinos-escama", nombre: "Peces marinos escama", region: "Litoral del Pacífico", ultimaActualizacion: 2010 },
+  { id: "pac-pierna-y-conejo", nombre: "Pierna y conejo", region: "Litoral del Pacífico", ultimaActualizacion: 2010 },
+  { id: "pac-rayas-y-mantas", nombre: "Rayas y mantas", region: "Litoral del Pacífico", ultimaActualizacion: 2010 },
+  { id: "pac-tiburones-costeros", nombre: "Tiburones costeros", region: "Litoral del Pacífico", ultimaActualizacion: 2010 },
+  { id: "pac-langostilla", nombre: "Langostilla", region: "Litoral del Pacífico", ultimaActualizacion: 2002 },
+  { id: "pac-sargazo", nombre: "Sargazo", region: "Litoral del Pacífico", ultimaActualizacion: 2002 },
+  { id: "pac-tiburones-oceanicos", nombre: "Tiburones océanicos", region: "Litoral del Pacífico", ultimaActualizacion: 2002 },
 ]
 
 // ---------------------------------------------------------------------------

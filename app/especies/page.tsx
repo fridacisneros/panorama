@@ -15,24 +15,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { PageHeader } from "@/components/page-header"
 import { FilterBar } from "@/components/filter-bar"
 import { FichaDetalle } from "@/components/ficha-detalle"
+import { EspecieImagen } from "@/components/especie-imagen"
 import { cn } from "@/lib/utils"
 import { especies } from "@/lib/especies-data"
 
 const toArray = <T,>(value: T | T[]): T[] => (Array.isArray(value) ? value : [value])
 
 const getUniqueRegions = () => [...new Set(especies.map((e) => e.region))].sort()
-
-function EspecieMiniatura({ id, nombre, className }: { id: string; nombre: string; className?: string }) {
-  const [error, setError] = useState(false)
-  if (error) {
-    return (
-      <div className={cn("flex items-center justify-center bg-gradient-to-br from-teal-100 to-cyan-100", className)}>
-        <Fish className="w-1/2 h-1/2 text-teal-400" />
-      </div>
-    )
-  }
-  return <img src={`/images/especies/${id}.jpg`} alt={nombre} className={className} onError={() => setError(true)} />
-}
 
 export default function EspeciesPage() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -56,17 +45,30 @@ export default function EspeciesPage() {
   const filteredEspecies = useMemo(
     () =>
       especies.filter((especie) => {
-        const statusColors = toArray(especie.statusColor)
+        const statusColors = especie.statusColor ? toArray(especie.statusColor) : []
+        const term = searchTerm.toLowerCase()
         const matchesSearch =
-          especie.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          especie.nombreCientifico.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          especie.zona.toLowerCase().includes(searchTerm.toLowerCase())
+          especie.nombre.toLowerCase().includes(term) ||
+          (especie.nombreCientifico?.toLowerCase().includes(term) ?? false) ||
+          (especie.zona?.toLowerCase().includes(term) ?? false)
         const matchesStatus = statusFilter === "todos" || statusColors.includes(statusFilter)
         const matchesRegion = regionFilter === "todas" || especie.region === regionFilter
         return matchesSearch && matchesStatus && matchesRegion
       }),
     [searchTerm, statusFilter, regionFilter],
   )
+
+  // Agrupa la lista por región para mostrar encabezados (el catálogo abarca
+  // varias regiones, con muchas pesquerías "Próximamente" por región).
+  const groupedEspecies = useMemo(() => {
+    const groups = new Map<string, typeof filteredEspecies>()
+    for (const especie of filteredEspecies) {
+      const arr = groups.get(especie.region) ?? []
+      arr.push(especie)
+      groups.set(especie.region, arr)
+    }
+    return [...groups.entries()]
+  }, [filteredEspecies])
 
   const selected = especies.find((e) => e.id === selectedId) ?? filteredEspecies[0] ?? especies[0]
 
@@ -187,35 +189,49 @@ export default function EspeciesPage() {
                 </Button>
               </div>
             ) : (
-              <div className="flex flex-col gap-1">
-                {filteredEspecies.map((especie) => {
-                  const activo = selected?.id === especie.id
-                  return (
-                    <button
-                      key={especie.id}
-                      type="button"
-                      role="option"
-                      aria-selected={activo}
-                      onClick={() => selectEspecie(especie.id)}
-                      className={cn(
-                        "flex items-center gap-3 rounded-lg p-2 text-left transition-colors border",
-                        activo
-                          ? "bg-teal-50 border-teal-300"
-                          : "border-transparent hover:bg-gray-50",
-                      )}
-                    >
-                      <div className="w-11 h-11 flex-shrink-0 rounded-lg overflow-hidden">
-                        <EspecieMiniatura id={especie.id} nombre={especie.nombre} className="w-full h-full object-cover" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className={cn("font-semibold text-sm leading-tight truncate", activo ? "text-teal-700" : "text-gray-900")}>
-                          {especie.nombre}
-                        </p>
-                        <p className="text-xs text-gray-500 truncate">{especie.region}</p>
-                      </div>
-                    </button>
-                  )
-                })}
+              <div className="flex flex-col gap-3">
+                {groupedEspecies.map(([region, items]) => (
+                  <div key={region} className="flex flex-col gap-1">
+                    <p className="sticky top-0 z-10 bg-white/95 backdrop-blur-sm px-2 py-1 text-xs font-semibold uppercase tracking-wide text-teal-700">
+                      {region}
+                    </p>
+                    {items.map((especie) => {
+                      const activo = selected?.id === especie.id
+                      const proximamente = !especie.ficha
+                      return (
+                        <button
+                          key={especie.id}
+                          type="button"
+                          role="option"
+                          aria-selected={activo}
+                          onClick={() => selectEspecie(especie.id)}
+                          className={cn(
+                            "flex items-center gap-3 rounded-lg p-2 text-left transition-colors border",
+                            activo
+                              ? "bg-teal-50 border-teal-300"
+                              : "border-transparent hover:bg-gray-50",
+                          )}
+                        >
+                          <div className="w-11 h-11 flex-shrink-0 rounded-lg overflow-hidden">
+                            <EspecieImagen id={especie.id} nombre={especie.nombre} className="w-full h-full object-cover" iconClassName="w-1/2 h-1/2" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className={cn("font-semibold text-sm leading-tight truncate", activo ? "text-teal-700" : "text-gray-900")}>
+                              {especie.nombre}
+                            </p>
+                            {proximamente ? (
+                              <span className="inline-flex items-center rounded-full bg-gray-100 px-1.5 py-0.5 text-[10px] font-medium text-gray-500">
+                                Próximamente
+                              </span>
+                            ) : (
+                              <p className="text-xs text-gray-500 truncate">{especie.region}</p>
+                            )}
+                          </div>
+                        </button>
+                      )
+                    })}
+                  </div>
+                ))}
               </div>
             )}
           </div>

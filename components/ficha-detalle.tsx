@@ -32,6 +32,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
+import { EspecieImagen } from "@/components/especie-imagen"
 import type { Especie, GraficaCapturaEstados } from "@/lib/especies-data"
 
 const toArray = <T,>(value: T | T[]): T[] => (Array.isArray(value) ? value : [value])
@@ -73,18 +74,6 @@ const SECCIONES: { id: SeccionId; label: string; icon: typeof Fish }[] = [
   { id: "recomendaciones", label: "Recomendaciones", icon: FileText },
 ]
 
-function EspecieImagen({ id, nombre, className }: { id: string; nombre: string; className?: string }) {
-  const [error, setError] = useState(false)
-  if (error) {
-    return (
-      <div className={cn("flex items-center justify-center bg-gradient-to-br from-teal-100 to-cyan-100", className)}>
-        <Fish className="w-1/3 h-1/3 text-teal-400" />
-      </div>
-    )
-  }
-  return <img src={`/images/especies/${id}.jpg`} alt={nombre} className={className} onError={() => setError(true)} />
-}
-
 export function FichaDetalle({ especie }: { especie: Especie }) {
   const ficha = especie.ficha
   const disponibles = SECCIONES.filter((s) => {
@@ -98,8 +87,8 @@ export function FichaDetalle({ especie }: { especie: Especie }) {
   const [activa, setActiva] = useState<SeccionId>(disponibles[0]?.id ?? "generalidades")
   const seccionActiva = disponibles.some((s) => s.id === activa) ? activa : disponibles[0]?.id
 
-  const estados = toArray(especie.status)
-  const colores = toArray(especie.statusColor)
+  const estados = especie.status ? toArray(especie.status) : []
+  const colores = especie.statusColor ? toArray(especie.statusColor) : []
 
   return (
     <div className="flex flex-col h-full">
@@ -110,15 +99,19 @@ export function FichaDetalle({ especie }: { especie: Especie }) {
         </div>
         <div className="flex-1 min-w-0">
           <h2 className="text-2xl font-bold text-gray-900 leading-tight">{especie.nombre}</h2>
-          <p className="text-base text-gray-500 italic">{especie.nombreCientifico}</p>
+          {especie.nombreCientifico && (
+            <p className="text-base text-gray-500 italic">{especie.nombreCientifico}</p>
+          )}
           <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-600">
             <span className="flex items-center gap-1">
               <MapPin className="w-4 h-4 text-teal-600" />
               {especie.region}
             </span>
-            <span>
-              Captura: <span className="font-semibold text-gray-900 tabular-nums">{especie.captura}</span>
-            </span>
+            {especie.captura && (
+              <span>
+                Captura: <span className="font-semibold text-gray-900 tabular-nums">{especie.captura}</span>
+              </span>
+            )}
           </div>
           <div className="mt-2 flex flex-wrap gap-1.5">
             {estados.map((estado, i) => {
@@ -137,8 +130,11 @@ export function FichaDetalle({ especie }: { especie: Especie }) {
       {!ficha ? (
         <div className="flex-1 flex flex-col items-center justify-center text-center p-10 text-gray-500">
           <Fish className="w-12 h-12 text-teal-300 mb-3" />
-          <p className="font-medium text-gray-700">Ficha en preparación</p>
-          <p className="text-sm">{especie.descripcion}</p>
+          <p className="font-medium text-gray-700">Próximamente</p>
+          <p className="text-sm max-w-sm">
+            {especie.descripcion ??
+              "La ficha detallada de esta pesquería estará disponible próximamente."}
+          </p>
         </div>
       ) : (
         <>

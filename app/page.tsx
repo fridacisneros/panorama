@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Footer } from "@/components/footer"
 import { BuzonSugerencias } from "@/components/buzon-sugerencias"
 import { EspeciesCarrusel } from "@/components/especies-carrusel"
+import { NormativasCarrusel } from "@/components/normativas-carrusel"
 import { especies } from "@/lib/especies-data"
 import { vedasData } from "@/lib/vedas-data"
 
@@ -168,6 +169,30 @@ export default function Home() {
 
           <div className="px-2 sm:px-12">
             <EspeciesCarrusel />
+          </div>
+        </div>
+      </section>
+
+      {/* Explora la biblioteca (últimas normativas por fecha de publicación) */}
+      <section className="py-16 bg-white/40">
+        <div className="container mx-auto px-4">
+          <div className="mb-10 flex flex-col items-center gap-4 text-center md:flex-row md:justify-between md:text-left">
+            <div>
+              <h2 className="text-4xl font-bold text-gray-800 mb-2">Explora la biblioteca</h2>
+              <p className="text-xl text-gray-600">
+                Las normativas más recientes de acuerdo a su fecha de publicación
+              </p>
+            </div>
+            <Button asChild className="bg-teal-600 hover:bg-teal-700 text-white flex-shrink-0">
+              <Link href="/normativas">
+                Ver biblioteca
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Link>
+            </Button>
+          </div>
+
+          <div className="px-2 sm:px-12">
+            <NormativasCarrusel />
           </div>
         </div>
       </section>

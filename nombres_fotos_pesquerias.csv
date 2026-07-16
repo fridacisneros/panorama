@@ -1,0 +1,92 @@
+﻿numero,region,pesqueria,id,archivo,ya_tiene_foto
+1,Golfo de México y Mar Caribe,Bagres marinos,bagre-bandera,bagre-bandera.jpg,sí
+2,Golfo de México y Mar Caribe,Mero y Negrillo,mero-negrillo,mero-negrillo.jpg,sí
+3,Golfo de México y Mar Caribe,Pepino de Mar,pepino-mar,pepino-mar.jpg,sí
+4,Golfo de México y Mar Caribe,Pez Espada,pez-espada,pez-espada.jpg,sí
+5,Golfo de México y Mar Caribe,Camarón Café,camaron-cafe,camaron-cafe.jpg,sí
+6,Golfo de México y Mar Caribe,Camarón rojo y roca,camaron-rojo-roca,camaron-rojo-roca.jpg,sí
+7,Golfo de México y Mar Caribe,Caracoles,caracoles,caracoles.jpg,sí
+8,Golfo de México y Mar Caribe,Langostinos,langostinos,langostinos.jpg,sí
+9,Golfo de México y Mar Caribe,Pulpo,pulpo,pulpo.jpg,sí
+10,Golfo de México y Mar Caribe,Robalo y Chucumite,robalo-chucumite,robalo-chucumite.jpg,sí
+11,Golfo de México y Mar Caribe,Almejas,almejas,almejas.jpg,sí
+12,Golfo de México y Mar Caribe,Camarón rosado del Golfo de México,gm-camaron-rosado-del-golfo-de-mexico,gm-camaron-rosado-del-golfo-de-mexico.jpg,no
+13,Golfo de México y Mar Caribe,Huachinango y pargos del Golfo de México y Mar Caribe,gm-huachinango-y-pargos-del-golfo-de-mexico-y-mar-caribe,gm-huachinango-y-pargos-del-golfo-de-mexico-y-mar-caribe.jpg,no
+14,Golfo de México y Mar Caribe,Ostión del Golfo de México,gm-ostion-del-golfo-de-mexico,gm-ostion-del-golfo-de-mexico.jpg,no
+15,Golfo de México y Mar Caribe,Jaiba del Golfo de México,gm-jaiba-del-golfo-de-mexico,gm-jaiba-del-golfo-de-mexico.jpg,no
+16,Golfo de México y Mar Caribe,Jurel y cojinuda del Golfo de México y Mar Caribe,gm-jurel-y-cojinuda-del-golfo-de-mexico-y-mar-caribe,gm-jurel-y-cojinuda-del-golfo-de-mexico-y-mar-caribe.jpg,no
+17,Golfo de México y Mar Caribe,Langosta del Golfo de México y Mar Caribe,gm-langosta-del-golfo-de-mexico-y-mar-caribe,gm-langosta-del-golfo-de-mexico-y-mar-caribe.jpg,no
+18,Golfo de México y Mar Caribe,Lisa y liseta o lebrancha del Golfo de México,gm-lisa-y-liseta-o-lebrancha-del-golfo-de-mexico,gm-lisa-y-liseta-o-lebrancha-del-golfo-de-mexico.jpg,no
+19,Golfo de México y Mar Caribe,Rayas del Golfo de México,gm-rayas-del-golfo-de-mexico,gm-rayas-del-golfo-de-mexico.jpg,no
+20,Golfo de México y Mar Caribe,Sierra y peto del Golfo de México,gm-sierra-y-peto-del-golfo-de-mexico,gm-sierra-y-peto-del-golfo-de-mexico.jpg,no
+21,Golfo de México y Mar Caribe,Tiburones del Golfo de México y Mar Caribe,gm-tiburones-del-golfo-de-mexico-y-mar-caribe,gm-tiburones-del-golfo-de-mexico-y-mar-caribe.jpg,no
+22,Golfo de México y Mar Caribe,Bandera y bagres,gm-bandera-y-bagres,gm-bandera-y-bagres.jpg,no
+23,Golfo de México y Mar Caribe,Camarón siete barbas,gm-camaron-siete-barbas,gm-camaron-siete-barbas.jpg,no
+24,Golfo de México y Mar Caribe,Cangrejos semiterrestres,gm-cangrejos-semiterrestres,gm-cangrejos-semiterrestres.jpg,no
+25,Golfo de México y Mar Caribe,Peces marinos escama,gm-peces-marinos-escama,gm-peces-marinos-escama.jpg,no
+26,Golfo de México y Mar Caribe,Sábalo (pesca deportiva),gm-sabalo-pesca-deportiva,gm-sabalo-pesca-deportiva.jpg,no
+27,Golfo de México y Mar Caribe,Túnidos,gm-tunidos,gm-tunidos.jpg,no
+28,Golfo de México y Mar Caribe,Armado y xlavita,gm-armado-y-xlavita,gm-armado-y-xlavita.jpg,no
+29,Golfo de México y Mar Caribe,Burrito,gm-burrito,gm-burrito.jpg,no
+30,Golfo de México y Mar Caribe,Cangrejo marino,gm-cangrejo-marino,gm-cangrejo-marino.jpg,no
+31,Golfo de México y Mar Caribe,Sardina,gm-sardina,gm-sardina.jpg,no
+32,Golfo de México y Mar Caribe,Trucha de mar,gm-trucha-de-mar,gm-trucha-de-mar.jpg,no
+33,Litoral del Pacífico,Abulón,pac-abulon,pac-abulon.jpg,no
+34,Litoral del Pacífico,Almeja blanca o mantequilla,pac-almeja-blanca-o-mantequilla,pac-almeja-blanca-o-mantequilla.jpg,no
+35,Litoral del Pacífico,Almeja catarina,pac-almeja-catarina,pac-almeja-catarina.jpg,no
+36,Litoral del Pacífico,Almeja chocolata,pac-almeja-chocolata,pac-almeja-chocolata.jpg,no
+37,Litoral del Pacífico,Almeja concha espina,pac-almeja-concha-espina,pac-almeja-concha-espina.jpg,no
+38,Litoral del Pacífico,Almeja generosa,pac-almeja-generosa,pac-almeja-generosa.jpg,no
+39,Litoral del Pacífico,Almeja pata de mula,pac-almeja-pata-de-mula,pac-almeja-pata-de-mula.jpg,no
+40,Litoral del Pacífico,Almeja roñosa,pac-almeja-ronosa,pac-almeja-ronosa.jpg,no
+41,Litoral del Pacífico,Botete,pac-botete,pac-botete.jpg,no
+42,Litoral del Pacífico,Callo de hacha,pac-callo-de-hacha,pac-callo-de-hacha.jpg,no
+43,Litoral del Pacífico,Caracol chino,pac-caracol-chino,pac-caracol-chino.jpg,no
+44,Litoral del Pacífico,Caracol panocha,pac-caracol-panocha,pac-caracol-panocha.jpg,no
+45,Litoral del Pacífico,Cucaracha de mar,pac-cucaracha-de-mar,pac-cucaracha-de-mar.jpg,no
+46,Litoral del Pacífico,Curvina golfina,pac-curvina-golfina,pac-curvina-golfina.jpg,no
+47,Litoral del Pacífico,Dorado (Pesca deportiva),pac-dorado-pesca-deportiva,pac-dorado-pesca-deportiva.jpg,no
+48,Litoral del Pacífico,Erizo de mar,pac-erizo-de-mar,pac-erizo-de-mar.jpg,no
+49,Litoral del Pacífico,Huachinango y pargos del Pacífico,pac-huachinango-y-pargos-del-pacifico,pac-huachinango-y-pargos-del-pacifico.jpg,no
+50,Litoral del Pacífico,Jaiba del Pacífico,pac-jaiba-del-pacifico,pac-jaiba-del-pacifico.jpg,no
+51,Litoral del Pacífico,Langostas espinosas del Pacífico,pac-langostas-espinosas-del-pacifico,pac-langostas-espinosas-del-pacifico.jpg,no
+52,Litoral del Pacífico,Langostino,pac-langostino,pac-langostino.jpg,no
+53,Litoral del Pacífico,Lisa del Pacífico,pac-lisa-del-pacifico,pac-lisa-del-pacifico.jpg,no
+54,Litoral del Pacífico,Medusa bola de cañón,pac-medusa-bola-de-canon,pac-medusa-bola-de-canon.jpg,no
+55,Litoral del Pacífico,Mejillón,pac-mejillon,pac-mejillon.jpg,no
+56,Litoral del Pacífico,Ostión del Pacífico,pac-ostion-del-pacifico,pac-ostion-del-pacifico.jpg,no
+57,Litoral del Pacífico,Pepino de mar del Pacífico,pac-pepino-de-mar-del-pacifico,pac-pepino-de-mar-del-pacifico.jpg,no
+58,Litoral del Pacífico,Pulpo del Pacífico,pac-pulpo-del-pacifico,pac-pulpo-del-pacifico.jpg,no
+59,Litoral del Pacífico,Robalo del Pacífico,pac-robalo-del-pacifico,pac-robalo-del-pacifico.jpg,no
+60,Litoral del Pacífico,Sierra del Pacífico,pac-sierra-del-pacifico,pac-sierra-del-pacifico.jpg,no
+61,Litoral del Pacífico,Tiburones del Pacífico,pac-tiburones-del-pacifico,pac-tiburones-del-pacifico.jpg,no
+62,Litoral del Pacífico,Túnidos del Pacífico,pac-tunidos-del-pacifico,pac-tunidos-del-pacifico.jpg,no
+63,Litoral del Pacífico,Verdillo,pac-verdillo,pac-verdillo.jpg,no
+64,Litoral del Pacífico,Calamar gigante,pac-calamar-gigante,pac-calamar-gigante.jpg,no
+65,Litoral del Pacífico,Marlin (pesca deportiva),pac-marlin-pesca-deportiva,pac-marlin-pesca-deportiva.jpg,no
+66,Litoral del Pacífico,Merluza del Pacífico norte,pac-merluza-del-pacifico-norte,pac-merluza-del-pacifico-norte.jpg,no
+67,Litoral del Pacífico,Pelágicos menores,pac-pelagicos-menores,pac-pelagicos-menores.jpg,no
+68,Litoral del Pacífico,Calamar loligo,pac-calamar-loligo,pac-calamar-loligo.jpg,no
+69,Litoral del Pacífico,Camarón del Pacífico,pac-camaron-del-pacifico,pac-camaron-del-pacifico.jpg,no
+70,Litoral del Pacífico,Almeja mano de león,pac-almeja-mano-de-leon,pac-almeja-mano-de-leon.jpg,no
+71,Litoral del Pacífico,Estrella de Mar,pac-estrella-de-mar,pac-estrella-de-mar.jpg,no
+72,Litoral del Pacífico,Macroalgas,pac-macroalgas,pac-macroalgas.jpg,no
+73,Litoral del Pacífico,Peces Marinos: Bacalao negro Costa del Pacífico de BC,pac-peces-marinos-bacalao-negro-costa-del-pacifico-de-bc,pac-peces-marinos-bacalao-negro-costa-del-pacifico-de-bc.jpg,no
+74,Litoral del Pacífico,Peces Marinos: Barrilete negro y bonito.,pac-peces-marinos-barrilete-negro-y-bonito,pac-peces-marinos-barrilete-negro-y-bonito.jpg,no
+75,Litoral del Pacífico,Peces Marinos: Rocotes,pac-peces-marinos-rocotes,pac-peces-marinos-rocotes.jpg,no
+76,Litoral del Pacífico,Pez espada,pac-pez-espada,pac-pez-espada.jpg,no
+77,Litoral del Pacífico,Pez vela (Pesca deportivo-recreativa),pac-pez-vela-pesca-deportivo-recreativa,pac-pez-vela-pesca-deportivo-recreativa.jpg,no
+78,Litoral del Pacífico,Almejas,pac-almejas,pac-almejas.jpg,no
+79,Litoral del Pacífico,"Baquetas, cabrillas y verdillos",pac-baquetas-cabrillas-y-verdillos,pac-baquetas-cabrillas-y-verdillos.jpg,no
+80,Litoral del Pacífico,Cangrejo costa pacífica de BC,pac-cangrejo-costa-pacifica-de-bc,pac-cangrejo-costa-pacifica-de-bc.jpg,no
+81,Litoral del Pacífico,Caracoles,pac-caracoles,pac-caracoles.jpg,no
+82,Litoral del Pacífico,Curvinas y berrugatas,pac-curvinas-y-berrugatas,pac-curvinas-y-berrugatas.jpg,no
+83,Litoral del Pacífico,Jureles y medregales,pac-jureles-y-medregales,pac-jureles-y-medregales.jpg,no
+84,Litoral del Pacífico,Lenguados,pac-lenguados,pac-lenguados.jpg,no
+85,Litoral del Pacífico,Peces marinos escama,pac-peces-marinos-escama,pac-peces-marinos-escama.jpg,no
+86,Litoral del Pacífico,Pierna y conejo,pac-pierna-y-conejo,pac-pierna-y-conejo.jpg,no
+87,Litoral del Pacífico,Rayas y mantas,pac-rayas-y-mantas,pac-rayas-y-mantas.jpg,no
+88,Litoral del Pacífico,Tiburones costeros,pac-tiburones-costeros,pac-tiburones-costeros.jpg,no
+89,Litoral del Pacífico,Langostilla,pac-langostilla,pac-langostilla.jpg,no
+90,Litoral del Pacífico,Sargazo,pac-sargazo,pac-sargazo.jpg,no
+91,Litoral del Pacífico,Tiburones océanicos,pac-tiburones-oceanicos,pac-tiburones-oceanicos.jpg,no

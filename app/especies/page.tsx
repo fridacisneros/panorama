@@ -100,54 +100,54 @@ export default function EspeciesPage() {
           }}
         >
           <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="h-9 w-full md:w-52 bg-white border-gray-200">
+            <SelectTrigger className="h-9 w-full md:w-52 bg-white border-gray-200 [&>span]:min-w-0">
               <SelectValue placeholder="Estado" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="todos">Todos los estados</SelectItem>
               <SelectItem value="green">
-                <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-600" />
-                  Con potencial de desarrollo
+                <div className="flex items-center gap-2 min-w-0">
+                  <CheckCircle className="w-4 h-4 shrink-0 text-green-600" />
+                  <span className="truncate">Con potencial de desarrollo</span>
                 </div>
               </SelectItem>
               <SelectItem value="yellow">
-                <div className="flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-yellow-600" />
-                  Aprovechado al máximo sustentable
+                <div className="flex items-center gap-2 min-w-0">
+                  <TrendingUp className="w-4 h-4 shrink-0 text-yellow-600" />
+                  <span className="truncate">Aprovechado al máximo sustentable</span>
                 </div>
               </SelectItem>
               <SelectItem value="red">
-                <div className="flex items-center gap-2">
-                  <XCircle className="w-4 h-4 text-red-600" />
-                  En deterioro
+                <div className="flex items-center gap-2 min-w-0">
+                  <XCircle className="w-4 h-4 shrink-0 text-red-600" />
+                  <span className="truncate">En deterioro</span>
                 </div>
               </SelectItem>
               <SelectItem value="gray">
-                <div className="flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4 text-gray-600" />
-                  Indeterminado
+                <div className="flex items-center gap-2 min-w-0">
+                  <AlertTriangle className="w-4 h-4 shrink-0 text-gray-600" />
+                  <span className="truncate">Indeterminado</span>
                 </div>
               </SelectItem>
             </SelectContent>
           </Select>
 
           <Select value={regionFilter} onValueChange={setRegionFilter}>
-            <SelectTrigger className="h-9 w-full md:w-52 bg-white border-gray-200">
+            <SelectTrigger className="h-9 w-full md:w-52 bg-white border-gray-200 [&>span]:min-w-0">
               <SelectValue placeholder="Región" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="todas">
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-blue-600" />
-                  Todas las regiones
+                <div className="flex items-center gap-2 min-w-0">
+                  <MapPin className="w-4 h-4 shrink-0 text-blue-600" />
+                  <span className="truncate">Todas las regiones</span>
                 </div>
               </SelectItem>
               {uniqueRegions.map((region) => (
                 <SelectItem key={region} value={region}>
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-blue-600" />
-                    {region}
+                  <div className="flex items-center gap-2 min-w-0">
+                    <MapPin className="w-4 h-4 shrink-0 text-blue-600" />
+                    <span className="truncate">{region}</span>
                   </div>
                 </SelectItem>
               ))}

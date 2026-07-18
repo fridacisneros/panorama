@@ -1,11 +1,11 @@
 import Link from "next/link"
-import { ArrowRight, Fish, Waves, Shield, Calendar, BookOpen } from "lucide-react"
+import { ArrowRight, Fish, Waves, Shield, Calendar, AlertTriangle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Footer } from "@/components/footer"
-import { BuzonSugerencias } from "@/components/buzon-sugerencias"
 import { EspeciesCarrusel } from "@/components/especies-carrusel"
 import { NormativasCarrusel } from "@/components/normativas-carrusel"
+import { PanoramaGraficas } from "@/components/panorama-graficas"
 import { especies } from "@/lib/especies-data"
 import { vedasData } from "@/lib/vedas-data"
 
@@ -13,50 +13,43 @@ import { vedasData } from "@/lib/vedas-data"
 const WAVE_PATH =
   "M0 60 C 240 30, 480 90, 720 60 C 960 30, 1200 90, 1440 60 C 1680 30, 1920 90, 2160 60 C 2400 30, 2640 90, 2880 60 L 2880 120 L 0 120 Z"
 
+// Pesquerías con estatus principal "En deterioro" (rojo). Se calcula sobre los
+// datos para que el indicador de la portada no quede desfasado.
+const enDeterioro = especies.filter((e) => {
+  const c = Array.isArray(e.statusColor) ? e.statusColor[0] : e.statusColor
+  return c === "red"
+}).length
+
+// Indicadores informativos de la portada (un vistazo, no navegación: la
+// navegación la dan el navbar y los botones "Ver todas" de cada sección).
 const stats = [
   {
     label: "Pesquerías",
     value: String(especies.length),
-    sub: "registradas",
-    href: "/especies",
+    sub: "en la Carta Nacional",
     icon: Fish,
-    card: "from-teal-500 to-teal-600",
-    label2: "text-teal-100",
-    sub2: "text-teal-200",
-    chip: "bg-teal-400/30",
+    chip: "bg-teal-100 text-teal-700",
+  },
+  {
+    label: "En deterioro",
+    value: String(enDeterioro),
+    sub: "requieren atención",
+    icon: AlertTriangle,
+    chip: "bg-red-100 text-red-700",
   },
   {
     label: "Vedas",
     value: String(vedasData.length),
     sub: "programadas",
-    href: "/vedas",
     icon: Shield,
-    card: "from-cyan-500 to-cyan-600",
-    label2: "text-cyan-100",
-    sub2: "text-cyan-200",
-    chip: "bg-cyan-400/30",
+    chip: "bg-cyan-100 text-cyan-700",
   },
   {
     label: "Normativas",
     value: "114",
-    sub: "registradas",
-    href: "/normativas",
+    sub: "vigentes · CNP 2025",
     icon: Waves,
-    card: "from-blue-500 to-blue-600",
-    label2: "text-blue-100",
-    sub2: "text-blue-200",
-    chip: "bg-blue-400/30",
-  },
-  {
-    label: "Carta Nacional Pesquera",
-    value: "2025",
-    sub: "última actualización",
-    href: "/normativas",
-    icon: BookOpen,
-    card: "from-emerald-500 to-emerald-600",
-    label2: "text-emerald-100",
-    sub2: "text-emerald-200",
-    chip: "bg-emerald-400/30",
+    chip: "bg-blue-100 text-blue-700",
   },
 ]
 
@@ -118,34 +111,43 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Section (tarjetas clicables) */}
+      {/* Indicadores (informativos, no navegación) */}
       <section className="py-16 -mt-12 relative z-10">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((stat) => {
               const Icon = stat.icon
               return (
-                <Link key={stat.label} href={stat.href} className="group">
-                  <Card
-                    className={`bg-gradient-to-br ${stat.card} text-white border-0 shadow-xl transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-2xl`}
-                  >
-                    <CardContent className="p-6">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className={`${stat.label2} text-sm font-medium`}>{stat.label}</p>
-                          <p className="text-3xl font-bold">{stat.value}</p>
-                          <p className={`${stat.sub2} text-xs`}>{stat.sub}</p>
-                        </div>
-                        <div className={`${stat.chip} p-3 rounded-full transition-transform duration-300 group-hover:scale-110`}>
-                          <Icon className="w-6 h-6" />
-                        </div>
+                <Card key={stat.label} className="bg-white border-teal-100 shadow-lg">
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-medium text-gray-500">{stat.label}</p>
+                        <p className="text-3xl font-bold text-gray-800 tabular-nums">{stat.value}</p>
+                        <p className="text-xs text-gray-400">{stat.sub}</p>
                       </div>
-                    </CardContent>
-                  </Card>
-                </Link>
+                      <div className={`${stat.chip} p-3 rounded-full`}>
+                        <Icon className="w-6 h-6" />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               )
             })}
           </div>
+        </div>
+      </section>
+
+      {/* Panorama en cifras (gráficas con datos reales de las fichas) */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="mb-10 text-center md:text-left">
+            <h2 className="text-4xl font-bold text-gray-800 mb-2">El panorama en cifras</h2>
+            <p className="text-xl text-gray-600">
+              Un vistazo al estado de las pesquerías mexicanas según la Carta Nacional Pesquera
+            </p>
+          </div>
+          <PanoramaGraficas />
         </div>
       </section>
 
@@ -196,8 +198,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <BuzonSugerencias />
 
       <Footer />
     </div>

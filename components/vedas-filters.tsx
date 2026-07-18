@@ -16,13 +16,11 @@ export function VedasFilters({ vedas, onFilter }: VedasFiltersProps) {
   const [selectedEstado, setSelectedEstado] = useState("all")
   const [selectedTipoVeda, setSelectedTipoVeda] = useState("all")
   const [selectedZona, setSelectedZona] = useState("all")
-  const [selectedPesqueria, setSelectedPesqueria] = useState("all")
 
   // Obtener valores únicos para los filtros
   const estado = Array.from(new Set(vedas.map((veda) => veda.status)))
   const tiposVeda = Array.from(new Set(vedas.map((veda) => veda.tipoVeda)))
   const zonas = Array.from(new Set(vedas.map((veda) => veda.zona)))
-  const pesquerias = Array.from(new Set(vedas.map((veda) => veda.pesqueria)))
 
   useEffect(() => {
     let filtered = vedas
@@ -55,20 +53,14 @@ export function VedasFilters({ vedas, onFilter }: VedasFiltersProps) {
       filtered = filtered.filter((veda) => veda.zona === selectedZona)
     }
 
-    // Filtro por pesquería
-    if (selectedPesqueria !== "all") {
-      filtered = filtered.filter((veda) => veda.pesqueria === selectedPesqueria)
-    }
-
     onFilter(filtered)
-  }, [searchTerm, selectedEstado, selectedTipoVeda, selectedZona, selectedPesqueria, vedas, onFilter])
+  }, [searchTerm, selectedEstado, selectedTipoVeda, selectedZona, vedas, onFilter])
 
   const clearFilters = () => {
     setSearchTerm("")
     setSelectedEstado("all")
     setSelectedTipoVeda("all")
     setSelectedZona("all")
-    setSelectedPesqueria("all")
   }
 
   return (
@@ -78,20 +70,6 @@ export function VedasFilters({ vedas, onFilter }: VedasFiltersProps) {
       searchPlaceholder="Búsqueda por especie, región o descripción..."
       onClear={clearFilters}
     >
-      <Select value={selectedPesqueria} onValueChange={setSelectedPesqueria}>
-        <SelectTrigger className="h-9 w-full md:w-44 bg-white border-gray-200 focus:border-teal-400">
-          <SelectValue placeholder="Pesquería" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">Todas las pesquerías</SelectItem>
-          {pesquerias.map((pesqueria) => (
-            <SelectItem key={pesqueria} value={pesqueria}>
-              {pesqueria}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-
       <Select value={selectedEstado} onValueChange={setSelectedEstado}>
         <SelectTrigger className="h-9 w-full md:w-44 bg-white border-gray-200 focus:border-teal-400">
           <SelectValue placeholder="Status" />

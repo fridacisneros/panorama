@@ -42,13 +42,13 @@ const toArray = <T,>(value: T | T[]): T[] => (Array.isArray(value) ? value : [va
 const statusPillClass = (color: string) => {
   switch (color) {
     case "green":
-      return "bg-green-100 text-green-800 border-green-200"
+      return "bg-green-100 text-green-800 border-green-200 hover:bg-green-100"
     case "red":
-      return "bg-red-100 text-red-800 border-red-200"
+      return "bg-red-100 text-red-800 border-red-200 hover:bg-red-100"
     case "yellow":
-      return "bg-yellow-100 text-yellow-800 border-yellow-200"
+      return "bg-yellow-100 text-yellow-800 border-yellow-200 hover:bg-yellow-100"
     default:
-      return "bg-gray-100 text-gray-800 border-gray-200"
+      return "bg-gray-100 text-gray-800 border-gray-200 hover:bg-gray-100"
   }
 }
 
@@ -506,16 +506,20 @@ function Normatividad({ ficha }: { ficha: Ficha }) {
                   >
                     {row.instrumento}
                   </span>
-                  <AplicaBadge aplica={row.aplica} />
-                  {tieneContenido && (
-                    <ChevronRight
-                      className={cn(
-                        "h-4 w-4 shrink-0 text-gray-400 transition-transform duration-200",
-                        abierto && "rotate-90",
-                      )}
-                      aria-hidden="true"
-                    />
-                  )}
+                  <span className="flex w-28 shrink-0 justify-start">
+                    <AplicaBadge aplica={row.aplica} />
+                  </span>
+                  <span className="flex w-4 shrink-0 justify-center">
+                    {tieneContenido && (
+                      <ChevronRight
+                        className={cn(
+                          "h-4 w-4 text-gray-400 transition-transform duration-200",
+                          abierto && "rotate-90",
+                        )}
+                        aria-hidden="true"
+                      />
+                    )}
+                  </span>
                 </button>
 
                 {tieneContenido && (
@@ -622,9 +626,9 @@ function Recomendaciones({ ficha }: { ficha: Ficha }) {
       <CardContent>
         <ol className="divide-y divide-gray-200 overflow-hidden rounded-lg border border-gray-200">
           {ficha.recomendaciones.map((row, i) => {
-            // "Sin información de avance" (o vacío) se marca como sin avance; el resto, con avance
+            // "Sin información", "Sin avance", "Sin datos" (o vacío) se consideran sin avance; el resto, con avance
             const conAvance =
-              Boolean(row.avance.trim()) && !/sin (informaci[oó]n de )?avance/i.test(row.avance)
+              Boolean(row.avance.trim()) && !/^sin\s+(informaci[oó]n|avance|dato)/i.test(row.avance.trim())
             return (
               <li key={i} className="flex gap-4 px-4 py-4 transition-colors hover:bg-teal-50/40">
                 <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-teal-100 text-sm font-bold tabular-nums text-teal-700">
@@ -632,27 +636,8 @@ function Recomendaciones({ ficha }: { ficha: Ficha }) {
                 </span>
                 <div className="min-w-0 flex-1 space-y-1.5">
                   <p className="font-medium leading-snug text-gray-800">{row.recomendacion}</p>
-                  {row.avance && (
-                    <div className="flex flex-wrap items-center gap-2 text-sm text-gray-600">
-                      <span
-                        className={cn(
-                          "inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-xs font-semibold",
-                          conAvance
-                            ? "border-teal-200 bg-teal-50 text-teal-700"
-                            : "border-gray-200 bg-gray-100 text-gray-500",
-                        )}
-                      >
-                        <span
-                          className={cn(
-                            "h-1.5 w-1.5 rounded-full",
-                            conAvance ? "bg-teal-500" : "bg-gray-400",
-                          )}
-                          aria-hidden="true"
-                        />
-                        {conAvance ? "Con avance" : "Sin avance"}
-                      </span>
-                      <span className="leading-relaxed">{row.avance}</span>
-                    </div>
+                  {conAvance && (
+                    <p className="text-sm leading-relaxed text-gray-600">{row.avance}</p>
                   )}
                 </div>
               </li>

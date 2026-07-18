@@ -534,7 +534,18 @@ export const especies: Especie[] = [
     descripcion: "Equinodermo holoturoideo de la costa occidental de Baja California; pesquería alterna al erizo rojo",
     ultimaActualizacion: 2023,
   },
-  { id: "pac-pulpo-del-pacifico", nombre: "Pulpo del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
+  {
+    id: "pac-pulpo-del-pacifico",
+    nombre: "Pulpo del Pacífico",
+    nombreCientifico: "Octopus hubbsorum, Octopus bimaculatus, Octopus bimaculoides",
+    status: ["Aprovechado al máximo sustentable", "Indeterminado"],
+    statusColor: ["yellow", "gray"],
+    zona: "Litoral del Pacífico",
+    region: "Litoral del Pacífico",
+    descripcion:
+      "Cefalópodos bentónicos de zonas rocosas del Pacífico mexicano (pulpo verde, café y ocelado enano), capturados con trampas y por buceo semiautónomo desde Baja California hasta Oaxaca",
+    ultimaActualizacion: 2023,
+  },
   { id: "pac-robalo-del-pacifico", nombre: "Robalo del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
   { id: "pac-sierra-del-pacifico", nombre: "Sierra del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
   { id: "pac-tiburones-del-pacifico", nombre: "Tiburones del Pacífico", region: "Litoral del Pacífico", ultimaActualizacion: 2023 },
@@ -7935,6 +7946,181 @@ fichas["gm-ostion-del-golfo-de-mexico"] = {
     },
     {
       recomendacion: "No permitir el esfuerzo pesquero de las especies de esta ficha en las zonas núcleo de las Áreas Naturales Protegidas.",
+      avance: "Sin información",
+    },
+  ],
+}
+
+fichas["pac-pulpo-del-pacifico"] = {
+  generalidades: {
+    descripcion: [
+      "Los pulpos se caracterizan por un ciclo de vida corto, rápido crecimiento y plasticidad del ciclo de vida. Habitan en los bentos, principalmente en zonas rocosas, donde buscan cuevas para refugiarse. El pulpo verde (Octopus hubbsorum) se distribuye desde el paralelo 29°, incluyendo el Golfo de California, hasta las costas de Oaxaca; entre el intermareal y los 30 metros de profundidad y no presenta ocelos. El pulpo café (Octopus bimaculatus) se distribuye de California, Estados Unidos de Norteamérica (EUA), al sur en el Golfo de California, México; entre el intermareal y los 50 metros de profundidad y presenta ocelos evidentes uno debajo de cada ojo, cerca de la base de los brazos del segundo y tercer par. El pulpo ocelado enano (Octopus bimaculoides) se distribuye desde Santa Bárbara, Estados Unidos de América, hasta Bahía de San Quintín, y habita principalmente en fondos arenosos; presenta ocelos bien definidos cerca de los ojos que pueden variar dependiendo de la sombra.",
+      "El pulpo verde (Octopus hubbsorum) es el pulpo que más se captura a lo largo de la costa del Pacífico desde Baja California Sur hasta Oaxaca, incluyendo el Golfo de California. El pulpo café (Octopus bimaculatus) se captura principalmente en Baja California y Sonora.",
+    ],
+    embarcaciones:
+      "La unidad de pesca consiste en una embarcación menor con motor fuera de borda equipada con trampas y hasta dos pescadores; o embarcación menor con motor fuera de borda equipada con un compresor de aire, equipo de buceo semiautónomo tipo «hooka» o buceo libre y hasta tres pescadores (buzo, cabo de vida y motorista).",
+    especiesObjetivo: [
+      { nombre: "Pulpo verde", cientifico: "Octopus hubbsorum" },
+      { nombre: "Pulpo café o pulpo de dos manchas", cientifico: "Octopus bimaculatus" },
+      { nombre: "Pulpo ocelado enano o pulpo californiano de dos manchas", cientifico: "Octopus bimaculoides" },
+    ],
+  },
+  indicadores: {
+    datosDestacados: [
+      "El pulpo verde (Octopus hubbsorum) es la especie más capturada a lo largo de la costa del Pacífico, desde Baja California Sur hasta Oaxaca, incluyendo el Golfo de California.",
+      "El pulpo café (Octopus bimaculatus) se captura principalmente en Baja California y Sonora.",
+      "El esfuerzo nominal autorizado suma 1,167 embarcaciones distribuidas en nueve entidades del Pacífico, con Baja California Sur (458) y Jalisco (215) a la cabeza.",
+    ],
+    // Figura 1. Tendencia de la captura de pulpo en Baja California (BC), 2000–2020. Fuente: CONAPESCA.
+    capturaPorEstado: [
+      {
+        titulo: "Tendencia de la captura de pulpo en Baja California, 2000–2020 (CONAPESCA)",
+        series: [
+          {
+            estado: "Baja California",
+            color: "#f59e0b",
+            datos: [
+              { año: 2000, captura: 90 },
+              { año: 2001, captura: 150 },
+              { año: 2002, captura: 100 },
+              { año: 2003, captura: 120 },
+              { año: 2004, captura: 150 },
+              { año: 2005, captura: 200 },
+              { año: 2006, captura: 230 },
+              { año: 2007, captura: 220 },
+              { año: 2008, captura: 250 },
+              { año: 2009, captura: 280 },
+              { año: 2010, captura: 300 },
+              { año: 2011, captura: 550 },
+              { año: 2012, captura: 560 },
+              { año: 2013, captura: 450 },
+              { año: 2014, captura: 340 },
+              { año: 2015, captura: 330 },
+              { año: 2016, captura: 450 },
+              { año: 2017, captura: 850 },
+              { año: 2018, captura: 996 },
+              { año: 2019, captura: 850 },
+              { año: 2020, captura: 800 },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  ambiente: [
+    "Los cefalópodos, incluyendo las especies de pulpo verde (Octopus hubbsorum) y pulpo café (Octopus bimaculatus), son altamente susceptibles a las variaciones fisicoquímicas de la columna de agua, sobre todo en su etapa de paralarva (estadio inicial post-eclosión), etapa en la que son dependientes de los efectos de la circulación oceánica. En relación con el cambio climático, se ha observado que debido a las características ecológicas de los cefalópodos (ciclo de vida corto, rápido crecimiento, fuerte plasticidad del ciclo de vida) presentan una rápida adaptación a los cambios ambientales. Durante condiciones oceanográficas La Niña, las poblaciones de pulpo migran, alejándose de las zonas de pesca, lo que ocasiona disminución en las capturas. Durante El Niño, los organismos se aproximan a la línea de costa siendo vulnerables a la pesca, aumentando su captura y afectando incluso los ciclos reproductivos.",
+  ],
+  normatividad: [
+    { instrumento: "1. Norma Oficial Mexicana", aplica: false, disposicion: "", sustento: "" },
+    { instrumento: "2. Plan de Manejo Pesquero", aplica: false, disposicion: "", sustento: "" },
+    {
+      instrumento: "3. Tipo de acceso",
+      aplica: true,
+      disposicion: "Permiso para pesca comercial de pulpo.",
+      sustento: "Opinión técnica del INAPESCA. Artículo 36, Fracción III de la LGPAS (DOF: 19/01/2023).",
+    },
+    {
+      instrumento: "4. Talla mínima",
+      aplica: true,
+      disposicion:
+        "Se establecen las siguientes tallas o pesos mínimos de captura para todas las especies de pulpo en Bahía de los Ángeles, Baja California: I. Para los machos: 124.5 milímetros de longitud del manto dorsal o un peso de 757 gramos. II. Para las hembras: 143.5 milímetros de longitud del manto dorsal o un peso de 1,029 gramos.",
+      sustento:
+        "Artículo Primero, fracciones I y II del Acuerdo por el que se establece la veda temporal y tallas mínimas de captura para la pesca de las especies de pulpo en Bahía de los Ángeles, Baja California (DOF: 01/06/2016).",
+    },
+    {
+      instrumento: "5. Arte de pesca y método de captura",
+      aplica: true,
+      disposicion: "Trampas. Buceo semiautónomo tipo «hooka» con gancho.",
+      sustento: "Dictamen técnico del INAPESCA.",
+    },
+    {
+      instrumento: "6. Veda",
+      aplica: true,
+      disposicion:
+        "En el área geográfica de la Reserva de la Biosfera Bahía de los Ángeles, Canales de Ballenas y de Salsipuedes, Baja California: I. Pulpo café (Octopus bimaculatus), del 1 de agosto al 30 de noviembre de cada año. II. Pulpo verde (Octopus hubbsorum), del 1 de septiembre al 30 de noviembre de cada año.",
+      sustento:
+        "Acuerdo por el que se modifica el similar por el que se establece la veda temporal y tallas mínimas de captura para la pesca de las especies de pulpo en Bahía de los Ángeles, Baja California, publicado el 1 de junio de 2016, para considerar como zona de veda la «Reserva de la Biosfera Bahía de los Ángeles, Canales de Ballenas y de Salsipuedes» (DOF: 07/11/2017).",
+    },
+    { instrumento: "7. Cuota", aplica: false, disposicion: "", sustento: "" },
+    {
+      instrumento: "8. Unidad de pesca",
+      aplica: true,
+      disposicion:
+        "Embarcación menor con motor fuera de borda equipada con trampas y hasta dos pescadores. Embarcación menor con motor fuera de borda equipada con un compresor de aire y equipo de buceo semiautónomo tipo «hooka» y hasta tres pescadores (buzo, cabo de vida y motorista). Embarcación menor con motor fuera de borda y hasta dos pescadores (motorista, buzo).",
+      sustento: "Dictamen técnico del INAPESCA. Artículo 4, Sección XVII de la LGPAS (DOF: 19/01/2023).",
+    },
+    {
+      instrumento: "9. Esfuerzo nominal autorizado",
+      aplica: true,
+      disposicion:
+        "Baja California: 206 embarcaciones. Baja California Sur: 458 embarcaciones. Sonora: 139 embarcaciones. Nayarit: 4 embarcaciones. Jalisco: 215 embarcaciones. Colima: 3 embarcaciones. Michoacán: 33 embarcaciones. Guerrero: 64 embarcaciones. Oaxaca: 45 embarcaciones.",
+      sustento:
+        "Registros de Permisos y Concesiones de Pesca Comercial autorizadas y registradas en el Sistema de Administración Pesquera en diciembre de 2021.",
+    },
+    {
+      instrumento: "10. Zona de pesca",
+      aplica: true,
+      disposicion:
+        "Aguas marinas de jurisdicción federal adyacentes a los estados de Baja California, Baja California Sur, Sonora, Sinaloa, Nayarit, Colima, Jalisco, Guerrero, Oaxaca y Chiapas, definidas en los permisos de pesca comercial, respetando los lineamientos de los Programas de Manejo de las Áreas Naturales Protegidas y Zonas de Refugio Pesquero publicadas en el DOF.",
+      sustento:
+        "Permiso para pesca comercial, Decretos de Declaración de Áreas Naturales Protegidas, Programas de Manejo y Zonas de Refugio Pesquero.",
+    },
+  ],
+  status: {
+    cards: [
+      {
+        categoria: "Aprovechado al máximo sustentable",
+        color: "yellow",
+        especie: "Pulpo (Octopus spp.)",
+        zona: "Costa del Golfo de Baja California y Complejo lagunar Bahía Magdalena–Almejas, Baja California Sur",
+      },
+      {
+        categoria: "Indeterminado",
+        color: "gray",
+        especie: "Pulpo (Octopus spp.)",
+        zona: "Costa Pacífico de Baja California, resto de Baja California Sur y resto de las entidades federativas",
+      },
+    ],
+    estrategia: "Tasa de aprovechamiento para mantener las poblaciones Aprovechadas al Máximo Sustentable.",
+    tacticas: [
+      "Control del esfuerzo pesquero",
+      "Veda temporal",
+      "Talla mínima de captura",
+      "Control del arte y método de pesca",
+    ],
+  },
+  recomendaciones: [
+    {
+      recomendacion:
+        "Con base en lo previsto en la LGPAS y los instrumentos normativos aplicables, no incrementar el esfuerzo de pesca en las zonas que se encuentren Aprovechadas al Máximo Sustentable, en Baja California y Baja California Sur.",
+      avance: "Sin información",
+    },
+    {
+      recomendacion:
+        "En zonas con estatus Indeterminado, el esfuerzo de pesca se definirá en función de la disponibilidad del recurso por zona, previa evaluación y opinión técnica del INAPESCA, considerando criterios de rentabilidad y administración del recurso definidos por la Autoridad Pesquera.",
+      avance: "Sin información",
+    },
+    {
+      recomendacion:
+        "Establecer vedas temporales para proteger el periodo reproductivo en todas las zonas donde el método de pesca sea el buceo, previa opinión técnica del INAPESCA.",
+      avance: "Sin información",
+    },
+    {
+      recomendacion: "Elaborar y publicar la Norma Oficial Mexicana para regular el aprovechamiento del recurso.",
+      avance: "Sin información",
+    },
+    {
+      recomendacion: "Asignar los permisos de pesca otorgando áreas geográficamente delimitadas.",
+      avance: "Sin información",
+    },
+    {
+      recomendacion:
+        "Respetar lo dispuesto en la Norma Oficial Mexicana NOM-064-SAG/PESC/SEMARNAT-2013, sobre sistemas, métodos y técnicas de captura prohibidos en la pesca en aguas de jurisdicción federal de los Estados Unidos Mexicanos.",
+      avance: "Sin información",
+    },
+    {
+      recomendacion:
+        "Implementar un programa de monitoreo y seguimiento de la pesquería mediante el llenado veraz y fidedigno de bitácoras de pesca, con base en lo previsto en la LGPAS y los instrumentos normativos aplicables.",
       avance: "Sin información",
     },
   ],

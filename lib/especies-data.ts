@@ -221,6 +221,18 @@ export const especies: Especie[] = [
     ultimaActualizacion: 2025,
   },
   {
+    id: "gm-sargazo-holopelagico-del-caribe",
+    nombre: "Sargazo holopelágico del Caribe",
+    nombreCientifico: "Sargassum natans, Sargassum fluitans",
+    status: "Con potencial de desarrollo",
+    statusColor: "green",
+    zona: "Caribe mexicano",
+    region: "Golfo de México y Mar Caribe",
+    captura: "945,000 toneladas (aprovechamiento anual propuesto)",
+    descripcion: "Macroalga parda flotante que arriba masivamente al Caribe mexicano; recurso con potencial de aprovechamiento para fertilizantes, biocombustibles, bioplásticos y biomateriales",
+    ultimaActualizacion: 2025,
+  },
+  {
     id: "almejas",
     nombre: "Almejas",
     nombreCientifico: "Rangia cuneata, Rangia flexuosa, Mercenaria campechiensis",
@@ -13514,7 +13526,8 @@ fichas["gm-rayas-del-golfo-de-mexico"] = {
       { nombre: "Raya mariposa, libro, comal", cientifico: "Gymnura micrura" },
       { nombre: "Raya guitarra, diablito", cientifico: "Pseudobatos lentiginosus" },
       { nombre: "Raya lebiza, raya lija", cientifico: "Styracura schmardae" },
-      { nombre: "Raya látigo", cientifico: "Bathytoshia centroura" },
+      // La ficha de la CNP no registra nombre común para esta especie (celda "----------").
+      { nombre: "Sin nombre común registrado", cientifico: "Bathytoshia centroura" },
     ],
     especiesAsociadas: [
       { nombre: "Bagre bandera", cientifico: "Bagre marinus" },
@@ -14521,6 +14534,176 @@ fichas["pac-camaron-del-pacifico"] = {
     {
       recomendacion:
         "Modificar la NOM-002-SAG/PESC-2013 para incluir la red suripera como arte de pesca autorizado para la pesca de camarón en el Alto Golfo de California.",
+      avance: "Sin información",
+    },
+  ],
+}
+
+fichas["gm-sargazo-holopelagico-del-caribe"] = {
+  generalidades: {
+    descripcion: [
+      "El sargazo (género Sargassum) es una macroalga marina que pertenece al grupo de las algas cafés o pardas, presenta la mayor complejidad morfológica del grupo y habita en los mares de latitudes tropicales, subtropicales y templadas de todo el mundo. El cuerpo del alga (talo) es de tipo arbustivo y se compone de estructuras como el cauloide, que corresponde a los ejes del talo; el filoide, que corresponde a la parte del talo en forma de hojas o láminas que se insertan en los ejes; y la vesícula, llamada también pneumatocisto o aerocisto, una estructura esférica llena de aire que permite la flotación del talo. Las formas más comunes de Sargassum holopelágico encontradas en el Atlántico son: Sargassum natans I, que muestra los característicos apéndices en forma de espina en las vesículas; Sargassum fluitans III, que muestra espinas características en el eje; y S. natans VIII, que no muestra apéndices espinosos ni espinas.",
+      "Se reconocen 358 nombres de especies de sargazo aceptados taxonómicamente, con diferentes vías reproductivas (sexual y asexual) y tipos de vida: especies bentónicas (individuos adheridos al fondo marino) y holopelágicas (individuos flotantes). En el océano Atlántico existen más de 60 especies bentónicas y dos holopelágicas —Sargassum natans y S. fluitans—, ambas documentadas en México, con tres morfotipos o ecotipos registrados para la región mexicana. Las especies holopelágicas se reproducen vegetativamente mediante crecimiento y fragmentación; debido a que sus requerimientos de nitrógeno y fósforo son mínimos, encuentran oportunidades de crecimiento en aguas ligeramente enriquecidas en zonas frontales o plumas de ríos. Bajo condiciones óptimas de luz, temperatura y salinidad, estas especies son capaces de crecer mucho más rápido, llegando a duplicar su biomasa en el transcurso de 9 a 20 días.",
+      "Tradicionalmente, en el océano Atlántico las principales fuentes de sargazo holopelágico eran las originadas en el mar de los Sargazos y el Golfo de México. Sin embargo, su distribución y abundancia han cambiado con la formación del «Gran Cinturón de Sargazo del Atlántico» (GASB, por sus siglas en inglés), fuente desarrollada recientemente más al sur, en la Región de Recirculación Ecuatorial del Norte (NERR, por sus siglas en inglés), entre Brasil y África occidental. A partir de ello se han reportado grandes cantidades de sargazo holopelágico en el Atlántico central y el mar Caribe. De manera natural, el sargazo forma agregaciones superficiales conocidas como balsas neustónicas, de forma más o menos circular (parches) o de largas líneas (hileras), que pueden alcanzar decenas de metros de ancho —hasta 50 metros, con un área de 2,000 metros cuadrados— y estar rodeadas por las aguas del mar abierto. Estas balsas viajan con las corrientes oceánicas, influenciadas también por los vientos superficiales, y pueden acumularse a lo largo de regiones persistentes de convergencia superficial. En mar abierto, las grandes acumulaciones de sargazo holopelágico forman un ecosistema marino único e insustituible que contribuye a la fijación de carbono y a la bioabsorción de metales pesados, y proporciona refugio, fondeadero, alimento y rutas de migración a diferentes especies marinas. Por ello se recomienda que la recolección del recurso se realice con base en los lineamientos técnicos establecidos por la autoridad mexicana, mediante una embarcación sargacera con aditamentos para la remoción de organismos.",
+      "La deposición de sargazo en las costas del territorio continental e islas, en pequeñas cantidades, ayuda a prevenir la erosión costera y aporta nutrientes para la vegetación de dunas. Por otra parte, las grandes biomasas existentes de sargazo holopelágico se consideran un recurso natural potencialmente explotable, que puede utilizarse como materia prima para la producción de complemento alimenticio en la cría de animales, fertilizantes, biocombustibles, bioplásticos, biorremediadores y purificadores para el tratamiento de aguas, fibras y tintes para la industria textil y del calzado, y biomateriales para la elaboración de ladrillos, entre otros.",
+    ],
+    embarcaciones:
+      "Embarcación sargacera equipada con sistema para recolección de sargazo. El Buque Sargacero Oceánico diseñado por la Secretaría de Marina, denominado ARM Natans BSO-101, tiene una eslora de 43.80 metros, una manga de 9.44 metros y un calado máximo de 3.56 metros, con una capacidad de recolección de 250 toneladas de sargazo; por sus características puede permanecer en altamar hasta cinco días.",
+    artesPesca:
+      "Sistema de recolección de sargazo compuesto por maquinaria y bandas recolectoras instaladas en la embarcación sargacera.",
+    especiesObjetivo: [
+      { nombre: "Sargazo", cientifico: "Sargassum natans I" },
+      { nombre: "Sargazo", cientifico: "Sargassum natans VIII" },
+      { nombre: "Sargazo", cientifico: "Sargassum fluitans III" },
+    ],
+    // Tabla 2 de la ficha: fauna asociada a las balsas neustónicas de sargazo holopelágico en el
+    // Caribe mexicano. El nombre común se sustituye por el grupo taxonómico, que es lo que
+    // registra el documento; se marcan las especies de valor comercial.
+    especiesAsociadas: [
+      { nombre: "Annelida", cientifico: "Platynereis dumerilii" },
+      { nombre: "Arthropoda", cientifico: "Anoplodactylus petiolatus" },
+      { nombre: "Arthropoda", cientifico: "Axiidea" },
+      { nombre: "Arthropoda", cientifico: "Belzebub faxoni" },
+      { nombre: "Arthropoda", cientifico: "Biancolina brassicacephala" },
+      { nombre: "Arthropoda", cientifico: "Carpias minutus" },
+      { nombre: "Arthropoda", cientifico: "Cumella sp." },
+      { nombre: "Arthropoda", cientifico: "Discoconchoecia sp." },
+      { nombre: "Arthropoda", cientifico: "Eupronoe maculata" },
+      { nombre: "Arthropoda", cientifico: "Halobates (Halobates) micans" },
+      { nombre: "Arthropoda", cientifico: "Hyale sp." },
+      { nombre: "Arthropoda", cientifico: "Latreutes fucorum" },
+      { nombre: "Arthropoda", cientifico: "Leander tenuicornis" },
+      { nombre: "Arthropoda", cientifico: "Lucifer typus" },
+      { nombre: "Arthropoda", cientifico: "Lycaeopsis themistoides" },
+      { nombre: "Arthropoda", cientifico: "Parapronoe parva" },
+      { nombre: "Arthropoda", cientifico: "Periclimenes sp." },
+      { nombre: "Arthropoda", cientifico: "Porcellanidae" },
+      { nombre: "Arthropoda", cientifico: "Portunus sayi" },
+      { nombre: "Arthropoda", cientifico: "Probopyrinella latreuticola" },
+      { nombre: "Arthropoda", cientifico: "Sapphirina sp." },
+      { nombre: "Arthropoda", cientifico: "Sunamphitoe pelagica" },
+      { nombre: "Arthropoda", cientifico: "Synopia sp." },
+      { nombre: "Chaetognatha", cientifico: "Sagitta sp." },
+      { nombre: "Chordata", cientifico: "Brama sp." },
+      { nombre: "Chordata (valor comercial)", cientifico: "Canthidermis maculata" },
+      { nombre: "Chordata (valor comercial)", cientifico: "Canthidermis sufflamen" },
+      { nombre: "Chordata (valor comercial)", cientifico: "Caranx bartholomaei" },
+      { nombre: "Chordata (valor comercial)", cientifico: "Caranx crysos" },
+      { nombre: "Chordata", cientifico: "Cheilopogon sp." },
+      { nombre: "Chordata", cientifico: "Clupea sp." },
+      { nombre: "Chordata (valor comercial)", cientifico: "Coryphaena equiselis" },
+      { nombre: "Chordata (valor comercial)", cientifico: "Coryphaena hippurus" },
+      { nombre: "Chordata (valor comercial)", cientifico: "Diodon holocanthus" },
+      { nombre: "Chordata (valor comercial)", cientifico: "Elagatis bipinnulata" },
+      { nombre: "Chordata", cientifico: "Hemiramphus sp." },
+      { nombre: "Chordata", cientifico: "Hirundichthys sp." },
+      { nombre: "Chordata", cientifico: "Histrio histrio" },
+      { nombre: "Chordata (valor comercial)", cientifico: "Seriola dumerili" },
+      { nombre: "Chordata", cientifico: "Stephanolepis hispida" },
+      { nombre: "Chordata", cientifico: "Stephanolepis setifer" },
+      { nombre: "Chordata", cientifico: "Syngnathus typhle" },
+      { nombre: "Chordata (valor comercial)", cientifico: "Trachurus lathami" },
+      { nombre: "Mollusca", cientifico: "Cavolinia tridentata" },
+      { nombre: "Mollusca", cientifico: "Litiopa melanostoma" },
+      { nombre: "Mollusca", cientifico: "Styliola subula" },
+      { nombre: "Nematoda", cientifico: "Nematoda" },
+      { nombre: "Nemertea", cientifico: "Nemertea" },
+      { nombre: "Platyhelminthes", cientifico: "Gnesioceros sargassicola" },
+    ],
+  },
+  indicadores: {
+    datosDestacados: [
+      "Las estimaciones de biomasa total existente de sargazo holopelágico en el Caribe mexicano —el que llega a las playas— han oscilado entre 13,207.9 y 63,252.7 toneladas durante el periodo 2018-2024.",
+      "El valor máximo de biomasa se registró en 2022 con 63,252.7 toneladas, seguido de 2018 con 54,197.5 y 2019 con 50,935.8. Los valores mínimos corresponden a 2023 y 2024, con 28,441.2 y 13,207.9 toneladas respectivamente.",
+      "Los valores de biomasa muestran un comportamiento diferente cada año, con mínimos y máximos en distintos meses: en 2018 la mayor biomasa se presentó entre julio y agosto, y en 2022 entre abril y mayo. De manera general, el periodo de mayor biomasa se encuentra entre abril y agosto.",
+      "Volúmenes de sargazo flotante detectados en imágenes satelitales Landsat (volumen húmedo promedio, km³): 4,021 en 2016; 1,871 en 2017; 19,063 en 2018; 14,207 en 2019 y 48,834 en 2020. El volumen seco promedio anual equivale a 402, 187, 1,906, 1,421 y 4,883 km³, respectivamente.",
+    ],
+    // Biomasa de sargazo holopelágico que arriba a las playas del Caribe mexicano. La ficha sólo
+    // cita los años 2018, 2019 y 2022-2024; 2020 y 2021 no aparecen en el documento.
+    capturaPorEstado: [
+      {
+        titulo: "Biomasa estimada de sargazo holopelágico que arriba al Caribe mexicano, 2018–2024",
+        series: [
+          {
+            estado: "Caribe mexicano",
+            color: "#0d9488",
+            datos: [
+              { año: 2018, captura: 54198 },
+              { año: 2019, captura: 50936 },
+              { año: 2022, captura: 63253 },
+              { año: 2023, captura: 28441 },
+              { año: 2024, captura: 13208 },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  ambiente: [
+    "Las causas que contribuyen a estas afluencias y su origen son multifacéticas y complejas. Entre ellas se encuentran el aumento de la temperatura superficial del mar, el aporte de nutrientes de múltiples fuentes, los regímenes de viento anormales de 2009 a 2010 en el Atlántico central oriental, el cambio en los patrones de surgencia frente a la costa noreste de África y en mar abierto, los cambios en los patrones de dispersión del polvo del Sahara, los cambios en la capa de mezcla relacionados con el suministro de nutrientes, o el resultado de todas estas causas en conjunto.",
+    "Las costas del Caribe mexicano son particularmente susceptibles a las afluencias de sargazo holopelágico debido a que la península de Yucatán crea una barrera frontal al transporte hacia el oeste inducido por la corriente de Caimán y los vientos.",
+  ],
+  normatividad: [
+    { instrumento: "1. Norma Oficial Mexicana", aplica: false, disposicion: "", sustento: "" },
+    { instrumento: "2. Plan de Manejo Pesquero", aplica: false, disposicion: "", sustento: "" },
+    {
+      instrumento: "3. Tipo de acceso",
+      aplica: true,
+      disposicion: "Permiso de pesca de fomento.",
+      sustento:
+        "Artículo 24, fracción III de la LGPAS (DOF: 01/04/2024). Reglamento de la Ley de Pesca, artículo 20 sobre la pesca de fomento y sus respectivos lineamientos, enmarcados en el Capítulo III, artículos 69 al 78 (DOF: 28/01/2004).",
+    },
+    { instrumento: "4. Talla mínima", aplica: false, disposicion: "", sustento: "" },
+    {
+      instrumento: "5. Arte de pesca y método de captura",
+      aplica: true,
+      disposicion:
+        "Buque Sargacero Oceánico diseñado por la Secretaría de Marina y denominado ARM Natans BSO-101, con una eslora de 43.80 metros, una manga de 9.44 metros y un calado máximo de 3.56 metros, con capacidad de recolección de 250 toneladas de sargazo; por sus características puede permanecer en altamar hasta cinco días. Está equipado con un sistema de recolección de sargazo compuesto por maquinaria y bandas recolectoras.",
+      sustento: "Ficha Técnica Buque Sargacero Oceánico (SEMAR, 01/04/2022).",
+    },
+    { instrumento: "6. Veda", aplica: false, disposicion: "", sustento: "" },
+    { instrumento: "7. Cuota", aplica: false, disposicion: "", sustento: "" },
+    {
+      instrumento: "8. Unidad de pesca",
+      aplica: true,
+      disposicion: "Embarcación sargacera equipada con sistema para recolección de sargazo.",
+      sustento: "Ficha Técnica Buque Sargacero Oceánico (SEMAR, 01/04/2022).",
+    },
+    { instrumento: "9. Esfuerzo nominal autorizado", aplica: false, disposicion: "", sustento: "" },
+    { instrumento: "10. Zona de pesca", aplica: false, disposicion: "", sustento: "" },
+  ],
+  status: {
+    cards: [
+      {
+        categoria: "Con potencial de desarrollo",
+        color: "green",
+        especie: "Sargazo holopelágico (Sargassum natans, S. fluitans)",
+        zona: "Caribe mexicano",
+      },
+    ],
+    estrategia:
+      "El volumen calculado del promedio anual de sargazo flotante en la región del Caribe occidental, considerando datos de imágenes satelitales Landsat de alta resolución (30 × 30 kilómetros de píxel) de enero de 2016 a diciembre de 2020, es de 29,835 km³/año, si bien hay una variabilidad considerable tanto entre años como entre meses de un mismo año. El cálculo se realiza considerando que el sargazo flotante se encuentra expandido y que su volumen podría reducirse a una tercera parte al ser recolectado, lo que equivale a un volumen húmedo recolectado de aproximadamente 9,945 km³/año (9,945,000 toneladas); el sargazo húmedo recolectado se seca y en el proceso se reduce en una razón de 10:1. Por lo anterior, su estatus de forma precautoria es con potencial de desarrollo y se propone un aprovechamiento anual de 945 km³/año (945,000 toneladas). La estrategia de manejo es la cuota de captura por temporada de pesca.",
+    tacticas: ["Por desarrollar"],
+  },
+  recomendaciones: [
+    {
+      recomendacion:
+        "Investigación e innovación tecnológica: desarrollar investigación científica e innovación tecnológica para el desarrollo de artes y métodos de pesca que permitan buenas capturas minimizando la fauna de acompañamiento, y una adecuada regulación de las artes y métodos de pesca. Desarrollar estudios para conocer la biomasa del recurso y establecer los puntos de referencia correspondientes; dada la alta variabilidad en el arribo de sargazo, los estimadores de biomasa deberán considerar análisis de riesgo e incertidumbre para proponer escenarios.",
+      avance: "Sin información",
+    },
+    {
+      recomendacion:
+        "Gobernanza: desarrollar y fortalecer la ordenación pesquera del sargazo holopelágico en las zonas marinas mexicanas con base en el desarrollo de la normatividad e instrumentos de política y manejo pesquero, tales como dictámenes técnicos y el Plan de Manejo Pesquero correspondiente. Es importante que el proceso de gobernanza sea participativo, con base en los productores y con participación de los gobiernos municipal, estatal y federal en sus diferentes ámbitos de competencia, con apoyo del sector académico.",
+      avance: "Sin información",
+    },
+    {
+      recomendacion:
+        "Estrategias y tácticas de manejo: utilizar la información derivada de los permisos de pesca de fomento para el establecimiento de la cuota de captura por temporada de pesca. Es necesario proponer y evaluar la eficiencia y el rendimiento de la unidad de pesca para definir el esfuerzo nominal encaminado al control del esfuerzo pesquero.",
+      avance: "Sin información",
+    },
+    {
+      recomendacion:
+        "Gestión del conocimiento: desarrollar e implementar el enfoque de Manejo Integrado de Zonas Costeras (MIZC) a través de la información generada mediante permisos de pesca de fomento.",
       avance: "Sin información",
     },
   ],

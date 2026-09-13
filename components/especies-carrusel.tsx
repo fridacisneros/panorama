@@ -70,11 +70,11 @@ export function EspeciesCarrusel() {
           >
             <Link href={`/especies?id=${especie.id}`} className="group block">
               <Card className="overflow-hidden border-teal-200 bg-white/90 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-teal-300 hover:shadow-lg">
-                <div className="aspect-square w-full overflow-hidden">
+                <div className="aspect-square w-full overflow-hidden bg-white">
                   <EspecieImagen
                     id={especie.id}
                     nombre={especie.nombre}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
                 <div className="p-2.5">

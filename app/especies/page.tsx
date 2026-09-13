@@ -212,8 +212,8 @@ export default function EspeciesPage() {
                               : "border-transparent hover:bg-gray-50",
                           )}
                         >
-                          <div className="w-11 h-11 flex-shrink-0 rounded-lg overflow-hidden">
-                            <EspecieImagen id={especie.id} nombre={especie.nombre} className="w-full h-full object-cover" iconClassName="w-1/2 h-1/2" />
+                          <div className="w-11 h-11 flex-shrink-0 rounded-lg overflow-hidden bg-white">
+                            <EspecieImagen id={especie.id} nombre={especie.nombre} className="w-full h-full object-contain" iconClassName="w-1/2 h-1/2" />
                           </div>
                           <div className="flex-1 min-w-0">
                             <p className={cn("font-semibold text-sm leading-tight truncate", activo ? "text-teal-700" : "text-gray-900")}>

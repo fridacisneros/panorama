@@ -96,8 +96,8 @@ export function FichaDetalle({ especie }: { especie: Especie }) {
     <div className="flex flex-col h-full">
       {/* Encabezado */}
       <div className="flex gap-4 p-5 border-b border-teal-100">
-        <div className="w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden shadow-sm">
-          <EspecieImagen id={especie.id} nombre={especie.nombre} className="w-full h-full object-cover" />
+        <div className="w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden shadow-sm bg-white">
+          <EspecieImagen id={especie.id} nombre={especie.nombre} className="w-full h-full object-contain" />
         </div>
         <div className="flex-1 min-w-0">
           <h2 className="text-2xl font-bold text-gray-900 leading-tight">{especie.nombre}</h2>

@@ -1,10 +1,9 @@
 import Link from "next/link"
-import { ArrowRight, Fish, Waves, Shield, Calendar, AlertTriangle } from "lucide-react"
+import { ArrowRight, Fish, Waves, Shield, Calendar } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Footer } from "@/components/footer"
 import { EspeciesCarrusel } from "@/components/especies-carrusel"
-import { NormativasCarrusel } from "@/components/normativas-carrusel"
 import { PanoramaGraficas } from "@/components/panorama-graficas"
 import { especies } from "@/lib/especies-data"
 import { vedasData } from "@/lib/vedas-data"
@@ -12,13 +11,6 @@ import { vedasData } from "@/lib/vedas-data"
 // Trazo de ola que se repite (dos pistas idénticas) para animarse sin cortes.
 const WAVE_PATH =
   "M0 60 C 240 30, 480 90, 720 60 C 960 30, 1200 90, 1440 60 C 1680 30, 1920 90, 2160 60 C 2400 30, 2640 90, 2880 60 L 2880 120 L 0 120 Z"
-
-// Pesquerías con estatus principal "En deterioro" (rojo). Se calcula sobre los
-// datos para que el indicador de la portada no quede desfasado.
-const enDeterioro = especies.filter((e) => {
-  const c = Array.isArray(e.statusColor) ? e.statusColor[0] : e.statusColor
-  return c === "red"
-}).length
 
 // Indicadores informativos de la portada (un vistazo, no navegación: la
 // navegación la dan el navbar y los botones "Ver todas" de cada sección).
@@ -29,13 +21,6 @@ const stats = [
     sub: "en la Carta Nacional",
     icon: Fish,
     chip: "bg-teal-100 text-teal-700",
-  },
-  {
-    label: "En deterioro",
-    value: String(enDeterioro),
-    sub: "requieren atención",
-    icon: AlertTriangle,
-    chip: "bg-red-100 text-red-700",
   },
   {
     label: "Vedas",
@@ -114,7 +99,7 @@ export default function Home() {
       {/* Indicadores (informativos, no navegación) */}
       <section className="py-16 -mt-12 relative z-10">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {stats.map((stat) => {
               const Icon = stat.icon
               return (
@@ -171,30 +156,6 @@ export default function Home() {
 
           <div className="px-2 sm:px-12">
             <EspeciesCarrusel />
-          </div>
-        </div>
-      </section>
-
-      {/* Explora la biblioteca (últimas normativas por fecha de publicación) */}
-      <section className="py-16 bg-white/40">
-        <div className="container mx-auto px-4">
-          <div className="mb-10 flex flex-col items-center gap-4 text-center md:flex-row md:justify-between md:text-left">
-            <div>
-              <h2 className="text-4xl font-bold text-gray-800 mb-2">Explora la biblioteca</h2>
-              <p className="text-xl text-gray-600">
-                Las normativas más recientes de acuerdo a su fecha de publicación
-              </p>
-            </div>
-            <Button asChild className="bg-teal-600 hover:bg-teal-700 text-white flex-shrink-0">
-              <Link href="/normativas">
-                Ver biblioteca
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
-            </Button>
-          </div>
-
-          <div className="px-2 sm:px-12">
-            <NormativasCarrusel />
           </div>
         </div>
       </section>

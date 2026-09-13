@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { Calendar, Info } from "lucide-react"
+import { AlertTriangle, Calendar, Info } from "lucide-react"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { VedasFilters } from "@/components/vedas-filters"
 import { VedasTimeline } from "@/components/vedas-timeline"
@@ -116,6 +117,26 @@ export default function VedasPage() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Aviso legal */}
+        <Alert className="mt-8 border-amber-300 bg-amber-50 text-amber-900 [&>svg]:text-amber-600">
+          <AlertTriangle className="h-4 w-4" />
+          <AlertTitle className="font-semibold">Información de carácter informativo, no oficial</AlertTitle>
+          <AlertDescription className="text-sm leading-relaxed">
+            Las fechas y condiciones de veda mostradas aquí pueden estar desactualizadas: las vedas variables se
+            modifican periódicamente y pueden publicarse nuevos acuerdos en cualquier momento. La única fuente con
+            validez legal es el{" "}
+            <a
+              href="https://www.dof.gob.mx"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium underline hover:text-amber-700"
+            >
+              Diario Oficial de la Federación (DOF)
+            </a>
+            . Antes de pescar, confirma la veda vigente en el acuerdo publicado en el DOF o con la CONAPESCA.
+          </AlertDescription>
+        </Alert>
       </div>
     </div>
   )

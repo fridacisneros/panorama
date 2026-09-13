@@ -40,6 +40,22 @@ export function Footer() {
             ))}
           </nav>
 
+          {/* Aviso legal */}
+          <p className="text-gray-500 text-xs leading-relaxed mb-6">
+            <span className="font-semibold text-gray-400">Aviso legal:</span> Panorama es un sitio de carácter
+            informativo y no oficial. La información sobre vedas y normativas puede estar desactualizada o
+            contener errores. La única fuente con validez legal es el{" "}
+            <a
+              href="https://www.dof.gob.mx"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-teal-400"
+            >
+              Diario Oficial de la Federación (DOF)
+            </a>
+            . Antes de realizar cualquier actividad pesquera, verifica las disposiciones vigentes.
+          </p>
+
           {/* Copyright */}
           <div className="border-t border-gray-800 pt-6">
             <p className="text-gray-500 text-xs">

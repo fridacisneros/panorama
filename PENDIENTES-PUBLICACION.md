@@ -15,7 +15,7 @@ Prioridad: 🔴 Bloqueante · 🟡 Importante · 🟢 Pulido · ✅ Cierre
 
 ## 🔴 Bloqueantes (sin esto quedan partes rotas en vivo)
 
-- [ ] **1. Neutralizar el dashboard**
+- [x] **1. Neutralizar el dashboard** — ruta `/dashboard` eliminada.
   `app/dashboard/page.tsx` hace fetch a `/api/stats`; sin BD queda roto (500).
   Ocultarlo o reemplazarlo por un placeholder “Próximamente”, y verificar que no
   haya enlaces hacia él. Alternativa: quitar la ruta del build.
@@ -29,10 +29,10 @@ Prioridad: 🔴 Bloqueante · 🟡 Importante · 🟢 Pulido · ✅ Cierre
 
 ## 🟡 Importantes (experiencia y aspectos legales)
 
-- [ ] **3. Conectar el buzón de sugerencias a un correo**
-  Como no habrá BD para guardarlas, `/api/sugerencias` hoy solo valida y hace
-  `console.log` (las sugerencias se pierden). Conectarlo a un servicio de correo
-  (ej. Resend) para recibirlas por email, o dejar explícito que solo confirma.
+- [x] **3. Conectar el buzón de sugerencias a un correo**
+  El buzón no se muestra en ninguna página y `/api/sugerencias` solo hacía
+  `console.log` (las sugerencias se perdían), así que se eliminó el endpoint.
+  Si se reactiva el buzón, crear un endpoint que envíe a un correo (ej. Resend).
 
 - [ ] **4. Agregar aviso de privacidad**
   El buzón recoge **nombre y correo** (datos personales). En México (LFPDPPP) se
@@ -71,9 +71,9 @@ Prioridad: 🔴 Bloqueante · 🟡 Importante · 🟢 Pulido · ✅ Cierre
 
 - [ ] **10. Verificación final sin base de datos**
   Correr `pnpm build` y recorrer todas las páginas (inicio, especies + fichas,
-  vedas + calendario, normativas + descargas, buzón) sin Postgres para confirmar
+  vedas + calendario, normativas + descargas) sin Postgres para confirmar
   que nada quede roto ni haya rutas que devuelvan 500. Verificar que descargas
-  (`/api/download`) y buzón (`/api/sugerencias`) respondan bien.
+  (`/api/download`) respondan bien.
 
 ---
 

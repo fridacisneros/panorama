@@ -60,14 +60,13 @@ All are Drizzle queries against `produccion_pesquera`, built with dynamic `condi
 - `datos/route.ts` — paginated/filtered raw records. Filters: `año`, `añoInicio`+`añoFin`, `estado`, `especie`, `litoral`, `origen`; plus `page`/`limit`.
 - `especies/[especie]/indicadores/route.ts` — aggregated indicators for one species. The `[especie]` URL slug is decoded and de-hyphenated (`replace(/-/g, ' ')`) then matched with `ilike '%...%'` against `nombrePrincipal`/`nombreEspecie` — there is no slug→canonical-name lookup table, matching is fuzzy.
 - `stats/route.ts` — dashboard aggregates.
-- `sugerencias/route.ts` — currently **empty** (suggestion-box endpoint, not implemented).
 
 Species matching throughout is fuzzy `ilike` on name columns, not FK/id joins.
 
 ### Pages (`app/`)
 
 - `especies/` — species list + `especies/[especie]/page.tsx` dynamic detail page. Note several species also have their **own hardcoded page** (e.g. `especies/pulpo/page.tsx`, `camaron-cafe`, `almejas`, …) rather than going through the dynamic route.
-- `vedas/`, `normativas/`, `dashboard/` — render from static data / the stats API.
+- `vedas/`, `normativas/` — render from static data.
 - `layout.tsx` wraps everything; theming via `next-themes` (`components/theme-provider.tsx`).
 
 ### Components

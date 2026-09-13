@@ -46,7 +46,6 @@ fisheries-system/
 │   │   └── page.tsx             # Listado de especies
 │   ├── vedas/                   # Página de vedas
 │   ├── normativas/              # Biblioteca normativa
-│   ├── dashboard/               # Dashboard (en desarrollo)
 │   └── page.tsx                 # Página principal
 ├── components/                  # Componentes React
 │   ├── ui/                      # Componentes shadcn/ui

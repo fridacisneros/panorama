@@ -2,11 +2,11 @@ import Link from "next/link"
 import { ArrowRight, Fish, Waves, Shield, Calendar } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Footer } from "@/components/footer"
 import { EspeciesCarrusel } from "@/components/especies-carrusel"
 import { PanoramaGraficas } from "@/components/panorama-graficas"
 import { especies } from "@/lib/especies-data"
 import { vedasData } from "@/lib/vedas-data"
+import { documents } from "@/lib/normativas-data"
 
 // Trazo de ola que se repite (dos pistas idénticas) para animarse sin cortes.
 const WAVE_PATH =
@@ -31,7 +31,7 @@ const stats = [
   },
   {
     label: "Normativas",
-    value: "114",
+    value: String(documents.length),
     sub: "vigentes · CNP 2025",
     icon: Waves,
     chip: "bg-blue-100 text-blue-700",
@@ -159,8 +159,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   )
 }

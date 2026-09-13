@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
+import { Footer } from "@/components/footer"
 import { Navbar } from "@/components/navbar"
 import { ThemeProvider } from "@/components/theme-provider"
 
@@ -56,6 +57,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="light" forcedTheme="light">
           <Navbar />
           <main className="min-h-screen">{children}</main>
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

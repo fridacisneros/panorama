@@ -5,12 +5,9 @@ import "./globals.css"
 import { Footer } from "@/components/footer"
 import { Navbar } from "@/components/navbar"
 import { ThemeProvider } from "@/components/theme-provider"
+import { siteUrl } from "@/lib/site"
 
 const inter = Inter({ subsets: ["latin"] })
-
-// URL del sitio en producción (para resolver la imagen al compartir).
-// Configura NEXT_PUBLIC_SITE_URL en el hosting; el fallback es solo para local.
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

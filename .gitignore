@@ -29,3 +29,5 @@ next-env.d.ts
 
 # .csv files
 data/
+# macOS
+.DS_Store

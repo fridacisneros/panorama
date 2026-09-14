@@ -1,336 +1,125 @@
-# Panorama - Sistema de Gestión Pesquera
+# Panorama — Legislación pesquera de México
 
-Plataforma web de consulta para navegar a través de la legislación mexicana y datos de producción pesquera. Panorama proporciona acceso a información detallada sobre pesquerías, vedas, normativas y estadísticas de producción pesquera en México.
+Plataforma web de consulta para navegar la legislación pesquera mexicana: pesquerías, vedas y normativas de la Carta Nacional Pesquera (CNP).
+
+> Sitio informativo **no oficial**. Para efectos legales, consulta siempre el Diario Oficial de la Federación (DOF).
 
 ## 📋 Descripción
 
-Panorama es una aplicación web desarrollada con Next.js que centraliza información sobre:
+Panorama centraliza en un solo lugar:
 
-- **Pesquerías**: Información detallada sobre 10 especies pesqueras principales según la Carta Nacional Pesquera (CNP) 2025
-- **Vedas**: Calendario interactivo de períodos de veda por especie y región (147 vedas programadas)
-- **Normativas**: Biblioteca con 114 documentos normativos (leyes, NOMs, planes de manejo, zonas de refugio, CNP)
-- **Datos de Producción**: API para consultar datos históricos de producción pesquera (2018-2025)
+- **Pesquerías**: catálogo de 92 pesquerías marinas de la CNP (59 del Litoral del Pacífico y 33 del Golfo de México y Mar Caribe). 59 tienen ficha detallada; el resto se muestra como "Próximamente".
+- **Vedas**: 147 vedas (permanentes, temporales fijas y temporales variables) con línea de tiempo, filtros y enlace al acuerdo en el DOF.
+- **Normativas**: biblioteca con 114 documentos (leyes y reglamentos, NOMs, planes de manejo, zonas de refugio y versiones de la CNP), con descarga directa.
+- **Panorama en cifras**: gráficas en la portada construidas a partir de las fichas.
+
+Toda la información está **en el código fuente** (archivos TypeScript en `lib/`): no hay base de datos.
 
 ## 🚀 Tecnologías
 
-### Frontend
-- **Next.js 15.5.2** - Framework React con App Router
-- **React 18** - Biblioteca UI
-- **TypeScript 5** - Tipado estático
-- **Tailwind CSS 3.4** - Estilos
-- **shadcn/ui** - Componentes UI (Radix UI)
-- **Recharts 3.5** - Gráficos y visualizaciones
-- **Lucide React** - Iconos
-
-### Backend & Base de Datos
-- **PostgreSQL** - Base de datos relacional
-- **Drizzle ORM 0.45** - ORM type-safe
-- **Node.js** - Runtime
-- **Python 3.9+** - Scripts de carga de datos
-
-### Herramientas
-- **pnpm** - Gestor de paquetes
-- **Drizzle Kit** - Migraciones y generación de esquemas
+- **Next.js 15** (App Router) + **React 18** + **TypeScript 5**
+- **Tailwind CSS 3.4** + **shadcn/ui** (Radix UI)
+- **Recharts** — gráficas
+- **Lucide React** — iconos
+- **Vercel Analytics** — conteo de visitas
+- **pnpm** — gestor de paquetes
 
 ## 📁 Estructura del Proyecto
 
 ```
-fisheries-system/
-├── app/                          # Next.js App Router
-│   ├── api/                     # API Routes
-│   │   ├── datos/               # Endpoint de datos de producción
-│   │   ├── especies/            # Endpoint de especies
-│   │   └── stats/               # Endpoint de estadísticas
-│   ├── especies/                # Páginas de especies pesqueras
-│   │   ├── [especie]/           # Página dinámica por especie
-│   │   └── page.tsx             # Listado de especies
-│   ├── vedas/                   # Página de vedas
+panorama/
+├── app/                         # Next.js App Router
+│   ├── api/download/            # Proxy de descargas de documentos oficiales
+│   ├── especies/                # Catálogo de pesquerías con panel lateral de ficha
+│   │   └── [especie]/           # Redirige a /especies?id=… (enlaces antiguos)
+│   ├── vedas/                   # Vedas: filtros y línea de tiempo
 │   ├── normativas/              # Biblioteca normativa
-│   └── page.tsx                 # Página principal
-├── components/                  # Componentes React
+│   ├── page.tsx                 # Portada
+│   ├── layout.tsx               # Layout raíz (navbar, footer, metadatos, Analytics)
+│   ├── not-found.tsx            # Página 404
+│   ├── opengraph-image.tsx      # Imagen para compartir en redes
+│   ├── robots.ts / sitemap.ts   # robots.txt y sitemap.xml
+│   └── icon.svg                 # Favicon
+├── components/                  # Componentes de la app
 │   ├── ui/                      # Componentes shadcn/ui
-│   ├── navbar.tsx               # Barra de navegación
-│   ├── vedas-calendar.tsx       # Calendario de vedas
-│   ├── vedas-filters.tsx        # Filtros de vedas
-│   └── vedas-list.tsx           # Lista de vedas
-├── lib/                         # Utilidades y configuración
-│   ├── db.ts                    # Configuración Drizzle/PostgreSQL
-│   ├── schema.ts                # Esquema de base de datos
-│   ├── utils.ts                 # Utilidades generales
-│   └── vedas-data.ts            # Datos de vedas
-├── data/                        # Archivos CSV de producción
-│   ├── datos-2018.csv
-│   ├── datos-2019.csv
-│   ├── datos-2020.csv
-│   ├── datos-2021.csv
-│   ├── datos-2022.csv
-│   ├── datos-2023.csv
-│   ├── datos-2024.csv
-│   └── datos-2025.csv
-├── scripts/                     # Scripts Python
-│   ├── load_csv_to_postgres.py  # Carga de CSV a PostgreSQL
-│   └── README.md                # Documentación de scripts
-├── initdb.d/                    # Scripts SQL de inicialización
-│   └── 01_create_tables.sql
-└── public/                      # Archivos estáticos
-    └── images/                  # Imágenes de especies
+│   ├── ficha-detalle.tsx        # Ficha detallada de una pesquería
+│   ├── panorama-graficas.tsx    # "El panorama en cifras" (portada)
+│   ├── vedas-timeline.tsx       # Línea de tiempo de vedas
+│   └── …
+├── lib/                         # Datos estáticos y utilidades
+│   ├── especies-data.ts         # Pesquerías y sus fichas
+│   ├── vedas-data.ts            # Vedas
+│   ├── normativas-data.ts       # Documentos normativos
+│   ├── site.ts                  # URL del sitio y metadatos por sección
+│   └── utils.ts
+└── public/images/especies/      # Fotos de las pesquerías
 ```
 
-## ✨ Características Implementadas
+## ✨ Características
 
-### 1. Pesquerías (Especies)
-- ✅ Listado de 10 especies pesqueras principales
-- ✅ Información detallada por especie (estado de conservación, región, captura)
-- ✅ Filtros por estado de conservación y región
-- ✅ Búsqueda por nombre científico o común
-- ✅ Páginas individuales por especie con:
-  - Indicadores de producción
-  - Gráficos de rendimiento
-  - Información de manejo
-  - Mapas de distribución
+### Pesquerías
+- Catálogo agrupado por región, con filtros por región y estado de conservación, y búsqueda por nombre común, nombre científico o zona
+- Panel lateral con la ficha: generalidades, indicadores (con gráficas de captura histórica y por estado), ambiente, normatividad, status y recomendaciones
+- Año de la última actualización en la CNP en cada tarjeta
 
-### 2. Vedas y Temporadas
-- ✅ Calendario interactivo de vedas
-- ✅ Vista de lista y calendario
-- ✅ Filtros por especie, tipo de veda, región y estado
-- ✅ 147 vedas programadas
-- ✅ Clasificación por tipo:
-  - Vedas fijas
-  - Vedas variables
-  - Vedas permanentes
-- ✅ Indicador de vedas activas
+### Vedas
+- Búsqueda por pesquería, región o nombre científico; filtros por estado (activa/inactiva), tipo de veda y zona
+- Línea de tiempo con los periodos de cada veda
+- Indicador de vedas activas y enlace al acuerdo en el DOF
 
-### 3. Biblioteca Normativa
-- ✅ 114 documentos normativos organizados en categorías:
-  - Leyes y Reglamentos (8)
-  - NOMs (Normas Oficiales Mexicanas) (50+)
-  - Planes de Manejo Pesquero (28)
-  - Zonas de Refugio Pesquero (18)
-  - Carta Nacional Pesquera (10 versiones)
-- ✅ Búsqueda por título, descripción y etiquetas
-- ✅ Filtros por categoría
-- ✅ Enlaces de descarga y visualización
+### Normativas
+- 114 documentos: Leyes y Reglamentos (8), NOMs (50), Planes de Manejo Pesquero (28), Zonas de Refugio Pesquero (18) y Carta Nacional Pesquera (10)
+- Búsqueda por título, descripción y etiquetas; filtro por categoría
+- Descarga mediante `/api/download`, limitada a dominios oficiales (`dof.gob.mx`, `gob.mx`, `diputados.gob.mx`, `conapesca.gob.mx`)
 
-### 4. API de Datos
-- ✅ Endpoint `/api/datos` para consultar producción pesquera
-- ✅ Filtros por:
-  - Año (rango o específico)
-  - Estado
-  - Especie
-  - Litoral
-  - Origen
-- ✅ Paginación
-- ✅ Ordenamiento
+## 🛠️ Instalación
 
-### 5. Base de Datos
-- ✅ Esquema completo de producción pesquera (35+ columnas)
-- ✅ Tabla `produccion_pesquera` con:
-  - Información de embarcaciones
-  - Sitios de desembarque
-  - Unidades económicas
-  - Información de captura
-  - Producción por especie
-  - Valores económicos
-
-## 🛠️ Instalación y Configuración
-
-### Prerrequisitos
-
-- Node.js 18+ y pnpm
-- PostgreSQL 12+
-- Python 3.9+ (para scripts de carga)
-
-### 1. Clonar e Instalar Dependencias
+Requisitos: Node.js 18+ y pnpm.
 
 ```bash
-# Instalar dependencias
 pnpm install
-```
-
-### 2. Configurar Variables de Entorno
-
-Crear un archivo `.env.local` en la raíz del proyecto:
-
-```env
-# PostgreSQL
-PGHOST=localhost
-PGPORT=5432
-PGDATABASE=fisheries
-PGUSER=postgres
-PGPASSWORD=tu_contraseña
-# Usar "require" para Postgres alojado (p. ej. Neon); omitir para local
-PGSSLMODE=
-
-# Next.js
-NODE_ENV=development
-```
-
-### 3. Configurar Base de Datos
-
-```bash
-# Crear base de datos
-createdb fisheries
-
-# Ejecutar script de inicialización (opcional)
-psql -h localhost -U postgres -d fisheries -f initdb.d/01_create_tables.sql
-```
-
-### 4. Cargar Datos CSV
-
-```bash
-cd scripts
-pip install -r requirements.txt
-
-# Cargar todos los archivos CSV
-python load_csv_to_postgres.py \
-    --host localhost \
-    --port 5432 \
-    --database fisheries \
-    --user postgres \
-    --password tu_contraseña
-```
-
-Para más detalles sobre la carga de datos, ver [scripts/README.md](scripts/README.md).
-
-### 5. Ejecutar en Desarrollo
-
-```bash
+cp .env.example .env.local   # opcional para desarrollo
 pnpm dev
 ```
 
 La aplicación estará disponible en `http://localhost:3000`.
 
-## 📊 Datos Disponibles
+### Variables de entorno
 
-### Archivos CSV (2018-2025)
-- `datos-2018.csv` hasta `datos-2025.csv`
-- Cada archivo contiene datos de producción pesquera del año correspondiente
-- Estructura: 35+ columnas con información de embarcaciones, capturas, especies, etc.
+| Variable | Uso |
+|---|---|
+| `NEXT_PUBLIC_SITE_URL` | URL pública del sitio (imagen al compartir, `robots.txt`, `sitemap.xml`). En producción, el dominio real. Por defecto `http://localhost:3000`. |
 
-### Especies Pesqueras
-10 especies principales documentadas:
-1. Bagres marinos
-2. Mero y Negrillo
-3. Pepino de Mar
-4. Pez Espada
-5. Camarón Café
-6. Camarón Rojo y Roca
-7. Caracoles
-8. Langostinos
-9. Pulpo
-10. Robalo y Chucumite
-11. Almejas
-
-## 🔌 API Endpoints
-
-### GET `/api/datos`
-Consulta datos de producción pesquera con filtros y paginación.
-
-**Parámetros de consulta:**
-- `page` - Número de página (default: 1)
-- `limit` - Resultados por página (default: 50)
-- `año` - Año específico
-- `añoInicio` / `añoFin` - Rango de años
-- `estado` - Nombre del estado
-- `especie` - Nombre de especie
-- `litoral` - Litoral (Pacífico/Atlántico)
-- `origen` - Origen de captura
-
-**Ejemplo:**
-```bash
-GET /api/datos?año=2023&especie=pulpo&limit=10
-```
-
-### GET `/api/especies/[especie]/indicadores`
-Obtiene indicadores de producción para una especie específica.
-
-## 🗄️ Esquema de Base de Datos
-
-### Tabla: `produccion_pesquera`
-
-Principales columnas:
-- Información de activo/embarcación (RNP, nombre)
-- Sitio de desembarque (clave, nombre)
-- Unidad económica (RNPA, nombre)
-- Ubicación (estado, oficina)
-- Información de aviso (tipo, folio, fecha)
-- Origen y lugar de captura
-- Información de operación (mes, año, período, duración)
-- Especie (nombre principal, clave, nombre científico)
-- Producción (peso desembarcado, peso vivo, precio, valor)
-- Región (litoral)
-
-## 🧪 Desarrollo
-
-### Scripts Disponibles
+## 🧪 Scripts
 
 ```bash
-# Desarrollo
-pnpm dev
-
-# Build de producción
-pnpm build
-
-# Iniciar servidor de producción
-pnpm start
-
-# Linting
-pnpm lint
+pnpm dev      # servidor de desarrollo
+pnpm build    # build de producción
+pnpm start    # servir el build de producción
+npx tsc --noEmit   # verificación de tipos
 ```
 
-### Migraciones de Base de Datos
+No hay suite de pruebas configurada.
 
-```bash
-# Generar migraciones
-npx drizzle-kit generate
+## ✏️ Cómo actualizar los datos
 
-# Aplicar migraciones
-npx drizzle-kit migrate
-```
+- **Pesquerías**: `lib/especies-data.ts`. La lista `especies` define el catálogo; el objeto `fichas` (indexado por `id`) contiene el detalle y se adjunta a cada especie.
+- **Fotos**: `public/images/especies/{id}.jpg`. Si falta la foto, se muestra un ícono de respaldo. Los créditos están en `CREDITOS-IMAGENES.md`.
+- **Vedas**: `lib/vedas-data.ts`.
+- **Normativas**: `lib/normativas-data.ts` **y** `app/normativas/page.tsx`, que por ahora tiene su propia copia de la lista de documentos.
 
-## 📝 Estado Actual del Proyecto
+Los conteos de la portada se calculan a partir de estos datos.
 
-### ✅ Completado
-- [x] Estructura base de Next.js con App Router
-- [x] Sistema de diseño con shadcn/ui
-- [x] Páginas de especies pesqueras
-- [x] Sistema de vedas con calendario
-- [x] Biblioteca normativa
-- [x] API de datos de producción
-- [x] Esquema de base de datos
-- [x] Scripts de carga de datos CSV
-- [x] Componentes UI reutilizables
-- [x] Sistema de navegación
+## 📊 Analítica
 
-### 🚧 En Desarrollo
-- [ ] Dashboard de estadísticas
-- [ ] Visualizaciones avanzadas de datos
-- [ ] Exportación de datos
-- [ ] Sistema de autenticación (si es necesario)
-- [ ] Tests unitarios e integración
-
-### 📋 Pendiente
-- [ ] Documentación de API completa
-- [ ] Optimización de rendimiento
-- [ ] Internacionalización (i18n)
-- [ ] PWA (Progressive Web App)
-- [ ] Mejoras de accesibilidad
-
-## 🤝 Contribución
-
-Este es un proyecto personal. Para sugerencias o mejoras, por favor abre un issue o pull request.
-
-## 📄 Licencia
-
-Este proyecto es de uso personal/educacional.
+Las visitas se registran con Vercel Analytics (`<Analytics />` en `app/layout.tsx`). Se consultan en el panel del proyecto en Vercel, pestaña **Analytics**; solo cuenta en producción.
 
 ## 📚 Referencias
 
-- [Carta Nacional Pesquera 2025](https://www.gob.mx/conapesca)
-- [CONAPESCA](https://www.gob.mx/conapesca)
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Drizzle ORM](https://orm.drizzle.team/)
+- [Carta Nacional Pesquera — CONAPESCA](https://www.gob.mx/conapesca)
+- [Diario Oficial de la Federación](https://www.dof.gob.mx)
+- [Next.js](https://nextjs.org/docs)
 
----
+## 📄 Licencia
 
-**Última actualización**: 2025
+Proyecto de uso personal/educacional.

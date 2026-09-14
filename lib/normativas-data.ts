@@ -799,7 +799,7 @@ export const documents: DocumentItem[] = [
     description: "Norma de pesca responsable de tiburones y rayas, especificaciones para su aprovechamiento",
     date: "2007-02-14",
     tags: ["NOM", "Tiburones", "Rayas", "Pesca Responsable", "Aprovechamiento"],
-    url: "https://www.conapesca.gob.mx/work/sites/cona/dgop/2018/normas/20_NOM_029_PESC_2006.pdf"
+    url: "https://www.gob.mx/cms/uploads/attachment/file/135366/49.-_NORMA_OFICIAL_MEXICANA_NOM-029-PESC-2006.pdf"
   },
   {
     id: "79",

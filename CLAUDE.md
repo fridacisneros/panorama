@@ -69,4 +69,4 @@ Home-page counts are computed from these arrays (`especies.length`, etc.), not h
 
 ### Leftovers from the old Postgres version
 
-Postgres dependencies, `scripts/` and `initdb.d/` were removed. Only `data/` (gitignored CSVs) remains locally. `PENDIENTES-PUBLICACION.md` is a publishing checklist partly outdated.
+Postgres dependencies, `scripts/` and `initdb.d/` were removed. Only `data/` (gitignored CSVs) remains locally.

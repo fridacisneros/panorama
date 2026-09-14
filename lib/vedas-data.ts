@@ -52,7 +52,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/normasOficiales/4254/semarnat/semarnat.htm",
+    "enlaceDOF": "https://dof.gob.mx/normasOficiales/4254/semarnat/semarnat.htm",
     "fechaPublicacion": "30/12/10",
     "nombreAcuerdo": "NOM-059-SEMARNAT-2010, Protección ambiental-Especies nativas de México de flora y fauna silvestres",
     "status": "Activa"
@@ -70,7 +70,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/normasOficiales/4254/semarnat/semarnat.htm",
+    "enlaceDOF": "https://dof.gob.mx/normasOficiales/4254/semarnat/semarnat.htm",
     "fechaPublicacion": "30/12/10",
     "nombreAcuerdo": "NOM-059-SEMARNAT-2010, Protección ambiental-Especies nativas de México de flora y fauna silvestres",
     "status": "Activa"
@@ -88,7 +88,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/normasOficiales/4254/semarnat/semarnat.htm",
+    "enlaceDOF": "https://dof.gob.mx/normasOficiales/4254/semarnat/semarnat.htm",
     "fechaPublicacion": "30/12/10",
     "nombreAcuerdo": "NOM-059-SEMARNAT-2010, Protección ambiental-Especies nativas de México de flora y fauna silvestres",
     "status": "Activa"
@@ -106,7 +106,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/normasOficiales/4254/semarnat/semarnat.htm",
+    "enlaceDOF": "https://dof.gob.mx/normasOficiales/4254/semarnat/semarnat.htm",
     "fechaPublicacion": "30/12/10",
     "nombreAcuerdo": "NOM-059-SEMARNAT-2010, Protección ambiental-Especies nativas de México de flora y fauna silvestres",
     "status": "Activa"
@@ -124,7 +124,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4888578&fecha=30/04/1999",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4888578&fecha=30/04/1999",
     "fechaPublicacion": "30/04/99",
     "nombreAcuerdo": "AVISO por el que se modifica la veda establecida en el diverso publicado el 16 de marzo de 1994",
     "status": "Activa"
@@ -142,7 +142,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4888578&fecha=30/04/1999",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4888578&fecha=30/04/1999",
     "fechaPublicacion": "30/04/99",
     "nombreAcuerdo": "AVISO por el que se modifica la veda establecida en el diverso publicado el 16 de marzo de 1994",
     "status": "Activa"
@@ -160,7 +160,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4888578&fecha=30/04/1999",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4888578&fecha=30/04/1999",
     "fechaPublicacion": "30/04/99",
     "nombreAcuerdo": "AVISO por el que se modifica la veda establecida en el diverso publicado el 16 de marzo de 1994",
     "status": "Activa"
@@ -178,7 +178,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",    
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4887135&fecha=04/11/1996",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4887135&fecha=04/11/1996",
     "fechaPublicacion": "04/11/96",
     "nombreAcuerdo": "AVISO por el que se modifica la veda establecida en el diverso publicado el 16 de marzo de 1994",
     "status": "Activa"
@@ -196,7 +196,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4887135&fecha=04/11/1996",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4887135&fecha=04/11/1996",
     "fechaPublicacion": "04/11/96",
     "nombreAcuerdo": "AVISO por el que se modifica la veda establecida en el diverso publicado el 16 de marzo de 1994",
     "status": "Activa"
@@ -214,7 +214,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4888263&fecha=23/09/1997",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4888263&fecha=23/09/1997",
     "fechaPublicacion": "23/09/97",
     "nombreAcuerdo": "AVISO por el que se modifica la veda establecida en el diverso publicado el 16 de marzo de 1994",
     "status": "Activa"
@@ -232,7 +232,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -250,7 +250,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -268,7 +268,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -286,7 +286,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -304,7 +304,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -322,7 +322,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -340,7 +340,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/normasOficiales/4254/semarnat/semarnat.htm",
+    "enlaceDOF": "https://dof.gob.mx/normasOficiales/4254/semarnat/semarnat.htm",
     "fechaPublicacion": "30/12/10",
     "nombreAcuerdo": "NOM-059-SEMARNAT-2010, Protección ambiental-Especies nativas de México de flora y fauna silvestres",
     "status": "Activa"
@@ -358,7 +358,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -376,7 +376,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -394,7 +394,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -412,7 +412,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -430,7 +430,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868397&fecha=25/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868397&fecha=25/03/1994",
     "fechaPublicacion": "25/03/94",
     "nombreAcuerdo": "AVISO por el que se establece veda permanente para todas las especies de mantarraya",
     "status": "Activa"
@@ -448,7 +448,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868397&fecha=25/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868397&fecha=25/03/1994",
     "fechaPublicacion": "25/03/94",
     "nombreAcuerdo": "AVISO por el que se establece veda permanente para todas las especies de mantarraya",
     "status": "Activa"
@@ -466,7 +466,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868397&fecha=25/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868397&fecha=25/03/1994",
     "fechaPublicacion": "25/03/94",
     "nombreAcuerdo": "AVISO por el que se establece veda permanente para todas las especies de mantarraya",
     "status": "Activa"
@@ -484,7 +484,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
+    "enlaceDOF": "https://dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
     "fechaPublicacion": "14/02/07",
     "nombreAcuerdo": "NOM-029-PESC-2006, Pesca responsable de tiburones y rayas",
     "status": "Activa"
@@ -502,7 +502,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
+    "enlaceDOF": "https://dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
     "fechaPublicacion": "14/02/07",
     "nombreAcuerdo": "NOM-029-PESC-2006, Pesca responsable de tiburones y rayas",
     "status": "Activa"
@@ -520,7 +520,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
+    "enlaceDOF": "https://dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
     "fechaPublicacion": "14/02/07",
     "nombreAcuerdo": "NOM-029-PESC-2006, Pesca responsable de tiburones y rayas",
     "status": "Activa"
@@ -538,7 +538,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
+    "enlaceDOF": "https://dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
     "fechaPublicacion": "14/02/07",
     "nombreAcuerdo": "NOM-029-PESC-2006, Pesca responsable de tiburones y rayas",
     "status": "Activa"
@@ -556,7 +556,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5518748&fecha=06/04/2018",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5518748&fecha=06/04/2018",
     "fechaPublicacion": "06/04/18",
     "nombreAcuerdo": "ACUERDO por el que se establece veda permanente para todas las especies de pepino de mar",
     "status": "Activa"
@@ -574,7 +574,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5518748&fecha=06/04/2018",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5518748&fecha=06/04/2018",
     "fechaPublicacion": "06/04/18",
     "nombreAcuerdo": "ACUERDO por el que se establece veda permanente para todas las especies de pepino de mar",
     "status": "Activa"
@@ -592,7 +592,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5518748&fecha=06/04/2018",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5518748&fecha=06/04/2018",
     "fechaPublicacion": "06/04/18",
     "nombreAcuerdo": "ACUERDO por el que se establece veda permanente para todas las especies de pepino de mar",
     "status": "Activa"
@@ -610,7 +610,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5518748&fecha=06/04/2018",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5518748&fecha=06/04/2018",
     "fechaPublicacion": "06/04/18",
     "nombreAcuerdo": "ACUERDO por el que se establece veda permanente para todas las especies de pepino de mar",
     "status": "Activa"
@@ -628,7 +628,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -646,7 +646,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -664,7 +664,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -682,7 +682,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -700,7 +700,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -718,7 +718,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -736,7 +736,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -754,7 +754,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
+    "enlaceDOF": "https://dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
     "fechaPublicacion": "14/02/07",
     "nombreAcuerdo": "NOM-029-PESC-2006, Pesca responsable de tiburones y rayas",
     "status": "Activa"
@@ -772,7 +772,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
+    "enlaceDOF": "https://dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
     "fechaPublicacion": "14/02/07",
     "nombreAcuerdo": "NOM-029-PESC-2006, Pesca responsable de tiburones y rayas",
     "status": "Activa"
@@ -790,7 +790,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
+    "enlaceDOF": "https://dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
     "fechaPublicacion": "14/02/07",
     "nombreAcuerdo": "NOM-029-PESC-2006, Pesca responsable de tiburones y rayas",
     "status": "Activa"
@@ -808,7 +808,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -826,7 +826,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -844,7 +844,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -862,7 +862,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -880,7 +880,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -898,7 +898,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -916,7 +916,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -934,7 +934,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -952,7 +952,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -970,7 +970,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -988,7 +988,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -1006,7 +1006,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -1024,7 +1024,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -1042,7 +1042,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/94",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda",
     "status": "Activa"
@@ -1061,7 +1061,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5348479&fecha=13/06/2014",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5348479&fecha=13/06/2014",
     "fechaPublicacion": "13/06/2014",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para jaiba",
     "status": "Inactiva"
@@ -1080,7 +1080,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Activa",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5623156&fecha=07/07/2021",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5623156&fecha=07/07/2021",
     "fechaPublicacion": "07/07/2021",
     "nombreAcuerdo": "ACUERDO por el que se modifica la veda de abulón establecida en el Aviso publicado el 16 de marzo de 1994"
   },
@@ -1098,7 +1098,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Activa",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5623156&fecha=07/07/2021",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5623156&fecha=07/07/2021",
     "fechaPublicacion": "07/07/2021",
     "nombreAcuerdo": "ACUERDO por el que se modifica la veda de abulón establecida en el Aviso publicado el 16 de marzo de 1994"
   },
@@ -1116,7 +1116,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5623156&fecha=07/07/2021",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5623156&fecha=07/07/2021",
     "fechaPublicacion": "07/07/2021",
     "nombreAcuerdo": "ACUERDO por el que se modifica la veda de abulón establecida en el Aviso publicado el 16 de marzo de 1994"
   },
@@ -1134,7 +1134,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/1994",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda"
   },
@@ -1152,7 +1152,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Activa",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5616476&fecha=16/04/2021",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5616476&fecha=16/04/2021",
     "fechaPublicacion": "16/04/2021",
     "nombreAcuerdo": "ACUERDO por el que se modifica el diverso por el que se establece veda temporal para la almeja chocolata"
   },
@@ -1170,7 +1170,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5616476&fecha=16/04/2021",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5616476&fecha=16/04/2021",
     "fechaPublicacion": "16/04/2021",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para la almeja generosa"
   },
@@ -1188,7 +1188,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5651985&fecha=18/05/2022",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5651985&fecha=18/05/2022",
     "fechaPublicacion": "18/05/2022",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para las especies de atún"
   },
@@ -1206,7 +1206,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5651985&fecha=18/05/2022",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5651985&fecha=18/05/2022",
     "fechaPublicacion": "18/05/2022",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para las especies de atún"
   },
@@ -1224,7 +1224,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5651985&fecha=18/05/2022",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5651985&fecha=18/05/2022",
     "fechaPublicacion": "18/05/2022",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para las especies de atún"
   },
@@ -1242,7 +1242,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5651985&fecha=18/05/2022",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5651985&fecha=18/05/2022",
     "fechaPublicacion": "18/05/2022",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para las especies de atún"
   },
@@ -1260,7 +1260,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5135886&fecha=31/03/2010",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5135886&fecha=31/03/2010",
     "fechaPublicacion": "31/03/2010",
     "nombreAcuerdo": "ACUERDO por el que se establece veda para especies de aguas continentales"
   },
@@ -1278,7 +1278,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5135886&fecha=31/03/2010",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5135886&fecha=31/03/2010",
     "fechaPublicacion": "31/03/2010",
     "nombreAcuerdo": "ACUERDO por el que se establece veda para especies de aguas continentales"
   },
@@ -1296,7 +1296,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5135886&fecha=31/03/2010",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5135886&fecha=31/03/2010",
     "fechaPublicacion": "31/03/2010",
     "nombreAcuerdo": "ACUERDO por el que se establece veda para especies de aguas continentales"
   },
@@ -1314,7 +1314,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5135886&fecha=31/03/2010",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5135886&fecha=31/03/2010",
     "fechaPublicacion": "31/03/2010",
     "nombreAcuerdo": "ACUERDO por el que se establece veda para especies de aguas continentales"
   },
@@ -1332,7 +1332,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5524050&fecha=22/05/2018",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5524050&fecha=22/05/2018",
     "fechaPublicacion": "22/05/2018",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para callo de hacha"
   },
@@ -1350,7 +1350,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5524050&fecha=22/05/2018",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5524050&fecha=22/05/2018",
     "fechaPublicacion": "22/05/2018",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para callo de hacha"
   },
@@ -1368,7 +1368,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5524050&fecha=22/05/2018",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5524050&fecha=22/05/2018",
     "fechaPublicacion": "22/05/2018",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para callo de hacha"
   },
@@ -1386,7 +1386,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5524050&fecha=22/05/2018",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5524050&fecha=22/05/2018",
     "fechaPublicacion": "22/05/2018",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para callo de hacha"
   },
@@ -1404,7 +1404,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5611659&fecha=10/02/2021",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5611659&fecha=10/02/2021",
     "fechaPublicacion": "10/02/2021",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para callo de hacha"
   },
@@ -1422,7 +1422,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5611659&fecha=10/02/2021",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5611659&fecha=10/02/2021",
     "fechaPublicacion": "10/02/2021",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para callo de hacha"
   },
@@ -1440,7 +1440,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/1994",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda"
   },
@@ -1458,7 +1458,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5491054&fecha=19/07/2017",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5491054&fecha=19/07/2017",
     "fechaPublicacion": "19/07/2017",
     "nombreAcuerdo": "ACUERDO por el que se modifica la veda para el caracol rosa"
   },
@@ -1476,7 +1476,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5020837&fecha=06/05/2008",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5020837&fecha=06/05/2008",
     "fechaPublicacion": "06/05/2008",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para especies de caracol"
   },
@@ -1494,7 +1494,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Activa",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5446078&fecha=04/08/2016",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5446078&fecha=04/08/2016",
     "fechaPublicacion": "04/08/2016",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para el cangrejo azul"
   },
@@ -1512,7 +1512,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5135886&fecha=31/03/2010",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5135886&fecha=31/03/2010",
     "fechaPublicacion": "31/03/2010",
     "nombreAcuerdo": "ACUERDO por el que se establece veda para especies de aguas continentales"
   },
@@ -1530,7 +1530,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5096659&fecha=25/08/2005",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5096659&fecha=25/08/2005",
     "fechaPublicacion": "25/08/2005",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para la curvina golfina"
   },
@@ -1548,7 +1548,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/1994",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda"
   },
@@ -1566,7 +1566,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5348479&fecha=13/06/2014",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5348479&fecha=13/06/2014",
     "fechaPublicacion": "13/06/2014",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para jaiba"
   },
@@ -1584,7 +1584,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5348479&fecha=13/06/2014",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5348479&fecha=13/06/2014",
     "fechaPublicacion": "13/06/2014",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para jaiba"
   },
@@ -1602,7 +1602,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5348479&fecha=13/06/2014",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5348479&fecha=13/06/2014",
     "fechaPublicacion": "13/06/2014",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para jaiba"
   },
@@ -1620,7 +1620,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5096857&fecha=31/08/2005",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5096857&fecha=31/08/2005",
     "fechaPublicacion": "31/08/2005",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para langosta"
   },
@@ -1638,7 +1638,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5096857&fecha=31/08/2005",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5096857&fecha=31/08/2005",
     "fechaPublicacion": "31/08/2005",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para langosta"
   },
@@ -1656,7 +1656,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5096857&fecha=31/08/2005",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5096857&fecha=31/08/2005",
     "fechaPublicacion": "31/08/2005",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para langosta"
   },
@@ -1674,7 +1674,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5703179&fecha=26/09/2023",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5703179&fecha=26/09/2023",
     "fechaPublicacion": "26/09/2023",
     "nombreAcuerdo": "ACUERDO por el que se modifica la veda de langosta en la zona II"
   },
@@ -1692,7 +1692,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5703179&fecha=26/09/2023",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5703179&fecha=26/09/2023",
     "fechaPublicacion": "26/09/2023",
     "nombreAcuerdo": "ACUERDO por el que se modifica la veda de langosta en la zona II"
   },
@@ -1710,7 +1710,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5703179&fecha=26/09/2023",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5703179&fecha=26/09/2023",
     "fechaPublicacion": "26/09/2023",
     "nombreAcuerdo": "ACUERDO por el que se modifica la veda de langosta en la zona II"
   },
@@ -1728,7 +1728,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5718993&fecha=15/05/2024",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5718993&fecha=15/05/2024",
     "fechaPublicacion": "15/05/2024",
     "nombreAcuerdo": "ACUERDO por el que se establece la veda de langosta en la zona III"
   },
@@ -1746,7 +1746,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5718993&fecha=15/05/2024",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5718993&fecha=15/05/2024",
     "fechaPublicacion": "15/05/2024",
     "nombreAcuerdo": "ACUERDO por el que se establece la veda de langosta en la zona III"
   },
@@ -1764,7 +1764,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5718993&fecha=15/05/2024",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5718993&fecha=15/05/2024",
     "fechaPublicacion": "15/05/2024",
     "nombreAcuerdo": "ACUERDO por el que se establece la veda de langosta en la zona III"
   },
@@ -1782,7 +1782,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5096857&fecha=31/08/2005",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5096857&fecha=31/08/2005",
     "fechaPublicacion": "31/08/2005",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para langosta"
   },
@@ -1800,7 +1800,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5096857&fecha=31/08/2005",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5096857&fecha=31/08/2005",
     "fechaPublicacion": "31/08/2005",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para langosta"
   },
@@ -1818,7 +1818,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5096857&fecha=31/08/2005",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5096857&fecha=31/08/2005",
     "fechaPublicacion": "31/08/2005",
     "nombreAcuerdo": "ACUERDO por el que se establece veda temporal para langosta"
   },
@@ -1836,7 +1836,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/1994",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda"
   },
@@ -1854,7 +1854,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/1994",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda"
   },
@@ -1872,7 +1872,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/1994",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda"
   },
@@ -1890,7 +1890,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Activa",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5135886&fecha=31/03/2010",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5135886&fecha=31/03/2010",
     "fechaPublicacion": "31/03/2010",
     "nombreAcuerdo": "ACUERDO por el que se establece veda para especies de aguas continentales"
   },
@@ -1908,7 +1908,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Activa",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5135886&fecha=31/03/2010",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5135886&fecha=31/03/2010",
     "fechaPublicacion": "31/03/2010",
     "nombreAcuerdo": "ACUERDO por el que se establece veda para especies de aguas continentales"
   },
@@ -1926,7 +1926,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/1994",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda"
   },
@@ -1944,7 +1944,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4868359&fecha=16/03/1994",
     "fechaPublicacion": "16/03/1994",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda"
   },
@@ -1962,7 +1962,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5411228&fecha=16/10/2015",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5411228&fecha=16/10/2015",
     "fechaPublicacion": "16/10/2015",
     "nombreAcuerdo": "ACUERDO por el que se modifica la veda para lisa y liseta"
   },
@@ -1980,7 +1980,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "02-01",
     "fechaTermino3": "02-28",
     "status": "Activa",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5411228&fecha=16/10/2015",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5411228&fecha=16/10/2015",
     "fechaPublicacion": "16/10/2015",
     "nombreAcuerdo": "ACUERDO por el que se modifica la veda para lisa y liseta"
   },
@@ -1998,7 +1998,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4678590&fecha=16/03/1994#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4678590&fecha=16/03/1994#gsc.tab=0",
     "fechaPublicacion": "16/03/1994",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda"
   },
@@ -2016,7 +2016,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4678590&fecha=16/03/1994#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4678590&fecha=16/03/1994#gsc.tab=0",
     "fechaPublicacion": "16/03/1994",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda"
   },
@@ -2034,7 +2034,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4678590&fecha=16/03/1994#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4678590&fecha=16/03/1994#gsc.tab=0",
     "fechaPublicacion": "16/03/1994",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda"
   },
@@ -2052,7 +2052,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "02-01",
     "fechaTermino3": "02-28",
     "status": "Activa",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5411876&fecha=16/10/2015#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5411876&fecha=16/10/2015#gsc.tab=0",
     "fechaPublicacion": "16/10/2015",
     "nombreAcuerdo": "ACUERDO por el que se modifica el aviso de vedas para lisa y liseta en la Laguna Madre, Tamaulipas"
   },
@@ -2070,7 +2070,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5137177&fecha=31/03/2010",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5137177&fecha=31/03/2010",
     "fechaPublicacion": "31/03/2010",
     "nombreAcuerdo": "ACUERDO por el que se establecen vedas para especies en aguas continentales"
   },
@@ -2088,7 +2088,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5137177&fecha=31/03/2010",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5137177&fecha=31/03/2010",
     "fechaPublicacion": "31/03/2010",
     "nombreAcuerdo": "ACUERDO por el que se establecen vedas para especies en aguas continentales"
   },
@@ -2106,7 +2106,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5292054&fecha=13/03/2013#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5292054&fecha=13/03/2013#gsc.tab=0",
     "fechaPublicacion": "13/03/2013",
     "nombreAcuerdo": "ACUERDO por el que se modifica el periodo de veda en la presa Zimapán"
   },
@@ -2124,7 +2124,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5475258&fecha=03/03/2017",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5475258&fecha=03/03/2017",
     "fechaPublicacion": "03/03/2017",
     "nombreAcuerdo": "ACUERDO por el que se modifica la veda para especies de mero en el Golfo de México"
   },
@@ -2142,7 +2142,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Activa",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5323870&fecha=29/11/2013#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5323870&fecha=29/11/2013#gsc.tab=0",
     "fechaPublicacion": "29/11/2013",
     "nombreAcuerdo": "ACUERDO por el que se modifica la veda del ostión de placer en el Pacífico"
   },
@@ -2160,7 +2160,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Activa",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5323870&fecha=29/11/2013#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5323870&fecha=29/11/2013#gsc.tab=0",
     "fechaPublicacion": "29/11/2013",
     "nombreAcuerdo": "ACUERDO por el que se modifica la veda del ostión de placer en el Pacífico"
   },
@@ -2178,7 +2178,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5704435&fecha=10/10/2023#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5704435&fecha=10/10/2023#gsc.tab=0",
     "fechaPublicacion": "10/10/2023",
     "nombreAcuerdo": "ACUERDO por el que se modifica la veda del ostión de roca en el Pacífico"
   },
@@ -2196,7 +2196,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5087616&fecha=20/04/2009",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5087616&fecha=20/04/2009",
     "fechaPublicacion": "20/04/2009",
     "nombreAcuerdo": "ACUERDO por el que se establece veda para la pesca comercial de ostión (Crassostrea virginica) en las aguas de jurisdicción federal en el Estado de Tabasco."
   },
@@ -2214,7 +2214,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5137177&fecha=31/03/2010",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5137177&fecha=31/03/2010",
     "fechaPublicacion": "31/03/2010",
     "nombreAcuerdo": "ACUERDO por el que se establecen épocas y zonas de veda para la pesca de diferentes especies de la fauna acuática en aguas continentales de jurisdicción federal de los Estados Unidos Mexicanos."
   },
@@ -2232,7 +2232,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4678590&fecha=16/03/1994#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4678590&fecha=16/03/1994#gsc.tab=0",
     "fechaPublicacion": "16/03/1994",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda"
   },
@@ -2250,7 +2250,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4678590&fecha=16/03/1994#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4678590&fecha=16/03/1994#gsc.tab=0",
     "fechaPublicacion": "16/03/1994",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda"
   },
@@ -2268,7 +2268,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5253633&fecha=11/06/2012#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5253633&fecha=11/06/2012#gsc.tab=0",
     "fechaPublicacion": "11/06/2012",
     "nombreAcuerdo": "ACUERDO por el que se modifica el Aviso para establecer los periodos de veda de pulpo en el Sistema Arrecifal Veracruzano"
   },
@@ -2286,7 +2286,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Activa",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5503748&fecha=07/11/2017",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5503748&fecha=07/11/2017",
     "fechaPublicacion": "07/11/2017",
     "nombreAcuerdo": "ACUERDO por el que se modifica la veda temporal y tallas mínimas para pulpo en Bahía de los Ángeles"
   },
@@ -2304,7 +2304,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Activa",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5503748&fecha=07/11/2017",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5503748&fecha=07/11/2017",
     "fechaPublicacion": "07/11/2017",
     "nombreAcuerdo": "ACUERDO por el que se modifica la veda temporal y tallas mínimas para pulpo en Bahía de los Ángeles"
   },
@@ -2322,7 +2322,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5307611&fecha=23/07/2013",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5307611&fecha=23/07/2013",
     "fechaPublicacion": "23/07/2013",
     "nombreAcuerdo": "ACUERDO por el que se modifica el aviso para concluir el periodo de veda de tiburones y rayas en el Océano Pacífico"
   },
@@ -2340,7 +2340,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4678590&fecha=16/03/1994#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4678590&fecha=16/03/1994#gsc.tab=0",
     "fechaPublicacion": "16/03/1994",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda"
   },
@@ -2358,7 +2358,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=4678590&fecha=16/03/1994#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=4678590&fecha=16/03/1994#gsc.tab=0",
     "fechaPublicacion": "16/03/1994",
     "nombreAcuerdo": "AVISO por el que se da a conocer el establecimiento de épocas y zonas de veda"
   },
@@ -2376,7 +2376,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5344735&fecha=15/05/2014#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5344735&fecha=15/05/2014#gsc.tab=0",
     "fechaPublicacion": "15/05/2014",
     "nombreAcuerdo": "ACUERDO por el que se modifica el periodo y zonas de veda de tiburones en el Golfo de México y Mar Caribe"
   },
@@ -2394,7 +2394,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5344735&fecha=15/05/2014#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5344735&fecha=15/05/2014#gsc.tab=0",
     "fechaPublicacion": "15/05/2014",
     "nombreAcuerdo": "ACUERDO por el que se modifica el periodo y zonas de veda de tiburones en el Golfo de México y Mar Caribe"
   },
@@ -2412,7 +2412,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5307611&fecha=23/07/2013#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5307611&fecha=23/07/2013#gsc.tab=0",
     "fechaPublicacion": "23/07/2013",
     "nombreAcuerdo": "ACUERDO por el que se modifica el aviso de veda para tiburones y rayas en el Océano Pacífico"
   },
@@ -2430,7 +2430,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5432311&fecha=07/04/2016#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5432311&fecha=07/04/2016#gsc.tab=0",
     "fechaPublicacion": "07/04/2016",
     "nombreAcuerdo": "ACUERDO por el que se modifica la veda para la captura de Tilapia en la Laguna de Amela, Colima"
   },
@@ -2448,7 +2448,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5555326&fecha=27/03/2019#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5555326&fecha=27/03/2019#gsc.tab=0",
     "fechaPublicacion": "27/03/2019",
     "nombreAcuerdo": "ACUERDO por el que se modifica la veda para la captura de tilapia en la Presa Santa Rosa, Jalisco"
   },
@@ -2466,7 +2466,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5444032&fecha=08/07/2016#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5444032&fecha=08/07/2016#gsc.tab=0",
     "fechaPublicacion": "08/07/2016",
     "nombreAcuerdo": "ACUERDO por el que se modifica la veda para la captura de tilapia en la presa El Infiernillo"
   },
@@ -2484,7 +2484,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5444032&fecha=08/07/2016#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5444032&fecha=08/07/2016#gsc.tab=0",
     "fechaPublicacion": "08/07/2016",
     "nombreAcuerdo": "ACUERDO por el que se modifica la veda para la captura de tilapia en la presa El Infiernillo"
   },
@@ -2502,7 +2502,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5444032&fecha=08/07/2016#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5444032&fecha=08/07/2016#gsc.tab=0",
     "fechaPublicacion": "08/07/2016",
     "nombreAcuerdo": "ACUERDO por el que se modifica la veda para la captura de tilapia en la presa El Infiernillo"
   },
@@ -2520,7 +2520,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5292054&fecha=13/03/2013#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5292054&fecha=13/03/2013#gsc.tab=0",
     "fechaPublicacion": "13/03/2013",
     "nombreAcuerdo": "ACUERDO por el que se establece veda para todas las especies de peces en la Presa Zimapán"
   },
@@ -2538,7 +2538,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5137177&fecha=31/03/2010#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5137177&fecha=31/03/2010#gsc.tab=0",
     "fechaPublicacion": "31/03/10",
     "nombreAcuerdo": "ACUERDO por el que se establecen épocas y zonas de veda para la pesca de diferentes especies de la fauna acuática en aguas continentales de jurisdicción federal de los Estados Unidos Mexicanos."
   },
@@ -2556,7 +2556,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5530222&fecha=05/07/2018#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5530222&fecha=05/07/2018#gsc.tab=0",
     "fechaPublicacion": "05/07/18",
     "nombreAcuerdo": "ACUERDO por el que se modifica el similar por el que se establecen épocas y zonas de veda para la pesca de diferentes especies de la fauna acuática en aguas continentales de jurisdicción federal de los Estados Unidos Mexicanos, publicado el 31 de marzo de 2010, con el fin de establecer el periodo de veda para la captura de todas las especies de peces existentes en la Laguna de Yuriria, Guanajuato."
   },
@@ -2574,7 +2574,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5559139&fecha=02/05/2019#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5559139&fecha=02/05/2019#gsc.tab=0",
     "fechaPublicacion": "02/05/19",
     "nombreAcuerdo": "ACUERDO por el que se modifica el similar por el que se establecen épocas y zonas de veda para la pesca de diferentes especies de la fauna acuática en aguas continentales de jurisdicción federal de los Estados Unidos Mexicanos, publicado el 31 de marzo de 2010, con el fin de establecer el periodo de veda para la captura de todas las especies de peces existentes en el embalse de la Presa Melchor Ocampo, Michoacán."
   },
@@ -2592,7 +2592,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Activa",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5566698&fecha=29/07/2019#gsc.tab=0",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5566698&fecha=29/07/2019#gsc.tab=0",
     "fechaPublicacion": "29/07/19",
     "nombreAcuerdo": "ACUERDO por el que se modifica el similar por el que se establecen épocas y zonas de veda para la pesca de diferentes especies de la fauna acuática en aguas continentales de jurisdicción federal de los Estados Unidos Mexicanos, publicado el 31 de marzo de 2010, con el fin de establecer el periodo de veda temporal y la zona de veda permanente para la captura de todas las especies de peces existentes en el Dique La Primavera, Sinaloa."
   },
@@ -2610,7 +2610,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Activa",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5715468&fecha=14/03/2024",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5715468&fecha=14/03/2024",
     "fechaPublicacion": "14/03/24",
     "nombreAcuerdo": "ACUERDO por el que se establece el inicio de la veda temporal para camarón del Pacífico"
   },
@@ -2628,7 +2628,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5718075&fecha=30/04/2024",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5718075&fecha=30/04/2024",
     "fechaPublicacion": "30/04/24",
     "nombreAcuerdo": "ACUERDO por el que se establece la veda temporal para camarón del Golfo de México y Mar Caribe"
   },
@@ -2646,7 +2646,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Inactiva",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5718075&fecha=30/04/2024",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5718075&fecha=30/04/2024",
     "fechaPublicacion": "30/04/24",
     "nombreAcuerdo": "ACUERDO por el que se establece la veda temporal para camarón del Golfo de México y Mar Caribe"
   },
@@ -2664,7 +2664,7 @@ export const vedasData: VedaData[] = [
     "fechaInicio3": "",
     "fechaTermino3": "",
     "status": "Activa",
-    "enlaceDOF": "https://www.dof.gob.mx/nota_detalle.php?codigo=5718075&fecha=30/04/2024",
+    "enlaceDOF": "https://dof.gob.mx/nota_detalle.php?codigo=5718075&fecha=30/04/2024",
     "fechaPublicacion": "30/04/24",
     "nombreAcuerdo": "ACUERDO por el que se establece la veda temporal para camarón del Golfo de México y Mar Caribe"
   }

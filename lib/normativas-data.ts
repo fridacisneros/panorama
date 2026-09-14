@@ -388,7 +388,7 @@ export const documents: DocumentItem[] = [
     description: "Acuerdo que modifica y amplía por segunda ocasión la vigencia de la red de zonas de refugio en aguas marinas frente a la costa oriental de Baja California Sur",
     date: "2022-11-10",
     tags: ["ZRP", "Zona de Refugio", "San Cosme", "Punta Coyote", "Baja California Sur"],
-    url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5670969&fecha=10/11/2022#gsc.tab=0"
+    url: "https://dof.gob.mx/nota_detalle.php?codigo=5670969&fecha=10/11/2022#gsc.tab=0"
   },
   {
     id: "38",
@@ -398,7 +398,7 @@ export const documents: DocumentItem[] = [
     description: "Acuerdo que establece zona de refugio pesquero y nuevas medidas para reducir la interacción de la pesca con tortugas marinas",
     date: "2023-06-23",
     tags: ["ZRP", "Zona de Refugio", "Tortugas Marinas", "Costa Occidental", "Baja California Sur"],
-    url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5693203&fecha=23/06/2023#gsc.tab=0"
+    url: "https://dof.gob.mx/nota_detalle.php?codigo=5693203&fecha=23/06/2023#gsc.tab=0"
   },
   {
     id: "39",
@@ -408,7 +408,7 @@ export const documents: DocumentItem[] = [
     description: "Acuerdo que establece zona de refugio parcial permanente en aguas marinas de la Laguna de Términos, Campeche",
     date: "2023-11-23",
     tags: ["ZRP", "Zona de Refugio", "Laguna de Términos", "Campeche", "Permanente"],
-    url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5709274&fecha=23/11/2023#gsc.tab=0"
+    url: "https://dof.gob.mx/nota_detalle.php?codigo=5709274&fecha=23/11/2023#gsc.tab=0"
   },
   {
     id: "40",
@@ -418,7 +418,7 @@ export const documents: DocumentItem[] = [
     description: "Acuerdo que amplía por segunda ocasión la red de zonas de refugio pesquero en el área de Sian Ka'an, Bahía Espíritu Santo",
     date: "2022-11-30",
     tags: ["ZRP", "Zona de Refugio", "Sian Ka'an", "Bahía Espíritu Santo", "Quintana Roo"],
-    url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5672860&fecha=30/11/2022#gsc.tab=0"
+    url: "https://dof.gob.mx/nota_detalle.php?codigo=5672860&fecha=30/11/2022#gsc.tab=0"
   },
   {
     id: "41",
@@ -428,7 +428,7 @@ export const documents: DocumentItem[] = [
     description: "Acuerdo que establece red de dos zonas de refugio pesquero parciales permanentes en la Bahía de la Ascensión",
     date: "2022-12-12",
     tags: ["ZRP", "Zona de Refugio", "Bahía de la Ascensión", "Quintana Roo", "Permanente"],
-    url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5673896&fecha=12/12/2022#gsc.tab=0"
+    url: "https://dof.gob.mx/nota_detalle.php?codigo=5673896&fecha=12/12/2022#gsc.tab=0"
   },
   {
     id: "42",
@@ -438,7 +438,7 @@ export const documents: DocumentItem[] = [
     description: "Acuerdo que establece zona de refugio parcial temporal frente a los municipios de San Felipe y Dzilam de Bravo",
     date: "2024-12-19",
     tags: ["ZRP", "Zona de Refugio", "San Felipe", "Dzilam de Bravo", "Yucatán", "Temporal"],
-    url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5745672&fecha=19/12/2024#gsc.tab=0"
+    url: "https://dof.gob.mx/nota_detalle.php?codigo=5745672&fecha=19/12/2024#gsc.tab=0"
   },
   {
     id: "43",
@@ -448,7 +448,7 @@ export const documents: DocumentItem[] = [
     description: "Acuerdo que establece zona de refugio parcial temporal en el área paralela al poblado de El Cuyo, Municipio de Tizimín",
     date: "2025-02-18",
     tags: ["ZRP", "Zona de Refugio", "El Cuyo", "Tizimín", "Yucatán", "Temporal"],
-    url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5749411&fecha=18/02/2025#gsc.tab=0"
+    url: "https://dof.gob.mx/nota_detalle.php?codigo=5749411&fecha=18/02/2025#gsc.tab=0"
   },
   {
     id: "44",
@@ -458,7 +458,7 @@ export const documents: DocumentItem[] = [
     description: "Acuerdo que establece zona de refugio parcial temporal frente al poblado de Chabihau, Municipio de Yobaín",
     date: "2025-02-26",
     tags: ["ZRP", "Zona de Refugio", "Chabihau", "Yobaín", "Yucatán", "Temporal"],
-    url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5750315&fecha=26/02/2025#gsc.tab=0"
+    url: "https://dof.gob.mx/nota_detalle.php?codigo=5750315&fecha=26/02/2025#gsc.tab=0"
   },
   {
     id: "45",
@@ -468,7 +468,7 @@ export const documents: DocumentItem[] = [
     description: "Acuerdo que establece zona de refugio pesquero parcial temporal frente al Municipio de Celestún",
     date: "2025-05-09",
     tags: ["ZRP", "Zona de Refugio", "Celestún", "Yucatán", "Temporal"],
-    url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5756895&fecha=09/05/2025#gsc.tab=0"
+    url: "https://dof.gob.mx/nota_detalle.php?codigo=5756895&fecha=09/05/2025#gsc.tab=0"
   },
   {
     id: "46",
@@ -478,7 +478,7 @@ export const documents: DocumentItem[] = [
     description: "Acuerdo que establece red de dos zonas de refugio pesquero parciales permanentes adyacentes a Isla Natividad",
     date: "2018-06-07",
     tags: ["ZRP", "Zona de Refugio", "Isla Natividad", "Mulegé", "Baja California Sur", "Permanente"],
-    url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5525396&fecha=07/06/2018#gsc.tab=0"
+    url: "https://dof.gob.mx/nota_detalle.php?codigo=5525396&fecha=07/06/2018#gsc.tab=0"
   },
   {
     id: "47",
@@ -488,7 +488,7 @@ export const documents: DocumentItem[] = [
     description: "Acuerdo que establece zona de refugio pesquero total temporal en aguas de Punta Herrero, adyacentes a Felipe Carrillo Puerto y Tulum",
     date: "2019-08-27",
     tags: ["ZRP", "Zona de Refugio", "Punta Herrero", "Felipe Carrillo Puerto", "Tulum", "Quintana Roo", "Temporal"],
-    url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5570414&fecha=27/08/2019#gsc.tab=0"
+    url: "https://dof.gob.mx/nota_detalle.php?codigo=5570414&fecha=27/08/2019#gsc.tab=0"
   },
   {
     id: "48",
@@ -498,7 +498,7 @@ export const documents: DocumentItem[] = [
     description: "Acuerdo que establece zona de refugio pesquero en aguas marinas ubicadas en la zona de Akumal",
     date: "2021-10-05",
     tags: ["ZRP", "Zona de Refugio", "Akumal", "Quintana Roo"],
-    url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5631634&fecha=05/10/2021"
+    url: "https://dof.gob.mx/nota_detalle.php?codigo=5631634&fecha=05/10/2021"
   },
   {
     id: "49",
@@ -508,7 +508,7 @@ export const documents: DocumentItem[] = [
     description: "Acuerdo que establece zona de refugio pesquero total permanente en aguas del Canal Nizuc, adyacentes al Municipio de Benito Juárez",
     date: "2018-04-24",
     tags: ["ZRP", "Zona de Refugio", "Canal Nizuc", "Benito Juárez", "Quintana Roo", "Permanente"],
-    url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5520485&fecha=24/04/2018#gsc.tab=0"
+    url: "https://dof.gob.mx/nota_detalle.php?codigo=5520485&fecha=24/04/2018#gsc.tab=0"
   },
   {
     id: "50",
@@ -518,7 +518,7 @@ export const documents: DocumentItem[] = [
     description: "Acuerdo que establece zona de refugio pesquero total temporal en el área de Banco Chinchorro, adyacentes al Municipio de Othón P. Blanco",
     date: "2019-05-31",
     tags: ["ZRP", "Zona de Refugio", "Banco Chinchorro", "Othón P. Blanco", "Quintana Roo", "Temporal"],
-    url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5561621&fecha=31/05/2019#gsc.tab=0"
+    url: "https://dof.gob.mx/nota_detalle.php?codigo=5561621&fecha=31/05/2019#gsc.tab=0"
   },
   {
     id: "51",
@@ -528,7 +528,7 @@ export const documents: DocumentItem[] = [
     description: "Acuerdo que establece zona de refugio pesquero total permanente en el Sistema Lagunar Bahía de Altata-Ensenada del Pabellón",
     date: "2018-04-24",
     tags: ["ZRP", "Zona de Refugio", "Sistema Lagunar", "Bahía de Altata", "Ensenada del Pabellón", "Navolato", "Sinaloa", "Permanente"],
-    url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5520486&fecha=24/04/2018#gsc.tab=0"
+    url: "https://dof.gob.mx/nota_detalle.php?codigo=5520486&fecha=24/04/2018#gsc.tab=0"
   },
   {
     id: "52",
@@ -538,7 +538,7 @@ export const documents: DocumentItem[] = [
     description: "Acuerdo que establece zona de refugio pesquero total permanente en el Sistema Lagunar Bahía Jitzamuri-Agiabampo",
     date: "2018-04-24",
     tags: ["ZRP", "Zona de Refugio", "Sistema Lagunar", "Bahía Jitzamuri", "Agiabampo", "Ahome", "Sinaloa", "Permanente"],
-    url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5520487&fecha=24/04/2018#gsc.tab=0"
+    url: "https://dof.gob.mx/nota_detalle.php?codigo=5520487&fecha=24/04/2018#gsc.tab=0"
   },
   {
     id: "53",
@@ -548,7 +548,7 @@ export const documents: DocumentItem[] = [
     description: "Acuerdo que establece zona de refugio pesquero total temporal en aguas marinas de Puerto Libertad, Municipio de Pitiquito",
     date: "2017-07-12",
     tags: ["ZRP", "Zona de Refugio", "Puerto Libertad", "Pitiquito", "Sonora", "Temporal"],
-    url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5489928&fecha=12/07/2017#gsc.tab=0"
+    url: "https://dof.gob.mx/nota_detalle.php?codigo=5489928&fecha=12/07/2017#gsc.tab=0"
   },
   {
     id: "54",
@@ -558,7 +558,7 @@ export const documents: DocumentItem[] = [
     description: "Acuerdo que establece red de tres zonas de refugio pesquero totales temporales en la Isla San Pedro Nolasco, frente a Guaymas",
     date: "2017-07-12",
     tags: ["ZRP", "Zona de Refugio", "Isla San Pedro Nolasco", "Guaymas", "Sonora", "Temporal"],
-    url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5489927&fecha=12/07/2017#gsc.tab=0"
+    url: "https://dof.gob.mx/nota_detalle.php?codigo=5489927&fecha=12/07/2017#gsc.tab=0"
   },
   // NOMs
   {
@@ -749,7 +749,7 @@ export const documents: DocumentItem[] = [
     description: "Modificación a la norma para regular las actividades de pesca deportivo-recreativa en aguas de jurisdicción federal",
     date: "1995-05-09",
     tags: ["NOM", "Modificación", "Pesca Deportiva", "Pesca Recreativa", "Aguas Federales"],
-    url: "https://www.dof.gob.mx/nota_detalle_popup.php?codigo=5323155"
+    url: "https://dof.gob.mx/nota_detalle_popup.php?codigo=5323155"
   },
   {
     id: "74",
@@ -919,7 +919,7 @@ export const documents: DocumentItem[] = [
     description: "Pesca responsable en el embalse de la presa La Boquilla en Chihuahua, especificaciones para aprovechamiento de recursos pesqueros",
     date: "2017-08-23",
     tags: ["NOM", "Presa La Boquilla", "Chihuahua", "Embalse"],
-    url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5494807&fecha=23/08/2017"
+    url: "https://dof.gob.mx/nota_detalle.php?codigo=5494807&fecha=23/08/2017"
   },
   {
     id: "91",
@@ -939,7 +939,7 @@ export const documents: DocumentItem[] = [
     description: "Pesca responsable en el embalse de la presa La Amistad en Coahuila, especificaciones para aprovechamiento de recursos pesqueros",
     date: "2017-07-27",
     tags: ["NOM", "Presa La Amistad", "Coahuila", "Embalse"],
-    url: "https://www.dof.gob.mx/nota_detalle.php?codigo=5492067&fecha=27/07/2017"
+    url: "https://dof.gob.mx/nota_detalle.php?codigo=5492067&fecha=27/07/2017"
   },
   {
     id: "93",

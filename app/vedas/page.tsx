@@ -127,7 +127,7 @@ export default function VedasPage() {
             modifican periódicamente y pueden publicarse nuevos acuerdos en cualquier momento. La única fuente con
             validez legal es el{" "}
             <a
-              href="https://www.dof.gob.mx"
+              href="https://dof.gob.mx"
               target="_blank"
               rel="noopener noreferrer"
               className="font-medium underline hover:text-amber-700"

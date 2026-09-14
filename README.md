@@ -117,7 +117,7 @@ Las visitas se registran con Vercel Analytics (`<Analytics />` en `app/layout.ts
 ## 📚 Referencias
 
 - [Carta Nacional Pesquera — CONAPESCA](https://www.gob.mx/conapesca)
-- [Diario Oficial de la Federación](https://www.dof.gob.mx)
+- [Diario Oficial de la Federación](https://dof.gob.mx)
 - [Next.js](https://nextjs.org/docs)
 
 ## 📄 Licencia

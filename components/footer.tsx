@@ -46,7 +46,7 @@ export function Footer() {
             informativo y no oficial. La información sobre vedas y normativas puede estar desactualizada o
             contener errores. La única fuente con validez legal es el{" "}
             <a
-              href="https://www.dof.gob.mx"
+              href="https://dof.gob.mx"
               target="_blank"
               rel="noopener noreferrer"
               className="underline hover:text-teal-400"

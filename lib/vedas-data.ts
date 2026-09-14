@@ -484,7 +484,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
+    "enlaceDOF": "https://www.gob.mx/cms/uploads/attachment/file/135366/49.-_NORMA_OFICIAL_MEXICANA_NOM-029-PESC-2006.pdf",
     "fechaPublicacion": "14/02/07",
     "nombreAcuerdo": "NOM-029-PESC-2006, Pesca responsable de tiburones y rayas",
     "status": "Activa"
@@ -502,7 +502,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
+    "enlaceDOF": "https://www.gob.mx/cms/uploads/attachment/file/135366/49.-_NORMA_OFICIAL_MEXICANA_NOM-029-PESC-2006.pdf",
     "fechaPublicacion": "14/02/07",
     "nombreAcuerdo": "NOM-029-PESC-2006, Pesca responsable de tiburones y rayas",
     "status": "Activa"
@@ -520,7 +520,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
+    "enlaceDOF": "https://www.gob.mx/cms/uploads/attachment/file/135366/49.-_NORMA_OFICIAL_MEXICANA_NOM-029-PESC-2006.pdf",
     "fechaPublicacion": "14/02/07",
     "nombreAcuerdo": "NOM-029-PESC-2006, Pesca responsable de tiburones y rayas",
     "status": "Activa"
@@ -538,7 +538,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
+    "enlaceDOF": "https://www.gob.mx/cms/uploads/attachment/file/135366/49.-_NORMA_OFICIAL_MEXICANA_NOM-029-PESC-2006.pdf",
     "fechaPublicacion": "14/02/07",
     "nombreAcuerdo": "NOM-029-PESC-2006, Pesca responsable de tiburones y rayas",
     "status": "Activa"
@@ -754,7 +754,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
+    "enlaceDOF": "https://www.gob.mx/cms/uploads/attachment/file/135366/49.-_NORMA_OFICIAL_MEXICANA_NOM-029-PESC-2006.pdf",
     "fechaPublicacion": "14/02/07",
     "nombreAcuerdo": "NOM-029-PESC-2006, Pesca responsable de tiburones y rayas",
     "status": "Activa"
@@ -772,7 +772,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
+    "enlaceDOF": "https://www.gob.mx/cms/uploads/attachment/file/135366/49.-_NORMA_OFICIAL_MEXICANA_NOM-029-PESC-2006.pdf",
     "fechaPublicacion": "14/02/07",
     "nombreAcuerdo": "NOM-029-PESC-2006, Pesca responsable de tiburones y rayas",
     "status": "Activa"
@@ -790,7 +790,7 @@ export const vedasData: VedaData[] = [
     "fechaTermino2": "",
     "fechaInicio3": "",
     "fechaTermino3": "",
-    "enlaceDOF": "https://dof.gob.mx/normasOficiales/3684/conapesca-semarnat/conapesca-semarnat.htm",
+    "enlaceDOF": "https://www.gob.mx/cms/uploads/attachment/file/135366/49.-_NORMA_OFICIAL_MEXICANA_NOM-029-PESC-2006.pdf",
     "fechaPublicacion": "14/02/07",
     "nombreAcuerdo": "NOM-029-PESC-2006, Pesca responsable de tiburones y rayas",
     "status": "Activa"

@@ -45,7 +45,7 @@ There is **no database and no data API**. All content is hardcoded in `lib/`:
 
 - `lib/especies-data.ts` — `especies` array (92 fisheries, `region` is `"Litoral del Pacífico"` or `"Golfo de México y Mar Caribe"`). Entries without detail only have `id`, `nombre`, `region`, `ultimaActualizacion` and render as "Próximamente". A separate `fichas: Record<string, FichaPesqueria>` object keyed by `id` holds the detail (59 fichas) and is attached at the bottom of the file via `especie.ficha = fichas[especie.id]`. `especie.ficha` is the single source for the detail view and the home charts.
 - `lib/vedas-data.ts` — `vedasData` (146 vedas) plus helpers (`isVedaActive`, `getUnique*`, `formatDateToDDMM`).
-- `lib/normativas-data.ts` — `documents` (114) and `CATEGORY_META`. **Caveat:** `app/normativas/page.tsx` still contains its own identical inline copy of `documents`, `DocumentItem` and `CATEGORY_META`; the home page and carousel use `lib/normativas-data.ts`. Edit both, or refactor the page to import from `lib/`.
+- `lib/normativas-data.ts` — `documents` (114) and `CATEGORY_META`, the single source used by the normativas page, the home page and the carousel.
 - `lib/site.ts` — `siteUrl` and `metadataSeccion()` (per-section metadata; Next replaces rather than merges `openGraph`/`twitter`, so shared fields are repeated).
 
 Home-page counts are computed from these arrays (`especies.length`, etc.), not hardcoded.

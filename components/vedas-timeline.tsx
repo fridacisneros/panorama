@@ -19,16 +19,13 @@ const tipoColor: Record<string, string> = {
   "Temporal Variable": "bg-amber-400",
 }
 
-// Fracción del año (0..1) para una fecha ISO YYYY-MM-DD, sin problemas de zona horaria.
+// Fracción del año (0..1) para una fecha "MM-DD". Se usa un año no bisiesto fijo
+// porque las vedas se repiten el mismo día y mes cada año.
 function fraccionAnual(dateStr: string): number | null {
-  if (!dateStr || dateStr === "Todo el año" || dateStr === "Por definir") return null
-  const m = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})/)
+  const m = dateStr?.match(/^(\d{2})-(\d{2})$/)
   if (!m) return null
-  const year = +m[1]
-  const cur = Date.UTC(year, +m[2] - 1, +m[3])
-  const start = Date.UTC(year, 0, 1)
-  const end = Date.UTC(year + 1, 0, 1)
-  return (cur - start) / (end - start)
+  const cur = Date.UTC(2001, +m[1] - 1, +m[2])
+  return (cur - Date.UTC(2001, 0, 1)) / (Date.UTC(2002, 0, 1) - Date.UTC(2001, 0, 1))
 }
 
 // Devuelve los segmentos {left, width} en % para una veda (maneja varios periodos y cruce de año).

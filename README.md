@@ -9,7 +9,7 @@ Plataforma web de consulta para navegar la legislación pesquera mexicana: pesqu
 Panorama centraliza en un solo lugar:
 
 - **Pesquerías**: catálogo de 92 pesquerías marinas de la CNP (59 del Litoral del Pacífico y 33 del Golfo de México y Mar Caribe). 59 tienen ficha detallada; el resto se muestra como "Próximamente".
-- **Vedas**: 147 vedas (permanentes, temporales fijas y temporales variables) con línea de tiempo, filtros y enlace al acuerdo en el DOF.
+- **Vedas**: 146 vedas (permanentes, temporales fijas y temporales variables) con línea de tiempo, filtros y enlace al acuerdo en el DOF.
 - **Normativas**: biblioteca con 114 documentos (leyes y reglamentos, NOMs, planes de manejo, zonas de refugio y versiones de la CNP), con descarga directa.
 - **Panorama en cifras**: gráficas en la portada construidas a partir de las fichas.
 

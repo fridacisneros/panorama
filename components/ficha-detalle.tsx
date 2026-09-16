@@ -19,6 +19,8 @@ import {
   ChevronRight,
   Info,
   CalendarClock,
+  Ruler,
+  Activity,
 } from "lucide-react"
 import {
   XAxis,
@@ -29,13 +31,14 @@ import {
   ResponsiveContainer,
   LineChart,
   Line,
+  ReferenceLine,
 } from "recharts"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
 import { EspecieImagen } from "@/components/especie-imagen"
-import type { Especie, GraficaCapturaEstados } from "@/lib/especies-data"
+import type { Especie, FiguraCNP, GraficaCapturaEstados, ParticipacionEstado } from "@/lib/especies-data"
 
 const toArray = <T,>(value: T | T[]): T[] => (Array.isArray(value) ? value : [value])
 
@@ -285,7 +288,7 @@ function Kpi({ label, value, unit, icon: Icon }: { label: string; value: string;
         <div className="flex items-center justify-between">
           <div>
             <p className="text-xs font-medium text-gray-600">{label}</p>
-            <p className="text-2xl font-bold text-teal-800 tabular-nums">{value}</p>
+            <p className={cn("font-bold text-teal-800 tabular-nums", value.length > 8 ? "text-xl" : "text-2xl")}>{value}</p>
             <p className="text-xs text-gray-500">{unit}</p>
           </div>
           <Icon className="w-7 h-7 text-teal-500" />
@@ -294,6 +297,8 @@ function Kpi({ label, value, unit, icon: Icon }: { label: string; value: string;
     </Card>
   )
 }
+
+const ICONOS_CLAVE = { talla: Ruler, rendimiento: TrendingUp, tasa: Activity } as const
 
 // Paleta de reserva para series de estado sin color explícito.
 const COLORES_SERIE = ["#0d9488", "#0891b2", "#f59e0b", "#8b5cf6", "#ec4899", "#65a30d"]
@@ -309,6 +314,11 @@ function GraficaEstados({ grafica }: { grafica: GraficaCapturaEstados }) {
     }
     return fila
   })
+  const unidadIzq = grafica.unidadIzquierda ?? "Toneladas"
+  const unidadDer = grafica.unidadDerecha
+  // Unidad que corresponde a cada serie según el eje en el que se dibuja.
+  const unidadDe = (nombre: string) =>
+    grafica.series.find((s) => s.estado === nombre)?.eje === "derecho" ? (unidadDer ?? "") : unidadIzq
   return (
     <Card className="border-teal-200">
       <CardHeader className="pb-3">
@@ -319,28 +329,88 @@ function GraficaEstados({ grafica }: { grafica: GraficaCapturaEstados }) {
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="año" tick={{ fontSize: 12 }} />
-              <YAxis tick={{ fontSize: 12 }} label={{ value: "Toneladas", angle: -90, position: "insideLeft" }} />
+              <XAxis dataKey="año" tick={{ fontSize: 12 }} minTickGap={20} />
+              <YAxis
+                yAxisId="izq"
+                tick={{ fontSize: 12 }}
+                label={{ value: unidadIzq, angle: -90, position: "insideLeft" }}
+              />
+              {unidadDer && (
+                <YAxis
+                  yAxisId="der"
+                  orientation="right"
+                  tick={{ fontSize: 12 }}
+                  label={{ value: unidadDer, angle: 90, position: "insideRight" }}
+                />
+              )}
               <Tooltip
-                formatter={(value: number, name: string) => [`${value.toLocaleString()} ton`, name]}
+                formatter={(value: number, name: string) => [`${value.toLocaleString()} ${unidadDe(name)}`, name]}
                 labelFormatter={(label) => `Año: ${label}`}
               />
               {grafica.series.length > 1 && <Legend />}
+              {grafica.referencias?.map((r) => (
+                <ReferenceLine
+                  key={r.etiqueta}
+                  yAxisId="izq"
+                  y={r.valor}
+                  stroke="#475569"
+                  strokeWidth={r.tipo === "punteada" ? 1 : 1.5}
+                  strokeDasharray={r.tipo === "punteada" ? "4 4" : undefined}
+                  ifOverflow="extendDomain"
+                  label={{ value: r.etiqueta, position: "insideTopRight", fontSize: 11, fill: "#475569" }}
+                />
+              ))}
               {grafica.series.map((s, i) => (
                 <Line
                   key={s.estado}
-                  type="monotone"
+                  yAxisId={s.eje === "derecho" ? "der" : "izq"}
+                  // Las series anuales completas se dibujan rectas, como en la Carta Nacional;
+                  // las de puntos dispersos conservan la curva suavizada.
+                  type={s.datos.length > 12 ? "linear" : "monotone"}
                   dataKey={s.estado}
                   stroke={s.color ?? COLORES_SERIE[i % COLORES_SERIE.length]}
                   strokeWidth={2}
+                  strokeDasharray={s.punteada ? "5 4" : undefined}
                   name={s.estado}
                   connectNulls
-                  dot={{ r: 3 }}
+                  dot={s.datos.length > 12 ? false : { r: 3 }}
+                  activeDot={{ r: 4 }}
                 />
               ))}
             </LineChart>
           </ResponsiveContainer>
         </div>
+        {grafica.nota && <p className="mt-3 text-xs leading-relaxed text-gray-500">{grafica.nota}</p>}
+      </CardContent>
+    </Card>
+  )
+}
+
+function ParticipacionCard({
+  titulo,
+  estados,
+  nota,
+}: {
+  titulo: string
+  estados: ParticipacionEstado[]
+  nota?: string
+}) {
+  return (
+    <Card className="border-teal-200">
+      <CardHeader className="pb-3">
+        <CardTitle className="text-teal-700 text-base">{titulo}</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-3">
+        {estados.map((item) => (
+          <div key={item.estado} className="space-y-1.5">
+            <div className="flex justify-between items-center">
+              <span className="text-sm font-medium">{item.estado}</span>
+              <span className="text-sm font-bold text-teal-600 tabular-nums">{item.porcentaje}%</span>
+            </div>
+            <Progress value={item.porcentaje} className="h-2.5" />
+          </div>
+        ))}
+        {nota && <p className="pt-1 text-xs leading-relaxed text-gray-500">{nota}</p>}
       </CardContent>
     </Card>
   )
@@ -352,12 +422,25 @@ function Indicadores({ ficha }: { ficha: Ficha }) {
   const hist = ind.capturaHistorica ?? []
   return (
     <>
-      {(ind.capturaAnual || ind.valorProduccion || ind.empleos || ind.embarcaciones) && (
+      {(ind.capturaAnual ||
+        ind.valorProduccion ||
+        ind.empleos ||
+        ind.embarcaciones ||
+        ind.indicadoresClave?.length) && (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {ind.capturaAnual && <Kpi label="Captura anual" value={ind.capturaAnual} unit="toneladas" icon={TrendingUp} />}
           {ind.valorProduccion && <Kpi label="Valor producción" value={ind.valorProduccion} unit="millones MXN" icon={DollarSign} />}
           {ind.empleos && <Kpi label="Empleos directos" value={ind.empleos} unit="pescadores" icon={Users} />}
           {ind.embarcaciones && <Kpi label="Embarcaciones" value={ind.embarcaciones} unit="activas" icon={Anchor} />}
+          {ind.indicadoresClave?.map((d) => (
+            <Kpi
+              key={d.etiqueta}
+              label={d.etiqueta}
+              value={d.valor}
+              unit={d.unidad}
+              icon={d.icono ? ICONOS_CLAVE[d.icono] : Info}
+            />
+          ))}
         </div>
       )}
 
@@ -404,23 +487,12 @@ function Indicadores({ ficha }: { ficha: Ficha }) {
       )}
 
       {!!ind.participacionEstados?.length && (
-        <Card className="border-teal-200">
-          <CardHeader className="pb-3">
-            <CardTitle className="text-teal-700 text-base">Participación por estado</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {ind.participacionEstados.map((item) => (
-              <div key={item.estado} className="space-y-1.5">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium">{item.estado}</span>
-                  <span className="text-sm font-bold text-teal-600 tabular-nums">{item.porcentaje}%</span>
-                </div>
-                <Progress value={item.porcentaje} className="h-2.5" />
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+        <ParticipacionCard titulo="Participación por estado" estados={ind.participacionEstados} />
       )}
+
+      {ind.participacionPorEspecie?.map((g) => (
+        <ParticipacionCard key={g.titulo} titulo={g.titulo} estados={g.estados} nota={g.nota} />
+      ))}
     </>
   )
 }
@@ -558,6 +630,23 @@ function Normatividad({ ficha }: { ficha: Ficha }) {
   )
 }
 
+// Figura de la CNP mostrada tal cual, para gráficas que no pueden reconstruirse
+// fielmente a partir de los datos.
+function FiguraCNPBloque({ figura }: { figura: FiguraCNP }) {
+  return (
+    <div>
+      <h3 className="text-base font-bold text-teal-800 border-b border-teal-200 pb-1.5 mb-2">{figura.titulo}</h3>
+      <div className="rounded-lg border border-gray-200 bg-white p-2">
+        <img src={figura.src} alt={figura.alt} className="mx-auto h-auto w-full max-w-lg" loading="lazy" />
+      </div>
+      {figura.nota && <p className="mt-2 text-xs leading-relaxed text-gray-500">{figura.nota}</p>}
+    </div>
+  )
+}
+
+// Las cifras de RMS de la CNP vienen con dos decimales.
+const fmtRMS = (n: number) => n.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+
 function StatusSeccion({ ficha }: { ficha: Ficha }) {
   const s = ficha.status
   if (!s) return null
@@ -587,6 +676,8 @@ function StatusSeccion({ ficha }: { ficha: Ficha }) {
           </div>
         )}
 
+        {s.figura && <FiguraCNPBloque figura={s.figura} />}
+
         {s.estrategia && (
           <div>
             <h3 className="text-base font-bold text-teal-800 border-b border-teal-200 pb-1.5 mb-2">Estrategia</h3>
@@ -609,6 +700,41 @@ function StatusSeccion({ ficha }: { ficha: Ficha }) {
                 ))}
               </ul>
             </div>
+          </div>
+        )}
+
+        {!!s.rmsPorEstado?.length && (
+          <div>
+            <h3 className="text-base font-bold text-teal-800 border-b border-teal-200 pb-1.5 mb-2">
+              Rendimiento máximo sostenible por estado
+            </h3>
+            <div className="overflow-x-auto rounded-lg border border-gray-200">
+              <table className="w-full text-sm">
+                <thead className="bg-teal-50 text-teal-800">
+                  <tr>
+                    <th className="px-3 py-2 text-left font-semibold">Estado</th>
+                    <th className="px-3 py-2 text-right font-semibold">RMS (t)</th>
+                    <th className="px-3 py-2 text-right font-semibold">IC −</th>
+                    <th className="px-3 py-2 text-right font-semibold">IC +</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  {s.rmsPorEstado.map((f, i) => {
+                    // La CNP cierra la tabla con el total regional, que se resalta.
+                    const esTotal = i === s.rmsPorEstado!.length - 1
+                    return (
+                      <tr key={f.estado} className={cn(esTotal ? "bg-teal-50/60 font-semibold" : "bg-white")}>
+                        <td className="px-3 py-2 text-gray-800 whitespace-nowrap">{f.estado}</td>
+                        <td className="px-3 py-2 text-right tabular-nums text-teal-800">{fmtRMS(f.rms)}</td>
+                        <td className="px-3 py-2 text-right tabular-nums text-gray-600">{fmtRMS(f.icMenos)}</td>
+                        <td className="px-3 py-2 text-right tabular-nums text-gray-600">{fmtRMS(f.icMas)}</td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+            {s.rmsNota && <p className="mt-2 text-xs leading-relaxed text-gray-500">{s.rmsNota}</p>}
           </div>
         )}
       </CardContent>

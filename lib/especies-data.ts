@@ -21,18 +21,52 @@ export interface PuntoCaptura {
 export interface SerieCapturaEstado {
   estado: string
   color?: string
+  // Serie medida en el eje derecho (para gráficas con dos unidades, como
+  // rendimiento en kg/día y esfuerzo en días de pesca).
+  eje?: "izquierdo" | "derecho"
+  punteada?: boolean
   datos: { año: number; captura: number }[]
+}
+
+// Línea horizontal de referencia sobre la serie (p. ej. el rendimiento máximo
+// sostenible estimado y sus límites de confianza, como los traza la CNP).
+export interface ReferenciaGrafica {
+  valor: number
+  etiqueta: string
+  tipo?: "solida" | "punteada"
 }
 
 export interface GraficaCapturaEstados {
   titulo: string
   series: SerieCapturaEstado[]
+  referencias?: ReferenciaGrafica[]
+  nota?: string
+  // Unidades de cada eje; por omisión el izquierdo son toneladas y no hay eje derecho.
+  unidadIzquierda?: string
+  unidadDerecha?: string
 }
 
 export interface ParticipacionEstado {
   estado: string
   porcentaje: number
-  captura: number
+  captura?: number
+}
+
+// Cifra clave de la pesquería que se resalta en un recuadro (talla, rendimiento,
+// tasa de explotación…), con el mismo formato que los recuadros de captura.
+export interface IndicadorClave {
+  etiqueta: string
+  valor: string
+  unidad: string
+  icono?: "talla" | "rendimiento" | "tasa"
+}
+
+// Participación estatal de una especie. Permite fichas con más de una especie
+// objetivo, como la de bagres marinos (bagre bandera y curuco).
+export interface GraficaParticipacion {
+  titulo: string
+  nota?: string
+  estados: ParticipacionEstado[]
 }
 
 export interface FilaNormatividad {
@@ -45,6 +79,24 @@ export interface FilaNormatividad {
 export interface FilaRecomendacion {
   recomendacion: string
   avance: string
+}
+
+// Figura de la CNP reproducida tal cual como imagen, para gráficas que no pueden
+// reconstruirse fielmente a partir de los datos (p. ej. el diagrama de fases de Kobe,
+// cuya trayectoria anual no es legible punto por punto).
+export interface FiguraCNP {
+  titulo: string
+  src: string
+  alt: string
+  nota?: string
+}
+
+// Rendimiento máximo sostenible estimado por estado, con sus intervalos de confianza.
+export interface FilaRMS {
+  estado: string
+  rms: number
+  icMenos: number
+  icMas: number
 }
 
 export interface StatusCard {
@@ -64,6 +116,7 @@ export interface FichaPesqueria {
   }
   indicadores?: {
     capturaAnual?: string
+    indicadoresClave?: IndicadorClave[]
     valorProduccion?: string
     empleos?: string
     embarcaciones?: string
@@ -72,6 +125,7 @@ export interface FichaPesqueria {
     capturaHistorica?: PuntoCaptura[]
     capturaPorEstado?: GraficaCapturaEstados[]
     participacionEstados?: ParticipacionEstado[]
+    participacionPorEspecie?: GraficaParticipacion[]
   }
   ambiente?: string[]
   normatividad?: FilaNormatividad[]
@@ -79,6 +133,9 @@ export interface FichaPesqueria {
     cards?: StatusCard[]
     estrategia?: string
     tacticas?: string[]
+    rmsPorEstado?: FilaRMS[]
+    rmsNota?: string
+    figura?: FiguraCNP
   }
   recomendaciones?: FilaRecomendacion[]
 }
@@ -5614,28 +5671,275 @@ const fichas: Record<string, FichaPesqueria> = {
       ],
     },
     indicadores: {
-      capturaAnual: "11,071",
-      valorProduccion: "$1,420",
-      empleos: "8,500",
-      embarcaciones: "2,400",
-      capturaHistorica: [
-        { año: 2000, captura: 15200, valor: 890 },
-        { año: 2002, captura: 14800, valor: 920 },
-        { año: 2004, captura: 13900, valor: 950 },
-        { año: 2006, captura: 13200, valor: 980 },
-        { año: 2008, captura: 12800, valor: 1020 },
-        { año: 2010, captura: 12200, valor: 1080 },
-        { año: 2012, captura: 11800, valor: 1150 },
-        { año: 2014, captura: 11400, valor: 1200 },
-        { año: 2016, captura: 11100, valor: 1280 },
-        { año: 2018, captura: 10900, valor: 1350 },
-        { año: 2020, captura: 11071, valor: 1420 },
+      capturaPorEstado: [
+        {
+          titulo: "Captura de camarón café en Tamaulipas y Veracruz, 1995-2021",
+          nota: "Serie leída de la figura 1 de la CNP (captura de Tamaulipas y Veracruz, 1995-2021); los valores son aproximados. El máximo de 2010 (14,595 t) y el mínimo de 2013 (7,561 t) son los que cita el texto de la ficha.",
+          series: [
+            {
+              estado: "Total",
+              color: "#0d9488",
+              datos: [
+                { año: 1995, captura: 12363 },
+                { año: 1996, captura: 10963 },
+                { año: 1997, captura: 11823 },
+                { año: 1998, captura: 13794 },
+                { año: 1999, captura: 11250 },
+                { año: 2000, captura: 11124 },
+                { año: 2001, captura: 11080 },
+                { año: 2002, captura: 9551 },
+                { año: 2003, captura: 12713 },
+                { año: 2004, captura: 11289 },
+                { año: 2005, captura: 13941 },
+                { año: 2006, captura: 11588 },
+                { año: 2007, captura: 11998 },
+                { año: 2008, captura: 12506 },
+                { año: 2009, captura: 10705 },
+                { año: 2010, captura: 14595 },
+                { año: 2011, captura: 10299 },
+                { año: 2012, captura: 9768 },
+                { año: 2013, captura: 7561 },
+                { año: 2014, captura: 9013 },
+                { año: 2015, captura: 11678 },
+                { año: 2016, captura: 12867 },
+                { año: 2017, captura: 12361 },
+                { año: 2018, captura: 13538 },
+                { año: 2019, captura: 12881 },
+                { año: 2020, captura: 9393 },
+                { año: 2021, captura: 12468 },
+              ],
+            },
+            {
+              estado: "Altamar",
+              color: "#0891b2",
+              punteada: true,
+              datos: [
+                { año: 1995, captura: 6833 },
+                { año: 1996, captura: 6180 },
+                { año: 1997, captura: 7499 },
+                { año: 1998, captura: 7764 },
+                { año: 1999, captura: 6217 },
+                { año: 2000, captura: 5578 },
+                { año: 2001, captura: 6304 },
+                { año: 2002, captura: 5090 },
+                { año: 2003, captura: 6370 },
+                { año: 2004, captura: 5664 },
+                { año: 2005, captura: 6947 },
+                { año: 2006, captura: 6504 },
+                { año: 2007, captura: 7601 },
+                { año: 2008, captura: 8042 },
+                { año: 2009, captura: 6951 },
+                { año: 2010, captura: 9913 },
+                { año: 2011, captura: 6630 },
+                { año: 2012, captura: 6504 },
+                { año: 2013, captura: 5064 },
+                { año: 2014, captura: 5854 },
+                { año: 2015, captura: 7096 },
+                { año: 2016, captura: 6947 },
+                { año: 2017, captura: 7762 },
+                { año: 2018, captura: 7683 },
+                { año: 2019, captura: 6458 },
+                { año: 2020, captura: 5512 },
+                { año: 2021, captura: 7762 },
+              ],
+            },
+            {
+              estado: "Laguna",
+              color: "#94a3b8",
+              datos: [
+                { año: 1995, captura: 5495 },
+                { año: 1996, captura: 4715 },
+                { año: 1997, captura: 4274 },
+                { año: 1998, captura: 5938 },
+                { año: 1999, captura: 4966 },
+                { año: 2000, captura: 5546 },
+                { año: 2001, captura: 4715 },
+                { año: 2002, captura: 4715 },
+                { año: 2003, captura: 6343 },
+                { año: 2004, captura: 5626 },
+                { año: 2005, captura: 6994 },
+                { año: 2006, captura: 5043 },
+                { año: 2007, captura: 4389 },
+                { año: 2008, captura: 4389 },
+                { año: 2009, captura: 3671 },
+                { año: 2010, captura: 4682 },
+                { año: 2011, captura: 3538 },
+                { año: 2012, captura: 3214 },
+                { año: 2013, captura: 2497 },
+                { año: 2014, captura: 3098 },
+                { año: 2015, captura: 4601 },
+                { año: 2016, captura: 5889 },
+                { año: 2017, captura: 4549 },
+                { año: 2018, captura: 5856 },
+                { año: 2019, captura: 6422 },
+                { año: 2020, captura: 3776 },
+                { año: 2021, captura: 4680 },
+              ],
+            },
+          ],
+        },
+        {
+          titulo: "Tamaulipas: rendimiento y esfuerzo pesquero, 1995-2021",
+          nota: "Serie leída de la figura 2 de la CNP (1995-2021); los valores son aproximados. El rendimiento se mide en el eje izquierdo y el esfuerzo pesquero en el derecho.",
+          unidadIzquierda: "kg/día",
+          unidadDerecha: "Días de pesca",
+          series: [
+            {
+              estado: "Rendimiento",
+              color: "#0d9488",
+              datos: [
+                { año: 1995, captura: 111 },
+                { año: 1996, captura: 98 },
+                { año: 1997, captura: 125 },
+                { año: 1998, captura: 99 },
+                { año: 1999, captura: 90 },
+                { año: 2000, captura: 81 },
+                { año: 2001, captura: 101 },
+                { año: 2002, captura: 97 },
+                { año: 2003, captura: 122 },
+                { año: 2004, captura: 131 },
+                { año: 2005, captura: 175 },
+                { año: 2006, captura: 170 },
+                { año: 2007, captura: 183 },
+                { año: 2008, captura: 217 },
+                { año: 2009, captura: 208 },
+                { año: 2010, captura: 332 },
+                { año: 2011, captura: 236 },
+                { año: 2012, captura: 250 },
+                { año: 2013, captura: 201 },
+                { año: 2014, captura: 193 },
+                { año: 2015, captura: 239 },
+                { año: 2016, captura: 232 },
+                { año: 2017, captura: 286 },
+                { año: 2018, captura: 250 },
+                { año: 2019, captura: 214 },
+                { año: 2020, captura: 228 },
+                { año: 2021, captura: 306 },
+              ],
+            },
+            {
+              estado: "Esfuerzo",
+              color: "#f59e0b",
+              eje: "derecho",
+              punteada: true,
+              datos: [
+                { año: 1995, captura: 53967 },
+                { año: 1996, captura: 51776 },
+                { año: 1997, captura: 55002 },
+                { año: 1998, captura: 71439 },
+                { año: 1999, captura: 61667 },
+                { año: 2000, captura: 62065 },
+                { año: 2001, captura: 55029 },
+                { año: 2002, captura: 45403 },
+                { año: 2003, captura: 44089 },
+                { año: 2004, captura: 36415 },
+                { año: 2005, captura: 36017 },
+                { año: 2006, captura: 34111 },
+                { año: 2007, captura: 37026 },
+                { año: 2008, captura: 33654 },
+                { año: 2009, captura: 30136 },
+                { año: 2010, captura: 26432 },
+                { año: 2011, captura: 25449 },
+                { año: 2012, captura: 22913 },
+                { año: 2013, captura: 22249 },
+                { año: 2014, captura: 27055 },
+                { año: 2015, captura: 26166 },
+                { año: 2016, captura: 25954 },
+                { año: 2017, captura: 23736 },
+                { año: 2018, captura: 27055 },
+                { año: 2019, captura: 25197 },
+                { año: 2020, captura: 21506 },
+                { año: 2021, captura: 22249 },
+              ],
+            },
+          ],
+        },
+        {
+          titulo: "Veracruz: rendimiento y esfuerzo pesquero, 1995-2021",
+          nota: "Serie leída de la figura 2 de la CNP (1995-2021); los valores son aproximados. El rendimiento se mide en el eje izquierdo y el esfuerzo pesquero en el derecho.",
+          unidadIzquierda: "kg/día",
+          unidadDerecha: "Días de pesca",
+          series: [
+            {
+              estado: "Rendimiento",
+              color: "#0d9488",
+              datos: [
+                { año: 1995, captura: 119 },
+                { año: 1996, captura: 123 },
+                { año: 1997, captura: 93 },
+                { año: 1998, captura: 106 },
+                { año: 1999, captura: 106 },
+                { año: 2000, captura: 92 },
+                { año: 2001, captura: 129 },
+                { año: 2002, captura: 142 },
+                { año: 2003, captura: 137 },
+                { año: 2004, captura: 129 },
+                { año: 2005, captura: 150 },
+                { año: 2006, captura: 173 },
+                { año: 2007, captura: 124 },
+                { año: 2008, captura: 179 },
+                { año: 2009, captura: 143 },
+                { año: 2010, captura: 176 },
+                { año: 2011, captura: 151 },
+                { año: 2012, captura: 203 },
+                { año: 2013, captura: 176 },
+                { año: 2014, captura: 166 },
+                { año: 2015, captura: 217 },
+                { año: 2016, captura: 196 },
+                { año: 2017, captura: 227 },
+                { año: 2018, captura: 199 },
+                { año: 2019, captura: 185 },
+                { año: 2020, captura: 206 },
+                { año: 2021, captura: 227 },
+              ],
+            },
+            {
+              estado: "Esfuerzo",
+              color: "#f59e0b",
+              eje: "derecho",
+              punteada: true,
+              datos: [
+                { año: 1995, captura: 6278 },
+                { año: 1996, captura: 8631 },
+                { año: 1997, captura: 6955 },
+                { año: 1998, captura: 6757 },
+                { año: 1999, captura: 6244 },
+                { año: 2000, captura: 7296 },
+                { año: 2001, captura: 5145 },
+                { año: 2002, captura: 4756 },
+                { año: 2003, captura: 5474 },
+                { año: 2004, captura: 4603 },
+                { año: 2005, captura: 4403 },
+                { año: 2006, captura: 4173 },
+                { año: 2007, captura: 6289 },
+                { año: 2008, captura: 3728 },
+                { año: 2009, captura: 5223 },
+                { año: 2010, captura: 6111 },
+                { año: 2011, captura: 4445 },
+                { año: 2012, captura: 3663 },
+                { año: 2013, captura: 3016 },
+                { año: 2014, captura: 3924 },
+                { año: 2015, captura: 3726 },
+                { año: 2016, captura: 4554 },
+                { año: 2017, captura: 4109 },
+                { año: 2018, captura: 4401 },
+                { año: 2019, captura: 4110 },
+                { año: 2020, captura: 2876 },
+                { año: 2021, captura: 4109 },
+              ],
+            },
+          ],
+        },
       ],
-      participacionEstados: [
-        { estado: "Tamaulipas", porcentaje: 45.2, captura: 5004 },
-        { estado: "Veracruz", porcentaje: 28.1, captura: 3111 },
-        { estado: "Tabasco", porcentaje: 15.7, captura: 1738 },
-        { estado: "Campeche", porcentaje: 11.0, captura: 1218 },
+      participacionPorEspecie: [
+        {
+          titulo: "Participación estatal en la producción del Golfo de México",
+          nota: "Porcentajes respecto a la producción total de camarón del Golfo de México: entre ambos estados aportan el 83%.",
+          estados: [
+            { estado: "Tamaulipas", porcentaje: 71 },
+            { estado: "Veracruz", porcentaje: 12 },
+          ],
+        },
       ],
     },
     ambiente: [
@@ -5715,6 +6019,14 @@ const fichas: Record<string, FichaPesqueria> = {
         "Veda espacial y temporal variable",
         "Regulación en el arte y método de captura",
       ],
+      // Figura 3 de la CNP, reproducida como imagen: la trayectoria anual 1956-2021
+      // no puede extraerse punto por punto del original.
+      figura: {
+        titulo: "Diagrama de Kobe",
+        src: "/images/figuras/kobe-camaron-cafe.png",
+        alt: "Diagrama de fases de Kobe del camarón café del Golfo de México: trayectoria anual de 1956 a 2021 según B/BRMS y F/FRMS, con los cuatro cuadrantes de estatus, los intervalos de confianza y la probabilidad de cada cuadrante.",
+        nota: "Comportamiento histórico del estatus del camarón café (Penaeus aztecus) del Golfo de México mediante un diagrama de fases de Kobe (figura 3 de la CNP).",
+      },
     },
     recomendaciones: [
       { recomendacion: "No incrementar el esfuerzo pesquero.", avance: "Sin información de avance." },
@@ -5750,24 +6062,6 @@ fichas["pulpo"] = {
     valorProduccion: "$3,850",
     empleos: "15,500",
     embarcaciones: "3,850",
-    capturaHistorica: [
-      { año: 2000, captura: 28500, valor: 1850 },
-      { año: 2002, captura: 31200, valor: 2050 },
-      { año: 2004, captura: 33800, valor: 2250 },
-      { año: 2006, captura: 35200, valor: 2450 },
-      { año: 2008, captura: 36800, valor: 2650 },
-      { año: 2010, captura: 38200, valor: 2850 },
-      { año: 2012, captura: 37500, valor: 3050 },
-      { año: 2014, captura: 36900, valor: 3250 },
-      { año: 2016, captura: 37200, valor: 3450 },
-      { año: 2018, captura: 37100, valor: 3650 },
-      { año: 2020, captura: 37000, valor: 3850 },
-    ],
-    participacionEstados: [
-      { estado: "Yucatán", porcentaje: 82.5, captura: 30525 },
-      { estado: "Campeche", porcentaje: 15.2, captura: 5624 },
-      { estado: "Quintana Roo", porcentaje: 2.3, captura: 851 },
-    ],
   },
   ambiente: [
     "Con base en evidencia indirecta, se ha planteado la hipótesis de que las poblaciones de pulpos y, en general, de cefalópodos han estado proliferando en todo el mundo y específicamente alrededor de la Península de Yucatán debido a condiciones ambientales más favorables provocadas por el calentamiento global y el agotamiento de pesquerías de peces que podrían ser competidores o depredadores. La incidencia del afloramiento derivado de la Corriente de Lazo, presente durante primavera y verano, enfría el agua del fondo a 20 °C, lo que favorecería los eventos de agregación y reproducción poblacional de O. maya.",
@@ -5934,25 +6228,6 @@ fichas["pez-espada"] = {
     valorProduccion: "$1,650",
     empleos: "1,200",
     embarcaciones: "450",
-    capturaHistorica: [
-      { año: 2000, captura: 850, valor: 680 },
-      { año: 2002, captura: 920, valor: 750 },
-      { año: 2004, captura: 1050, valor: 850 },
-      { año: 2006, captura: 1180, valor: 950 },
-      { año: 2008, captura: 1320, valor: 1050 },
-      { año: 2010, captura: 1450, valor: 1150 },
-      { año: 2012, captura: 1580, valor: 1250 },
-      { año: 2014, captura: 1680, valor: 1350 },
-      { año: 2016, captura: 1750, valor: 1450 },
-      { año: 2018, captura: 1820, valor: 1550 },
-      { año: 2020, captura: 1900, valor: 1650 },
-    ],
-    participacionEstados: [
-      { estado: "Baja California", porcentaje: 45.2, captura: 859 },
-      { estado: "Baja California Sur", porcentaje: 28.5, captura: 542 },
-      { estado: "Sinaloa", porcentaje: 15.8, captura: 300 },
-      { estado: "Sonora", porcentaje: 10.5, captura: 199 },
-    ],
   },
   ambiente: [
     "Los efectos del cambio climático se relacionan directamente con cambios en la temperatura media anual, con un registro continuo de aumento. Dichos efectos han impactado las poblaciones de peces, con cambios en su crecimiento, reproducción, mortalidad, comportamiento y distribución. El calentamiento global puede tener grandes implicaciones en la disminución de capturas de peces pelágicos mayores. La distribución del pez espada depende de la edad y sexo del pez y varía estacionalmente; las larvas se asocian a temperaturas superiores a 24 °C, con distribución continua en aguas subtropicales y tropicales. Las proyecciones futuras estiman una disminución general en la abundancia relativa, sustancial en la mayoría de las áreas tropicales y con un ligero aumento en los límites de su rango de distribución.",
@@ -6073,62 +6348,155 @@ fichas["bagre-bandera"] = {
     ],
   },
   indicadores: {
-    // Promedio regional de bagre bandera 2016-2020 (suma de promedios estatales, CNP 2025).
-    capturaAnual: "5,631",
-    // Capturas históricas por estado (CNP 2025). La Carta Nacional cita sólo años
-    // clave, por lo que las series son de puntos dispersos.
+    // Tallas, rendimientos y tasas de explotación de bagre bandera (CNP 2025).
+    indicadoresClave: [
+      { etiqueta: "Talla promedio en Tabasco", valor: "42.8", unidad: "cm de longitud furcal (de 18 a 68)", icono: "talla" },
+      {
+        etiqueta: "Talla promedio en Campeche",
+        valor: "40",
+        unidad: "cm de longitud furcal, 2003-2018 (de 17 a 64)",
+        icono: "talla",
+      },
+      { etiqueta: "Rendimiento en Tabasco (2017)", valor: "110", unidad: "kg/día en promedio", icono: "rendimiento" },
+      {
+        etiqueta: "Rendimiento en el sur de Campeche (2017)",
+        valor: "37.7-99.5",
+        unidad: "kg/viaje/día en promedio",
+        icono: "rendimiento",
+      },
+      { etiqueta: "Mortalidad por pesca (F)", valor: "1.3-1.99", unidad: "rango estimado", icono: "tasa" },
+      { etiqueta: "Tasa de explotación (E)", valor: "0.66-0.75", unidad: "rango estimado", icono: "tasa" },
+    ],
+    // Captura anual del Golfo de México y Mar Caribe, 1986-2020, con el rendimiento
+    // máximo sostenible estimado y sus límites de confianza (figura 2 de la CNP 2025).
     capturaPorEstado: [
       {
-        titulo: "Bagre bandera (Bagre marinus) — captura por estado",
+        titulo: "Bagre bandera (Bagre marinus) — captura anual en el Golfo de México y Mar Caribe",
+        nota: "Serie anual leída de la figura 2 de la Carta Nacional Pesquera (CNP 2025); los valores son aproximados. Las líneas horizontales marcan el rendimiento máximo sostenible estimado y sus límites de confianza.",
+        referencias: [
+          { valor: 5078, etiqueta: "Límite superior", tipo: "punteada" },
+          { valor: 4681, etiqueta: "RMS estimado", tipo: "solida" },
+          { valor: 4090, etiqueta: "Límite inferior", tipo: "punteada" },
+        ],
         series: [
           {
-            estado: "Tabasco",
+            estado: "Golfo de México y Mar Caribe",
             color: "#0d9488",
             datos: [
-              { año: 2009, captura: 1631 }, // mínimo del periodo decreciente
-              { año: 2017, captura: 4921 }, // máximo histórico
-            ],
-          },
-          {
-            estado: "Campeche",
-            color: "#0891b2",
-            datos: [
-              { año: 1994, captura: 600 }, // estabilidad relativa 1990-1998 (aprox.)
-              { año: 2001, captura: 1956 }, // máximo histórico
-              { año: 2013, captura: 1311 }, // fin de la tendencia a la baja
-            ],
-          },
-          {
-            estado: "Veracruz",
-            color: "#f59e0b",
-            datos: [
-              { año: 1998, captura: 1089 }, // máximo histórico
+              { año: 1986, captura: 2690 },
+              { año: 1987, captura: 3980 },
+              { año: 1988, captura: 4000 },
+              { año: 1989, captura: 3580 },
+              { año: 1990, captura: 4270 },
+              { año: 1991, captura: 4000 },
+              { año: 1992, captura: 4270 },
+              { año: 1993, captura: 4520 },
+              { año: 1994, captura: 4790 },
+              { año: 1995, captura: 5020 },
+              { año: 1996, captura: 5120 },
+              { año: 1997, captura: 5850 },
+              { año: 1998, captura: 6220 },
+              { año: 1999, captura: 5360 },
+              { año: 2000, captura: 5960 },
+              { año: 2001, captura: 6280 },
+              { año: 2002, captura: 5830 },
+              { año: 2003, captura: 5910 },
+              { año: 2004, captura: 4930 },
+              { año: 2005, captura: 4740 },
+              { año: 2006, captura: 5190 },
+              { año: 2007, captura: 4000 },
+              { año: 2008, captura: 3740 },
+              { año: 2009, captura: 3850 },
+              { año: 2010, captura: 4580 },
+              { año: 2011, captura: 4230 },
+              { año: 2012, captura: 4370 },
+              { año: 2013, captura: 5280 },
+              { año: 2014, captura: 4750 },
+              { año: 2015, captura: 5880 },
+              { año: 2016, captura: 5700 },
+              { año: 2017, captura: 7150 },
+              { año: 2018, captura: 5030 },
+              { año: 2019, captura: 5190 },
+              { año: 2020, captura: 5130 },
             ],
           },
         ],
       },
       {
-        titulo: "Curuco (Ariopsis felis) — captura en Veracruz",
+        titulo: "Curuco (Ariopsis felis) — captura anual en el Golfo de México y Mar Caribe",
+        nota: "Serie anual leída de la figura 2 de la Carta Nacional Pesquera (CNP 2025); los valores son aproximados. Las líneas horizontales marcan el rendimiento máximo sostenible estimado y sus límites de confianza.",
+        referencias: [
+          { valor: 1090, etiqueta: "Límite superior", tipo: "punteada" },
+          { valor: 780, etiqueta: "RMS estimado", tipo: "solida" },
+          { valor: 600, etiqueta: "Límite inferior", tipo: "punteada" },
+        ],
         series: [
           {
-            estado: "Veracruz",
+            estado: "Golfo de México y Mar Caribe",
             color: "#8b5cf6",
             datos: [
-              { año: 1996, captura: 1000 }, // periodo de mayor producción 1993-1999 (aprox.)
-              { año: 2013, captura: 228 }, // mínimo
-              { año: 2020, captura: 166 }, // último valor
+              { año: 1986, captura: 100 },
+              { año: 1987, captura: 100 },
+              { año: 1988, captura: 220 },
+              { año: 1989, captura: 380 },
+              { año: 1990, captura: 750 },
+              { año: 1991, captura: 850 },
+              { año: 1992, captura: 1230 },
+              { año: 1993, captura: 3000 },
+              { año: 1994, captura: 2780 },
+              { año: 1995, captura: 2270 },
+              { año: 1996, captura: 1880 },
+              { año: 1997, captura: 1920 },
+              { año: 1998, captura: 2030 },
+              { año: 1999, captura: 1820 },
+              { año: 2000, captura: 840 },
+              { año: 2001, captura: 750 },
+              { año: 2002, captura: 560 },
+              { año: 2003, captura: 620 },
+              { año: 2004, captura: 960 },
+              { año: 2005, captura: 640 },
+              { año: 2006, captura: 750 },
+              { año: 2007, captura: 510 },
+              { año: 2008, captura: 350 },
+              { año: 2009, captura: 430 },
+              { año: 2010, captura: 430 },
+              { año: 2011, captura: 330 },
+              { año: 2012, captura: 400 },
+              { año: 2013, captura: 390 },
+              { año: 2014, captura: 450 },
+              { año: 2015, captura: 490 },
+              { año: 2016, captura: 600 },
+              { año: 2017, captura: 750 },
+              { año: 2018, captura: 440 },
+              { año: 2019, captura: 400 },
+              { año: 2020, captura: 250 },
             ],
           },
         ],
       },
     ],
-    // Participación de bagre bandera por estado, promedio 2016-2020 (CNP 2025).
-    participacionEstados: [
-      { estado: "Tabasco", porcentaje: 54.8, captura: 3083 },
-      { estado: "Campeche", porcentaje: 29.5, captura: 1663 },
-      { estado: "Yucatán", porcentaje: 7.6, captura: 430 },
-      { estado: "Veracruz", porcentaje: 6.3, captura: 356 },
-      { estado: "Tamaulipas", porcentaje: 1.8, captura: 99 },
+    // Participación estatal 2016-2020 de cada especie (figura 1, paneles b y d, CNP 2025).
+    participacionPorEspecie: [
+      {
+        titulo: "Bagre bandera (Bagre marinus) — participación estatal 2016-2020",
+        estados: [
+          { estado: "Tabasco", porcentaje: 54.7, captura: 3083 },
+          { estado: "Campeche", porcentaje: 29.5, captura: 1663 },
+          { estado: "Yucatán", porcentaje: 7.6, captura: 430 },
+          { estado: "Veracruz", porcentaje: 6.3, captura: 356 },
+          { estado: "Tamaulipas", porcentaje: 1.8, captura: 99 },
+        ],
+      },
+      {
+        titulo: "Curuco (Ariopsis felis) — participación estatal 2016-2020",
+        nota: "Porcentajes tal como aparecen en el panel d) de la figura 1 de la CNP 2025, donde suman 117.5% y no 100%.",
+        estados: [
+          { estado: "Veracruz", porcentaje: 73.3 },
+          { estado: "Tabasco", porcentaje: 24.1 },
+          { estado: "Campeche", porcentaje: 14.4 },
+          { estado: "Yucatán", porcentaje: 5.7 },
+        ],
+      },
     ],
   },
   ambiente: [
@@ -6194,6 +6562,17 @@ fichas["bagre-bandera"] = {
       "Zona de pesca",
       "Zonas de refugio pesquero",
     ],
+    // Tabla I de la CNP 2025: RMS del bagre bandera por estado, con intervalos de confianza.
+    rmsPorEstado: [
+      { estado: "Tamaulipas", rms: 44.25, icMenos: 22.17, icMas: 67.29 },
+      { estado: "Veracruz", rms: 492.39, icMenos: 401.31, icMas: 601.27 },
+      { estado: "Tabasco", rms: 2863.73, icMenos: 2547.84, icMas: 3158.89 },
+      { estado: "Campeche", rms: 1231.86, icMenos: 978.72, icMas: 1407.43 },
+      { estado: "Yucatán", rms: 204.93, icMenos: 84.0, icMas: 343.83 },
+      { estado: "Golfo de México", rms: 4680.69, icMenos: 4090.36, icMas: 5077.52 },
+    ],
+    rmsNota:
+      "Rendimiento máximo sostenible (RMS) del bagre bandera (Bagre marinus) estimado para cada estado del Golfo de México y Mar Caribe, con sus intervalos de confianza (tabla I, CNP 2025).",
   },
   recomendaciones: [
     {
@@ -6230,24 +6609,6 @@ fichas["pepino-mar"] = {
     valorProduccion: "$890",
     empleos: "1,850",
     embarcaciones: "650",
-    capturaHistorica: [
-      { año: 2000, captura: 1200, valor: 450 },
-      { año: 2002, captura: 850, valor: 480 },
-      { año: 2004, captura: 600, valor: 520 },
-      { año: 2006, captura: 450, valor: 580 },
-      { año: 2008, captura: 380, valor: 650 },
-      { año: 2010, captura: 320, valor: 720 },
-      { año: 2012, captura: 300, valor: 780 },
-      { año: 2014, captura: 290, valor: 820 },
-      { año: 2016, captura: 285, valor: 860 },
-      { año: 2018, captura: 285, valor: 880 },
-      { año: 2020, captura: 285, valor: 890 },
-    ],
-    participacionEstados: [
-      { estado: "Yucatán", porcentaje: 65.3, captura: 186 },
-      { estado: "Campeche", porcentaje: 25.7, captura: 73 },
-      { estado: "Quintana Roo", porcentaje: 9.0, captura: 26 },
-    ],
   },
   ambiente: [
     "La temperatura global promedio ± EE en la zona de distribución del pepino de mar lápiz (H. floridana), frente a las costas de Campeche, durante 2010-2023 ha sido de 29 ± 0.05 °C, con un mínimo de 24-25 °C en 2013 y un máximo de 33 °C en 2016. No se determinó relación entre la temperatura y la densidad registrada por año, por lo que la variación anual de la temperatura no ha mostrado ser determinante para un cambio en la densidad de este recurso.",
@@ -6399,24 +6760,6 @@ fichas["camaron-rojo-roca"] = {
     valorProduccion: "$720",
     empleos: "4,200",
     embarcaciones: "1,600",
-    capturaHistorica: [
-      { año: 2000, captura: 8200, valor: 520 },
-      { año: 2002, captura: 8100, valor: 540 },
-      { año: 2004, captura: 7900, valor: 560 },
-      { año: 2006, captura: 7700, valor: 580 },
-      { año: 2008, captura: 7500, valor: 600 },
-      { año: 2010, captura: 7300, valor: 620 },
-      { año: 2012, captura: 7100, valor: 640 },
-      { año: 2014, captura: 6900, valor: 660 },
-      { año: 2016, captura: 6800, valor: 680 },
-      { año: 2018, captura: 6700, valor: 700 },
-      { año: 2020, captura: 6650, valor: 720 },
-    ],
-    participacionEstados: [
-      { estado: "Sonora", porcentaje: 52.0, captura: 3458 },
-      { estado: "Sinaloa", porcentaje: 38.0, captura: 2527 },
-      { estado: "Nayarit", porcentaje: 10.0, captura: 665 },
-    ],
   },
   ambiente: [
     "En el Atlántico, la captura de camarón —en especial del camarón roca— se ve afectada por eventos climáticos adversos como los \"nortes\" y huracanes, que impiden la navegación de la flota camaronera, con más frecuencia en los meses en que el camarón roca es más abundante. En los últimos 12 años el camarón roca presenta picos de alta productividad cada 2 a 3 años de forma cíclica, lo que sugiere una posible relación con factores ambientales.",
@@ -6534,24 +6877,6 @@ fichas["caracoles"] = {
     valorProduccion: "$670",
     empleos: "6,500",
     embarcaciones: "2,800",
-    capturaHistorica: [
-      { año: 2000, captura: 18500, valor: 420 },
-      { año: 2002, captura: 17800, valor: 445 },
-      { año: 2004, captura: 16900, valor: 470 },
-      { año: 2006, captura: 15800, valor: 495 },
-      { año: 2008, captura: 15200, valor: 520 },
-      { año: 2010, captura: 14800, valor: 545 },
-      { año: 2012, captura: 14500, valor: 570 },
-      { año: 2014, captura: 14200, valor: 595 },
-      { año: 2016, captura: 14100, valor: 620 },
-      { año: 2018, captura: 14050, valor: 645 },
-      { año: 2020, captura: 14062, valor: 670 },
-    ],
-    participacionEstados: [
-      { estado: "Yucatán", porcentaje: 78.5, captura: 11039 },
-      { estado: "Campeche", porcentaje: 15.2, captura: 2137 },
-      { estado: "Quintana Roo", porcentaje: 6.3, captura: 886 },
-    ],
   },
   ambiente: [
     "El recurso caracol mantiene una amplia distribución a lo largo del Golfo de México y Mar Caribe, representado por diversas especies especialmente susceptibles a los efectos del cambio climático, de forma directa o indirecta, afectando el hábitat, la vegetación, la fauna y la modificación de corrientes u oleaje. La concha de los caracoles es principalmente de carbonato de calcio, que se ve afectada por el aumento de la acidificación de los mares, dando como resultado una concha menos densa y un mayor gasto energético en su generación, con efectos en cadena sobre la tasa de crecimiento de los organismos.",
@@ -6689,26 +7014,6 @@ fichas["langostinos"] = {
     valorProduccion: "$285",
     empleos: "1,850",
     embarcaciones: "850",
-    capturaHistorica: [
-      { año: 2000, captura: 1850, valor: 185 },
-      { año: 2002, captura: 1920, valor: 195 },
-      { año: 2004, captura: 1980, valor: 205 },
-      { año: 2006, captura: 2050, valor: 215 },
-      { año: 2008, captura: 2120, valor: 225 },
-      { año: 2010, captura: 2180, valor: 235 },
-      { año: 2012, captura: 2150, valor: 245 },
-      { año: 2014, captura: 2100, valor: 255 },
-      { año: 2016, captura: 2080, valor: 265 },
-      { año: 2018, captura: 2070, valor: 275 },
-      { año: 2020, captura: 2061, valor: 285 },
-    ],
-    participacionEstados: [
-      { estado: "Tabasco", porcentaje: 35.2, captura: 725 },
-      { estado: "Veracruz", porcentaje: 28.5, captura: 587 },
-      { estado: "Chiapas", porcentaje: 18.3, captura: 377 },
-      { estado: "Oaxaca", porcentaje: 12.0, captura: 247 },
-      { estado: "Otros", porcentaje: 6.0, captura: 125 },
-    ],
   },
   ambiente: [
     "La duración del proceso de desove de los langostinos depende fuertemente de factores como la temperatura; se han encontrado diferencias entre huevos incubados a distintas temperaturas. Estudios reflejan que en especies del género Macrobrachium la temperatura es un factor determinante de la tasa metabólica, lo que afecta directamente el tamaño del organismo, ya que el langostino presenta gran dificultad para compensar sus variaciones fisiológicas.",
@@ -6850,26 +7155,6 @@ fichas["robalo-chucumite"] = {
     valorProduccion: "$880",
     empleos: "5,200",
     embarcaciones: "1,850",
-    capturaHistorica: [
-      { año: 2000, captura: 7200, valor: 580 },
-      { año: 2002, captura: 7450, valor: 610 },
-      { año: 2004, captura: 7680, valor: 640 },
-      { año: 2006, captura: 7820, valor: 670 },
-      { año: 2008, captura: 7950, valor: 700 },
-      { año: 2010, captura: 8100, valor: 730 },
-      { año: 2012, captura: 8050, valor: 760 },
-      { año: 2014, captura: 7980, valor: 790 },
-      { año: 2016, captura: 7970, valor: 820 },
-      { año: 2018, captura: 7960, valor: 850 },
-      { año: 2020, captura: 7956, valor: 880 },
-    ],
-    participacionEstados: [
-      { estado: "Veracruz", porcentaje: 32.5, captura: 2586 },
-      { estado: "Tabasco", porcentaje: 28.2, captura: 2244 },
-      { estado: "Campeche", porcentaje: 18.3, captura: 1456 },
-      { estado: "Tamaulipas", porcentaje: 12.0, captura: 955 },
-      { estado: "Otros", porcentaje: 9.0, captura: 715 },
-    ],
   },
   ambiente: [
     "El cambio climático ha afectado los recursos pesqueros: el calentamiento global ha causado trastornos en la estacionalidad de algunos procesos biológicos, como en las redes tróficas marinas y de agua dulce. Además ocasiona acontecimientos extremos —inundaciones, sequías y tormentas— con consecuencias imprevisibles para la producción pesquera. Se ha registrado un desplazamiento hacia los polos de las especies de aguas templadas, con cambios en el tamaño y productividad de sus hábitats y efectos tanto positivos como negativos según las regiones y latitudes.",
@@ -7012,24 +7297,6 @@ fichas["mero-negrillo"] = {
     valorProduccion: "$2,890",
     empleos: "3,200",
     embarcaciones: "1,245",
-    capturaHistorica: [
-      { año: 2000, captura: 3200, valor: 3200 },
-      { año: 2002, captura: 2800, valor: 2800 },
-      { año: 2004, captura: 2400, valor: 2400 },
-      { año: 2006, captura: 2100, valor: 2100 },
-      { año: 2008, captura: 1950, valor: 1950 },
-      { año: 2010, captura: 1900, valor: 1900 },
-      { año: 2012, captura: 1880, valor: 2750 },
-      { año: 2014, captura: 1860, valor: 2800 },
-      { año: 2016, captura: 1840, valor: 2850 },
-      { año: 2018, captura: 1850, valor: 2880 },
-      { año: 2020, captura: 1850, valor: 2890 },
-    ],
-    participacionEstados: [
-      { estado: "Yucatán", porcentaje: 45.2, captura: 836 },
-      { estado: "Campeche", porcentaje: 35.8, captura: 662 },
-      { estado: "Quintana Roo", porcentaje: 19.0, captura: 352 },
-    ],
   },
   ambiente: [
     "La sobreexplotación pesquera, principal amenaza para el mero rojo, se entrelaza con fenómenos ambientales que inciden en su ciclo de vida y poblaciones. El aumento de las temperaturas, atribuido al cambio climático, está alterando el entorno termal relativamente estable de esta especie tropical; se ha reportado que las altas temperaturas pueden inhibir la madurez reproductiva. Anomalías térmicas como la temperatura superficial del mar (TSM), el índice del Caribe (CAR) y la Oscilación Multidecadal del Atlántico (AMO) han afectado el éxito del reclutamiento en el Banco de Campeche. Los huracanes modifican los fondos marinos y arrecifes de coral, esenciales para la alimentación y reproducción, y la marea roja, cada vez más frecuente y severa, puede provocar mortalidad masiva de peces.",

@@ -487,6 +487,20 @@ function Indicadores({ ficha }: { ficha: Ficha }) {
         </Card>
       )}
 
+      {!!ind.indicadoresParticipacion?.length && (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {ind.indicadoresParticipacion.map((d) => (
+            <Kpi
+              key={d.etiqueta}
+              label={d.etiqueta}
+              value={d.valor}
+              unit={d.unidad}
+              icon={d.icono ? ICONOS_CLAVE[d.icono] : Info}
+            />
+          ))}
+        </div>
+      )}
+
       {!!ind.participacionEstados?.length && (
         <ParticipacionCard titulo="Participación por estado" estados={ind.participacionEstados} />
       )}

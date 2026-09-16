@@ -32,13 +32,22 @@ import {
   LineChart,
   Line,
   ReferenceLine,
+  BarChart,
+  Bar,
+  LabelList,
 } from "recharts"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
 import { EspecieImagen } from "@/components/especie-imagen"
-import type { Especie, FiguraCNP, GraficaCapturaEstados, ParticipacionEstado } from "@/lib/especies-data"
+import type {
+  Especie,
+  FiguraCNP,
+  GraficaCapturaEstados,
+  GraficaParticipacionApilada,
+  ParticipacionEstado,
+} from "@/lib/especies-data"
 
 const toArray = <T,>(value: T | T[]): T[] => (Array.isArray(value) ? value : [value])
 
@@ -281,17 +290,28 @@ function Generalidades({ ficha }: { ficha: Ficha }) {
   )
 }
 
-function Kpi({ label, value, unit, icon: Icon }: { label: string; value: string; unit: string; icon: typeof Fish }) {
+function Kpi({
+  label,
+  value,
+  unit,
+  icon: Icon,
+  color,
+}: { label: string; value: string; unit: string; icon: typeof Fish; color?: string }) {
   return (
-    <Card className="border-teal-200">
+    <Card className="border-teal-200" style={color ? { borderColor: color } : undefined}>
       <CardContent className="p-4">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-xs font-medium text-gray-600">{label}</p>
-            <p className={cn("font-bold text-teal-800 tabular-nums", value.length > 8 ? "text-xl" : "text-2xl")}>{value}</p>
+            <p
+              className={cn("font-bold text-teal-800 tabular-nums", value.length > 8 ? "text-xl" : "text-2xl")}
+              style={color ? { color } : undefined}
+            >
+              {value}
+            </p>
             <p className="text-xs text-gray-500">{unit}</p>
           </div>
-          <Icon className="w-7 h-7 text-teal-500" />
+          <Icon className="w-7 h-7 text-teal-500" style={color ? { color } : undefined} />
         </div>
       </CardContent>
     </Card>
@@ -417,6 +437,119 @@ function ParticipacionCard({
   )
 }
 
+// Parte-de-un-todo en una sola gráfica: un renglón por estado, escalado a su
+// participación nacional, y dentro de cada uno la composición por especie.
+// Paleta validada con el validador de dataviz (superficie clara, pares
+// adyacentes): banda de luminosidad, piso de croma, separación CVD (peor par
+// #e34948↔#4a3aa7, ΔE 22.7 en protanopía) y piso de visión normal, todos PASS.
+// El amarillo #eda100 queda en 2.11:1 de contraste, así que la gráfica lleva
+// leyenda y etiquetas visibles: ninguna especie se comunica sólo con color.
+function ParticipacionApiladaCard({ grafica }: { grafica: GraficaParticipacionApilada }) {
+  const especies: string[] = []
+  const colores = new Map<string, string>()
+  for (const e of grafica.estados) {
+    for (const s of e.especies) {
+      if (!colores.has(s.especie)) {
+        especies.push(s.especie)
+        colores.set(s.especie, s.color)
+      }
+    }
+  }
+  const data = grafica.estados.map((e) => {
+    const fila: Record<string, number | string> = { estado: e.estado, total: e.porcentaje }
+    for (const esp of especies) {
+      const seg = e.especies.find((s) => s.especie === esp)
+      // Aportación al total nacional = % dentro del estado x participación del estado.
+      fila[esp] = seg ? Number(((seg.porcentaje * e.porcentaje) / 100).toFixed(3)) : 0
+    }
+    return fila
+  })
+  return (
+    <Card className="border-teal-200">
+      <CardHeader className="pb-3">
+        <CardTitle className="text-teal-700 text-base">{grafica.titulo}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="h-48">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={data} layout="vertical" margin={{ top: 4, right: 52, bottom: 4, left: 0 }}>
+              <XAxis type="number" domain={[0, 100]} hide />
+              <YAxis
+                type="category"
+                dataKey="estado"
+                width={132}
+                tick={{ fontSize: 12, fill: "#4b5563" }}
+                tickLine={false}
+                axisLine={false}
+              />
+              {/* Tooltip compacto: sólo las especies presentes en el estado y en tinta
+                  neutra, con una marca de color al lado; el recuadro anterior tapaba
+                  las barras porque repetía la leyenda completa en texto largo. */}
+              <Tooltip
+                cursor={{ fill: "#f0fdfa" }}
+                content={({ active, payload, label }: any) => {
+                  if (!active || !payload?.length) return null
+                  const total = Number(payload[0]?.payload?.total) || 100
+                  const filas = payload.filter((p: any) => Number(p.value) > 0)
+                  if (!filas.length) return null
+                  return (
+                    <div className="rounded-lg border border-teal-200 bg-white/95 px-2.5 py-2 shadow-sm">
+                      <p className="mb-1 text-[11px] font-semibold text-gray-700">
+                        {label} · {total}% nacional
+                      </p>
+                      {filas.map((p: any) => (
+                        <p key={p.name} className="whitespace-nowrap text-[11px] text-gray-600">
+                          <span
+                            className="mr-1.5 inline-block h-2 w-2 rounded-[2px] align-middle"
+                            style={{ backgroundColor: p.color }}
+                          />
+                          {p.name}{" "}
+                          <span className="font-semibold tabular-nums text-gray-700">
+                            {((Number(p.value) / total) * 100).toFixed(1)}%
+                          </span>
+                          <span className="text-gray-400"> · {Number(p.value).toFixed(2)}% nal.</span>
+                        </p>
+                      ))}
+                    </div>
+                  )
+                }}
+              />
+              {/* La leyenda de recharts pinta el texto del color de la serie; la tinta
+                  se mantiene neutra y el color lo carga el cuadrito. */}
+              <Legend
+                wrapperStyle={{ fontSize: 12 }}
+                formatter={(value: string) => <span className="text-gray-600">{value}</span>}
+              />
+              {especies.map((esp, i) => (
+                <Bar
+                  key={esp}
+                  dataKey={esp}
+                  stackId="participacion"
+                  fill={colores.get(esp)}
+                  barSize={26}
+                  stroke="#ffffff"
+                  strokeWidth={1}
+                  isAnimationActive={false}
+                >
+                  {i === especies.length - 1 && (
+                    <LabelList
+                      dataKey="total"
+                      position="right"
+                      className="fill-gray-700 text-[11px] font-semibold tabular-nums"
+                      formatter={(v: any) => `${v}%`}
+                    />
+                  )}
+                </Bar>
+              ))}
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+        {grafica.nota && <p className="pt-1 text-xs leading-relaxed text-gray-500">{grafica.nota}</p>}
+      </CardContent>
+    </Card>
+  )
+}
+
 function Indicadores({ ficha }: { ficha: Ficha }) {
   const ind = ficha.indicadores
   if (!ind) return null
@@ -440,6 +573,7 @@ function Indicadores({ ficha }: { ficha: Ficha }) {
               value={d.valor}
               unit={d.unidad}
               icon={d.icono ? ICONOS_CLAVE[d.icono] : Info}
+              color={d.color}
             />
           ))}
         </div>
@@ -496,6 +630,7 @@ function Indicadores({ ficha }: { ficha: Ficha }) {
               value={d.valor}
               unit={d.unidad}
               icon={d.icono ? ICONOS_CLAVE[d.icono] : Info}
+              color={d.color}
             />
           ))}
         </div>
@@ -508,6 +643,8 @@ function Indicadores({ ficha }: { ficha: Ficha }) {
       {ind.participacionPorEspecie?.map((g) => (
         <ParticipacionCard key={g.titulo} titulo={g.titulo} estados={g.estados} nota={g.nota} />
       ))}
+
+      {ind.participacionApilada && <ParticipacionApiladaCard grafica={ind.participacionApilada} />}
     </>
   )
 }

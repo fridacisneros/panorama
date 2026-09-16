@@ -65,6 +65,8 @@ export interface IndicadorClave {
   valor: string
   unidad: string
   icono?: "talla" | "rendimiento" | "tasa"
+  // Color del recuadro (borde, cifra e icono). Por omisión usa el verde azulado de la ficha.
+  color?: string
 }
 
 // Participación estatal de una especie. Permite fichas con más de una especie
@@ -73,6 +75,22 @@ export interface GraficaParticipacion {
   titulo: string
   nota?: string
   estados: ParticipacionEstado[]
+}
+
+// Barra apilada horizontal de parte-de-un-todo: cada renglón es un estado, su largo
+// es la participación del estado en el total nacional y los segmentos son la
+// composición por especie dentro de ese estado (suman 100 dentro del renglón).
+export interface SegmentoEspecie {
+  especie: string
+  // Porcentaje dentro del estado, no respecto al total nacional.
+  porcentaje: number
+  color: string
+}
+
+export interface GraficaParticipacionApilada {
+  titulo: string
+  nota?: string
+  estados: { estado: string; porcentaje: number; especies: SegmentoEspecie[] }[]
 }
 
 export interface FilaNormatividad {
@@ -135,6 +153,7 @@ export interface FichaPesqueria {
     // captura de cada especie entre los estados).
     indicadoresParticipacion?: IndicadorClave[]
     participacionPorEspecie?: GraficaParticipacion[]
+    participacionApilada?: GraficaParticipacionApilada
   }
   ambiente?: string[]
   // Gráficas que acompañan a los párrafos de ambiente y clima (p. ej. las series de
@@ -5261,13 +5280,19 @@ const fichas: Record<string, FichaPesqueria> = {
       ],
     },
     indicadores: {
-      datosDestacados: [
-        "En los últimos diez años la captura se distribuye en: 78.4% abulón azul, 21.1% abulón amarillo, 0.5% abulón chino, 0.3% abulón negro y 0.2% abulón rojo.",
+      // Reparto de la captura de los últimos diez años por especie, con el color de cada abulón.
+      indicadoresClave: [
+        { etiqueta: "Abulón azul", valor: "78.4%", unidad: "de la captura de los últimos diez años", color: "#2a78d6" },
+        { etiqueta: "Abulón amarillo", valor: "21.1%", unidad: "de la captura de los últimos diez años", color: "#eda100" },
+        { etiqueta: "Abulón chino", valor: "0.5%", unidad: "de la captura de los últimos diez años", color: "#e87ba4" },
+        { etiqueta: "Abulón negro", valor: "0.3%", unidad: "de la captura de los últimos diez años", color: "#4a3aa7" },
+        { etiqueta: "Abulón rojo", valor: "0.2%", unidad: "de la captura de los últimos diez años", color: "#e34948" },
       ],
       // Tendencia de la captura de abulón (peso callo) en BC y BCS, 2000-2020 (Fuente: CONAPESCA).
       capturaPorEstado: [
         {
           titulo: "Captura de abulón (peso callo) por estado, 2000–2020 (CONAPESCA)",
+          nota: "Serie leída de la figura 1 de la Carta Nacional Pesquera 2023 (captura de abulón en peso callo de Baja California y Baja California Sur, 2000-2020, CONAPESCA); los valores anuales son aproximados.",
           series: [
             {
               estado: "Baja California",
@@ -5283,15 +5308,15 @@ const fichas: Record<string, FichaPesqueria> = {
                 { año: 2007, captura: 175 },
                 { año: 2008, captura: 190 },
                 { año: 2009, captura: 210 },
-                { año: 2010, captura: 155 },
+                { año: 2010, captura: 154 },
                 { año: 2011, captura: 80 },
                 { año: 2012, captura: 120 },
                 { año: 2013, captura: 68 },
                 { año: 2014, captura: 60 },
                 { año: 2015, captura: 53 },
                 { año: 2016, captura: 55 },
-                { año: 2017, captura: 57 },
-                { año: 2018, captura: 22 },
+                { año: 2017, captura: 58 },
+                { año: 2018, captura: 21 },
                 { año: 2019, captura: 22 },
                 { año: 2020, captura: 28 },
               ],
@@ -5318,14 +5343,38 @@ const fichas: Record<string, FichaPesqueria> = {
                 { año: 2015, captura: 220 },
                 { año: 2016, captura: 195 },
                 { año: 2017, captura: 125 },
-                { año: 2018, captura: 58 },
-                { año: 2019, captura: 62 },
-                { año: 2020, captura: 100 },
+                { año: 2018, captura: 50 },
+                { año: 2019, captura: 63 },
+                { año: 2020, captura: 104 },
               ],
             },
           ],
         },
       ],
+      participacionApilada: {
+        titulo: "Participación estatal y composición por especie",
+        nota: "El largo de cada barra es la participación del estado en la captura nacional de abulón (Baja California Sur 65%, Baja California 35%) y los segmentos son la composición por especie dentro de ese estado, que suma 100% en cada renglón. El abulón negro y el rojo representan 0.3% y 0.2% de la captura de Baja California, por lo que sus segmentos son casi imperceptibles; sus cifras exactas están en los recuadros de arriba.",
+        estados: [
+          {
+            estado: "Baja California Sur",
+            porcentaje: 65,
+            especies: [
+              { especie: "Abulón azul", porcentaje: 68.6, color: "#2a78d6" },
+              { especie: "Abulón amarillo", porcentaje: 31.4, color: "#eda100" },
+            ],
+          },
+          {
+            estado: "Baja California",
+            porcentaje: 35,
+            especies: [
+              { especie: "Abulón azul", porcentaje: 78.4, color: "#2a78d6" },
+              { especie: "Abulón amarillo", porcentaje: 21.1, color: "#eda100" },
+              { especie: "Abulón negro", porcentaje: 0.3, color: "#4a3aa7" },
+              { especie: "Abulón rojo", porcentaje: 0.2, color: "#e34948" },
+            ],
+          },
+        ],
+      },
     },
     ambiente: [
       "Las anomalías positivas de temperatura del mar asociadas al evento El Niño/Oscilación del Sur tienen efectos negativos en las comunidades de los bancos abuloneros. Se ha observado una alta sensibilidad de los abulones a los cambios de temperatura provocados por fenómenos climáticos como «El Niño», con efecto negativo sobre las larvas de abulón —con menor tolerancia a altas temperaturas—, además de la disminución de los mantos de algas gigantes (kelps, Macrocystis pyrifera), con la consecuente pérdida de alimento y reducción del éxito en el reclutamiento. Los eventos oceanográficos cálidos del norte («La Mancha»), ocurridos por primera vez del 2013 al 2015, afectaron negativamente a las poblaciones de abulón de la península de Baja California al inhibir el transporte de nutrientes y disminuir la producción primaria. En periodos de El Niño/Oscilación del Sur, las condiciones de mal tiempo disminuyen los días efectivos de pesca, desde Alaska (Estados Unidos de América) hasta Baja California Sur.",

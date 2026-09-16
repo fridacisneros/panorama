@@ -676,7 +676,7 @@ function StatusSeccion({ ficha }: { ficha: Ficha }) {
           </div>
         )}
 
-        {s.figura && <FiguraCNPBloque figura={s.figura} />}
+        {s.figuras?.map((f) => <FiguraCNPBloque key={f.src} figura={f} />)}
 
         {s.estrategia && (
           <div>

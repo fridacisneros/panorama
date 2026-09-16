@@ -25,6 +25,9 @@ export interface SerieCapturaEstado {
   // rendimiento en kg/día y esfuerzo en días de pesca).
   eje?: "izquierdo" | "derecho"
   punteada?: boolean
+  // Fuerza (o suprime) los puntos de la serie. Por omisión se dibujan sólo en las series
+  // cortas; las series largas pero de años dispersos, como las de temperatura, los necesitan.
+  marcadores?: boolean
   datos: { año: number; captura: number }[]
 }
 
@@ -44,6 +47,9 @@ export interface GraficaCapturaEstados {
   // Unidades de cada eje; por omisión el izquierdo son toneladas y no hay eje derecho.
   unidadIzquierda?: string
   unidadDerecha?: string
+  // Rango del eje izquierdo. Por omisión arranca en cero, lo cual aplana las series que no
+  // parten de ahí (temperaturas, por ejemplo).
+  dominioIzquierda?: [number, number]
 }
 
 export interface ParticipacionEstado {
@@ -128,6 +134,9 @@ export interface FichaPesqueria {
     participacionPorEspecie?: GraficaParticipacion[]
   }
   ambiente?: string[]
+  // Gráficas que acompañan a los párrafos de ambiente y clima (p. ej. las series de
+  // temperatura de las zonas de distribución).
+  ambienteGraficas?: GraficaCapturaEstados[]
   normatividad?: FilaNormatividad[]
   status?: {
     cards?: StatusCard[]
@@ -6607,14 +6616,219 @@ fichas["pepino-mar"] = {
     ],
   },
   indicadores: {
-    capturaAnual: "285",
-    valorProduccion: "$890",
-    empleos: "1,850",
-    embarcaciones: "650",
+    empleos: "1,683",
+    // La captura de 1,458 toneladas es el promedio de 2010-2018, no la de un solo año, por lo que
+    // no se usa capturaAnual: su recuadro rotula "Captura anual".
+    indicadoresClave: [
+      {
+        etiqueta: "Captura de pepino café (2010-2018)",
+        valor: "1,458",
+        unidad: "toneladas anuales en promedio (peso fresco eviscerado)",
+        icono: "rendimiento",
+      },
+      {
+        etiqueta: "Precio a pie de playa (2017-2018)",
+        valor: "$90-120",
+        unidad: "MXN por kilogramo fresco eviscerado",
+        icono: "tasa",
+      },
+      {
+        etiqueta: "Biomasa estimada (2018)",
+        valor: "4,306",
+        unidad: "toneladas en peso eviscerado (PRL: 1,875)",
+      },
+      {
+        etiqueta: "CPUE (2018)",
+        valor: "73",
+        unidad: "kg por embarcación por día de pesca",
+        icono: "tasa",
+      },
+    ],
+    participacionPorEspecie: [
+      {
+        titulo: "Importancia estatal en la producción de pepino de mar, 2010-2018",
+        nota: "Figura 1a de la Carta Nacional Pesquera. Desde el inicio de la pesquería, la mayor producción del Golfo de México y Mar Caribe la aporta Yucatán.",
+        estados: [
+          { estado: "Yucatán", porcentaje: 93.6 },
+          { estado: "Campeche", porcentaje: 6 },
+          { estado: "Veracruz", porcentaje: 0.3 },
+          { estado: "Quintana Roo", porcentaje: 0.1 },
+        ],
+      },
+    ],
+    capturaPorEstado: [
+      {
+        titulo: "Producción anual de pepino de mar café (I. badionotus) en Yucatán, 2010-2018",
+        nota: "Serie leída de la figura 1b de la Carta Nacional Pesquera (Sistemas de Información de Pesca y Acuacultura, CONAPESCA); los valores anuales son aproximados, pero su promedio reproduce las 1,458 toneladas que cita el texto. De 2010 a 2018 más del 90% de la producción provino de I. badionotus, con el mínimo de 600 toneladas en 2015 y el máximo de 2,486 toneladas en 2013. Antes de este periodo, de 2001 a 2007, la captura fue menor a 200 toneladas anuales y la aportaron varias especies (I. badionotus, H. floridana, H. mexicana y A. multifidus).",
+        series: [
+          {
+            estado: "Captura",
+            color: "#0d9488",
+            datos: [
+              { año: 2010, captura: 1830 },
+              { año: 2011, captura: 1140 },
+              { año: 2012, captura: 890 },
+              { año: 2013, captura: 2486 },
+              { año: 2014, captura: 1150 },
+              { año: 2015, captura: 600 },
+              { año: 2016, captura: 1880 },
+              { año: 2017, captura: 1950 },
+              { año: 2018, captura: 1200 },
+            ],
+          },
+        ],
+        referencias: [{ valor: 1458, etiqueta: "Captura promedio", tipo: "punteada" }],
+      },
+      {
+        titulo: "Biomasa estimada de pepino de mar café (I. badionotus) en la Península de Yucatán, 2010-2019",
+        nota: "Serie leída de la figura 1c de la Carta Nacional Pesquera (evaluaciones independientes de la pesquería del IMIPAS en la Península de Yucatán); los valores anuales son aproximados, salvo los tres que cita el texto: 11,058 toneladas en 2010, la biomasa histórica más alta en 2013 (17,442 toneladas) y 4,306 toneladas en 2018. Los tres picos (2010, 2013 y 2016) ocurrieron en zonas de pesca distintas. Hasta 2018 la biomasa se mantuvo siempre por encima del Punto de Referencia Límite, establecido en 2011 en 3,000 toneladas de peso entero (1,875 toneladas en peso eviscerado).",
+        series: [
+          {
+            estado: "Biomasa",
+            color: "#0891b2",
+            datos: [
+              { año: 2010, captura: 11058 },
+              { año: 2011, captura: 6000 },
+              { año: 2012, captura: 7300 },
+              { año: 2013, captura: 17442 },
+              { año: 2014, captura: 6800 },
+              { año: 2015, captura: 2600 },
+              { año: 2016, captura: 4200 },
+              { año: 2017, captura: 3950 },
+              { año: 2018, captura: 4306 },
+              { año: 2019, captura: 2050 },
+            ],
+          },
+        ],
+        referencias: [
+          { valor: 6571, etiqueta: "Biomasa promedio", tipo: "punteada" },
+          { valor: 3000, etiqueta: "PRL (peso entero)", tipo: "punteada" },
+        ],
+      },
+      {
+        titulo: "Captura por unidad de esfuerzo del pepino de mar café (I. badionotus), 2010-2018",
+        nota: "Serie leída de la figura 1d de la Carta Nacional Pesquera (evaluaciones dependientes de la pesquería); los valores anuales son aproximados, salvo el promedio de 400 kilogramos en 2010 y el de 73 kilogramos en 2018 que cita el texto.",
+        unidadIzquierda: "kg/embarcación/día",
+        series: [
+          {
+            estado: "CPUE",
+            color: "#f59e0b",
+            datos: [
+              { año: 2010, captura: 400 },
+              { año: 2011, captura: 325 },
+              { año: 2012, captura: 222 },
+              { año: 2013, captura: 332 },
+              { año: 2014, captura: 178 },
+              { año: 2015, captura: 163 },
+              { año: 2016, captura: 78 },
+              { año: 2017, captura: 120 },
+              { año: 2018, captura: 73 },
+            ],
+          },
+        ],
+        referencias: [{ valor: 210, etiqueta: "CPUE promedio", tipo: "punteada" }],
+      },
+      {
+        titulo: "Captura total reportada de pepino de mar lápiz (H. floridana), 2010-2014",
+        nota: "Serie leída de la figura 2a de la Carta Nacional Pesquera. Todos los registros de captura de pepino de mar lápiz corresponden a permisos de pesca de fomento en la Península de Yucatán: 211 toneladas en 2010, el máximo de 449 toneladas en 2011 y 271 toneladas en 2012, la última temporada de pesca de fomento. En 2010 no se asignó cuota; en 2011 y 2012 fue de 300 y 270 toneladas, con un esfuerzo autorizado de 60 embarcaciones menores. Desde 2013 no existen permisos de pesca comercial para el pepino lápiz ni para ninguna otra especie distinta de I. badionotus; sólo se registraron capturas menores a una tonelada en Tamaulipas en 2010 y 2014.",
+        series: [
+          {
+            estado: "Captura",
+            color: "#8b5cf6",
+            datos: [
+              { año: 2010, captura: 211 },
+              { año: 2011, captura: 449 },
+              { año: 2012, captura: 271 },
+              { año: 2013, captura: 0 },
+              { año: 2014, captura: 0 },
+            ],
+          },
+        ],
+      },
+      {
+        titulo: "Biomasa estimada de pepino de mar lápiz (H. floridana) en la Península de Yucatán, 2010-2014",
+        nota: "Serie leída de la figura 2b de la Carta Nacional Pesquera (biomasa total estimada por el IMIPAS en la Península de Yucatán); los valores de 2010 (6,341 toneladas), 2011 (la más alta, 7,233 toneladas) y 2012 (4,500 toneladas) son los que cita el texto y los de 2013 y 2014 son aproximados. Después de 2012 el recurso mostró una disminución de su densidad del 90% y la biomasa cayó por debajo del PRL de 3,000 toneladas, razón por la cual se estableció una veda permanente.",
+        series: [
+          {
+            estado: "Biomasa",
+            color: "#ec4899",
+            datos: [
+              { año: 2010, captura: 6341 },
+              { año: 2011, captura: 7233 },
+              { año: 2012, captura: 4500 },
+              { año: 2013, captura: 2600 },
+              { año: 2014, captura: 2400 },
+            ],
+          },
+        ],
+        referencias: [{ valor: 3000, etiqueta: "PRL", tipo: "punteada" }],
+      },
+    ],
   },
   ambiente: [
     "La temperatura global promedio ± EE en la zona de distribución del pepino de mar lápiz (H. floridana), frente a las costas de Campeche, durante 2010-2023 ha sido de 29 ± 0.05 °C, con un mínimo de 24-25 °C en 2013 y un máximo de 33 °C en 2016. No se determinó relación entre la temperatura y la densidad registrada por año, por lo que la variación anual de la temperatura no ha mostrado ser determinante para un cambio en la densidad de este recurso.",
     "La temperatura global promedio ± EE en la zona de distribución del pepino de mar café (I. badionotus) es de 25 ± 0.04 °C. Las biomasas más altas in situ se registraron en 2010 y 2013; en 2013 la temperatura estuvo dos grados por debajo del promedio, lo cual puede estar relacionado con el reclutamiento en los sitios más someros de las zonas I y II, donde se ubicó el parche de mayor tamaño a lo largo de la costa de Yucatán ese año.",
+  ],
+  ambienteGraficas: [
+    {
+      titulo: "Temperatura promedio (± EE) en la zona de distribución del pepino de mar lápiz (H. floridana), Campeche",
+      nota: "Serie leída de la figura 5a de la Carta Nacional Pesquera: temperatura promedio por año de muestreo frente a las costas de Campeche, con la línea punteada del promedio global de 29 °C. Los valores anuales son aproximados y los años sin muestreo se dejan sin punto. El mínimo de las medias anuales corresponde a 2013 y el máximo a 2016. La variación anual de la temperatura no ha mostrado ser determinante para un cambio en la densidad de este recurso.",
+      unidadIzquierda: "°C",
+      dominioIzquierda: [26.5, 31],
+      series: [
+        {
+          estado: "Temperatura media",
+          color: "#0891b2",
+          punteada: true,
+          marcadores: true,
+          datos: [
+            { año: 2010, captura: 29.2 },
+            { año: 2012, captura: 29.77 },
+            { año: 2013, captura: 27.07 },
+            { año: 2014, captura: 28.57 },
+            { año: 2015, captura: 29.58 },
+            { año: 2016, captura: 30.67 },
+            { año: 2017, captura: 29.42 },
+            { año: 2018, captura: 28.62 },
+            { año: 2019, captura: 30.37 },
+            { año: 2022, captura: 29.76 },
+          ],
+        },
+      ],
+      referencias: [{ valor: 29, etiqueta: "Promedio global", tipo: "punteada" }],
+    },
+    {
+      titulo: "Temperatura promedio (± EE) en la zona de distribución del pepino de mar café (I. badionotus), Yucatán",
+      nota: "Serie leída de la figura 5b de la Carta Nacional Pesquera: temperatura promedio por año de muestreo frente a las costas de Yucatán, con la línea punteada del promedio global de 25 °C. Los valores anuales son aproximados y los años sin muestreo se dejan sin punto. En 2013, año de la biomasa in situ más alta, la temperatura estuvo dos grados por debajo del promedio.",
+      unidadIzquierda: "°C",
+      dominioIzquierda: [23.5, 28.5],
+      series: [
+        {
+          estado: "Temperatura media",
+          color: "#f59e0b",
+          punteada: true,
+          marcadores: true,
+          datos: [
+            { año: 2006, captura: 25.85 },
+            { año: 2007, captura: 25.33 },
+            { año: 2009, captura: 24.9 },
+            { año: 2010, captura: 25.22 },
+            { año: 2012, captura: 26.6 },
+            { año: 2013, captura: 24.42 },
+            { año: 2014, captura: 24.3 },
+            { año: 2015, captura: 24.78 },
+            { año: 2016, captura: 25.2 },
+            { año: 2017, captura: 24.32 },
+            { año: 2018, captura: 24.32 },
+            { año: 2019, captura: 26.07 },
+            { año: 2021, captura: 26.78 },
+            { año: 2022, captura: 25.4 },
+            { año: 2023, captura: 28.05 },
+          ],
+        },
+      ],
+      referencias: [{ valor: 25, etiqueta: "Promedio global", tipo: "punteada" }],
+    },
   ],
   normatividad: [
     { instrumento: "1. Norma Oficial Mexicana", aplica: false, disposicion: "", sustento: "" },
@@ -6695,6 +6909,14 @@ fichas["pepino-mar"] = {
       "Zonas de refugio pesquero",
       "Cierre de zonas con altos niveles de reclutamiento o bajas densidades",
       "Rotación de banco de aprovechamiento",
+    ],
+    figuras: [
+      {
+        titulo: "Diagrama de Kobe — pepino de mar café (Isostichopus badionotus)",
+        src: "/images/figuras/kobe-pepino-mar-cafe.png",
+        alt: "Diagrama de fases de Kobe del pepino de mar café de la Península de Yucatán: trayectoria anual de 2010 a 2019 según Bt/BRMS y Ft/FRMS, con los cuatro cuadrantes de estatus. La serie recorre el cuadrante verde entre 2010 y 2016 con la biomasa cayendo de 3.4 a 1.2 veces la del rendimiento máximo sostenible y la mortalidad por pesca siempre por debajo de 0.5, y a partir de 2017 pasa al cuadrante amarillo izquierdo, con Bt/BRMS cercano a 0.5 y Ft/FRMS de 0.58 en 2017, 0.33 en 2018 y 0.13 en 2019.",
+        nota: "Tendencia del estatus del stock de pepino de mar café (Isostichopus badionotus) de la Península de Yucatán, basado en datos dependientes de la pesca (figura 6 de la CNP). Desde 2017 la biomasa se ubica por debajo de la que produciría el rendimiento máximo sostenible, aunque la mortalidad por pesca se mantiene por debajo de la de referencia.",
+      },
     ],
   },
   recomendaciones: [

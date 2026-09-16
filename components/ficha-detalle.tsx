@@ -83,7 +83,7 @@ export function FichaDetalle({ especie }: { especie: Especie }) {
   const ficha = especie.ficha
   const disponibles = SECCIONES.filter((s) => {
     if (!ficha) return false
-    if (s.id === "ambiente") return !!ficha.ambiente?.length
+    if (s.id === "ambiente") return !!ficha.ambiente?.length || !!ficha.ambienteGraficas?.length
     if (s.id === "status") return !!(ficha.status?.cards?.length || ficha.status?.estrategia || ficha.status?.tacticas?.length)
     if (s.id === "recomendaciones") return !!ficha.recomendaciones?.length
     return !!ficha[s.id]
@@ -333,6 +333,7 @@ function GraficaEstados({ grafica }: { grafica: GraficaCapturaEstados }) {
               <YAxis
                 yAxisId="izq"
                 tick={{ fontSize: 12 }}
+                domain={grafica.dominioIzquierda}
                 label={{ value: unidadIzq, angle: -90, position: "insideLeft" }}
               />
               {unidadDer && (
@@ -373,7 +374,7 @@ function GraficaEstados({ grafica }: { grafica: GraficaCapturaEstados }) {
                   strokeDasharray={s.punteada ? "5 4" : undefined}
                   name={s.estado}
                   connectNulls
-                  dot={s.datos.length > 12 ? false : { r: 3 }}
+                  dot={(s.marcadores ?? s.datos.length <= 12) ? { r: 3 } : false}
                   activeDot={{ r: 4 }}
                 />
               ))}
@@ -498,20 +499,25 @@ function Indicadores({ ficha }: { ficha: Ficha }) {
 }
 
 function Ambiente({ ficha }: { ficha: Ficha }) {
-  if (!ficha.ambiente?.length) return null
+  if (!ficha.ambiente?.length && !ficha.ambienteGraficas?.length) return null
   return (
-    <Card className="border-teal-200">
-      <CardHeader className="pb-3">
-        <SectionTitle icon={Thermometer}>Efectos ambientales y del cambio climático</SectionTitle>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        {ficha.ambiente.map((p, i) => (
-          <p key={i} className="text-sm text-gray-700 leading-relaxed">
-            {p}
-          </p>
-        ))}
-      </CardContent>
-    </Card>
+    <>
+      {!!ficha.ambiente?.length && (
+        <Card className="border-teal-200">
+          <CardHeader className="pb-3">
+            <SectionTitle icon={Thermometer}>Efectos ambientales y del cambio climático</SectionTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {ficha.ambiente.map((p, i) => (
+              <p key={i} className="text-sm text-gray-700 leading-relaxed">
+                {p}
+              </p>
+            ))}
+          </CardContent>
+        </Card>
+      )}
+      {ficha.ambienteGraficas?.map((grafica, i) => <GraficaEstados key={i} grafica={grafica} />)}
+    </>
   )
 }
 

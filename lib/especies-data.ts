@@ -3480,7 +3480,15 @@ const fichas: Record<string, FichaPesqueria> = {
       ],
     },
     indicadores: {
-      datosDestacados: ["En Sonora se extrae el 80% del volumen total."],
+      indicadoresClave: [
+        { etiqueta: "Talla de almeja blanca", valor: "1.8–13", unidad: "cm de longitud de concha", icono: "talla" },
+        {
+          etiqueta: "Participación de Sonora",
+          valor: "80%",
+          unidad: "del volumen total extraído",
+          icono: "tasa",
+        },
+      ],
       // Tendencia de la captura de almeja blanca en BC, BCS, Sonora y Sinaloa, 2000-2020 (Fuente: CONAPESCA).
       capturaPorEstado: [
         {
@@ -3514,8 +3522,8 @@ const fichas: Record<string, FichaPesqueria> = {
               ],
             },
             {
-              estado: "Baja California Sur",
-              color: "#0891b2",
+              estado: "Baja California",
+              color: "#0d9488",
               datos: [
                 { año: 2017, captura: 10 },
                 { año: 2018, captura: 50 },
@@ -3524,23 +3532,25 @@ const fichas: Record<string, FichaPesqueria> = {
               ],
             },
             {
-              estado: "Baja California",
-              color: "#0d9488",
-              datos: [
-                { año: 2019, captura: 13 },
-                { año: 2020, captura: 10 },
-              ],
+              estado: "Baja California Sur",
+              color: "#0891b2",
+              datos: [{ año: 2019, captura: 13 }],
             },
             {
               estado: "Sinaloa",
               color: "#8b5cf6",
-              datos: [
-                { año: 2019, captura: 13 },
-                { año: 2020, captura: 10 },
-              ],
+              datos: [{ año: 2020, captura: 910 }],
             },
           ],
         },
+      ],
+      // Participación de cada estado en la captura total de almeja blanca,
+      // ordenada de mayor a menor.
+      participacionEstados: [
+        { estado: "Sonora", porcentaje: 80 },
+        { estado: "Sinaloa", porcentaje: 16 },
+        { estado: "Baja California", porcentaje: 3 },
+        { estado: "Baja California Sur", porcentaje: 1 },
       ],
     },
     ambiente: [

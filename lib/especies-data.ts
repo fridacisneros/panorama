@@ -3054,6 +3054,7 @@ const fichas: Record<string, FichaPesqueria> = {
       capturaPorEstado: [
         {
           titulo: "Captura de almeja chocolata por estado, 2000–2020 (CONAPESCA)",
+          nota: "Serie leída de la figura 1 de la Carta Nacional Pesquera 2023 (captura de almeja chocolata de Baja California, Baja California Sur, Sonora y Sinaloa, 2000-2020, CONAPESCA); los valores anuales son aproximados.",
           series: [
             {
               estado: "Baja California Sur",
@@ -3493,6 +3494,7 @@ const fichas: Record<string, FichaPesqueria> = {
       capturaPorEstado: [
         {
           titulo: "Captura de almeja blanca por estado, 2000–2020 (CONAPESCA)",
+          nota: "Serie leída de la figura 1 de la Carta Nacional Pesquera 2023 (captura de almeja blanca de Baja California, Baja California Sur, Sonora y Sinaloa, 2000-2020, CONAPESCA); los valores anuales son aproximados.",
           series: [
             {
               estado: "Sonora",
@@ -4188,6 +4190,7 @@ const fichas: Record<string, FichaPesqueria> = {
       capturaPorEstado: [
         {
           titulo: "Captura de almeja catarina por estado, 1979–2020 (CONAPESCA)",
+          nota: "Serie leída de la figura 1 de la Carta Nacional Pesquera 2023 (captura de almeja catarina de Baja California, Baja California Sur y Sonora, 1979-2020, CONAPESCA); los valores anuales son aproximados.",
           series: [
             {
               estado: "Baja California Sur",

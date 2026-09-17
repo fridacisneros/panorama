@@ -3347,6 +3347,7 @@ const fichas: Record<string, FichaPesqueria> = {
       capturaPorEstado: [
         {
           titulo: "Captura de almeja concha espina en Baja California Sur, 2013–2020 (CONAPESCA)",
+          nota: "Serie leída de la figura 1 de la Carta Nacional Pesquera 2023; los valores anuales son aproximados.",
           series: [
             {
               estado: "Baja California Sur",

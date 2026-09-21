@@ -1936,8 +1936,8 @@ const fichas: Record<string, FichaPesqueria> = {
               color: "#0891b2",
               datos: [
                 { año: 2000, captura: 1100 },
-                { año: 2001, captura: 1400 },
-                { año: 2002, captura: 1350 },
+                { año: 2001, captura: 1370 },
+                { año: 2002, captura: 1480 },
                 { año: 2003, captura: 1100 },
                 { año: 2004, captura: 1350 },
                 { año: 2005, captura: 1280 },
@@ -1981,12 +1981,18 @@ const fichas: Record<string, FichaPesqueria> = {
                 { año: 2016, captura: 100 },
                 { año: 2017, captura: 150 },
                 { año: 2018, captura: 160 },
-                { año: 2019, captura: 130 },
+                { año: 2019, captura: 200 },
                 { año: 2020, captura: 210 },
               ],
             },
           ],
         },
+      ],
+      // Participación de cada estado en la captura total de caracol panocha,
+      // ordenada de mayor a menor.
+      participacionEstados: [
+        { estado: "Baja California Sur", porcentaje: 77 },
+        { estado: "Baja California", porcentaje: 23 },
       ],
     },
     ambiente: [

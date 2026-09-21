@@ -962,6 +962,7 @@ const fichas: Record<string, FichaPesqueria> = {
       capturaPorEstado: [
         {
           titulo: "Captura de curvina golfina por estado, 1987–2020 (CONAPESCA)",
+          nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
           series: [
             {
               estado: "Sonora",
@@ -1183,6 +1184,7 @@ const fichas: Record<string, FichaPesqueria> = {
       capturaPorEstado: [
         {
           titulo: "Captura de langostino por estado, 2000–2020 (CONAPESCA)",
+          nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
           series: [
             {
               estado: "Nayarit",
@@ -1348,6 +1350,7 @@ const fichas: Record<string, FichaPesqueria> = {
       capturaPorEstado: [
         {
           titulo: "Captura de medusa bola de cañón en Sonora, 2001–2020 (CONAPESCA)",
+          nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
           series: [
             {
               estado: "Sonora",
@@ -1510,6 +1513,7 @@ const fichas: Record<string, FichaPesqueria> = {
       capturaPorEstado: [
         {
           titulo: "Captura de mejillón en Baja California, 2000–2020 (CONAPESCA)",
+          nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
           series: [
             {
               estado: "Baja California",
@@ -1685,6 +1689,7 @@ const fichas: Record<string, FichaPesqueria> = {
       capturaPorEstado: [
         {
           titulo: "Captura de caracol chino por estado, 2000–2020 (CONAPESCA)",
+          nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
           series: [
             {
               estado: "Sonora",
@@ -1909,6 +1914,7 @@ const fichas: Record<string, FichaPesqueria> = {
       capturaPorEstado: [
         {
           titulo: "Captura de caracol panocha por estado, 2000–2020 (CONAPESCA)",
+          nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
           series: [
             {
               estado: "Baja California Sur",
@@ -2207,6 +2213,7 @@ const fichas: Record<string, FichaPesqueria> = {
       capturaPorEstado: [
         {
           titulo: "Captura de almeja pata de mula por estado, 2000–2020 (CONAPESCA)",
+          nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
           series: [
             {
               estado: "Baja California Sur",
@@ -2444,6 +2451,7 @@ const fichas: Record<string, FichaPesqueria> = {
       capturaPorEstado: [
         {
           titulo: "Captura de botete por estado, 2004–2020 (CONAPESCA)",
+          nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
           series: [
             {
               estado: "Sinaloa",
@@ -2677,11 +2685,11 @@ const fichas: Record<string, FichaPesqueria> = {
       ],
     },
     indicadores: {
-      datosDestacados: ["La mayor captura de callo de hacha se registra en Sonora, con el 59% del total."],
       // Tendencia de la captura de callo de hacha en BC, BCS y Sonora, 2000-2020 (Fuente: CONAPESCA).
       capturaPorEstado: [
         {
           titulo: "Captura de callo de hacha por estado, 2000–2020 (CONAPESCA)",
+          nota: "Serie leída de la figura 1 de la Carta Nacional Pesquera (tendencia de la captura de callo de hacha en Baja California, Baja California Sur y Sonora, 2000-2020, CONAPESCA); los valores anuales son aproximados.",
           series: [
             {
               estado: "Sonora",
@@ -2690,15 +2698,15 @@ const fichas: Record<string, FichaPesqueria> = {
                 { año: 2000, captura: 100 },
                 { año: 2001, captura: 50 },
                 { año: 2002, captura: 50 },
-                { año: 2003, captura: 230 },
-                { año: 2004, captura: 220 },
+                { año: 2003, captura: 140 },
+                { año: 2004, captura: 205 },
                 { año: 2005, captura: 180 },
                 { año: 2006, captura: 260 },
                 { año: 2007, captura: 780 },
                 { año: 2008, captura: 300 },
-                { año: 2009, captura: 320 },
+                { año: 2009, captura: 175 },
                 { año: 2010, captura: 200 },
-                { año: 2011, captura: 400 },
+                { año: 2011, captura: 455 },
                 { año: 2012, captura: 1440 },
                 { año: 2013, captura: 660 },
                 { año: 2014, captura: 330 },
@@ -2717,7 +2725,7 @@ const fichas: Record<string, FichaPesqueria> = {
                 { año: 2005, captura: 0 },
                 { año: 2007, captura: 0 },
                 { año: 2010, captura: 0 },
-                { año: 2015, captura: 90 },
+                { año: 2015, captura: 0 },
                 { año: 2016, captura: 802 },
                 { año: 2017, captura: 410 },
                 { año: 2018, captura: 742 },
@@ -2729,31 +2737,36 @@ const fichas: Record<string, FichaPesqueria> = {
               estado: "Baja California Sur",
               color: "#0891b2",
               datos: [
-                { año: 2000, captura: 60 },
+                { año: 2000, captura: 30 },
                 { año: 2001, captura: 40 },
                 { año: 2002, captura: 50 },
-                { año: 2003, captura: 110 },
+                { año: 2003, captura: 245 },
                 { año: 2004, captura: 220 },
                 { año: 2005, captura: 150 },
                 { año: 2006, captura: 80 },
                 { año: 2007, captura: 190 },
                 { año: 2008, captura: 260 },
                 { año: 2009, captura: 313 },
-                { año: 2010, captura: 230 },
+                { año: 2010, captura: 195 },
                 { año: 2011, captura: 90 },
                 { año: 2012, captura: 90 },
                 { año: 2013, captura: 190 },
                 { año: 2014, captura: 90 },
                 { año: 2015, captura: 90 },
-                { año: 2016, captura: 110 },
+                { año: 2016, captura: 60 },
                 { año: 2017, captura: 90 },
-                { año: 2018, captura: 90 },
+                { año: 2018, captura: 55 },
                 { año: 2019, captura: 70 },
                 { año: 2020, captura: 60 },
               ],
             },
           ],
         },
+      ],
+      participacionEstados: [
+        { estado: "Sonora", porcentaje: 62 },
+        { estado: "Baja California", porcentaje: 19 },
+        { estado: "Baja California Sur", porcentaje: 19 },
       ],
     },
     ambiente: [
@@ -2904,6 +2917,7 @@ const fichas: Record<string, FichaPesqueria> = {
       capturaPorEstado: [
         {
           titulo: "Captura de verdillo por estado, 2000–2020 (CONAPESCA)",
+          nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
           series: [
             {
               estado: "Baja California Sur",
@@ -3747,6 +3761,7 @@ const fichas: Record<string, FichaPesqueria> = {
       capturaPorEstado: [
         {
           titulo: "Captura de almeja roñosa por estado, 2000–2020 (CONAPESCA)",
+          nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
           series: [
             {
               estado: "Sinaloa",
@@ -4538,6 +4553,7 @@ const fichas: Record<string, FichaPesqueria> = {
       capturaPorEstado: [
         {
           titulo: "Captura de pepino de mar (peso vivo) por estado, 1991–2020 (CONAPESCA)",
+          nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
           series: [
             {
               estado: "Baja California",
@@ -4757,6 +4773,7 @@ const fichas: Record<string, FichaPesqueria> = {
       capturaPorEstado: [
         {
           titulo: "Captura de jaiba en Baja California, Baja California Sur, Sonora y Sinaloa, 1986–2020 (CONAPESCA)",
+          nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
           series: [
             {
               estado: "Baja California",
@@ -4826,6 +4843,7 @@ const fichas: Record<string, FichaPesqueria> = {
         },
         {
           titulo: "Captura de jaiba en Oaxaca, Jalisco, Nayarit, Colima, Michoacán, Guerrero y Chiapas, 1986–2020 (CONAPESCA)",
+          nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
           series: [
             {
               estado: "Oaxaca",
@@ -5107,6 +5125,7 @@ const fichas: Record<string, FichaPesqueria> = {
       capturaPorEstado: [
         {
           titulo: "Captura de erizo rojo y morado en Baja California, 1973–2020 (CONAPESCA)",
+          nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
           series: [
             {
               estado: "Erizo rojo",
@@ -5618,6 +5637,7 @@ const fichas: Record<string, FichaPesqueria> = {
       capturaPorEstado: [
         {
           titulo: "Captura de atún aleta amarilla, 1983–2018 (CONAPESCA)",
+          nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
           series: [
             {
               estado: "Captura (t)",
@@ -7104,6 +7124,7 @@ fichas["bagre-bandera"] = {
     participacionPorEspecie: [
       {
         titulo: "Bagre bandera (Bagre marinus) — participación estatal 2016-2020",
+        nota: "Porcentajes leídos de la figura 1 de la Carta Nacional Pesquera.",
         estados: [
           { estado: "Tabasco", porcentaje: 54.7, captura: 3083 },
           { estado: "Campeche", porcentaje: 29.5, captura: 1663 },
@@ -9836,6 +9857,7 @@ fichas["almejas"] = {
     capturaPorEstado: [
       {
         titulo: "Captura de almeja: nacional, Campeche, Tabasco y Tamaulipas, 1987–2019 (Anuarios Estadísticos)",
+        nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Nacional",
@@ -10037,6 +10059,7 @@ fichas["gm-camaron-rosado-del-golfo-de-mexico"] = {
     capturaPorEstado: [
       {
         titulo: "Captura y esfuerzo pesquero en la Sonda de Campeche, 1950–2020 (INAPESCA)",
+        nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Captura (t)",
@@ -10082,6 +10105,7 @@ fichas["gm-camaron-rosado-del-golfo-de-mexico"] = {
       },
       {
         titulo: "Rendimiento (kg de camarón entero por viaje) en la Sonda de Campeche, 1975–2020 (INAPESCA)",
+        nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "kg / viaje",
@@ -10268,6 +10292,7 @@ fichas["gm-huachinango-y-pargos-del-golfo-de-mexico-y-mar-caribe"] = {
     capturaPorEstado: [
       {
         titulo: "Captura de huachinango y pargos en el Golfo de México y Mar Caribe, 1990–2020 (Anuarios Estadísticos)",
+        nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Huachinango",
@@ -10317,6 +10342,7 @@ fichas["gm-huachinango-y-pargos-del-golfo-de-mexico-y-mar-caribe"] = {
       },
       {
         titulo: "Captura de huachinango por estado, 1990–2020 (Anuarios Estadísticos)",
+        nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Tamaulipas",
@@ -10454,6 +10480,7 @@ fichas["gm-huachinango-y-pargos-del-golfo-de-mexico-y-mar-caribe"] = {
       },
       {
         titulo: "Captura de pargo por estado, 1990–2020 (Anuarios Estadísticos)",
+        nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Tamaulipas",
@@ -10685,6 +10712,7 @@ fichas["gm-ostion-del-golfo-de-mexico"] = {
     capturaPorEstado: [
       {
         titulo: "Captura de ostión por estado, 1979–2019 (CONAPESCA, Anuarios Estadísticos)",
+        nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Veracruz",
@@ -10895,6 +10923,7 @@ fichas["pac-pulpo-del-pacifico"] = {
     capturaPorEstado: [
       {
         titulo: "Tendencia de la captura de pulpo en Baja California, 2000–2020 (CONAPESCA)",
+        nota: "Serie leída de la figura 1 de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Baja California",
@@ -11082,6 +11111,7 @@ fichas["pac-dorado-pesca-deportiva"] = {
     capturaPorEstado: [
       {
         titulo: "Número de viajes de la flota deportiva en Los Cabos, Buena Vista y Mazatlán, 1990–2018",
+        nota: "Serie leída de la figura 1A de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Los Cabos",
@@ -11193,6 +11223,7 @@ fichas["pac-dorado-pesca-deportiva"] = {
       // Figura 1B. Tendencia de la captura de dorado (número de organismos), 1990–2018. Fuente: CNP.
       {
         titulo: "Captura de dorado (número de organismos) en Los Cabos, Buena Vista y Mazatlán, 1990–2018",
+        nota: "Serie leída de la figura 1B de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Los Cabos",
@@ -11465,6 +11496,7 @@ fichas["pac-huachinango-y-pargos-del-pacifico"] = {
     capturaPorEstado: [
       {
         titulo: "Captura de huachinango y pargos en Baja California, BCS, Sonora, Sinaloa y Nayarit, 1983–2020 (CONAPESCA)",
+        nota: "Serie leída de la figura 1A de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Baja California",
@@ -11601,6 +11633,7 @@ fichas["pac-huachinango-y-pargos-del-pacifico"] = {
       // Figura 1B. Captura de huachinango y pargos en JAL, COL, MICH, GRO, OAX y CHI, 1983–2020. Fuente: CONAPESCA.
       {
         titulo: "Captura de huachinango y pargos en Jalisco, Colima, Michoacán, Guerrero, Oaxaca y Chiapas, 1983–2020 (CONAPESCA)",
+        nota: "Serie leída de la figura 1B de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Jalisco",
@@ -11895,6 +11928,7 @@ fichas["pac-langostas-espinosas-del-pacifico"] = {
     capturaPorEstado: [
       {
         titulo: "Captura de langosta en Sonora, Sinaloa, Nayarit, Jalisco y Colima, 2000–2020 (CONAPESCA)",
+        nota: "Serie leída de la figura 1A de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Sonora",
@@ -12036,6 +12070,7 @@ fichas["pac-langostas-espinosas-del-pacifico"] = {
       // Figura 1B. Captura de langosta en MICH, GRO y OAX, 2000–2020. Fuente: CONAPESCA.
       {
         titulo: "Captura de langosta en Michoacán, Guerrero y Oaxaca, 2000–2020 (CONAPESCA)",
+        nota: "Serie leída de la figura 1B de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Michoacán",
@@ -12301,6 +12336,7 @@ fichas["pac-lisa-del-pacifico"] = {
     capturaPorEstado: [
       {
         titulo: "Captura de lisa en Baja California, Baja California Sur y Sonora, 1980–2020 (CONAPESCA)",
+        nota: "Serie leída de la figura 1A de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Baja California Sur",
@@ -12358,6 +12394,7 @@ fichas["pac-lisa-del-pacifico"] = {
       // Figura 1B. Captura de lisa en SIN y NAY, 1980–2020. Fuente: CONAPESCA.
       {
         titulo: "Captura de lisa en Sinaloa y Nayarit, 1980–2020 (CONAPESCA)",
+        nota: "Serie leída de la figura 1B de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Sinaloa",
@@ -12398,6 +12435,7 @@ fichas["pac-lisa-del-pacifico"] = {
       // Figura 1C. Captura de lisa en JAL, COL y MICH, 1980–2020. Fuente: CONAPESCA.
       {
         titulo: "Captura de lisa en Jalisco, Colima y Michoacán, 1980–2020 (CONAPESCA)",
+        nota: "Serie leída de la figura 1C de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Jalisco",
@@ -12455,6 +12493,7 @@ fichas["pac-lisa-del-pacifico"] = {
       // Figura 1D. Captura de lisa en GRO, OAX y CHI, 1980–2020. Fuente: CONAPESCA.
       {
         titulo: "Captura de lisa en Guerrero, Oaxaca y Chiapas, 1980–2020 (CONAPESCA)",
+        nota: "Serie leída de la figura 1D de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Guerrero",
@@ -12664,6 +12703,7 @@ fichas["pac-ostion-del-pacifico"] = {
     capturaPorEstado: [
       {
         titulo: "Captura de ostión en el Pacífico por estado, 2000–2020 (CONAPESCA)",
+        nota: "Serie leída de la figura 1 de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Nayarit",
@@ -13054,6 +13094,7 @@ fichas["pac-robalo-del-pacifico"] = {
     capturaPorEstado: [
       {
         titulo: "Captura de robalo en Baja California, Baja California Sur y Sonora, 2000–2020 (CONAPESCA)",
+        nota: "Serie leída de la figura 1A de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Sonora",
@@ -13099,6 +13140,7 @@ fichas["pac-robalo-del-pacifico"] = {
       // Figura 1B. Captura de robalo en SIN y NAY, 2000–2020. Fuente: CONAPESCA.
       {
         titulo: "Captura de robalo en Sinaloa y Nayarit, 2000–2020 (CONAPESCA)",
+        nota: "Serie leída de la figura 1B de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Nayarit",
@@ -13143,6 +13185,7 @@ fichas["pac-robalo-del-pacifico"] = {
       // Figura 1C. Captura de robalo en JAL, COL y MICH, 2000–2020. Fuente: CONAPESCA.
       {
         titulo: "Captura de robalo en Jalisco, Colima y Michoacán, 2000–2020 (CONAPESCA)",
+        nota: "Serie leída de la figura 1C de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Jalisco",
@@ -13367,6 +13410,7 @@ fichas["pac-sierra-del-pacifico"] = {
     capturaPorEstado: [
       {
         titulo: "Captura de sierra en Baja California y Baja California Sur, 2000–2020 (CONAPESCA)",
+        nota: "Serie leída de la figura 1A de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Baja California",
@@ -13421,6 +13465,7 @@ fichas["pac-sierra-del-pacifico"] = {
       // Figura 1B. Captura de sierra en SON y SIN/NAY, 2000–2020. Fuente: CONAPESCA.
       {
         titulo: "Captura de sierra en Sonora y Sinaloa/Nayarit, 2000–2020 (CONAPESCA)",
+        nota: "Serie leída de la figura 1B de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Sonora",
@@ -13461,6 +13506,7 @@ fichas["pac-sierra-del-pacifico"] = {
       // Figura 1D. Captura de sierra en GRO, OAX y CHI, 2000–2020. Fuente: CONAPESCA.
       {
         titulo: "Captura de sierra en Guerrero, Oaxaca y Chiapas, 2000–2020 (CONAPESCA)",
+        nota: "Serie leída de la figura 1D de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Guerrero",
@@ -13722,6 +13768,7 @@ fichas["pac-tiburones-del-pacifico"] = {
     capturaPorEstado: [
       {
         titulo: "Captura de tiburón y cazón en el Pacífico mexicano, 1976–2018 (CONAPESCA)",
+        nota: "Serie leída de la figura 1 de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Tiburón",
@@ -14038,6 +14085,7 @@ fichas["pac-calamar-gigante"] = {
     capturaPorEstado: [
       {
         titulo: "Captura de calamar gigante por estado, 1974–2020 (miles de toneladas)",
+        nota: "Serie leída de la figura 1 de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Total",
@@ -14346,6 +14394,7 @@ fichas["pac-marlin-pesca-deportiva"] = {
     capturaPorEstado: [
       {
         titulo: "Captura de marlin (número de organismos) de las flotas deportivas de Los Cabos, Buenavista y Mazatlán, 1990–2019",
+        nota: "Serie leída de la figura 1 de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Los Cabos",
@@ -14628,6 +14677,7 @@ fichas["pac-merluza-del-pacifico-norte"] = {
     capturaPorEstado: [
       {
         titulo: "Captura de merluza por estado, 2006–2020 (Anuario Estadístico de Pesca)",
+        nota: "Serie leída de la figura 1 de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Total",
@@ -14822,6 +14872,7 @@ fichas["pac-pelagicos-menores"] = {
     capturaPorEstado: [
       {
         titulo: "Captura de pelágicos menores por flota, 1970–2020 (miles de toneladas)",
+        nota: "Serie leída de la figura 1 de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Total",
@@ -15134,6 +15185,7 @@ fichas["gm-jaiba-del-golfo-de-mexico"] = {
     capturaPorEstado: [
       {
         titulo: "Producción anual de jaiba en el Golfo de México y Mar Caribe, 1991–2019 (Anuarios Estadísticos)",
+        nota: "Serie leída de la figura 1 de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Captura total",
@@ -15175,6 +15227,7 @@ fichas["gm-jaiba-del-golfo-de-mexico"] = {
       // Figura 2. Producción anual de jaiba por estado, 1991–2019. Fuente: Anuarios Estadísticos.
       {
         titulo: "Producción anual de jaiba por estado, 1991–2019 (Anuarios Estadísticos)",
+        nota: "Serie leída de la figura 2 de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Tamaulipas",
@@ -15417,6 +15470,7 @@ fichas["gm-jurel-y-cojinuda-del-golfo-de-mexico-y-mar-caribe"] = {
     capturaPorEstado: [
       {
         titulo: "Producción de jurel y cojinuda en el Golfo de México, 1990–2018 (subdelegación de pesca)",
+        nota: "Serie leída de la figura 1 de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Jurel",
@@ -15616,6 +15670,7 @@ fichas["gm-langosta-del-golfo-de-mexico-y-mar-caribe"] = {
     capturaPorEstado: [
       {
         titulo: "Producción de langosta (Panulirus argus) en la península de Yucatán, 1959–2019",
+        nota: "Serie leída de la figura 1 de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Total",
@@ -15874,6 +15929,7 @@ fichas["gm-lisa-y-liseta-o-lebrancha-del-golfo-de-mexico"] = {
     capturaPorEstado: [
       {
         titulo: "Captura de lisa en Tamaulipas y Veracruz, 1980–2019 (Anuarios Estadísticos)",
+        nota: "Serie leída de la figura 1 de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Tamaulipas",
@@ -15937,6 +15993,7 @@ fichas["gm-lisa-y-liseta-o-lebrancha-del-golfo-de-mexico"] = {
       },
       {
         titulo: "Captura de lisa en Tabasco, Campeche, Yucatán y Quintana Roo, 1980–2019 (Anuarios Estadísticos)",
+        nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Tabasco",
@@ -16022,6 +16079,7 @@ fichas["gm-lisa-y-liseta-o-lebrancha-del-golfo-de-mexico"] = {
       },
       {
         titulo: "Captura de lebrancha en Veracruz, Tamaulipas y Campeche, 1980–2019 (Anuarios Estadísticos)",
+        nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Veracruz",
@@ -16237,6 +16295,7 @@ fichas["gm-rayas-del-golfo-de-mexico"] = {
     capturaPorEstado: [
       {
         titulo: "Captura de rayas en Tabasco, Campeche y Veracruz, 2005–2019",
+        nota: "Serie leída de la figura 2 de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Tabasco",
@@ -16305,6 +16364,7 @@ fichas["gm-rayas-del-golfo-de-mexico"] = {
       },
       {
         titulo: "Captura de rayas en Tamaulipas y Yucatán, 2005–2019",
+        nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Tamaulipas",
@@ -16495,6 +16555,7 @@ fichas["gm-sierra-y-peto-del-golfo-de-mexico"] = {
     capturaPorEstado: [
       {
         titulo: "Captura de sierra y peto en el Golfo de México y Mar Caribe, 1990–2019 (Anuarios Estadísticos)",
+        nota: "Serie leída de la figura 1 de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Sierra",
@@ -16699,6 +16760,7 @@ fichas["gm-tiburones-del-golfo-de-mexico-y-mar-caribe"] = {
     capturaPorEstado: [
       {
         titulo: "Captura total de tiburón y cazón en el Golfo de México y Mar Caribe, 1937–2019 (Anuarios Estadísticos)",
+        nota: "Serie leída de la figura 1 de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Captura total",
@@ -16906,6 +16968,7 @@ fichas["pac-calamar-loligo"] = {
     capturaPorEstado: [
       {
         titulo: "Captura de calamar loligo en Baja California, 2009–2014",
+        nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Baja California",
@@ -17040,6 +17103,7 @@ fichas["pac-camaron-del-pacifico"] = {
     capturaPorEstado: [
       {
         titulo: "Captura de camarón en el Pacífico por tipo de flota, 2000–2015 (avisos de arribo)",
+        nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Pacífico (total)",
@@ -17303,6 +17367,7 @@ fichas["gm-sargazo-holopelagico-del-caribe"] = {
     capturaPorEstado: [
       {
         titulo: "Biomasa estimada de sargazo holopelágico que arriba al Caribe mexicano, 2018–2024",
+        nota: "Serie reconstruida a partir de la figura de la Carta Nacional Pesquera; los valores anuales son aproximados.",
         series: [
           {
             estado: "Caribe mexicano",

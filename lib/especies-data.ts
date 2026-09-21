@@ -2610,6 +2610,16 @@ const fichas: Record<string, FichaPesqueria> = {
         "Regulación del arte y métodos de pesca (NOM-064-SAG/PESC/SEMARNAT-2013)",
         "Suspensión de actividades de pesca por área y/o tiempo (zonas de refugio pesquero, polígonos de concesión pesquera)",
       ],
+      // Diagrama de Kobe de la CNP, reproducido como imagen: la trayectoria anual
+      // 2000-2020 y las regiones de confianza no se pueden extraer punto por punto.
+      figuras: [
+        {
+          titulo: "Diagrama de Kobe",
+          src: "/images/figuras/kobe-botete.png",
+          alt: "Diagrama de fases de Kobe del botete del litoral del Pacífico: trayectoria anual de 2000 a 2020 según B/BRMS y F/FRMS, con los cuatro cuadrantes de estatus y las regiones de confianza de 50%, 80% y 95% alrededor del último año. La serie arranca en 2000 en el cuadrante verde, en alrededor de 1.4 veces la biomasa del rendimiento máximo sostenible y 0.25 veces la mortalidad por pesca de referencia, y permanece en ese cuadrante hasta 2016 (alrededor de 1.45 y 0.62), con la biomasa oscilando entre 1.5 y 1.7 y la mortalidad por pesca por debajo de 0.7. Después la mortalidad sube y 2020 queda en el cuadrante naranja, en alrededor de 1.2 veces la biomasa de referencia y 1.4 veces la mortalidad. La probabilidad de cada cuadrante es de 65.4% naranja, 18.5% rojo, 15.6% verde y 0.5% amarillo.",
+          nota: "Comportamiento histórico del estatus del botete (Sphoeroides annulatus) del litoral del Pacífico mediante un diagrama de fases de Kobe. La biomasa se mantiene por encima de la del rendimiento máximo sostenible en todo el periodo, pero en 2020 la mortalidad por pesca supera la de referencia.",
+        },
+      ],
     },
     recomendaciones: [
       {

@@ -45,6 +45,7 @@ import type {
   Especie,
   FiguraCNP,
   GraficaCapturaEstados,
+  GraficaFrecuenciaTallas,
   GraficaParticipacionApilada,
   ParticipacionEstado,
 } from "@/lib/especies-data"
@@ -407,6 +408,76 @@ function GraficaEstados({ grafica }: { grafica: GraficaCapturaEstados }) {
   )
 }
 
+// Frecuencia de tallas por estado, como pequeños múltiplos: un panel por estado y el
+// mismo eje vertical en todos, para que los histogramas se comparen entre sí (la figura
+// original de la Carta Nacional escala cada panel por separado). Es una sola serie, así
+// que no lleva leyenda: bastan el título del panel y la etiqueta del intervalo modal.
+function FrecuenciaTallasCard({ grafica }: { grafica: GraficaFrecuenciaTallas }) {
+  const unidad = grafica.unidad ?? "mm"
+  // Techo común redondeado a la decena superior, para que el eje tenga marcas limpias.
+  const techo = Math.ceil(Math.max(...grafica.paneles.flatMap((p) => p.porcentajes)) / 10) * 10
+  return (
+    <Card className="border-teal-200">
+      <CardHeader className="pb-3">
+        <CardTitle className="text-teal-700 text-base">{grafica.titulo}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="grid gap-5 sm:grid-cols-2">
+          {grafica.paneles.map((panel) => {
+            const data = panel.porcentajes.map((porcentaje, i) => ({
+              talla: grafica.tallaInicial + i * grafica.anchoBin,
+              porcentaje,
+            }))
+            const moda = Math.max(...panel.porcentajes)
+            return (
+              <div key={panel.estado}>
+                <div className="flex items-baseline justify-between">
+                  <p className="text-sm font-medium text-gray-700">{panel.estado}</p>
+                  <p className="text-xs tabular-nums text-gray-500">n = {panel.n.toLocaleString("es-MX")}</p>
+                </div>
+                <div className="h-40">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={data} margin={{ top: 14, right: 4, bottom: 0, left: -20 }} barCategoryGap={1}>
+                      <CartesianGrid stroke="#e5e7eb" vertical={false} />
+                      <XAxis dataKey="talla" tick={{ fontSize: 11 }} interval={1} tickLine={false} />
+                      <YAxis
+                        tick={{ fontSize: 11 }}
+                        domain={[0, techo]}
+                        tickFormatter={(v: number) => `${v}%`}
+                        tickLine={false}
+                        axisLine={false}
+                      />
+                      <Tooltip
+                        cursor={{ fill: "rgba(13, 148, 136, 0.08)" }}
+                        formatter={(value: number) => [`${value}% de los organismos`, panel.estado]}
+                        labelFormatter={(label: number) => `${label} a ${label + grafica.anchoBin} ${unidad}`}
+                      />
+                      <Bar dataKey="porcentaje" fill="#0d9488" radius={[2, 2, 0, 0]} isAnimationActive={false}>
+                        {/* Se etiqueta sólo el intervalo modal: una cifra por panel, no una por barra. */}
+                        <LabelList
+                          dataKey="porcentaje"
+                          position="top"
+                          fontSize={10}
+                          fill="#52514e"
+                          formatter={(value: unknown) => (value === moda ? `${moda}%` : "")}
+                        />
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+        <p className="mt-4 text-xs leading-relaxed text-gray-500">
+          Talla en {unidad === "mm" ? "milímetros" : unidad}; todos los paneles comparten la misma escala vertical.
+          {grafica.nota ? ` ${grafica.nota}` : ""}
+        </p>
+      </CardContent>
+    </Card>
+  )
+}
+
 function ParticipacionCard({
   titulo,
   estados,
@@ -591,6 +662,8 @@ function Indicadores({ ficha }: { ficha: Ficha }) {
       )}
 
       {ind.capturaPorEstado?.map((grafica, i) => <GraficaEstados key={i} grafica={grafica} />)}
+
+      {ind.frecuenciaTallas && <FrecuenciaTallasCard grafica={ind.frecuenciaTallas} />}
 
       {hist.length > 0 && (
         <Card className="border-teal-200">

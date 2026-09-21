@@ -93,6 +93,27 @@ export interface GraficaParticipacionApilada {
   estados: { estado: string; porcentaje: number; especies: SegmentoEspecie[] }[]
 }
 
+// Histograma de frecuencia de tallas por estado, dibujado como pequeños múltiplos:
+// un panel por estado y una barra por intervalo de talla. Los intervalos son
+// contiguos y del mismo ancho, así que basta con guardar la talla inicial, el ancho
+// del intervalo y el porcentaje de organismos medidos en cada uno.
+export interface PanelFrecuenciaTallas {
+  estado: string
+  // Organismos medidos en el estado.
+  n: number
+  porcentajes: number[]
+}
+
+export interface GraficaFrecuenciaTallas {
+  titulo: string
+  nota?: string
+  tallaInicial: number
+  anchoBin: number
+  // Unidad de la talla; por omisión milímetros.
+  unidad?: string
+  paneles: PanelFrecuenciaTallas[]
+}
+
 export interface FilaNormatividad {
   instrumento: string
   aplica: boolean | null // ✓ / ✗ / (sin dato)
@@ -154,6 +175,7 @@ export interface FichaPesqueria {
     indicadoresParticipacion?: IndicadorClave[]
     participacionPorEspecie?: GraficaParticipacion[]
     participacionApilada?: GraficaParticipacionApilada
+    frecuenciaTallas?: GraficaFrecuenciaTallas
   }
   ambiente?: string[]
   // Gráficas que acompañan a los párrafos de ambiente y clima (p. ej. las series de
@@ -2121,6 +2143,21 @@ const fichas: Record<string, FichaPesqueria> = {
         "Se captura en las costas de Mazatlán (Sinaloa), Cruz de Huanacaxtle (Nayarit), Acapulco (Guerrero) y Puerto Ángel (Oaxaca).",
         "Es una actividad de subsistencia y complemento alimenticio: el pie del organismo se utiliza como carnada para la pesca artesanal cuando otros recursos son escasos. Existe un patrón consistente en las cantidades, tamaños y pesos de los ejemplares capturados en ciertas fechas o temporadas.",
       ],
+      frecuenciaTallas: {
+        titulo: "Frecuencia de tallas por estado",
+        tallaInicial: 26,
+        anchoBin: 3,
+        nota: "Longitud de la concha de los organismos medidos en cada estado del Pacífico mexicano.",
+        paneles: [
+          { estado: "Sinaloa", n: 470, porcentajes: [0, 0, 0, 0, 0, 0.9, 1.4, 5.2, 10.5, 14.2, 19.6, 15.7, 11.9, 9, 6.4, 3.2, 2, 0] },
+          { estado: "Nayarit", n: 422, porcentajes: [0, 0.7, 4.1, 9.4, 9.6, 15.2, 14.9, 10.5, 10.5, 8.9, 7.3, 3.4, 2.6, 1.6, 1.3, 0, 0, 0] },
+          { estado: "Jalisco", n: 547, porcentajes: [0, 0, 0, 0, 0.9, 2.1, 10.9, 19.2, 21.1, 20.1, 12.1, 7.4, 4.7, 1.5, 0, 0, 0, 0] },
+          { estado: "Colima", n: 527, porcentajes: [0, 0, 0, 0, 1, 3.7, 11.5, 18.2, 24.9, 18.5, 11.5, 5.7, 2.7, 1.3, 0, 0, 1, 0] },
+          { estado: "Michoacán", n: 503, porcentajes: [0, 0.6, 0.6, 1.1, 2, 4, 10.2, 17.6, 18.9, 18.8, 12, 7.4, 3.1, 2.3, 1.4, 0, 0, 0] },
+          { estado: "Guerrero", n: 201, porcentajes: [0, 0, 0, 0, 0, 0, 5.9, 9.5, 16.8, 24, 17.2, 11.6, 5.9, 6.3, 2.8, 0, 0, 0] },
+          { estado: "Oaxaca", n: 491, porcentajes: [0, 0, 0, 0, 1.7, 7.2, 18.8, 25.2, 19.6, 13.7, 6.8, 3.5, 2.4, 0, 1.1, 0, 0, 0] },
+        ],
+      },
     },
     ambiente: [
       "La cucaracha de mar (Chiton articulatus) es un organismo ectotermo que presenta plasticidad en sus rasgos de historia de vida (reproducción y crecimiento). En particular, el crecimiento se acelera durante temporadas climáticas cálidas, y se sabe que presenta un patrón de crecimiento (tamaño de la población, número de grupos de tamaño y de cohortes, tasa de crecimiento y longevidad) divergente entre un año frío y uno cálido.",

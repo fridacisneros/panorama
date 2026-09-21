@@ -1682,9 +1682,6 @@ const fichas: Record<string, FichaPesqueria> = {
       ],
     },
     indicadores: {
-      datosDestacados: [
-        "Sonora concentra el mayor volumen de captura (91.4%), seguido de Sinaloa (5.9%), Baja California Sur (2.5%) y Baja California (0.1%), en el periodo 2000-2020.",
-      ],
       // Tendencia de la captura de caracol chino en BC, BCS, Sonora y Sinaloa, 2000-2020 (Fuente: CONAPESCA).
       capturaPorEstado: [
         {
@@ -1735,13 +1732,23 @@ const fichas: Record<string, FichaPesqueria> = {
               estado: "Baja California Sur",
               color: "#0891b2",
               datos: [
+                { año: 2004, captura: 100 },
+                { año: 2005, captura: 85 },
+                { año: 2006, captura: 100 },
+                { año: 2007, captura: 145 },
+                { año: 2008, captura: 100 },
+                { año: 2009, captura: 90 },
+                { año: 2010, captura: 90 },
+                { año: 2011, captura: 90 },
+                { año: 2012, captura: 90 },
+                { año: 2013, captura: 90 },
                 { año: 2014, captura: 50 },
                 { año: 2015, captura: 200 },
-                { año: 2016, captura: 250 },
+                { año: 2016, captura: 200 },
                 { año: 2017, captura: 150 },
                 { año: 2018, captura: 200 },
-                { año: 2019, captura: 599 },
-                { año: 2020, captura: 250 },
+                { año: 2019, captura: 0 },
+                { año: 2020, captura: 160 },
               ],
             },
             {
@@ -1758,6 +1765,14 @@ const fichas: Record<string, FichaPesqueria> = {
             },
           ],
         },
+      ],
+      // Participación de cada estado en la captura total de caracol chino,
+      // ordenada de mayor a menor.
+      participacionEstados: [
+        { estado: "Sonora", porcentaje: 91.4 },
+        { estado: "Sinaloa", porcentaje: 5.9 },
+        { estado: "Baja California Sur", porcentaje: 2.5 },
+        { estado: "Baja California", porcentaje: 0.1 },
       ],
     },
     ambiente: [

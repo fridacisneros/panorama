@@ -19,12 +19,12 @@ export function Footer() {
           <Link href="/" className="inline-flex items-center space-x-2 mb-4">
             <Waves className="h-7 w-7 text-teal-400" />
             <span className="text-lg font-bold bg-gradient-to-r from-teal-400 to-cyan-400 bg-clip-text text-transparent">
-              Panorama
+              Panorama Pesquero
             </span>
           </Link>
 
           <p className="text-gray-400 text-sm mb-6">
-            Plataforma de consulta para navegar a través de la legislación pesquera mexicana.
+            Vedas, pesquerías y normas de pesca de México, en un solo lugar.
           </p>
 
           {/* Enlaces en fila */}
@@ -42,7 +42,7 @@ export function Footer() {
 
           {/* Aviso legal */}
           <p className="text-gray-500 text-xs leading-relaxed mb-6">
-            <span className="font-semibold text-gray-400">Aviso legal:</span> Panorama es un sitio de carácter
+            <span className="font-semibold text-gray-400">Aviso legal:</span> Panorama Pesquero es un sitio de carácter
             informativo y no oficial. La información sobre vedas y normativas puede estar desactualizada o
             contener errores. La única fuente con validez legal es el{" "}
             <a
@@ -59,7 +59,7 @@ export function Footer() {
           {/* Copyright */}
           <div className="border-t border-gray-800 pt-6">
             <p className="text-gray-500 text-xs">
-              © {año} Panorama. Sistema de consulta en pesca sustentable.
+              © {año} Panorama Pesquero. Sistema de consulta en pesca sustentable.
             </p>
           </div>
         </div>

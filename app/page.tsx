@@ -47,12 +47,12 @@ export default function Home() {
           <div className="text-center max-w-4xl mx-auto">
             <div className="flex justify-center mb-6"></div>
 
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-teal-200 via-cyan-200 to-blue-200 bg-clip-text text-white">
-              Panorama
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-balance bg-gradient-to-r from-teal-200 via-cyan-200 to-blue-200 bg-clip-text text-white">
+              Panorama Pesquero
             </h1>
 
             <p className="text-xl md:text-2xl text-teal-100 mb-8 leading-relaxed">
-              Plataforma de consulta para navegar a través de la legislación mexicana
+              Vedas, pesquerías y normas de pesca de México, en un solo lugar
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

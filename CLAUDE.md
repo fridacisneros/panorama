@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-**Panorama** — a Next.js web app for browsing Mexican fisheries legislation (pesquerías, vedas and normativas from the Carta Nacional Pesquera). The codebase is in **Spanish**: comments, identifiers, UI text and data fields are all Spanish, including accented identifiers (e.g. the field `año`). Match this convention when adding code.
+**Panorama Pesquero** (panoramapesca.org) — a Next.js web app for browsing Mexican fisheries legislation (pesquerías, vedas and normativas from the Carta Nacional Pesquera). The codebase is in **Spanish**: comments, identifiers, UI text and data fields are all Spanish, including accented identifiers (e.g. the field `año`). Match this convention when adding code.
 
 ## Commands
 
@@ -33,7 +33,7 @@ Only one, read in `lib/site.ts`:
 NEXT_PUBLIC_SITE_URL   # public site URL, used for metadataBase, OG image, robots.txt and sitemap.xml
 ```
 
-Defaults to `http://localhost:3000` (trailing slashes stripped).
+Defaults to `https://panoramapesca.org` in production and `http://localhost:3000` in development (trailing slashes stripped). The site name ("Panorama Pesquero") is `siteName` in the same file.
 
 ## Architecture
 

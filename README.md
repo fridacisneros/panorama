@@ -1,4 +1,6 @@
-# Panorama — Legislación pesquera de México
+# Panorama Pesquero — Vedas, pesquerías y normas de pesca de México
+
+https://panoramapesca.org
 
 Plataforma web de consulta para navegar la legislación pesquera mexicana: pesquerías, vedas y normativas de la Carta Nacional Pesquera (CNP).
 
@@ -6,7 +8,7 @@ Plataforma web de consulta para navegar la legislación pesquera mexicana: pesqu
 
 ## 📋 Descripción
 
-Panorama centraliza en un solo lugar:
+Panorama Pesquero centraliza en un solo lugar:
 
 - **Pesquerías**: catálogo de 92 pesquerías marinas de la CNP (59 del Litoral del Pacífico y 33 del Golfo de México y Mar Caribe). 59 tienen ficha detallada; el resto se muestra como "Próximamente".
 - **Vedas**: 146 vedas (permanentes, temporales fijas y temporales variables) con línea de tiempo, filtros y enlace al acuerdo en el DOF.
@@ -88,7 +90,7 @@ La aplicación estará disponible en `http://localhost:3000`.
 
 | Variable | Uso |
 |---|---|
-| `NEXT_PUBLIC_SITE_URL` | URL pública del sitio (imagen al compartir, `robots.txt`, `sitemap.xml`). En producción, el dominio real. Por defecto `http://localhost:3000`. |
+| `NEXT_PUBLIC_SITE_URL` | URL pública del sitio (imagen al compartir, `robots.txt`, `sitemap.xml`). Por defecto `https://panoramapesca.org` en producción y `http://localhost:3000` en desarrollo. |
 
 ## 🧪 Scripts
 

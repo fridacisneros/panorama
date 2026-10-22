@@ -37,7 +37,7 @@ export function Navbar() {
             <Link href="/" className="flex items-center space-x-2">
               <Waves className="h-8 w-8 text-teal-600" />
               <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">
-                Panorama
+                Panorama Pesquero
               </span>
             </Link>
           </div>
@@ -87,7 +87,7 @@ export function Navbar() {
                     >
                       <Waves className="h-7 w-7 text-teal-600" />
                       <span className="text-lg font-bold bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">
-                        Panorama
+                        Panorama Pesquero
                       </span>
                     </Link>
                   </SheetTitle>

@@ -6,18 +6,18 @@ import "./globals.css"
 import { Footer } from "@/components/footer"
 import { Navbar } from "@/components/navbar"
 import { ThemeProvider } from "@/components/theme-provider"
-import { siteUrl } from "@/lib/site"
+import { siteName, siteUrl } from "@/lib/site"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Panorama — Legislación pesquera de México",
-    template: "%s · Panorama",
+    default: `${siteName} — Vedas, pesquerías y normas de pesca de México`,
+    template: `%s · ${siteName}`,
   },
   description:
-    "Plataforma de consulta para navegar la legislación pesquera mexicana: pesquerías, vedas y normativas de la Carta Nacional Pesquera.",
+    "Vedas, pesquerías y normas de pesca de México, en un solo lugar: consulta la Carta Nacional Pesquera, las vedas vigentes y las normas oficiales.",
   keywords: [
     "pesca",
     "pesquerías",
@@ -25,22 +25,23 @@ export const metadata: Metadata = {
     "normativas",
     "Carta Nacional Pesquera",
     "legislación pesquera",
+    "Panorama Pesquero",
     "México",
   ],
   openGraph: {
-    title: "Panorama — Legislación pesquera de México",
+    title: `${siteName} — Vedas, pesquerías y normas de pesca de México`,
     description:
-      "Consulta pesquerías, vedas y normativas de la Carta Nacional Pesquera en un solo lugar.",
+      "Vedas, pesquerías y normas de pesca de México, en un solo lugar.",
     url: siteUrl,
-    siteName: "Panorama",
+    siteName,
     locale: "es_MX",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Panorama — Legislación pesquera de México",
+    title: `${siteName} — Vedas, pesquerías y normas de pesca de México`,
     description:
-      "Consulta pesquerías, vedas y normativas de la Carta Nacional Pesquera en un solo lugar.",
+      "Vedas, pesquerías y normas de pesca de México, en un solo lugar.",
   },
 }
 

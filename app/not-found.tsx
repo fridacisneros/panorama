@@ -26,7 +26,7 @@ export default function NotFound() {
           <h1 className="mb-3 text-3xl font-bold text-gray-800">Página no encontrada</h1>
           <p className="mb-8 text-gray-600">
             La página que buscas no existe o cambió de dirección. Revisa la URL o explora alguna de
-            las secciones de Panorama.
+            las secciones de Panorama Pesquero.
           </p>
           <div className="mb-8 flex flex-wrap justify-center gap-3">
             {secciones.map(({ href, label, icon: Icon }) => (

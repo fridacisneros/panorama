@@ -192,7 +192,9 @@ export default function EspeciesPage() {
               <div className="flex flex-col gap-3">
                 {groupedEspecies.map(([region, items]) => (
                   <div key={region} className="flex flex-col gap-1">
-                    <p className="sticky top-0 z-10 bg-white/95 backdrop-blur-sm px-2 py-1 text-xs font-semibold uppercase tracking-wide text-teal-700">
+                    {/* -top-2/-mx-2 compensan el p-2 del contenedor para que el encabezado
+                        tape también el relleno y no se asome la lista por encima */}
+                    <p className="sticky -top-2 z-10 -mx-2 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-teal-700">
                       {region}
                     </p>
                     {items.map((especie) => {

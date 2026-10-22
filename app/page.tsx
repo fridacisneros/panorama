@@ -92,9 +92,6 @@ const litorales = [
   vedas: vedasData.filter((v) => v.zona === l.zonaVeda).length,
 }))
 
-const fichasCompletas = especies.filter((e) => e.ficha).length
-const avanceFichas = Math.round((fichasCompletas / especies.length) * 100)
-
 // La portada es estática: esta fecha es la de la última publicación del sitio.
 const actualizado = new Intl.DateTimeFormat("es-MX", { month: "long", year: "numeric" }).format(new Date())
 
@@ -112,15 +109,6 @@ export default function Home() {
             </p>
 
             <BuscadorInicio />
-
-            <nav className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-teal-100" aria-label="Secciones">
-              {acciones.map(({ titulo, href, icono: Icono }) => (
-                <Link key={href} href={href} className="inline-flex items-center gap-1.5 hover:text-white hover:underline underline-offset-4">
-                  <Icono className="h-4 w-4" aria-hidden="true" />
-                  {titulo}
-                </Link>
-              ))}
-            </nav>
           </div>
         </div>
 
@@ -275,45 +263,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Avance del proyecto y lo que viene */}
+      {/* Lo que viene: datos de los anuarios */}
       <section id="novedades" className="py-16">
         <div className="container mx-auto px-4">
-          <div className="grid gap-6 md:grid-cols-2">
-            {/* Avance de las fichas */}
-            <div className="rounded-2xl border border-teal-100 bg-white p-6 shadow-lg">
-              <h2 className="text-lg font-bold text-gray-800">Avance de las fichas</h2>
-              <p className="mt-1 text-sm text-gray-600">
-                <span className="font-semibold text-gray-800 tabular-nums">{fichasCompletas}</span> de{" "}
-                <span className="tabular-nums">{especies.length}</span> pesquerías ya tienen ficha completa. Las demás
-                aparecen como “Próximamente”.
-              </p>
-              <div
-                className="mt-4 h-3 overflow-hidden rounded-full bg-teal-50"
-                role="progressbar"
-                aria-valuenow={avanceFichas}
-                aria-valuemin={0}
-                aria-valuemax={100}
-                aria-label="Fichas completas"
-              >
-                <div className="h-full rounded-full bg-gradient-to-r from-teal-500 to-cyan-500" style={{ width: `${avanceFichas}%` }} />
-              </div>
-              <p className="mt-1 text-right text-xs font-medium text-teal-700 tabular-nums">{avanceFichas}%</p>
-            </div>
-
-            {/* Lo que viene: anuarios */}
-            <div className="rounded-2xl bg-gradient-to-br from-blue-700 to-cyan-600 p-6 text-white shadow-lg">
-              <span className="inline-flex rounded-full bg-white/15 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide">
-                Próximamente
-              </span>
-              <h2 className="mt-3 flex items-center gap-2 text-lg font-bold">
-                <BarChart3 className="h-5 w-5" aria-hidden="true" />
-                Datos de los anuarios
-              </h2>
-              <p className="mt-1 text-sm text-cyan-50">
-                Series de producción, valor y captura por estado a partir de los anuarios estadísticos de
-                pesca, para ver cómo ha cambiado cada pesquería.
-              </p>
-            </div>
+          <div className="rounded-2xl bg-gradient-to-br from-blue-700 to-cyan-600 p-6 text-white shadow-lg">
+            <span className="inline-flex rounded-full bg-white/15 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide">
+              Próximamente
+            </span>
+            <h2 className="mt-3 flex items-center gap-2 text-lg font-bold">
+              <BarChart3 className="h-5 w-5" aria-hidden="true" />
+              Datos de los anuarios
+            </h2>
+            <p className="mt-1 text-sm text-cyan-50">
+              Series de producción, valor y captura por estado a partir de los anuarios estadísticos de
+              pesca, para ver cómo ha cambiado cada pesquería.
+            </p>
           </div>
         </div>
       </section>

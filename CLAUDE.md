@@ -56,7 +56,7 @@ Home-page counts are computed from these arrays (`especies.length`, etc.), not h
 
 ### Pages (`app/`)
 
-- `page.tsx` — home: `BuscadorInicio` (search across pesquerías, vedas and normas), action cards overlapping the hero, "¿Por qué?", `VedasHoy` (active/upcoming vedas, computed client-side), litorales, `EspeciesCarrusel`, fichas progress and an "anuarios" teaser.
+- `page.tsx` — home: `BuscadorInicio` (search across pesquerías, vedas and normas), action cards overlapping the hero, "¿Por qué?", `VedasHoy` (active/upcoming vedas, computed client-side), litorales, `EspeciesCarrusel` and an "anuarios" teaser.
 - `especies/page.tsx` — client component: catalog + side panel (`FichaDetalle`), selected fishery in `?id=`. `especies/[especie]/page.tsx` only **redirects** to `/especies?id=…` for old links; there are no per-species pages.
 - `vedas/page.tsx` — `VedasFilters` + `VedasTimeline`.
 - `normativas/page.tsx` — document library (also lists vedas via `VedasList`).

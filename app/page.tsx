@@ -143,19 +143,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* En veda hoy y próximas a iniciar */}
+      {/* Tarjetas de acción, encimadas sobre el encabezado */}
       <section className="relative z-10 -mt-16 pb-12">
         <div className="container mx-auto px-4">
-          <VedasHoy />
-        </div>
-      </section>
-
-      {/* ¿Qué puedes hacer aquí? */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-center md:text-left">
-            ¿Qué puedes hacer aquí?
-          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {acciones.map(({ titulo, texto, cifra, href, icono: Icono, chip }) => (
               <Link
@@ -173,41 +163,6 @@ export default function Home() {
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                 </span>
               </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Explora por litoral */}
-      <section id="litorales" className="py-12">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2 text-center md:text-left">Explora por litoral</h2>
-          <p className="text-lg text-gray-600 mb-8 text-center md:text-left">
-            Elige una costa para ver sus pesquerías y sus vedas.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {litorales.map((l) => (
-              <div key={l.nombre} className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${l.fondo} p-6 text-white shadow-lg md:p-8`}>
-                <Waves className="absolute -right-6 -bottom-6 h-40 w-40 text-white/10" aria-hidden="true" />
-                <h3 className="text-2xl font-bold">{l.nombre}</h3>
-                <p className="text-teal-100">{l.alcance}</p>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <Link
-                    href={`/especies?region=${encodeURIComponent(l.region)}`}
-                    className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-medium backdrop-blur-sm hover:bg-white/25"
-                  >
-                    <Fish className="h-4 w-4" aria-hidden="true" />
-                    <span className="tabular-nums">{l.pesquerias}</span> pesquerías
-                  </Link>
-                  <Link
-                    href={`/vedas?zona=${encodeURIComponent(l.zonaVeda)}`}
-                    className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-medium backdrop-blur-sm hover:bg-white/25"
-                  >
-                    <Calendar className="h-4 w-4" aria-hidden="true" />
-                    <span className="tabular-nums">{l.vedas}</span> vedas
-                  </Link>
-                </div>
-              </div>
             ))}
           </div>
         </div>
@@ -254,6 +209,47 @@ export default function Home() {
         </div>
       </section>
 
+      {/* En veda hoy y próximas a iniciar */}
+      <section className="py-12">
+        <div className="container mx-auto px-4">
+          <VedasHoy />
+        </div>
+      </section>
+
+      {/* Explora por litoral */}
+      <section id="litorales" className="py-12">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2 text-center md:text-left">Explora por litoral</h2>
+          <p className="text-lg text-gray-600 mb-8 text-center md:text-left">
+            Elige una costa para ver sus pesquerías y sus vedas.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {litorales.map((l) => (
+              <div key={l.nombre} className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${l.fondo} p-6 text-white shadow-lg md:p-8`}>
+                <Waves className="absolute -right-6 -bottom-6 h-40 w-40 text-white/10" aria-hidden="true" />
+                <h3 className="text-2xl font-bold">{l.nombre}</h3>
+                <p className="text-teal-100">{l.alcance}</p>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <Link
+                    href={`/especies?region=${encodeURIComponent(l.region)}`}
+                    className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-medium backdrop-blur-sm hover:bg-white/25"
+                  >
+                    <Fish className="h-4 w-4" aria-hidden="true" />
+                    <span className="tabular-nums">{l.pesquerias}</span> pesquerías
+                  </Link>
+                  <Link
+                    href={`/vedas?zona=${encodeURIComponent(l.zonaVeda)}`}
+                    className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-sm font-medium backdrop-blur-sm hover:bg-white/25"
+                  >
+                    <Calendar className="h-4 w-4" aria-hidden="true" />
+                    <span className="tabular-nums">{l.vedas}</span> vedas
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Explora las pesquerías (carrusel de fichas) */}
       <section className="py-16">

@@ -43,7 +43,7 @@ Next.js 15 **App Router** + React 18 + TypeScript, styled with Tailwind + shadcn
 
 There is **no database and no data API**. All content is hardcoded in `lib/`:
 
-- `lib/especies-data.ts` — `especies` array (92 fisheries, `region` is `"Litoral del Pacífico"` or `"Golfo de México y Mar Caribe"`). Entries without detail only have `id`, `nombre`, `region`, `ultimaActualizacion` and render as "Próximamente". A separate `fichas: Record<string, FichaPesqueria>` object keyed by `id` holds the detail (59 fichas) and is attached at the bottom of the file via `especie.ficha = fichas[especie.id]`. `especie.ficha` is the single source for the detail view and the home charts.
+- `lib/especies-data.ts` — `especies` array (92 fisheries, `region` is `"Litoral del Pacífico"` or `"Golfo de México y Mar Caribe"`). Entries without detail only have `id`, `nombre`, `region`, `ultimaActualizacion` and render as "Próximamente". A separate `fichas: Record<string, FichaPesqueria>` object keyed by `id` holds the detail (59 fichas) and is attached at the bottom of the file via `especie.ficha = fichas[especie.id]`. `especie.ficha` is the single source for the detail view.
 - `lib/vedas-data.ts` — `vedasData` (146 vedas) plus helpers (`isVedaActive`, `getUnique*`, `formatDateToDDMM`).
 - `lib/normativas-data.ts` — `documents` (114) and `CATEGORY_META`, the single source used by the normativas page, the home page and the carousel.
 - `lib/site.ts` — `siteUrl` and `metadataSeccion()` (per-section metadata; Next replaces rather than merges `openGraph`/`twitter`, so shared fields are repeated).
@@ -56,7 +56,7 @@ Home-page counts are computed from these arrays (`especies.length`, etc.), not h
 
 ### Pages (`app/`)
 
-- `page.tsx` — home: stats, `EspeciesCarrusel`, `PanoramaGraficas`.
+- `page.tsx` — home: `BuscadorInicio` (search across pesquerías, vedas and normas), `VedasHoy` (active/upcoming vedas, computed client-side), action cards, litorales, "¿Por qué?", `EspeciesCarrusel`, fichas progress and an "anuarios" teaser.
 - `especies/page.tsx` — client component: catalog + side panel (`FichaDetalle`), selected fishery in `?id=`. `especies/[especie]/page.tsx` only **redirects** to `/especies?id=…` for old links; there are no per-species pages.
 - `vedas/page.tsx` — `VedasFilters` + `VedasTimeline`.
 - `normativas/page.tsx` — document library (also lists vedas via `VedasList`).
@@ -65,7 +65,7 @@ Home-page counts are computed from these arrays (`especies.length`, etc.), not h
 
 ### Components
 
-`components/ui/` is generated shadcn/ui (see `components.json`) — treat as vendored primitives. App-specific components live directly under `components/`: `navbar`, `footer`, `page-header`, `filter-bar`, `especie-imagen` (photo from `public/images/especies/{id}.jpg` with icon fallback), `especies-carrusel`, `ficha-detalle`, `panorama-graficas`, `vedas-filters`, `vedas-timeline`, `vedas-list`. `buzon-sugerencias` and `normativas-carrusel` exist but aren't used by any page.
+`components/ui/` is generated shadcn/ui (see `components.json`) — treat as vendored primitives. App-specific components live directly under `components/`: `navbar`, `footer`, `page-header`, `filter-bar`, `especie-imagen` (photo from `public/images/especies/{id}.jpg` with icon fallback), `buscador-inicio`, `vedas-hoy`, `especies-carrusel`, `ficha-detalle`, `vedas-filters`, `vedas-timeline`, `vedas-list`. `buzon-sugerencias`, `normativas-carrusel` and `panorama-graficas` (the old "El panorama en cifras" home charts) exist but aren't used by any page.
 
 ### Leftovers from the old Postgres version
 

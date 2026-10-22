@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { Download, ExternalLink, FileText } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -24,6 +24,15 @@ const sePuedeDescargar = (url: string) => {
 export default function NormativasPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
+
+  // Enlace profundo: ?q= prellena la búsqueda y ?categoria= la categoría.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const q = params.get("q")
+    const categoria = params.get("categoria")
+    if (q) setSearchTerm(q)
+    if (categoria && categoria in CATEGORY_META) setSelectedCategory(categoria)
+  }, [])
 
   // Documentos y vedas se muestran según la categoría seleccionada:
   // "vedas" solo lista vedas, cualquier otra solo documentos, y "all" ambos.

@@ -13,7 +13,6 @@ Panorama Pesquero centraliza en un solo lugar:
 - **Pesquerías**: catálogo de 92 pesquerías marinas de la CNP (59 del Litoral del Pacífico y 33 del Golfo de México y Mar Caribe). 59 tienen ficha detallada; el resto se muestra como "Próximamente".
 - **Vedas**: 146 vedas (permanentes, temporales fijas y temporales variables) con línea de tiempo, filtros y enlace al acuerdo en el DOF.
 - **Normativas**: biblioteca con 114 documentos (leyes y reglamentos, NOMs, planes de manejo, zonas de refugio y versiones de la CNP), con descarga directa.
-- **Panorama en cifras**: gráficas en la portada construidas a partir de las fichas.
 
 Toda la información está **en el código fuente** (archivos TypeScript en `lib/`): no hay base de datos.
 
@@ -45,7 +44,7 @@ panorama/
 ├── components/                  # Componentes de la app
 │   ├── ui/                      # Componentes shadcn/ui
 │   ├── ficha-detalle.tsx        # Ficha detallada de una pesquería
-│   ├── panorama-graficas.tsx    # "El panorama en cifras" (portada)
+│   ├── panorama-graficas.tsx    # "El panorama en cifras" (sin uso)
 │   ├── vedas-timeline.tsx       # Línea de tiempo de vedas
 │   └── …
 ├── lib/                         # Datos estáticos y utilidades

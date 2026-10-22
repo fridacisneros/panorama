@@ -22,6 +22,16 @@ export function VedasFilters({ vedas, onFilter }: VedasFiltersProps) {
   const tiposVeda = Array.from(new Set(vedas.map((veda) => veda.tipoVeda)))
   const zonas = Array.from(new Set(vedas.map((veda) => veda.zona)))
 
+  // Enlace profundo desde la portada: ?q= prellena la búsqueda y ?zona= el filtro de zona.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const q = params.get("q")
+    const zona = params.get("zona")
+    if (q) setSearchTerm(q)
+    if (zona && vedas.some((v) => v.zona === zona)) setSelectedZona(zona)
+    // Sólo al montar: después los filtros los controla el usuario.
+  }, [])
+
   useEffect(() => {
     let filtered = vedas
 

@@ -36,6 +36,8 @@ export default function EspeciesPage() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const id = params.get("id")
+    const region = params.get("region")
+    if (region && especies.some((e) => e.region === region)) setRegionFilter(region)
     if (id && especies.some((e) => e.id === id)) {
       setSelectedId(id)
       setDetailOpenMobile(true)

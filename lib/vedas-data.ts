@@ -2721,5 +2721,58 @@ export const isVedaActive = (veda: VedaData): boolean => {
   )
 }
 
+// Periodos de una veda como pares [inicio, término] "MM-DD" (omite los vacíos).
+const periodosDe = (veda: VedaData): [string, string][] =>
+  (
+    [
+      [veda.fechaInicio1, veda.fechaTermino1],
+      [veda.fechaInicio2, veda.fechaTermino2],
+      [veda.fechaInicio3, veda.fechaTermino3],
+    ] as [string, string][]
+  ).filter(([ini, fin]) => /^\d{2}-\d{2}$/.test(ini) && /^\d{2}-\d{2}$/.test(fin))
+
+// Fecha (con año) de un "MM-DD" en o después de `desde`, contando sólo días.
+const siguienteFecha = (mmdd: string, desde: Date): Date => {
+  const [mes, dia] = mmdd.split("-").map(Number)
+  const base = new Date(desde.getFullYear(), desde.getMonth(), desde.getDate())
+  const fecha = new Date(base.getFullYear(), mes - 1, dia)
+  if (fecha < base) fecha.setFullYear(base.getFullYear() + 1)
+  return fecha
+}
+
+const DIA_MS = 24 * 60 * 60 * 1000
+
+// Término del periodo que está vigente hoy, o null si la veda no está activa
+// (o es permanente). Si dos periodos coinciden, devuelve el que termina después.
+export const finPeriodoActual = (veda: VedaData, hoy: Date = new Date()): Date | null => {
+  if (veda.tipoVeda === "Permanente") return null
+  let fin: Date | null = null
+  for (const [ini, ter] of periodosDe(veda)) {
+    const inicio = siguienteFecha(ini, hoy)
+    const termino = siguienteFecha(ter, hoy)
+    // Vigente si el próximo término llega antes que el próximo inicio (o hoy es el inicio).
+    const hoySinHora = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate())
+    const vigente = termino < inicio || inicio.getTime() === hoySinHora.getTime()
+    if (vigente && (!fin || termino > fin)) fin = termino
+  }
+  return fin
+}
+
+// Próximo inicio de una veda temporal que no está activa hoy, con los días que faltan.
+export const proximoInicio = (
+  veda: VedaData,
+  hoy: Date = new Date(),
+): { fecha: Date; dias: number } | null => {
+  if (veda.tipoVeda === "Permanente" || finPeriodoActual(veda, hoy)) return null
+  const hoySinHora = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate())
+  let proximo: Date | null = null
+  for (const [ini] of periodosDe(veda)) {
+    const inicio = siguienteFecha(ini, hoy)
+    if (!proximo || inicio < proximo) proximo = inicio
+  }
+  if (!proximo) return null
+  return { fecha: proximo, dias: Math.round((proximo.getTime() - hoySinHora.getTime()) / DIA_MS) }
+}
+
 // Export alias for compatibility
 export const vedas = vedasData

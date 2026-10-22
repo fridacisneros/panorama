@@ -6,7 +6,6 @@ import {
   FileText,
   Fish,
   Layers,
-  Scale,
   ShieldCheck,
   Smartphone,
   Waves,
@@ -92,8 +91,6 @@ const litorales = [
   vedas: vedasData.filter((v) => v.zona === l.zonaVeda).length,
 }))
 
-// La portada es estática: esta fecha es la de la última publicación del sitio.
-const actualizado = new Intl.DateTimeFormat("es-MX", { month: "long", year: "numeric" }).format(new Date())
 
 export default function Home() {
   return (
@@ -183,16 +180,6 @@ export default function Home() {
                 ))}
               </ul>
             </div>
-
-            {/* Fuentes y actualización */}
-            <p className="mt-8 flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-gray-100 pt-5 text-sm text-gray-500">
-              <Scale className="h-4 w-4 text-teal-600" aria-hidden="true" />
-              Datos de la Carta Nacional Pesquera 2025 y el DOF
-              <span aria-hidden="true">·</span>
-              Actualizado: {actualizado}
-              <span aria-hidden="true">·</span>
-              Sitio independiente, no oficial
-            </p>
           </div>
         </div>
       </section>

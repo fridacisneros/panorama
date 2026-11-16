@@ -87,7 +87,6 @@ type SeccionId =
   | "ambiente"
   | "normatividad"
   | "status"
-  | "recomendaciones"
   | "sustentabilidad"
 
 const SECCIONES: { id: SeccionId; label: string; icon: typeof Fish }[] = [
@@ -96,7 +95,6 @@ const SECCIONES: { id: SeccionId; label: string; icon: typeof Fish }[] = [
   { id: "ambiente", label: "Ambiente y clima", icon: Thermometer },
   { id: "normatividad", label: "Normatividad", icon: Shield },
   { id: "status", label: "Estado", icon: Target },
-  { id: "recomendaciones", label: "Recomendaciones", icon: FileText },
   { id: "sustentabilidad", label: "Sustentabilidad", icon: BadgeCheck },
 ]
 
@@ -111,7 +109,8 @@ export function FichaDetalle({ especie }: { especie: Especie }) {
     if (s.id === "ambiente")
       return !!ficha.ambiente?.some((p) => !esRelleno(p)) || !!ficha.ambienteGraficas?.length
     if (s.id === "status") return !!(ficha.status?.cards?.length || ficha.status?.estrategia || ficha.status?.tacticas?.length)
-    if (s.id === "recomendaciones") return !!ficha.recomendaciones?.length
+    // Normatividad incluye al final las recomendaciones de manejo de la CNP.
+    if (s.id === "normatividad") return !!ficha.normatividad?.length || !!ficha.recomendaciones?.length
     // Siempre visible: que no haya aval también es información para el comprador.
     if (s.id === "sustentabilidad") return true
     return !!ficha[s.id]
@@ -219,10 +218,10 @@ export function FichaDetalle({ especie }: { especie: Especie }) {
                   <>
                     <RegulacionVinculada especie={especie} />
                     <Normatividad ficha={ficha} />
+                    <Recomendaciones ficha={ficha} />
                   </>
                 )}
                 {s.id === "status" && <StatusSeccion ficha={ficha} />}
-                {s.id === "recomendaciones" && <Recomendaciones ficha={ficha} />}
                 {s.id === "sustentabilidad" && <Sustentabilidad especieId={especie.id} />}
               </section>
             ))}

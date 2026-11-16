@@ -93,9 +93,9 @@ type SeccionId =
 const SECCIONES: { id: SeccionId; label: string; icon: typeof Fish }[] = [
   { id: "generalidades", label: "Generalidades", icon: Fish },
   { id: "indicadores", label: "Indicadores", icon: TrendingUp },
-  { id: "ambiente", label: "Amb. y Clima", icon: Thermometer },
+  { id: "ambiente", label: "Ambiente y clima", icon: Thermometer },
   { id: "normatividad", label: "Normatividad", icon: Shield },
-  { id: "status", label: "Status", icon: Target },
+  { id: "status", label: "Estado", icon: Target },
   { id: "recomendaciones", label: "Recomendaciones", icon: FileText },
   { id: "sustentabilidad", label: "Sustentabilidad", icon: BadgeCheck },
 ]

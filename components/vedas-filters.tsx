@@ -55,7 +55,7 @@ export function VedasFilters({ vedas, onFilter }: VedasFiltersProps) {
       )
     }
 
-    // Filtro por status
+    // Filtro por estado (activa hoy o no)
     if (selectedEstado !== "all") {
       filtered = filtered.filter((veda) => {
         const isActive = isVedaActive(veda)
@@ -120,10 +120,10 @@ export function VedasFilters({ vedas, onFilter }: VedasFiltersProps) {
     >
       <Select value={selectedEstado} onValueChange={setSelectedEstado}>
         <SelectTrigger className="h-9 w-full md:w-44 bg-white border-gray-200 focus:border-teal-400">
-          <SelectValue placeholder="Status" />
+          <SelectValue placeholder="Estado" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">Todos los status</SelectItem>
+          <SelectItem value="all">Todos los estados</SelectItem>
           {estado.map((estadoItem) => (
             <SelectItem key={estadoItem} value={estadoItem}>
               {estadoItem === "Activa" ? "Vedas Activas" : "Vedas Inactivas"}

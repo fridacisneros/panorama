@@ -21,6 +21,7 @@ import {
   CalendarClock,
   Ruler,
   Activity,
+  BadgeCheck,
 } from "lucide-react"
 import {
   XAxis,
@@ -42,6 +43,7 @@ import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
 import { EspecieImagen } from "@/components/especie-imagen"
 import { RegulacionVinculada, ResumenRegulacion } from "@/components/ficha-vinculos"
+import { Sustentabilidad } from "@/components/ficha-sustentabilidad"
 import type {
   Especie,
   FiguraCNP,
@@ -79,7 +81,14 @@ const statusIcon = (color: string) => {
   }
 }
 
-type SeccionId = "generalidades" | "indicadores" | "ambiente" | "normatividad" | "status" | "recomendaciones"
+type SeccionId =
+  | "generalidades"
+  | "indicadores"
+  | "ambiente"
+  | "normatividad"
+  | "status"
+  | "recomendaciones"
+  | "sustentabilidad"
 
 const SECCIONES: { id: SeccionId; label: string; icon: typeof Fish }[] = [
   { id: "generalidades", label: "Generalidades", icon: Fish },
@@ -88,6 +97,7 @@ const SECCIONES: { id: SeccionId; label: string; icon: typeof Fish }[] = [
   { id: "normatividad", label: "Normatividad", icon: Shield },
   { id: "status", label: "Status", icon: Target },
   { id: "recomendaciones", label: "Recomendaciones", icon: FileText },
+  { id: "sustentabilidad", label: "Sustentabilidad", icon: BadgeCheck },
 ]
 
 // Textos de relleno de la CNP que no aportan contenido por sí solos.
@@ -102,6 +112,8 @@ export function FichaDetalle({ especie }: { especie: Especie }) {
       return !!ficha.ambiente?.some((p) => !esRelleno(p)) || !!ficha.ambienteGraficas?.length
     if (s.id === "status") return !!(ficha.status?.cards?.length || ficha.status?.estrategia || ficha.status?.tacticas?.length)
     if (s.id === "recomendaciones") return !!ficha.recomendaciones?.length
+    // Siempre visible: que no haya aval también es información para el comprador.
+    if (s.id === "sustentabilidad") return true
     return !!ficha[s.id]
   })
 
@@ -211,6 +223,7 @@ export function FichaDetalle({ especie }: { especie: Especie }) {
                 )}
                 {s.id === "status" && <StatusSeccion ficha={ficha} />}
                 {s.id === "recomendaciones" && <Recomendaciones ficha={ficha} />}
+                {s.id === "sustentabilidad" && <Sustentabilidad especieId={especie.id} />}
               </section>
             ))}
           </div>

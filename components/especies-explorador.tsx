@@ -58,8 +58,7 @@ export function EspeciesExplorador({
     [searchTerm, statusFilter, regionFilter],
   )
 
-  // Agrupa la lista por región para mostrar encabezados (el catálogo abarca
-  // varias regiones, con muchas pesquerías "Próximamente" por región).
+  // Agrupa la lista por región para mostrar encabezados.
   const groupedEspecies = useMemo(() => {
     const groups = new Map<string, typeof filteredEspecies>()
     for (const especie of filteredEspecies) {
@@ -201,7 +200,6 @@ export function EspeciesExplorador({
                     </p>
                     {items.map((especie) => {
                       const activo = selected?.id === especie.id
-                      const proximamente = !especie.ficha
                       return (
                         <button
                           key={especie.id}
@@ -223,13 +221,7 @@ export function EspeciesExplorador({
                             <p className={cn("font-semibold text-sm leading-tight truncate", activo ? "text-teal-700" : "text-gray-900")}>
                               {especie.nombre}
                             </p>
-                            {proximamente ? (
-                              <span className="inline-flex items-center rounded-full bg-gray-100 px-1.5 py-0.5 text-[10px] font-medium text-gray-500">
-                                Próximamente
-                              </span>
-                            ) : (
-                              <p className="text-xs text-gray-500 truncate">{especie.region}</p>
-                            )}
+                            <p className="text-xs text-gray-500 truncate">{especie.region}</p>
                           </div>
                         </button>
                       )

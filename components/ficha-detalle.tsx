@@ -41,6 +41,7 @@ import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
 import { EspecieImagen } from "@/components/especie-imagen"
+import { RegulacionVinculada, ResumenRegulacion } from "@/components/ficha-vinculos"
 import type {
   Especie,
   FiguraCNP,
@@ -89,11 +90,16 @@ const SECCIONES: { id: SeccionId; label: string; icon: typeof Fish }[] = [
   { id: "recomendaciones", label: "Recomendaciones", icon: FileText },
 ]
 
+// Textos de relleno de la CNP que no aportan contenido por sí solos.
+const esRelleno = (texto: string) =>
+  /^(—|-|sin información\.?|por desarrollar\.?|no aplica\.?|en proceso( de \p{L}+)?\.?)$/iu.test(texto.trim())
+
 export function FichaDetalle({ especie }: { especie: Especie }) {
   const ficha = especie.ficha
   const disponibles = SECCIONES.filter((s) => {
     if (!ficha) return false
-    if (s.id === "ambiente") return !!ficha.ambiente?.length || !!ficha.ambienteGraficas?.length
+    if (s.id === "ambiente")
+      return !!ficha.ambiente?.some((p) => !esRelleno(p)) || !!ficha.ambienteGraficas?.length
     if (s.id === "status") return !!(ficha.status?.cards?.length || ficha.status?.estrategia || ficha.status?.tacticas?.length)
     if (s.id === "recomendaciones") return !!ficha.recomendaciones?.length
     return !!ficha[s.id]
@@ -141,6 +147,9 @@ export function FichaDetalle({ especie }: { especie: Especie }) {
               )
             })}
           </div>
+          {ficha && disponibles.some((s) => s.id === "normatividad") && (
+            <ResumenRegulacion especie={especie} onVerDetalle={() => setActiva("normatividad")} />
+          )}
         </div>
       </div>
 
@@ -156,7 +165,14 @@ export function FichaDetalle({ especie }: { especie: Especie }) {
       ) : (
         <>
           {/* Sub-pestañas del detalle */}
-          <div className="flex gap-1 px-4 pt-3 border-b border-teal-100 overflow-x-auto">
+          {/* Sin JavaScript las pestañas no responden: se ocultan y se muestran todas las
+              secciones seguidas (el HTML del servidor ya las trae completas). */}
+          <noscript
+            dangerouslySetInnerHTML={{
+              __html: "<style>.ficha-pestanas{display:none}.ficha-seccion[hidden]{display:block}</style>",
+            }}
+          />
+          <div className="ficha-pestanas flex gap-1 px-4 pt-3 border-b border-teal-100 overflow-x-auto">
             {disponibles.map((s) => {
               const Icon = s.icon
               const on = seccionActiva === s.id
@@ -180,12 +196,23 @@ export function FichaDetalle({ especie }: { especie: Especie }) {
           </div>
 
           <div className="flex-1 overflow-y-auto p-5 space-y-6">
-            {seccionActiva === "generalidades" && <Generalidades ficha={ficha} />}
-            {seccionActiva === "indicadores" && <Indicadores ficha={ficha} />}
-            {seccionActiva === "ambiente" && <Ambiente ficha={ficha} />}
-            {seccionActiva === "normatividad" && <Normatividad ficha={ficha} />}
-            {seccionActiva === "status" && <StatusSeccion ficha={ficha} />}
-            {seccionActiva === "recomendaciones" && <Recomendaciones ficha={ficha} />}
+            {/* Todas las secciones van en el HTML (para buscadores y lectores sin
+                JavaScript); las pestañas sólo deciden cuál se ve. */}
+            {disponibles.map((s) => (
+              <section key={s.id} hidden={s.id !== seccionActiva} className="ficha-seccion space-y-6">
+                {s.id === "generalidades" && <Generalidades ficha={ficha} />}
+                {s.id === "indicadores" && <Indicadores ficha={ficha} />}
+                {s.id === "ambiente" && <Ambiente ficha={ficha} />}
+                {s.id === "normatividad" && (
+                  <>
+                    <RegulacionVinculada especie={especie} />
+                    <Normatividad ficha={ficha} />
+                  </>
+                )}
+                {s.id === "status" && <StatusSeccion ficha={ficha} />}
+                {s.id === "recomendaciones" && <Recomendaciones ficha={ficha} />}
+              </section>
+            ))}
           </div>
         </>
       )}
@@ -780,7 +807,7 @@ function Normatividad({ ficha }: { ficha: Ficha }) {
   return (
     <Card className="border-teal-200">
       <CardHeader className="pb-3">
-        <SectionTitle icon={Shield}>Normatividad e instrumentos de manejo</SectionTitle>
+        <SectionTitle icon={Shield}>Instrumentos de manejo según la CNP</SectionTitle>
       </CardHeader>
       <CardContent>
         <div className="divide-y divide-gray-200 overflow-hidden rounded-lg border border-gray-200">

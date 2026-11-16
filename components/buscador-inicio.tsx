@@ -60,7 +60,7 @@ export function BuscadorInicio() {
       .map((e) => ({
         clave: `e-${e.id}`,
         titulo: e.nombre,
-        detalle: e.ficha ? e.region : `${e.region} · Próximamente`,
+        detalle: e.region,
         href: `/especies/${encodeURIComponent(e.id)}`,
       }))
 

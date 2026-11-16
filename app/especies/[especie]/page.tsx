@@ -40,8 +40,6 @@ export async function generateMetadata({
     // El título "Pesquerías" de especies/layout.tsx anula la plantilla del layout
     // raíz para sus hijos, así que el sufijo del sitio se pone a mano.
     title: { absolute: `${especie.nombre} · ${siteName}` },
-    // Las pesquerías aún sin ficha ("Próximamente") no aportan contenido propio.
-    ...(especie.ficha ? {} : { robots: { index: false, follow: true } }),
   }
 }
 

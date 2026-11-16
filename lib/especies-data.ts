@@ -209,7 +209,9 @@ export interface Especie {
   ficha?: FichaPesqueria
 }
 
-export const especies: Especie[] = [
+// Catálogo completo de la CNP, incluidas las pesquerías cuya ficha aún no se captura
+// (sólo id, nombre, región y año). No se exporta: el sitio sólo muestra las que tienen ficha.
+const catalogo: Especie[] = [
   {
     id: "bagre-bandera",
     nombre: "Bagres marinos",
@@ -17773,6 +17775,10 @@ fichas["gm-sargazo-holopelagico-del-caribe"] = {
 }
 
 // Adjunta cada ficha a su especie: `especie.ficha` es la fuente única del detalle.
-for (const especie of especies) {
+for (const especie of catalogo) {
   especie.ficha = fichas[especie.id]
 }
+
+// Pesquerías que se publican: sólo las que tienen ficha. Las demás siguen en `catalogo`
+// y aparecen solas en cuanto se agregue su ficha a `fichas`.
+export const especies: Especie[] = catalogo.filter((e) => e.ficha)

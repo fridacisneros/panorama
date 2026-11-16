@@ -111,7 +111,7 @@ export function FichaDetalle({ especie }: { especie: Especie }) {
     if (s.id === "status") return !!(ficha.status?.cards?.length || ficha.status?.estrategia || ficha.status?.tacticas?.length)
     // Normatividad incluye al final las recomendaciones de manejo de la CNP.
     if (s.id === "normatividad") return !!ficha.normatividad?.length || !!ficha.recomendaciones?.length
-    // Siempre visible: que no haya aval también es información para el comprador.
+    // Siempre visible: que no haya aval también es información.
     if (s.id === "sustentabilidad") return true
     return !!ficha[s.id]
   })

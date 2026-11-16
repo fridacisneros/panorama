@@ -1,4 +1,4 @@
-// Avales de sustentabilidad de cada pesquería para compradores: certificación MSC,
+// Avales de sustentabilidad de cada pesquería: certificación MSC,
 // proyectos de mejora pesquera (FIP) y recomendaciones de Seafood Watch.
 //
 // Curado a mano a partir de las fuentes primarias (ver FUENTES_SUSTENTABILIDAD).

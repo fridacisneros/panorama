@@ -2774,5 +2774,16 @@ export const proximoInicio = (
   return { fecha: proximo, dias: Math.round((proximo.getTime() - hoySinHora.getTime()) / DIA_MS) }
 }
 
+// Fecha de hoy en México como "AAAA-MM-DD". Se usa en el servidor (que corre en
+// UTC) para que la portada salga ya calculada con el día correcto.
+export const fechaHoyMexico = (ahora: Date = new Date()): string =>
+  new Intl.DateTimeFormat("en-CA", { timeZone: "America/Mexico_City" }).format(ahora)
+
+// "AAAA-MM-DD" → fecha local a medianoche (mismos día/mes/año en servidor y navegador).
+export const fechaDesdeISO = (iso: string): Date => {
+  const [a, m, d] = iso.split("-").map(Number)
+  return new Date(a, m - 1, d)
+}
+
 // Export alias for compatibility
 export const vedas = vedasData

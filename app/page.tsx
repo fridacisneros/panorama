@@ -15,7 +15,7 @@ import { BuscadorInicio } from "@/components/buscador-inicio"
 import { VedasHoy } from "@/components/vedas-hoy"
 import { EspeciesCarrusel } from "@/components/especies-carrusel"
 import { especies } from "@/lib/especies-data"
-import { vedasData } from "@/lib/vedas-data"
+import { fechaHoyMexico, vedasData } from "@/lib/vedas-data"
 import { documents } from "@/lib/normativas-data"
 
 // Trazo de ola que se repite (dos pistas idénticas) para animarse sin cortes.
@@ -91,6 +91,9 @@ const litorales = [
   vedas: vedasData.filter((v) => v.zona === l.zonaVeda).length,
 }))
 
+// "En veda hoy" se calcula en el servidor con la fecha de México: la portada se
+// regenera como máximo cada hora para que el día no se quede atrasado.
+export const revalidate = 3600
 
 export default function Home() {
   return (
@@ -187,7 +190,7 @@ export default function Home() {
       {/* En veda hoy y próximas a iniciar */}
       <section className="py-12">
         <div className="container mx-auto px-4">
-          <VedasHoy />
+          <VedasHoy fecha={fechaHoyMexico()} />
         </div>
       </section>
 

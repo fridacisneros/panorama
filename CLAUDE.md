@@ -56,7 +56,7 @@ Home-page counts are computed from these arrays (`especies.length`, etc.), not h
 
 ### Pages (`app/`)
 
-- `page.tsx` — home: `BuscadorInicio` (search across pesquerías, vedas and normas), action cards overlapping the hero, "¿Por qué?", `VedasHoy` (active/upcoming vedas, computed client-side), litorales, `EspeciesCarrusel` and an "anuarios" teaser.
+- `page.tsx` — home: `BuscadorInicio` (search across pesquerías, vedas and normas), action cards overlapping the hero, "¿Por qué?", `VedasHoy` (active/upcoming vedas, server-rendered with today's Mexico City date via `fechaHoyMexico()`; the page has `revalidate = 3600`, and the client recomputes only if its local date differs; dates are formatted by hand, not with `Intl`, to avoid hydration mismatches), litorales, `EspeciesCarrusel` and an "anuarios" teaser.
 - `especies/page.tsx` and `especies/[especie]/page.tsx` — server pages that both render the client `EspeciesExplorador` (catalog + side panel with `FichaDetalle`). Each fishery has its own statically generated route `/especies/{id}` (`generateStaticParams`, `dynamicParams = false`, per-species `generateMetadata`; fichas "Próximamente" are `noindex`), so the initial HTML already contains that ficha. Picking another fishery swaps the panel client-side and `replaceState`s the URL to `/especies/{id}`. Old `/especies?id=…` links get a 308 from `middleware.ts` (not from the page: `loading.tsx` starts streaming before `redirect()` could set the status). `/especies?region=…` preselects the region filter.
 - `vedas/page.tsx` — `VedasFilters` + `VedasTimeline`.
 - `normativas/page.tsx` — document library (also lists vedas via `VedasList`).

@@ -4,13 +4,18 @@ import { useEffect, useMemo, useState } from "react"
 import Link from "next/link"
 import { ArrowRight, CalendarClock, Shield } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { finPeriodoActual, proximoInicio, vedasData, type VedaData } from "@/lib/vedas-data"
+import { fechaDesdeISO, finPeriodoActual, proximoInicio, vedasData, type VedaData } from "@/lib/vedas-data"
 
 // Días hacia adelante para "Próximas a iniciar".
 const HORIZONTE_DIAS = 30
 const MAX_TARJETAS = 8
 
-const fechaCorta = new Intl.DateTimeFormat("es-MX", { day: "numeric", month: "short" })
+// Fechas formateadas a mano y no con Intl: el texto lo genera el servidor y lo
+// vuelve a generar el navegador al hidratar, y las abreviaturas de Intl cambian
+// entre motores ("nov" / "nov.").
+const MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
+const fechaCorta = { format: (f: Date) => `${f.getDate()} ${MESES[f.getMonth()].slice(0, 3)}` }
+const fechaLarga = (f: Date) => `${f.getDate()} de ${MESES[f.getMonth()]} de ${f.getFullYear()}`
 
 type Tarjeta = { veda: VedaData; texto: string }
 
@@ -37,15 +42,19 @@ function TarjetaVeda({ veda, texto, tono }: Tarjeta & { tono: "activa" | "proxim
   )
 }
 
-// Vedas vigentes hoy y las que empiezan pronto. Se calcula en el navegador
-// (la portada es estática, así que la fecha del build no sirve).
-export function VedasHoy() {
-  const [hoy, setHoy] = useState<Date | null>(null)
-  useEffect(() => setHoy(new Date()), [])
+// Vedas vigentes hoy y las que empiezan pronto. El servidor las calcula con la
+// fecha de México (la portada se regenera cada hora), así que se ven aun sin
+// JavaScript. Ya en el navegador, si la fecha local es otra (pasó la medianoche
+// desde que se generó, u otra zona horaria), se recalcula.
+export function VedasHoy({ fecha }: { fecha: string }) {
+  const [hoy, setHoy] = useState(() => fechaDesdeISO(fecha))
+  useEffect(() => {
+    const ahora = new Date()
+    const local = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate())
+    setHoy((actual) => (actual.getTime() === local.getTime() ? actual : local))
+  }, [])
 
   const { activas, permanentes, proximas } = useMemo(() => {
-    if (!hoy) return { activas: [] as Tarjeta[], permanentes: 0, proximas: [] as Tarjeta[] }
-
     const activas: (Tarjeta & { fin: Date })[] = []
     const proximas: (Tarjeta & { dias: number })[] = []
     let permanentes = 0
@@ -93,15 +102,9 @@ export function VedasHoy() {
             En veda hoy
           </h2>
           <p className="mt-1 text-gray-600">
-            {hoy ? (
-              <>
-                <span className="font-semibold text-gray-800">{activas.length}</span> vedas temporales vigentes
-                {" "}y <span className="font-semibold text-gray-800">{permanentes}</span> permanentes ·{" "}
-                {new Intl.DateTimeFormat("es-MX", { dateStyle: "long" }).format(hoy)}
-              </>
-            ) : (
-              "Calculando las vedas vigentes…"
-            )}
+            <span className="font-semibold text-gray-800">{activas.length}</span> vedas temporales vigentes
+            {" "}y <span className="font-semibold text-gray-800">{permanentes}</span> permanentes ·{" "}
+            {fechaLarga(hoy)}
           </p>
         </div>
         <Button asChild variant="outline" className="w-fit flex-shrink-0 border-teal-200 text-teal-700 hover:bg-teal-50">
@@ -112,13 +115,7 @@ export function VedasHoy() {
         </Button>
       </div>
 
-      {!hoy ? (
-        <div className={fila} aria-hidden="true">
-          {Array.from({ length: 4 }, (_, i) => (
-            <div key={i} className="h-28 w-56 flex-shrink-0 animate-pulse rounded-xl bg-gray-100 sm:w-auto" />
-          ))}
-        </div>
-      ) : activas.length === 0 ? (
+      {activas.length === 0 ? (
         <p className="flex items-center gap-2 rounded-xl bg-teal-50 p-4 text-sm text-teal-800">
           <Shield className="h-4 w-4" /> Hoy no hay vedas temporales vigentes; solo aplican las permanentes.
         </p>
@@ -141,7 +138,7 @@ export function VedasHoy() {
         </>
       )}
 
-      {hoy && proximas.length > 0 && (
+      {proximas.length > 0 && (
         <div className="mt-8">
           <h3 className="mb-3 flex flex-wrap items-center gap-x-2 text-lg font-semibold text-gray-800">
             <CalendarClock className="h-5 w-5 text-amber-600" aria-hidden="true" />

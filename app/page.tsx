@@ -91,6 +91,14 @@ const litorales = [
   vedas: vedasData.filter((v) => v.zona === l.zonaVeda).length,
 }))
 
+// Vedas que no pertenecen a un solo litoral, para que las cifras de arriba
+// cuadren con el total del calendario.
+const vedasFueraDeLitoral = (["Nacional", "Aguas continentales"] as const).map((zona) => ({
+  zona,
+  total: vedasData.filter((v) => v.zona === zona).length,
+}))
+const [vedasNacionales, vedasContinentales] = vedasFueraDeLitoral
+
 // "En veda hoy" se calcula en el servidor con la fecha de México: la portada se
 // regenera como máximo cada hora para que el día no se quede atrasado.
 export const revalidate = 3600
@@ -226,6 +234,17 @@ export default function Home() {
               </div>
             ))}
           </div>
+          <p className="mt-4 text-sm text-gray-600 text-center md:text-left">
+            Además de las vedas de cada litoral, hay{" "}
+            <Link href={`/vedas?zona=${encodeURIComponent(vedasNacionales.zona)}`} className="font-medium text-teal-700 underline-offset-2 hover:underline">
+              <span className="tabular-nums">{vedasNacionales.total}</span> de alcance nacional
+            </Link>{" "}
+            (mamíferos marinos, tortugas, tiburones, mantarrayas y picudos, entre otras) y{" "}
+            <Link href={`/vedas?zona=${encodeURIComponent(vedasContinentales.zona)}`} className="font-medium text-teal-700 underline-offset-2 hover:underline">
+              <span className="tabular-nums">{vedasContinentales.total}</span> en aguas continentales
+            </Link>
+            , para un total de <span className="tabular-nums">{vedasData.length}</span> vedas.
+          </p>
         </div>
       </section>
 

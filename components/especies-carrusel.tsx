@@ -15,23 +15,37 @@ import { Card } from "@/components/ui/card"
 import { EspecieImagen } from "@/components/especie-imagen"
 import { especies } from "@/lib/especies-data"
 
-// Especies destacadas (más consultadas / de mayor relevancia comercial).
-const DESTACADAS = [
+// Especies destacadas (más consultadas / de mayor relevancia comercial), de los
+// dos litorales. Se intercalan Golfo y Caribe con Pacífico para que el carrusel
+// muestre ambos desde la primera vista.
+const DESTACADAS_GOLFO = [
   "pulpo",
-  "almejas",
-  "caracoles",
   "camaron-cafe",
-  "robalo-chucumite",
+  "almejas",
   "mero-negrillo",
+  "robalo-chucumite",
+  "caracoles",
   "pez-espada",
   "bagre-bandera",
 ]
+const DESTACADAS_PACIFICO = [
+  "pac-camaron-del-pacifico",
+  "pac-tunidos-del-pacifico",
+  "pac-calamar-gigante",
+  "pac-pelagicos-menores",
+  "pac-abulon",
+  "pac-langostas-espinosas-del-pacifico",
+  "pac-pulpo-del-pacifico",
+  "pac-huachinango-y-pargos-del-pacifico",
+]
 
+// Solo pesquerías con ficha: un id que cambie o se quede sin ficha se omite.
 const destacadas = (() => {
-  const orden = new Map(DESTACADAS.map((id, i) => [id, i]))
-  const seleccion = especies.filter((e) => orden.has(e.id))
-  seleccion.sort((a, b) => (orden.get(a.id) ?? 0) - (orden.get(b.id) ?? 0))
-  return seleccion.length > 0 ? seleccion : especies
+  const conFicha = new Map(especies.filter((e) => e.ficha).map((e) => [e.id, e]))
+  const seleccion = DESTACADAS_GOLFO.flatMap((id, i) => [id, DESTACADAS_PACIFICO[i]])
+    .map((id) => (id ? conFicha.get(id) : undefined))
+    .filter((e): e is (typeof especies)[number] => Boolean(e))
+  return seleccion.length > 0 ? seleccion : especies.filter((e) => e.ficha)
 })()
 
 export function EspeciesCarrusel() {

@@ -8,7 +8,9 @@ import { fechaDesdeISO, finPeriodoActual, proximoInicio, vedasData, type VedaDat
 
 // Días hacia adelante para "Próximas a iniciar".
 const HORIZONTE_DIAS = 30
-const MAX_TARJETAS = 8
+// Una sola fila por sección: 4 tarjetas en escritorio; en pantallas menores la
+// fila se desplaza de lado.
+const MAX_TARJETAS = 4
 
 // Fechas formateadas a mano y no con Intl: el texto lo genera el servidor y lo
 // vuelve a generar el navegador al hidratar, y las abreviaturas de Intl cambian
@@ -19,17 +21,46 @@ const fechaLarga = (f: Date) => `${f.getDate()} de ${MESES[f.getMonth()]} de ${f
 
 type Tarjeta = { veda: VedaData; texto: string }
 
-function TarjetaVeda({ veda, texto, tono }: Tarjeta & { tono: "activa" | "proxima" }) {
+// Varias vedas comparten región y fechas y sólo cambia la especie (p. ej. cuatro
+// de callo de hacha en Bahía de Kino, o lisa y liseta en Tamaulipas). Se juntan
+// en una tarjeta que nombra las especies y enlaza a /vedas con todas desglosadas.
+type Grupo = { clave: string; vedas: VedaData[]; texto: string }
+
+function agrupar(tarjetas: Tarjeta[]): Grupo[] {
+  const grupos = new Map<string, Grupo>()
+  for (const { veda, texto } of tarjetas) {
+    const clave = `${veda.region}|${texto}`
+    const grupo = grupos.get(clave)
+    if (grupo) grupo.vedas.push(veda)
+    else grupos.set(clave, { clave, vedas: [veda], texto })
+  }
+  return [...grupos.values()]
+}
+
+const unicos = (valores: string[]) => [...new Set(valores.filter(Boolean))]
+
+function unirConY(valores: string[]) {
+  return valores.length <= 1 ? valores.join("") : `${valores.slice(0, -1).join(", ")} y ${valores[valores.length - 1]}`
+}
+
+function TarjetaVeda({ vedas, texto, tono }: Grupo & { tono: "activa" | "proxima" }) {
+  const pesquerias = unicos(vedas.map((v) => v.pesqueria))
+  const especies = unicos(vedas.map((v) => v.nombreCientifico))
   return (
     <Link
-      href={`/vedas?q=${encodeURIComponent(veda.pesqueria)}`}
+      href={`/vedas?ids=${vedas.map((v) => v.id).join(",")}`}
       className={
-        "group flex w-56 flex-shrink-0 snap-start flex-col rounded-xl border bg-white p-4 shadow-sm transition-shadow hover:shadow-md sm:w-auto " +
+        "group flex w-56 flex-shrink-0 snap-start flex-col rounded-xl border bg-white p-4 shadow-sm transition-shadow hover:shadow-md lg:w-auto " +
         (tono === "activa" ? "border-red-100" : "border-amber-100")
       }
     >
-      <span className="truncate font-semibold text-gray-900 group-hover:text-teal-700">{veda.pesqueria}</span>
-      <span className="truncate text-xs text-gray-500">{veda.region}</span>
+      <span className="truncate font-semibold text-gray-900 group-hover:text-teal-700">{unirConY(pesquerias)}</span>
+      <span className="truncate text-xs text-gray-500">{vedas[0].region}</span>
+      {especies.length > 1 && (
+        <span className="mt-1 line-clamp-2 text-xs text-gray-600" title={especies.join(", ")}>
+          {especies.length} especies: <span className="italic">{especies.join(", ")}</span>
+        </span>
+      )}
       <span
         className={
           "mt-3 inline-flex w-fit items-center rounded-full px-2 py-0.5 text-xs font-medium " +
@@ -39,6 +70,21 @@ function TarjetaVeda({ veda, texto, tono }: Tarjeta & { tono: "activa" | "proxim
         {texto}
       </span>
     </Link>
+  )
+}
+
+// Aviso de cuántas vedas quedaron fuera de la fila (cuenta vedas, no tarjetas).
+function Restantes({ grupos }: { grupos: Grupo[] }) {
+  const resto = grupos.slice(MAX_TARJETAS).reduce((n, g) => n + g.vedas.length, 0)
+  if (resto === 0) return null
+  return (
+    <p className="mt-2 text-sm text-gray-500">
+      y {resto} más en el{" "}
+      <Link href="/vedas" className="font-medium text-teal-700 underline-offset-2 hover:underline">
+        calendario de vedas
+      </Link>
+      .
+    </p>
   )
 }
 
@@ -54,7 +100,7 @@ export function VedasHoy({ fecha }: { fecha: string }) {
     setHoy((actual) => (actual.getTime() === local.getTime() ? actual : local))
   }, [])
 
-  const { activas, permanentes, proximas } = useMemo(() => {
+  const { activas, vedasActivas, permanentes, proximas } = useMemo(() => {
     const activas: (Tarjeta & { fin: Date })[] = []
     const proximas: (Tarjeta & { dias: number })[] = []
     let permanentes = 0
@@ -85,10 +131,10 @@ export function VedasHoy({ fecha }: { fecha: string }) {
     // Primero las que terminan (o empiezan) antes.
     activas.sort((a, b) => a.fin.getTime() - b.fin.getTime())
     proximas.sort((a, b) => a.dias - b.dias)
-    return { activas, permanentes, proximas }
+    return { activas: agrupar(activas), vedasActivas: activas.length, permanentes, proximas: agrupar(proximas) }
   }, [hoy])
 
-  const fila = "-mx-5 flex snap-x gap-3 overflow-x-auto px-5 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-4"
+  const fila = "-mx-5 flex snap-x gap-3 overflow-x-auto px-5 pb-2 md:-mx-8 md:px-8 lg:mx-0 lg:grid lg:grid-cols-4 lg:overflow-visible lg:px-0"
 
   return (
     <div className="rounded-2xl border border-teal-100 bg-white p-5 shadow-lg md:p-8">
@@ -102,7 +148,7 @@ export function VedasHoy({ fecha }: { fecha: string }) {
             En veda hoy
           </h2>
           <p className="mt-1 text-gray-600">
-            <span className="font-semibold text-gray-800">{activas.length}</span> vedas temporales vigentes
+            <span className="font-semibold text-gray-800">{vedasActivas}</span> vedas temporales vigentes
             {" "}y <span className="font-semibold text-gray-800">{permanentes}</span> permanentes ·{" "}
             {fechaLarga(hoy)}
           </p>
@@ -123,18 +169,10 @@ export function VedasHoy({ fecha }: { fecha: string }) {
         <>
           <div className={fila}>
             {activas.slice(0, MAX_TARJETAS).map((t) => (
-              <TarjetaVeda key={t.veda.id} {...t} tono="activa" />
+              <TarjetaVeda key={t.clave} {...t} tono="activa" />
             ))}
           </div>
-          {activas.length > MAX_TARJETAS && (
-            <p className="mt-2 text-sm text-gray-500">
-              y {activas.length - MAX_TARJETAS} más en el{" "}
-              <Link href="/vedas" className="font-medium text-teal-700 underline-offset-2 hover:underline">
-                calendario de vedas
-              </Link>
-              .
-            </p>
-          )}
+          <Restantes grupos={activas} />
         </>
       )}
 
@@ -147,9 +185,10 @@ export function VedasHoy({ fecha }: { fecha: string }) {
           </h3>
           <div className={fila}>
             {proximas.slice(0, MAX_TARJETAS).map((t) => (
-              <TarjetaVeda key={t.veda.id} {...t} tono="proxima" />
+              <TarjetaVeda key={t.clave} {...t} tono="proxima" />
             ))}
           </div>
+          <Restantes grupos={proximas} />
         </div>
       )}
     </div>

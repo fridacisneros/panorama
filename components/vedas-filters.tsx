@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { X } from "lucide-react"
 import { FilterBar } from "@/components/filter-bar"
 
 import { type VedaData, isVedaActive } from "@/lib/vedas-data"
@@ -16,24 +17,33 @@ export function VedasFilters({ vedas, onFilter }: VedasFiltersProps) {
   const [selectedEstado, setSelectedEstado] = useState("all")
   const [selectedTipoVeda, setSelectedTipoVeda] = useState("all")
   const [selectedZona, setSelectedZona] = useState("all")
+  // ?ids= viene de una tarjeta agrupada de la portada: muestra sólo esas vedas.
+  const [idsSeleccionados, setIdsSeleccionados] = useState<string[] | null>(null)
 
   // Obtener valores únicos para los filtros
   const estado = Array.from(new Set(vedas.map((veda) => veda.status)))
   const tiposVeda = Array.from(new Set(vedas.map((veda) => veda.tipoVeda)))
   const zonas = Array.from(new Set(vedas.map((veda) => veda.zona)))
 
-  // Enlace profundo desde la portada: ?q= prellena la búsqueda y ?zona= el filtro de zona.
+  // Enlace profundo desde la portada: ?q= prellena la búsqueda, ?zona= el filtro
+  // de zona e ?ids= limita a un grupo de vedas.
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const q = params.get("q")
     const zona = params.get("zona")
+    const ids = params.get("ids")?.split(",").filter((id) => vedas.some((v) => v.id === id))
     if (q) setSearchTerm(q)
+    if (ids?.length) setIdsSeleccionados(ids)
     if (zona && vedas.some((v) => v.zona === zona)) setSelectedZona(zona)
     // Sólo al montar: después los filtros los controla el usuario.
   }, [])
 
   useEffect(() => {
     let filtered = vedas
+
+    if (idsSeleccionados) {
+      filtered = filtered.filter((veda) => idsSeleccionados.includes(veda.id))
+    }
 
     // Filtro por término de búsqueda
     if (searchTerm) {
@@ -64,9 +74,21 @@ export function VedasFilters({ vedas, onFilter }: VedasFiltersProps) {
     }
 
     onFilter(filtered)
-  }, [searchTerm, selectedEstado, selectedTipoVeda, selectedZona, vedas, onFilter])
+  }, [searchTerm, selectedEstado, selectedTipoVeda, selectedZona, idsSeleccionados, vedas, onFilter])
+
+  const quitarSeleccion = () => {
+    setIdsSeleccionados(null)
+    const url = new URL(window.location.href)
+    url.searchParams.delete("ids")
+    window.history.replaceState(window.history.state, "", url)
+  }
+
+  const vedasSeleccionadas = idsSeleccionados ? vedas.filter((v) => idsSeleccionados.includes(v.id)) : []
+  const pesqueriasSeleccionadas = [...new Set(vedasSeleccionadas.map((v) => v.pesqueria))].join(" y ")
+  const regionesSeleccionadas = [...new Set(vedasSeleccionadas.map((v) => v.region))].join(" · ")
 
   const clearFilters = () => {
+    quitarSeleccion()
     setSearchTerm("")
     setSelectedEstado("all")
     setSelectedTipoVeda("all")
@@ -74,6 +96,22 @@ export function VedasFilters({ vedas, onFilter }: VedasFiltersProps) {
   }
 
   return (
+    <>
+    {idsSeleccionados && (
+      <div className="mb-3 flex items-center justify-between gap-3 rounded-xl border border-teal-200 bg-teal-50 px-4 py-2 text-sm text-teal-900">
+        <span>
+          Mostrando {vedasSeleccionadas.length} {vedasSeleccionadas.length === 1 ? "veda" : "vedas"} de{" "}
+          <span className="font-semibold">{pesqueriasSeleccionadas}</span> · {regionesSeleccionadas}
+        </span>
+        <button
+          type="button"
+          onClick={quitarSeleccion}
+          className="inline-flex flex-shrink-0 items-center gap-1 rounded-md px-2 py-1 font-medium text-teal-700 hover:bg-teal-100"
+        >
+          <X className="h-4 w-4" /> Ver todas
+        </button>
+      </div>
+    )}
     <FilterBar
       searchValue={searchTerm}
       onSearchChange={setSearchTerm}
@@ -122,5 +160,6 @@ export function VedasFilters({ vedas, onFilter }: VedasFiltersProps) {
         </SelectContent>
       </Select>
     </FilterBar>
+    </>
   )
 }

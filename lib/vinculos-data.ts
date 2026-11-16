@@ -12,7 +12,17 @@ import { vedasData, type VedaData } from "@/lib/vedas-data"
 interface VinculoPesqueria {
   vedas?: string[] // ids de vedasData
   documentos?: string[] // ids de documents (NOM, planes y ZRP)
+  // Planes de manejo que no cubren toda la pesquería: la CNP dice «No aplica» en
+  // su instrumento 2, pero existe un plan para una zona (o sólo para algunas de
+  // sus especies). id del documento → alcance, en una frase.
+  planesLocales?: Record<string, string>
+  // Otras aclaraciones sobre un plan enlazado que la CNP no recoge (p. ej. lo da
+  // como «En proceso de elaboración»). id del documento → nota.
+  notasPlanes?: Record<string, string>
 }
+
+const NOTA_PLAN_TIBURONES_RAYAS =
+  "La ficha de la CNP (actualizada en 2022) registra el plan de manejo como «En proceso de elaboración»; este plan, para todo el Golfo de México y Mar Caribe, se publicó el 9 de junio de 2022."
 
 export const vinculos: Record<string, VinculoPesqueria> = {
   // Golfo de México y Mar Caribe
@@ -35,22 +45,32 @@ export const vinculos: Record<string, VinculoPesqueria> = {
     vedas: ["108", "109", "112", "113"],
     documentos: ["72", "30"],
   },
-  "gm-rayas-del-golfo-de-mexico": { documentos: ["78", "9"] },
+  "gm-rayas-del-golfo-de-mexico": { documentos: ["78", "9"], notasPlanes: { "9": NOTA_PLAN_TIBURONES_RAYAS } },
   "gm-tiburones-del-golfo-de-mexico-y-mar-caribe": {
     vedas: ["131", "132", "40", "41", "42"],
     documentos: ["78", "9"],
+    notasPlanes: { "9": NOTA_PLAN_TIBURONES_RAYAS },
   },
 
   // Litoral del Pacífico
   "pac-abulon": { vedas: ["57", "58", "59", "60"], documentos: ["63", "46"] },
   "pac-almeja-catarina": { vedas: ["61"], documentos: ["62"] },
-  "pac-almeja-chocolata": { vedas: ["63"], documentos: ["11"] },
+  "pac-almeja-chocolata": {
+    vedas: ["63"],
+    documentos: ["11"],
+    planesLocales: { "11": "Sólo aplica en el municipio de Loreto, Baja California Sur." },
+  },
   "pac-almeja-generosa": { vedas: ["64"], documentos: ["70"] },
   "pac-callo-de-hacha": { vedas: ["73", "74", "75", "76", "77", "78"] },
   "pac-curvina-golfina": { vedas: ["84"], documentos: ["100", "26"] },
   "pac-dorado-pesca-deportiva": { vedas: ["33", "34", "35", "38"], documentos: ["73"] },
   "pac-erizo-de-mar": { vedas: ["85"], documentos: ["65", "27"] },
-  "pac-huachinango-y-pargos-del-pacifico": { documentos: ["12"] },
+  "pac-huachinango-y-pargos-del-pacifico": {
+    documentos: ["12"],
+    planesLocales: {
+      "12": "Sólo aplica en Marismas Nacionales (Nayarit y sur de Sinaloa) y, de las especies de esta pesquería, sólo al pargo colorado (Lutjanus colorado).",
+    },
+  },
   "pac-jaiba-del-pacifico": { vedas: ["86", "87", "88"], documentos: ["86", "28"] },
   "pac-langostas-espinosas-del-pacifico": {
     vedas: ["89", "90", "92", "93", "95", "96", "98", "99"],
@@ -59,7 +79,11 @@ export const vinculos: Record<string, VinculoPesqueria> = {
   "pac-langostino": { vedas: ["104", "105"] },
   "pac-lisa-del-pacifico": { vedas: ["106", "107", "110", "111"], documentos: ["72"] },
   "pac-ostion-del-pacifico": { vedas: ["118", "119", "120"] },
-  "pac-pulpo-del-pacifico": { vedas: ["126", "127"], documentos: ["10"] },
+  "pac-pulpo-del-pacifico": {
+    vedas: ["126", "127"],
+    documentos: ["10"],
+    planesLocales: { "10": "Sólo aplica en la costa oriental de Baja California." },
+  },
   "pac-robalo-del-pacifico": { documentos: ["97", "101", "12"] },
   "pac-tiburones-del-pacifico": { vedas: ["133", "128", "40", "41", "42"], documentos: ["78"] },
   "pac-tunidos-del-pacifico": { vedas: ["65", "66"], documentos: ["55", "74", "19", "13"] },
@@ -70,10 +94,14 @@ export const vinculos: Record<string, VinculoPesqueria> = {
   "pac-camaron-del-pacifico": { vedas: ["144"], documentos: ["56"] },
 }
 
+// Un plan de manejo con `alcanceLocal` cubre sólo parte de la pesquería; `nota`
+// aclara otra diferencia con lo que dice la CNP.
+export type PlanVinculado = DocumentItem & { alcanceLocal?: string; nota?: string }
+
 export interface VinculosResueltos {
   vedas: VedaData[]
   noms: DocumentItem[]
-  planes: DocumentItem[]
+  planes: PlanVinculado[]
   zrp: DocumentItem[]
 }
 
@@ -89,7 +117,9 @@ export function vinculosDe(especieId: string): VinculosResueltos {
   return {
     vedas,
     noms: docs.filter((d) => d.category === "noms"),
-    planes: docs.filter((d) => d.category === "planes"),
+    planes: docs
+      .filter((d) => d.category === "planes")
+      .map((d) => ({ ...d, alcanceLocal: v?.planesLocales?.[d.id], nota: v?.notasPlanes?.[d.id] })),
     zrp: docs.filter((d) => d.category === "zrp"),
   }
 }

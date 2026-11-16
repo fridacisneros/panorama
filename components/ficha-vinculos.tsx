@@ -10,10 +10,9 @@ import { CalendarDays, ExternalLink, FileText, BookOpen, Ruler, MapPinned, Chevr
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import type { Especie } from "@/lib/especies-data"
-import type { DocumentItem } from "@/lib/normativas-data"
 import { CATEGORY_META } from "@/lib/normativas-data"
 import { formatDateToDDMM, isVedaActive, type VedaData } from "@/lib/vedas-data"
-import { vinculosDe } from "@/lib/vinculos-data"
+import { vinculosDe, type PlanVinculado } from "@/lib/vinculos-data"
 
 type Ficha = NonNullable<Especie["ficha"]>
 
@@ -81,7 +80,12 @@ export function ResumenRegulacion({
     pastillas.push({ etiqueta: "Con veda", clase: CATEGORY_META.vedas.badge })
   }
   if (v.noms.length) pastillas.push({ etiqueta: v.noms.length > 1 ? `${v.noms.length} NOM` : "NOM", clase: CATEGORY_META.noms.badge })
-  if (v.planes.length) pastillas.push({ etiqueta: "Plan de manejo", clase: CATEGORY_META.planes.badge })
+  if (v.planes.length) {
+    // Si todos los planes son locales, la pastilla lo dice: la CNP no registra plan
+    // para la pesquería completa.
+    const soloLocales = v.planes.every((p) => p.alcanceLocal)
+    pastillas.push({ etiqueta: soloLocales ? "Plan de manejo local" : "Plan de manejo", clase: CATEGORY_META.planes.badge })
+  }
   if (talla) pastillas.push({ etiqueta: "Talla mínima", clase: "bg-sky-50 text-sky-700 border-sky-200" })
   if (v.zrp.length) pastillas.push({ etiqueta: v.zrp.length > 1 ? `${v.zrp.length} ZRP` : "ZRP", clase: CATEGORY_META.zrp.badge })
 
@@ -135,11 +139,16 @@ function SinDato({ children }: { children: React.ReactNode }) {
   return <p className="text-sm text-gray-500">{children}</p>
 }
 
-function EnlacesDocumentos({ docs }: { docs: DocumentItem[] }) {
+function EnlacesDocumentos({ docs }: { docs: PlanVinculado[] }) {
   return (
     <ul className="space-y-1.5">
       {docs.map((d) => (
         <li key={d.id}>
+          {d.alcanceLocal && (
+            <span className="mb-1 inline-block rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-800">
+              Plan local
+            </span>
+          )}
           <a
             href={d.url}
             target="_blank"
@@ -149,6 +158,8 @@ function EnlacesDocumentos({ docs }: { docs: DocumentItem[] }) {
             <span>{d.title}</span>
             <ExternalLink className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
           </a>
+          {d.alcanceLocal && <p className="mt-0.5 text-sm leading-relaxed text-gray-600">{d.alcanceLocal}</p>}
+          {d.nota && <p className="mt-0.5 text-xs leading-relaxed text-gray-500">{d.nota}</p>}
         </li>
       ))}
     </ul>
@@ -246,7 +257,14 @@ export function RegulacionVinculada({ especie }: { especie: Especie }) {
 
         <Bloque icono={BookOpen} titulo="Plan de manejo pesquero">
           {v.planes.length > 0 ? (
-            <EnlacesDocumentos docs={v.planes} />
+            <>
+              <EnlacesDocumentos docs={v.planes} />
+              {v.planes.every((p) => p.alcanceLocal) && (
+                <p className="mt-2 text-xs text-gray-500">
+                  La Carta Nacional Pesquera no registra un plan de manejo para toda la pesquería («No aplica»).
+                </p>
+              )}
+            </>
           ) : planCNP ? (
             <p className="text-sm leading-relaxed text-gray-700">{planCNP}</p>
           ) : (

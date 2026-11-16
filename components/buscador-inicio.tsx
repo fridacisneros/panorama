@@ -61,7 +61,7 @@ export function BuscadorInicio() {
         clave: `e-${e.id}`,
         titulo: e.nombre,
         detalle: e.ficha ? e.region : `${e.region} · Próximamente`,
-        href: `/especies?id=${encodeURIComponent(e.id)}`,
+        href: `/especies/${encodeURIComponent(e.id)}`,
       }))
 
     // Una veda por pesquería: varias regiones de la misma especie se ven juntas en /vedas.

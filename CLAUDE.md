@@ -57,15 +57,15 @@ Home-page counts are computed from these arrays (`especies.length`, etc.), not h
 ### Pages (`app/`)
 
 - `page.tsx` — home: `BuscadorInicio` (search across pesquerías, vedas and normas), action cards overlapping the hero, "¿Por qué?", `VedasHoy` (active/upcoming vedas, computed client-side), litorales, `EspeciesCarrusel` and an "anuarios" teaser.
-- `especies/page.tsx` — client component: catalog + side panel (`FichaDetalle`), selected fishery in `?id=`. `especies/[especie]/page.tsx` only **redirects** to `/especies?id=…` for old links; there are no per-species pages.
+- `especies/page.tsx` and `especies/[especie]/page.tsx` — server pages that both render the client `EspeciesExplorador` (catalog + side panel with `FichaDetalle`). Each fishery has its own statically generated route `/especies/{id}` (`generateStaticParams`, `dynamicParams = false`, per-species `generateMetadata`; fichas "Próximamente" are `noindex`), so the initial HTML already contains that ficha. Picking another fishery swaps the panel client-side and `replaceState`s the URL to `/especies/{id}`. Old `/especies?id=…` links get a 308 from `middleware.ts` (not from the page: `loading.tsx` starts streaming before `redirect()` could set the status). `/especies?region=…` preselects the region filter.
 - `vedas/page.tsx` — `VedasFilters` + `VedasTimeline`.
 - `normativas/page.tsx` — document library (also lists vedas via `VedasList`).
-- Pages under `especies/`, `vedas/`, `normativas/` are client components, so their `metadata` lives in the sibling `layout.tsx`.
-- `layout.tsx` wraps everything with `ThemeProvider` (forced light theme), `Navbar`, `Footer` and `<Analytics />`. Also `not-found.tsx`, `opengraph-image.tsx`, `robots.ts` (disallows `/api/`), `sitemap.ts`, `icon.svg`.
+- Pages under `vedas/` and `normativas/` are client components, so their `metadata` lives in the sibling `layout.tsx` (`especies/layout.tsx` too, for `/especies`). Its plain-string title drops the root `title.template` for children, so `/especies/{id}` sets `title.absolute` itself.
+- `layout.tsx` wraps everything with `ThemeProvider` (forced light theme), `Navbar`, `Footer` and `<Analytics />`. Also `not-found.tsx`, `opengraph-image.tsx`, `robots.ts` (disallows `/api/`), `sitemap.ts` (also lists `/especies/{id}` for fishery with a ficha), `icon.svg`.
 
 ### Components
 
-`components/ui/` is generated shadcn/ui (see `components.json`) — treat as vendored primitives. App-specific components live directly under `components/`: `navbar`, `footer`, `page-header`, `filter-bar`, `especie-imagen` (photo from `public/images/especies/{id}.jpg` with icon fallback), `buscador-inicio`, `vedas-hoy`, `especies-carrusel`, `ficha-detalle`, `vedas-filters`, `vedas-timeline`, `vedas-list`. `buzon-sugerencias`, `normativas-carrusel` and `panorama-graficas` (the old "El panorama en cifras" home charts) exist but aren't used by any page.
+`components/ui/` is generated shadcn/ui (see `components.json`) — treat as vendored primitives. App-specific components live directly under `components/`: `navbar`, `footer`, `page-header`, `filter-bar`, `especie-imagen` (photo from `public/images/especies/{id}.jpg` with icon fallback), `buscador-inicio`, `vedas-hoy`, `especies-carrusel`, `especies-explorador`, `ficha-detalle`, `vedas-filters`, `vedas-timeline`, `vedas-list`. `buzon-sugerencias`, `normativas-carrusel` and `panorama-graficas` (the old "El panorama en cifras" home charts) exist but aren't used by any page.
 
 ### Leftovers from the old Postgres version
 

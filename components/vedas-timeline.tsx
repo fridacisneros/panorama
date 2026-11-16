@@ -67,12 +67,28 @@ export function VedasTimeline({ vedas }: VedasTimelineProps) {
     setHoy((cur - start) / (end - start))
   }, [])
 
-  // Las vedas permanentes se agrupan al final (orden estable dentro de cada grupo).
-  const filas = useMemo(() => {
-    const temporales = vedas.filter((v) => v.tipoVeda !== "Permanente")
-    const permanentes = vedas.filter((v) => v.tipoVeda === "Permanente")
-    return [...temporales, ...permanentes].map((veda) => ({ veda, segs: segmentos(veda) }))
+  // Tres secciones con encabezado: temporales y permanentes marinas, y todas las
+  // de aguas continentales. Dentro de cada una, orden alfabético por pesquería,
+  // luego región y especie.
+  const secciones = useMemo(() => {
+    const ordenar = (lista: VedaData[]) =>
+      [...lista].sort(
+        (a, b) =>
+          a.pesqueria.localeCompare(b.pesqueria, "es", { sensitivity: "base" }) ||
+          a.region.localeCompare(b.region, "es") ||
+          a.nombreCientifico.localeCompare(b.nombreCientifico, "es"),
+      )
+    const continentales = vedas.filter((v) => v.zona === "Aguas continentales")
+    const marinas = vedas.filter((v) => v.zona !== "Aguas continentales")
+    return [
+      { titulo: "Temporales", vedas: marinas.filter((v) => v.tipoVeda !== "Permanente") },
+      { titulo: "Permanentes", vedas: marinas.filter((v) => v.tipoVeda === "Permanente") },
+      { titulo: "Aguas continentales", vedas: continentales },
+    ]
+      .filter((sec) => sec.vedas.length > 0)
+      .map((sec) => ({ titulo: sec.titulo, filas: ordenar(sec.vedas).map((veda) => ({ veda, segs: segmentos(veda) })) }))
   }, [vedas])
+  const totalFilas = secciones.reduce((n, sec) => n + sec.filas.length, 0)
 
   const gridBg =
     "repeating-linear-gradient(to right, transparent, transparent calc(100%/12 - 1px), rgba(15,23,42,0.08) calc(100%/12 - 1px), rgba(15,23,42,0.08) calc(100%/12))"
@@ -184,47 +200,60 @@ export function VedasTimeline({ vedas }: VedasTimelineProps) {
               </div>
 
               {/* Filas con scroll vertical si hay muchas */}
-              <div className="max-h-[60vh] space-y-1 overflow-y-auto pr-1">
-                {filas.map(({ veda, segs }) => {
-                  const activa = isVedaActive(veda)
-                  const sel = seleccion?.id === veda.id
-                  return (
-                    <button
-                      key={veda.id}
-                      onClick={() => setSeleccion(veda)}
-                      className={`flex w-full items-center rounded-md py-0.5 text-left transition-colors hover:bg-teal-50 ${
-                        sel ? "bg-teal-100" : ""
-                      }`}
-                    >
-                      <div className="w-32 shrink-0 truncate pr-2 text-xs font-medium text-gray-800 sm:w-44 sm:text-sm">
-                        {veda.pesqueria}
-                      </div>
-                      <div className="relative h-5 flex-1 rounded" style={{ backgroundImage: gridBg }}>
-                        {/* Marcador de hoy */}
-                        {hoy != null && (
-                          <div
-                            className="absolute inset-y-0 z-10 -translate-x-1/2 border-l-2 border-dashed border-teal-500"
-                            style={{ left: `${hoy * 100}%` }}
-                          />
-                        )}
-                        {segs.map((seg, i) => (
-                          <div
-                            key={i}
-                            className={`absolute inset-y-0.5 rounded ${tipoColor[veda.tipoVeda] ?? "bg-gray-400"} ${
-                              activa ? "" : "opacity-60"
+              <div className="max-h-[60vh] overflow-y-auto pr-1">
+                {secciones.map((sec) => (
+                  <section key={sec.titulo} className="pb-2">
+                    <h4 className="sticky top-0 z-20 mb-1 flex items-baseline gap-2 border-b border-gray-200 bg-white py-1.5 text-sm font-semibold text-gray-800">
+                      {sec.titulo}
+                      <span className="text-xs font-normal text-gray-500">{sec.filas.length}</span>
+                    </h4>
+                    <div className="space-y-1">
+                      {sec.filas.map(({ veda, segs }) => {
+                        const activa = isVedaActive(veda)
+                        const sel = seleccion?.id === veda.id
+                        return (
+                          <button
+                            key={veda.id}
+                            onClick={() => setSeleccion(veda)}
+                            className={`flex w-full items-center rounded-md py-0.5 text-left transition-colors hover:bg-teal-50 ${
+                              sel ? "bg-teal-100" : ""
                             }`}
-                            style={{ left: `${seg.left}%`, width: `${seg.width}%` }}
-                          />
-                        ))}
-                      </div>
-                    </button>
-                  )
-                })}
+                          >
+                            <div className="flex w-32 shrink-0 flex-col pr-2 sm:w-44" title={`${veda.pesqueria} · ${veda.region}`}>
+                              <span className="truncate text-xs font-medium text-gray-800 sm:text-sm">{veda.pesqueria}</span>
+                              {veda.nombreCientifico && (
+                                <span className="truncate text-[10px] italic leading-tight text-gray-500 sm:text-xs">{veda.nombreCientifico}</span>
+                              )}
+                            </div>
+                            <div className="relative h-5 flex-1 rounded" style={{ backgroundImage: gridBg }}>
+                              {/* Marcador de hoy */}
+                              {hoy != null && (
+                                <div
+                                  className="absolute inset-y-0 z-10 -translate-x-1/2 border-l-2 border-dashed border-teal-500"
+                                  style={{ left: `${hoy * 100}%` }}
+                                />
+                              )}
+                              {segs.map((seg, i) => (
+                                <div
+                                  key={i}
+                                  className={`absolute inset-y-0.5 rounded ${tipoColor[veda.tipoVeda] ?? "bg-gray-400"} ${
+                                    activa ? "" : "opacity-60"
+                                  }`}
+                                  style={{ left: `${seg.left}%`, width: `${seg.width}%` }}
+                                />
+                              ))}
+                            </div>
+                          </button>
+                        )
+                      })}
+                    </div>
+                  </section>
+                ))}
               </div>
             </div>
           </div>
           <p className="mt-3 text-xs text-gray-500">
-            {filas.length} {filas.length === 1 ? "veda" : "vedas"} · la línea vertical marca el día de hoy
+            {totalFilas} {totalFilas === 1 ? "veda" : "vedas"} · la línea vertical marca el día de hoy
           </p>
         </CardContent>
       </Card>

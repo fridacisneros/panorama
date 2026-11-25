@@ -363,6 +363,11 @@ const ICONOS_CLAVE = { talla: Ruler, rendimiento: TrendingUp, tasa: Activity } a
 // Paleta de reserva para series de estado sin color explícito.
 const COLORES_SERIE = ["#0d9488", "#0891b2", "#f59e0b", "#8b5cf6", "#ec4899", "#65a30d"]
 
+// Series de "tinta" casi negra (#0f172a): en modo nocturno se perderían contra el
+// fondo, así que leen la escala de texto, que se aclara bajo `.dark`.
+const COLORES_TINTA: Record<string, string> = { "#0f172a": "rgb(var(--txt-gray-900))" }
+const colorSerie = (color: string) => COLORES_TINTA[color.toLowerCase()] ?? color
+
 function GraficaEstados({ grafica }: { grafica: GraficaCapturaEstados }) {
   // Combina las series (posiblemente con años distintos) en filas por año.
   const años = Array.from(new Set(grafica.series.flatMap((s) => s.datos.map((d) => d.año)))).sort((a, b) => a - b)
@@ -429,7 +434,7 @@ function GraficaEstados({ grafica }: { grafica: GraficaCapturaEstados }) {
                   // las de puntos dispersos conservan la curva suavizada.
                   type={s.datos.length > 12 ? "linear" : "monotone"}
                   dataKey={s.estado}
-                  stroke={s.color ?? COLORES_SERIE[i % COLORES_SERIE.length]}
+                  stroke={colorSerie(s.color ?? COLORES_SERIE[i % COLORES_SERIE.length])}
                   strokeWidth={2}
                   strokeDasharray={s.punteada ? "5 4" : undefined}
                   name={s.estado}

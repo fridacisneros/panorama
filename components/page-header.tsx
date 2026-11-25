@@ -8,7 +8,7 @@ interface PageHeaderProps {
 
 export function PageHeader({ title, subtitle, icon: Icon }: PageHeaderProps) {
   return (
-    <div className="relative mb-6 overflow-hidden rounded-2xl bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-600 text-white shadow-sm">
+    <div className="relative mb-6 overflow-hidden rounded-2xl bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-600 text-white shadow-sm tema-fijo">
       {/* Patrón de olas sutil */}
       <svg
         className="pointer-events-none absolute inset-x-0 bottom-0 h-[70%] w-full"

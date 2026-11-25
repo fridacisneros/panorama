@@ -12,7 +12,7 @@ export function Footer() {
   const año = new Date().getFullYear()
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-gray-900 text-white tema-fijo">
       <div className="container mx-auto px-4 py-10">
         <div className="max-w-2xl mx-auto text-center">
           {/* Logo */}

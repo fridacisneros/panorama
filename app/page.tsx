@@ -105,9 +105,9 @@ export const revalidate = 3600
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 dark:bg-none dark:bg-background">
       {/* Encabezado: nombre, titular y buscador */}
-      <section className="relative bg-gradient-to-br from-teal-600 via-cyan-600 to-blue-700 text-white">
+      <section className="relative bg-gradient-to-br from-teal-600 via-cyan-600 to-blue-700 text-white tema-fijo">
         <div className="relative z-20 container mx-auto px-4 pt-20 pb-28 md:pt-24 md:pb-32">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 text-balance">Panorama Pesquero</h1>
@@ -211,7 +211,7 @@ export default function Home() {
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {litorales.map((l) => (
-              <div key={l.nombre} className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${l.fondo} p-6 text-white shadow-lg md:p-8`}>
+              <div key={l.nombre} className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${l.fondo} p-6 text-white shadow-lg md:p-8 tema-fijo`}>
                 <Waves className="absolute -right-6 -bottom-6 h-40 w-40 text-white/10" aria-hidden="true" />
                 <h3 className="text-2xl font-bold">{l.nombre}</h3>
                 <p className="text-teal-100">{l.alcance}</p>
@@ -275,7 +275,7 @@ export default function Home() {
       {/* Lo que viene: datos de los anuarios */}
       <section id="novedades" className="py-16">
         <div className="container mx-auto px-4">
-          <div className="rounded-2xl bg-gradient-to-br from-blue-700 to-cyan-600 p-6 text-white shadow-lg">
+          <div className="rounded-2xl bg-gradient-to-br from-blue-700 to-cyan-600 p-6 text-white shadow-lg tema-fijo">
             <span className="inline-flex rounded-full bg-white/15 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wide">
               Próximamente
             </span>

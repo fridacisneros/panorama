@@ -16,7 +16,7 @@ const secciones = [
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 dark:bg-none dark:bg-background">
       <div className="container mx-auto flex min-h-[70vh] items-center justify-center px-4 py-16">
         <div className="max-w-md text-center">
           <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-teal-100">

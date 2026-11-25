@@ -414,11 +414,11 @@ function GraficaEstados({ grafica }: { grafica: GraficaCapturaEstados }) {
                   key={r.etiqueta}
                   yAxisId="izq"
                   y={r.valor}
-                  stroke="#475569"
+                  stroke="rgb(var(--txt-gray-600))"
                   strokeWidth={r.tipo === "punteada" ? 1 : 1.5}
                   strokeDasharray={r.tipo === "punteada" ? "4 4" : undefined}
                   ifOverflow="extendDomain"
-                  label={{ value: r.etiqueta, position: "insideTopRight", fontSize: 11, fill: "#475569" }}
+                  label={{ value: r.etiqueta, position: "insideTopRight", fontSize: 11, fill: "rgb(var(--txt-gray-600))" }}
                 />
               ))}
               {grafica.series.map((s, i) => (
@@ -477,7 +477,7 @@ function FrecuenciaTallasCard({ grafica }: { grafica: GraficaFrecuenciaTallas })
                 <div className="h-40">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={data} margin={{ top: 14, right: 4, bottom: 0, left: -20 }} barCategoryGap={1}>
-                      <CartesianGrid stroke="#e5e7eb" vertical={false} />
+                      <CartesianGrid stroke="rgb(var(--sup-gray-200))" vertical={false} />
                       <XAxis dataKey="talla" tick={{ fontSize: 11 }} interval={1} tickLine={false} />
                       <YAxis
                         tick={{ fontSize: 11 }}
@@ -497,7 +497,7 @@ function FrecuenciaTallasCard({ grafica }: { grafica: GraficaFrecuenciaTallas })
                           dataKey="porcentaje"
                           position="top"
                           fontSize={10}
-                          fill="#52514e"
+                          fill="rgb(var(--txt-gray-700))"
                           formatter={(value: unknown) => (value === moda ? `${moda}%` : "")}
                         />
                       </Bar>
@@ -588,7 +588,7 @@ function ParticipacionApiladaCard({ grafica }: { grafica: GraficaParticipacionAp
                 type="category"
                 dataKey="estado"
                 width={132}
-                tick={{ fontSize: 12, fill: "#4b5563" }}
+                tick={{ fontSize: 12, fill: "rgb(var(--txt-gray-600))" }}
                 tickLine={false}
                 axisLine={false}
               />
@@ -596,7 +596,7 @@ function ParticipacionApiladaCard({ grafica }: { grafica: GraficaParticipacionAp
                   neutra, con una marca de color al lado; el recuadro anterior tapaba
                   las barras porque repetía la leyenda completa en texto largo. */}
               <Tooltip
-                cursor={{ fill: "#f0fdfa" }}
+                cursor={{ fill: "rgb(var(--sup-teal-50))" }}
                 content={({ active, payload, label }: any) => {
                   if (!active || !payload?.length) return null
                   const total = Number(payload[0]?.payload?.total) || 100

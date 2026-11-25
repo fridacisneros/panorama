@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import { Fish, Waves, FileText, Calendar, Home, Menu } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { SelectorTema } from "@/components/selector-tema"
 import {
   Sheet,
   SheetContent,
@@ -36,7 +37,7 @@ export function Navbar() {
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
               <Waves className="h-8 w-8 text-teal-600" />
-              <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">
+              <span className="text-xl font-bold bg-gradient-to-r from-teal-600 to-blue-600 dark:from-teal-400 dark:to-cyan-400 bg-clip-text text-transparent">
                 Panorama Pesquero
               </span>
             </Link>
@@ -62,10 +63,12 @@ export function Navbar() {
                 </Link>
               )
             })}
+            <SelectorTema />
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex items-center md:hidden">
+          <div className="flex items-center gap-1 md:hidden">
+            <SelectorTema />
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
                 <Button
@@ -86,7 +89,7 @@ export function Navbar() {
                       className="flex items-center space-x-2"
                     >
                       <Waves className="h-7 w-7 text-teal-600" />
-                      <span className="text-lg font-bold bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">
+                      <span className="text-lg font-bold bg-gradient-to-r from-teal-600 to-blue-600 dark:from-teal-400 dark:to-cyan-400 bg-clip-text text-transparent">
                         Panorama Pesquero
                       </span>
                     </Link>

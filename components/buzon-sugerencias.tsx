@@ -87,7 +87,7 @@ export function BuzonSugerencias() {
   return (
     <section
       id="buzon-sugerencias"
-      className="py-16 bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-700 text-white"
+      className="py-16 bg-gradient-to-r from-teal-600 via-cyan-600 to-blue-700 text-white tema-fijo"
     >
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto">

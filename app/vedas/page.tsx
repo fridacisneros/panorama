@@ -13,7 +13,7 @@ export default function VedasPage() {
   const [filteredVedas, setFilteredVedas] = useState(vedasData)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 dark:bg-none dark:bg-background">
       <div className="container mx-auto px-4 py-8">
         <PageHeader
           icon={Calendar}

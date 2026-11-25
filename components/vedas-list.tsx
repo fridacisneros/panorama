@@ -4,13 +4,37 @@ import { MapPin, Fish, Clock, Download } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { type VedaData, formatDateToDDMM } from "@/lib/vedas-data"
+import type { VedaData } from "@/lib/vedas-data"
+import { useIdioma } from "@/components/idioma-provider"
+import { etiquetaTipoVeda, etiquetaZona, fechaDiaMes, type Idioma } from "@/lib/i18n"
+
+const TEXTOS = {
+  es: {
+    todoElAño: "Todo el año",
+    veda: "Veda",
+    descargar: "Descargar",
+    sinVedas: "No se encontraron vedas",
+    sinCoincidencias: "No hay vedas que coincidan con los filtros seleccionados.",
+    mostrando: (n: number) => `Mostrando ${n} ${n === 1 ? "veda" : "vedas"}`,
+  },
+  en: {
+    todoElAño: "All year",
+    veda: "Closure",
+    descargar: "Download",
+    sinVedas: "No closures found",
+    sinCoincidencias: "No closures match the selected filters.",
+    mostrando: (n: number) => `Showing ${n} ${n === 1 ? "closure" : "closures"}`,
+  },
+} satisfies Record<Idioma, unknown>
 
 interface VedasListProps {
   vedas: VedaData[]
 }
 
 export function VedasList({ vedas }: VedasListProps) {
+  const { idioma } = useIdioma()
+  const t = TEXTOS[idioma]
+  const fecha = (mmdd: string) => fechaDiaMes(idioma, mmdd)
   // Los datos ya vienen filtrados desde VedasFilters
   const filteredVedas = vedas
 
@@ -24,14 +48,14 @@ export function VedasList({ vedas }: VedasListProps) {
             // Períodos de la veda (uno o varios), listos para mostrar en línea
             const periodos =
               veda.tipoVeda === "Permanente"
-                ? ["Todo el año"]
+                ? [t.todoElAño]
                 : [
-                    `${formatDateToDDMM(veda.fechaInicio1)} - ${formatDateToDDMM(veda.fechaTermino1)}`,
+                    `${fecha(veda.fechaInicio1)} - ${fecha(veda.fechaTermino1)}`,
                     veda.fechaInicio2 && veda.fechaTermino2
-                      ? `${formatDateToDDMM(veda.fechaInicio2)} - ${formatDateToDDMM(veda.fechaTermino2)}`
+                      ? `${fecha(veda.fechaInicio2)} - ${fecha(veda.fechaTermino2)}`
                       : null,
                     veda.fechaInicio3 && veda.fechaTermino3
-                      ? `${formatDateToDDMM(veda.fechaInicio3)} - ${formatDateToDDMM(veda.fechaTermino3)}`
+                      ? `${fecha(veda.fechaInicio3)} - ${fecha(veda.fechaTermino3)}`
                       : null,
                   ].filter(Boolean)
 
@@ -51,7 +75,7 @@ export function VedasList({ vedas }: VedasListProps) {
                     variant="outline"
                     className="w-fit text-xs font-semibold bg-teal-50 text-teal-700 border-teal-200"
                   >
-                    Veda
+                    {t.veda}
                   </Badge>
 
                   {/* Nombre y nombre científico */}
@@ -67,7 +91,7 @@ export function VedasList({ vedas }: VedasListProps) {
                     <div className="flex items-start gap-1.5">
                       <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0 mt-0.5" />
                       <span>
-                        {veda.zona} · {veda.region} · {veda.tipoVeda}
+                        {etiquetaZona(idioma, veda.zona)} · {veda.region} · {etiquetaTipoVeda(idioma, veda.tipoVeda)}
                       </span>
                     </div>
                     <div className="flex items-start gap-1.5">
@@ -81,7 +105,7 @@ export function VedasList({ vedas }: VedasListProps) {
                     <Button asChild size="sm" className="bg-teal-600 hover:bg-teal-700">
                       <a href={veda.enlaceDOF} target="_blank" rel="noopener noreferrer">
                         <Download className="w-4 h-4 mr-1" />
-                        Descargar
+                        {t.descargar}
                       </a>
                     </Button>
                   </div>
@@ -94,8 +118,8 @@ export function VedasList({ vedas }: VedasListProps) {
         <Card className="bg-white/90 backdrop-blur-sm border-gray-200">
           <CardContent className="p-12 text-center">
             <Fish className="w-16 h-16 mx-auto mb-4 text-gray-400" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No se encontraron vedas</h3>
-            <p className="text-gray-600">No hay vedas que coincidan con los filtros seleccionados.</p>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">{t.sinVedas}</h3>
+            <p className="text-gray-600">{t.sinCoincidencias}</p>
           </CardContent>
         </Card>
       )}
@@ -105,7 +129,7 @@ export function VedasList({ vedas }: VedasListProps) {
         <Card className="bg-white/90 backdrop-blur-sm border-teal-200">
           <CardContent className="p-4">
             <div className="text-sm text-gray-600">
-              Mostrando {filteredVedas.length} {filteredVedas.length === 1 ? "veda" : "vedas"}
+              {t.mostrando(filteredVedas.length)}
             </div>
           </CardContent>
         </Card>

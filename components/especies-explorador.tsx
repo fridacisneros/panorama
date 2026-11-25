@@ -19,10 +19,52 @@ import { EspecieImagen } from "@/components/especie-imagen"
 import { cn } from "@/lib/utils"
 import { especies } from "@/lib/especies-data"
 import { siteName } from "@/lib/site"
+import { useIdioma } from "@/components/idioma-provider"
+import { AvisoIdioma } from "@/components/aviso-idioma"
+import { etiquetaRegion, type Idioma } from "@/lib/i18n"
 
 const toArray = <T,>(value: T | T[]): T[] => (Array.isArray(value) ? value : [value])
 
 const getUniqueRegions = () => [...new Set(especies.map((e) => e.region))].sort()
+
+const TEXTOS = {
+  es: {
+    titulo: "Pesquerías",
+    subtitulo: "Información sobre las principales pesquerías de México de acuerdo a la Carta Nacional Pesquera.",
+    buscar: "Buscar especies...",
+    estado: "Estado",
+    todosEstados: "Todos los estados",
+    potencial: "Con potencial de desarrollo",
+    maximo: "Aprovechado al máximo sustentable",
+    deterioro: "En deterioro",
+    indeterminado: "Indeterminado",
+    region: "Región",
+    todasRegiones: "Todas las regiones",
+    conteo: (n: number) => `${n} ${n === 1 ? "pesquería" : "pesquerías"}`,
+    sinResultados: "No se encontraron especies",
+    ajustar: "Intenta ajustar los filtros",
+    limpiar: "Limpiar filtros",
+    volver: "Volver a la lista",
+  },
+  en: {
+    titulo: "Fisheries",
+    subtitulo: "Information on Mexico's main fisheries according to the National Fisheries Chart.",
+    buscar: "Search species...",
+    estado: "Status",
+    todosEstados: "All statuses",
+    potencial: "Underfished",
+    maximo: "Maximally sustainably fished",
+    deterioro: "Overfished",
+    indeterminado: "Undetermined",
+    region: "Region",
+    todasRegiones: "All regions",
+    conteo: (n: number) => `${n} ${n === 1 ? "fishery" : "fisheries"}`,
+    sinResultados: "No species found",
+    ajustar: "Try adjusting the filters",
+    limpiar: "Clear filters",
+    volver: "Back to the list",
+  },
+} satisfies Record<Idioma, unknown>
 
 // Catálogo + panel lateral de pesquerías. Lo usan /especies (sin selección) y
 // /especies/[especie] (con la pesquería elegida desde el servidor, para que el
@@ -34,6 +76,8 @@ export function EspeciesExplorador({
   idInicial?: string
   regionInicial?: string
 }) {
+  const { idioma, ruta } = useIdioma()
+  const t = TEXTOS[idioma]
   const [searchTerm, setSearchTerm] = useState("")
   const [statusFilter, setStatusFilter] = useState("todos")
   const [regionFilter, setRegionFilter] = useState(regionInicial ?? "todas")
@@ -76,7 +120,7 @@ export function EspeciesExplorador({
   const selectEspecie = (id: string) => {
     setSelectedId(id)
     setDetailOpenMobile(true)
-    window.history.replaceState(null, "", `/especies/${encodeURIComponent(id)}`)
+    window.history.replaceState(null, "", ruta(`/especies/${encodeURIComponent(id)}`))
     const nombre = especies.find((e) => e.id === id)?.nombre
     if (nombre) document.title = `${nombre} · ${siteName}`
   }
@@ -86,14 +130,16 @@ export function EspeciesExplorador({
       <div className="container mx-auto px-4 py-8">
         <PageHeader
           icon={Fish}
-          title="Pesquerías"
-          subtitle="Información sobre las principales pesquerías de México de acuerdo a la Carta Nacional Pesquera."
+          title={t.titulo}
+          subtitle={t.subtitulo}
         />
+
+        <AvisoIdioma />
 
         <FilterBar
           searchValue={searchTerm}
           onSearchChange={setSearchTerm}
-          searchPlaceholder="Buscar especies..."
+          searchPlaceholder={t.buscar}
           onClear={() => {
             setSearchTerm("")
             setStatusFilter("todos")
@@ -102,32 +148,32 @@ export function EspeciesExplorador({
         >
           <Select value={statusFilter} onValueChange={setStatusFilter}>
             <SelectTrigger className="h-9 w-full md:w-52 bg-white border-gray-200 [&>span]:min-w-0">
-              <SelectValue placeholder="Estado" />
+              <SelectValue placeholder={t.estado} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="todos">Todos los estados</SelectItem>
+              <SelectItem value="todos">{t.todosEstados}</SelectItem>
               <SelectItem value="green">
                 <div className="flex items-center gap-2 min-w-0">
                   <CheckCircle className="w-4 h-4 shrink-0 text-green-600" />
-                  <span className="truncate">Con potencial de desarrollo</span>
+                  <span className="truncate">{t.potencial}</span>
                 </div>
               </SelectItem>
               <SelectItem value="yellow">
                 <div className="flex items-center gap-2 min-w-0">
                   <TrendingUp className="w-4 h-4 shrink-0 text-yellow-600" />
-                  <span className="truncate">Aprovechado al máximo sustentable</span>
+                  <span className="truncate">{t.maximo}</span>
                 </div>
               </SelectItem>
               <SelectItem value="red">
                 <div className="flex items-center gap-2 min-w-0">
                   <XCircle className="w-4 h-4 shrink-0 text-red-600" />
-                  <span className="truncate">En deterioro</span>
+                  <span className="truncate">{t.deterioro}</span>
                 </div>
               </SelectItem>
               <SelectItem value="gray">
                 <div className="flex items-center gap-2 min-w-0">
                   <AlertTriangle className="w-4 h-4 shrink-0 text-gray-600" />
-                  <span className="truncate">Indeterminado</span>
+                  <span className="truncate">{t.indeterminado}</span>
                 </div>
               </SelectItem>
             </SelectContent>
@@ -135,20 +181,20 @@ export function EspeciesExplorador({
 
           <Select value={regionFilter} onValueChange={setRegionFilter}>
             <SelectTrigger className="h-9 w-full md:w-52 bg-white border-gray-200 [&>span]:min-w-0">
-              <SelectValue placeholder="Región" />
+              <SelectValue placeholder={t.region} />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="todas">
                 <div className="flex items-center gap-2 min-w-0">
                   <MapPin className="w-4 h-4 shrink-0 text-blue-600" />
-                  <span className="truncate">Todas las regiones</span>
+                  <span className="truncate">{t.todasRegiones}</span>
                 </div>
               </SelectItem>
               {uniqueRegions.map((region) => (
                 <SelectItem key={region} value={region}>
                   <div className="flex items-center gap-2 min-w-0">
                     <MapPin className="w-4 h-4 shrink-0 text-blue-600" />
-                    <span className="truncate">{region}</span>
+                    <span className="truncate">{etiquetaRegion(idioma, region)}</span>
                   </div>
                 </SelectItem>
               ))}
@@ -157,7 +203,7 @@ export function EspeciesExplorador({
         </FilterBar>
 
         <p className="text-sm text-gray-600 mb-4">
-          {filteredEspecies.length} {filteredEspecies.length === 1 ? "pesquería" : "pesquerías"}
+          {t.conteo(filteredEspecies.length)}
         </p>
 
         {/* Panel lateral: lista + detalle en la misma pantalla */}
@@ -169,13 +215,13 @@ export function EspeciesExplorador({
               detailOpenMobile && "hidden lg:block",
             )}
             role="listbox"
-            aria-label="Pesquerías"
+            aria-label={t.titulo}
           >
             {filteredEspecies.length === 0 ? (
               <div className="text-center py-10 px-4">
                 <Fish className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                <p className="text-gray-700 font-medium mb-1">No se encontraron especies</p>
-                <p className="text-sm text-gray-500 mb-3">Intenta ajustar los filtros</p>
+                <p className="text-gray-700 font-medium mb-1">{t.sinResultados}</p>
+                <p className="text-sm text-gray-500 mb-3">{t.ajustar}</p>
                 <Button
                   variant="outline"
                   size="sm"
@@ -186,7 +232,7 @@ export function EspeciesExplorador({
                   }}
                   className="border-teal-200 text-teal-700 hover:bg-teal-50"
                 >
-                  Limpiar filtros
+                  {t.limpiar}
                 </Button>
               </div>
             ) : (
@@ -196,7 +242,7 @@ export function EspeciesExplorador({
                     {/* -top-2/-mx-2 compensan el p-2 del contenedor para que el encabezado
                         tape también el relleno y no se asome la lista por encima */}
                     <p className="sticky -top-2 z-10 -mx-2 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-wide text-teal-700">
-                      {region}
+                      {etiquetaRegion(idioma, region)}
                     </p>
                     {items.map((especie) => {
                       const activo = selected?.id === especie.id
@@ -221,7 +267,7 @@ export function EspeciesExplorador({
                             <p className={cn("font-semibold text-sm leading-tight truncate", activo ? "text-teal-700" : "text-gray-900")}>
                               {especie.nombre}
                             </p>
-                            <p className="text-xs text-gray-500 truncate">{especie.region}</p>
+                            <p className="text-xs text-gray-500 truncate">{etiquetaRegion(idioma, especie.region)}</p>
                           </div>
                         </button>
                       )
@@ -243,7 +289,7 @@ export function EspeciesExplorador({
                   className="text-teal-700 hover:bg-teal-50"
                 >
                   <ArrowLeft className="w-4 h-4 mr-1.5" />
-                  Volver a la lista
+                  {t.volver}
                 </Button>
               </div>
               {selected && <FichaDetalle key={selected.id} especie={selected} />}

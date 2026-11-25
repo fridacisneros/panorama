@@ -11,6 +11,36 @@ import { FilterBar } from "@/components/filter-bar"
 import { VedasList } from "@/components/vedas-list"
 import { vedasData, type VedaData } from "@/lib/vedas-data"
 import { documents, CATEGORY_META, type DocumentItem, type LibraryCategory } from "@/lib/normativas-data"
+import { useIdioma } from "@/components/idioma-provider"
+import { AvisoIdioma } from "@/components/aviso-idioma"
+import { CATEGORIAS_EN, fechaISO, type Idioma } from "@/lib/i18n"
+
+const TEXTOS = {
+  es: {
+    titulo: "Biblioteca Normativa",
+    subtitulo: "Accede a leyes, reglamentos, normas oficiales y documentos técnicos",
+    buscar: "Buscar documentos, leyes, normas...",
+    categoria: "Categoría",
+    todas: "Todas las categorías",
+    descargar: "Descargar",
+    sitioOficial: "Ver en sitio oficial",
+    sinDocumentos: "No se encontraron documentos",
+    sinCoincidencias: (q: string) => `No hay documentos que coincidan con "${q}".`,
+    sinCategoria: "No hay documentos disponibles en esta categoría.",
+  },
+  en: {
+    titulo: "Regulations Library",
+    subtitulo: "Access laws, regulations, official standards and technical documents",
+    buscar: "Search documents, laws, standards...",
+    categoria: "Category",
+    todas: "All categories",
+    descargar: "Download",
+    sitioOficial: "View on official site",
+    sinDocumentos: "No documents found",
+    sinCoincidencias: (q: string) => `No documents match "${q}".`,
+    sinCategoria: "No documents available in this category.",
+  },
+} satisfies Record<Idioma, unknown>
 
 // Solo se descargan los PDF que el servidor puede obtener; el resto se abre en el
 // sitio oficial: páginas web (DOF, gob.mx) y PDF de CONAPESCA, cuyo servidor no
@@ -22,6 +52,10 @@ const sePuedeDescargar = (url: string) => {
 }
 
 export default function NormativasPage() {
+  const { idioma } = useIdioma()
+  const t = TEXTOS[idioma]
+  // Nombre de la categoría en el idioma actual.
+  const categoria = (cat: LibraryCategory) => (idioma === "en" ? CATEGORIAS_EN[cat] : CATEGORY_META[cat])
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("all")
 
@@ -97,14 +131,16 @@ export default function NormativasPage() {
       <div className="container mx-auto px-4 py-8">
         <PageHeader
           icon={FileText}
-          title="Biblioteca Normativa"
-          subtitle="Accede a leyes, reglamentos, normas oficiales y documentos técnicos"
+          title={t.titulo}
+          subtitle={t.subtitulo}
         />
+
+        <AvisoIdioma />
 
         <FilterBar
           searchValue={searchTerm}
           onSearchChange={setSearchTerm}
-          searchPlaceholder="Buscar documentos, leyes, normas..."
+          searchPlaceholder={t.buscar}
           onClear={
             searchTerm || selectedCategory !== "all"
               ? () => {
@@ -116,15 +152,15 @@ export default function NormativasPage() {
         >
           <Select value={selectedCategory} onValueChange={setSelectedCategory}>
             <SelectTrigger className="h-9 w-full md:w-56 bg-white border-gray-200 focus:border-teal-400">
-              <SelectValue placeholder="Categoría" />
+              <SelectValue placeholder={t.categoria} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Todas las categorías</SelectItem>
+              <SelectItem value="all">{t.todas}</SelectItem>
               {(Object.keys(CATEGORY_META) as LibraryCategory[]).map((cat) => (
                 <SelectItem key={cat} value={cat}>
                   <span className="flex items-center gap-2">
                     <span className={`w-2.5 h-2.5 rounded-full ${CATEGORY_META[cat].dot}`} />
-                    {CATEGORY_META[cat].full}
+                    {categoria(cat).full}
                   </span>
                 </SelectItem>
               ))}
@@ -144,7 +180,7 @@ export default function NormativasPage() {
                 <span className={`absolute left-0 top-0 bottom-0 w-1 ${meta.rail}`} aria-hidden="true" />
                 <CardContent className="flex h-full flex-col gap-3 p-5 pl-6">
                   <Badge variant="outline" className={`w-fit text-xs font-semibold ${meta.badge}`}>
-                    {meta.short}
+                    {categoria(doc.category).short}
                   </Badge>
 
                   <h3 className="flex-1 text-base font-semibold leading-snug text-gray-900">
@@ -153,7 +189,7 @@ export default function NormativasPage() {
 
                   <div className="mt-auto flex items-center justify-between gap-3">
                     <span className="text-sm text-gray-500 tabular-nums">
-                      {new Date(doc.date).toLocaleDateString("es-MX")}
+                      {fechaISO(idioma, doc.date)}
                     </span>
                     {sePuedeDescargar(doc.url) ? (
                       <Button
@@ -162,14 +198,14 @@ export default function NormativasPage() {
                         className="bg-teal-600 hover:bg-teal-700"
                       >
                         <Download className="w-4 h-4 mr-1" />
-                        Descargar
+                        {t.descargar}
                       </Button>
                     ) : (
                       // Páginas web y PDF de CONAPESCA: se abren en el sitio oficial
                       <Button asChild size="sm" className="bg-teal-600 hover:bg-teal-700">
                         <a href={doc.url} target="_blank" rel="noopener noreferrer">
                           <ExternalLink className="w-4 h-4 mr-1" />
-                          Ver en sitio oficial
+                          {t.sitioOficial}
                         </a>
                       </Button>
                     )}
@@ -185,12 +221,8 @@ export default function NormativasPage() {
           <Card className="bg-white/90 backdrop-blur-sm border-teal-200">
             <CardContent className="p-12 text-center">
               <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No se encontraron documentos</h3>
-              <p className="text-gray-600">
-                {searchTerm
-                  ? `No hay documentos que coincidan con "${searchTerm}".`
-                  : "No hay documentos disponibles en esta categoría."}
-              </p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">{t.sinDocumentos}</h3>
+              <p className="text-gray-600">{searchTerm ? t.sinCoincidencias(searchTerm) : t.sinCategoria}</p>
             </CardContent>
           </Card>
         )}

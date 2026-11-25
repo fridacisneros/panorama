@@ -11,8 +11,69 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import type { Especie } from "@/lib/especies-data"
 import { CATEGORY_META } from "@/lib/normativas-data"
-import { formatDateToDDMM, isVedaActive, type VedaData } from "@/lib/vedas-data"
+import { isVedaActive, type VedaData } from "@/lib/vedas-data"
 import { vinculosDe, type PlanVinculado } from "@/lib/vinculos-data"
+import { useIdioma } from "@/components/idioma-provider"
+import { fechaDiaMes, type Idioma } from "@/lib/i18n"
+
+const TEXTOS = {
+  es: {
+    permanente: "Permanente",
+    y: "y",
+    enVedaHoy: "En veda hoy",
+    sinVedaHoy: "Sin veda hoy",
+    conVeda: "Con veda",
+    planLocal: "Plan de manejo local",
+    plan: "Plan de manejo",
+    talla: "Talla mínima",
+    verRegulacionAria: "Ver la regulación de esta pesquería",
+    verRegulacion: "Ver regulación",
+    planLocalCorto: "Plan local",
+    titulo: "Regulación de esta pesquería",
+    veda: "Veda",
+    abiertaHoy: "Abierta hoy",
+    acuerdoDOF: "Acuerdo en el DOF",
+    verCalendario: "Ver en el calendario de vedas",
+    sinVeda: "La CNP no registra veda para esta pesquería.",
+    nom: "Norma Oficial Mexicana",
+    sinNom: "Sin NOM específica.",
+    planManejo: "Plan de manejo pesquero",
+    sinPlanCompleto: "La Carta Nacional Pesquera no registra un plan de manejo para toda la pesquería («No aplica»).",
+    sinPlan: "Sin plan de manejo publicado.",
+    sinTalla: "Sin talla mínima establecida.",
+    zrp: "Zonas de refugio pesquero",
+    sinZrp: "Sin zonas de refugio vinculadas.",
+    verZrp: "Ver todas las ZRP",
+  },
+  en: {
+    permanente: "Permanent",
+    y: "and",
+    enVedaHoy: "Closed today",
+    sinVedaHoy: "Open today",
+    conVeda: "Has closure",
+    planLocal: "Local management plan",
+    plan: "Management plan",
+    talla: "Minimum size",
+    verRegulacionAria: "See this fishery's regulation",
+    verRegulacion: "See regulation",
+    planLocalCorto: "Local plan",
+    titulo: "Regulation of this fishery",
+    veda: "Closure",
+    abiertaHoy: "Open today",
+    acuerdoDOF: "Agreement in the DOF",
+    verCalendario: "See in the closure calendar",
+    sinVeda: "The CNP lists no closure for this fishery.",
+    nom: "Official Mexican Standard (NOM)",
+    sinNom: "No specific NOM.",
+    planManejo: "Fishery management plan",
+    sinPlanCompleto: "The National Fisheries Chart lists no management plan for the whole fishery (“No aplica”).",
+    sinPlan: "No published management plan.",
+    sinTalla: "No minimum size established.",
+    zrp: "Fishery refuge zones",
+    sinZrp: "No linked refuge zones.",
+    verZrp: "See all refuge zones",
+  },
+} satisfies Record<Idioma, unknown>
 
 type Ficha = NonNullable<Especie["ficha"]>
 
@@ -36,17 +97,17 @@ function useVedasActivas(vedas: VedaData[]): Set<string> | null {
   return activas
 }
 
-const periodos = (veda: VedaData) =>
+const periodos = (idioma: Idioma, veda: VedaData) =>
   veda.tipoVeda === "Permanente"
-    ? "Permanente"
+    ? TEXTOS[idioma].permanente
     : [
         [veda.fechaInicio1, veda.fechaTermino1],
         [veda.fechaInicio2, veda.fechaTermino2],
         [veda.fechaInicio3, veda.fechaTermino3],
       ]
         .filter(([ini, fin]) => ini && fin)
-        .map(([ini, fin]) => `${formatDateToDDMM(ini)} – ${formatDateToDDMM(fin)}`)
-        .join(" y ")
+        .map(([ini, fin]) => `${fechaDiaMes(idioma, ini)} – ${fechaDiaMes(idioma, fin)}`)
+        .join(` ${TEXTOS[idioma].y} `)
 
 // ---------------------------------------------------------------------------
 // Resumen en el encabezado de la ficha: una pastilla por instrumento que lleva
@@ -60,6 +121,7 @@ export function ResumenRegulacion({
   especie: Especie
   onVerDetalle: () => void
 }) {
+  const t = TEXTOS[useIdioma().idioma]
   const ficha = especie.ficha
   const [v] = useState(() => vinculosDe(especie.id))
   const activas = useVedasActivas(v.vedas)
@@ -73,20 +135,20 @@ export function ResumenRegulacion({
   if (v.vedas.length > 0 && enVeda !== null) {
     pastillas.push(
       enVeda
-        ? { etiqueta: "En veda hoy", clase: "bg-red-50 text-red-700 border-red-200" }
-        : { etiqueta: "Sin veda hoy", clase: "bg-green-50 text-green-700 border-green-200" },
+        ? { etiqueta: t.enVedaHoy, clase: "bg-red-50 text-red-700 border-red-200" }
+        : { etiqueta: t.sinVedaHoy, clase: "bg-green-50 text-green-700 border-green-200" },
     )
   } else if (hayVeda) {
-    pastillas.push({ etiqueta: "Con veda", clase: CATEGORY_META.vedas.badge })
+    pastillas.push({ etiqueta: t.conVeda, clase: CATEGORY_META.vedas.badge })
   }
   if (v.noms.length) pastillas.push({ etiqueta: v.noms.length > 1 ? `${v.noms.length} NOM` : "NOM", clase: CATEGORY_META.noms.badge })
   if (v.planes.length) {
     // Si todos los planes son locales, la pastilla lo dice: la CNP no registra plan
     // para la pesquería completa.
     const soloLocales = v.planes.every((p) => p.alcanceLocal)
-    pastillas.push({ etiqueta: soloLocales ? "Plan de manejo local" : "Plan de manejo", clase: CATEGORY_META.planes.badge })
+    pastillas.push({ etiqueta: soloLocales ? t.planLocal : t.plan, clase: CATEGORY_META.planes.badge })
   }
-  if (talla) pastillas.push({ etiqueta: "Talla mínima", clase: "bg-sky-50 text-sky-700 border-sky-200" })
+  if (talla) pastillas.push({ etiqueta: t.talla, clase: "bg-sky-50 text-sky-700 border-sky-200" })
   if (v.zrp.length) pastillas.push({ etiqueta: v.zrp.length > 1 ? `${v.zrp.length} ZRP` : "ZRP", clase: CATEGORY_META.zrp.badge })
 
   if (!pastillas.length) return null
@@ -96,7 +158,7 @@ export function ResumenRegulacion({
       type="button"
       onClick={onVerDetalle}
       className="group mt-2 flex flex-wrap items-center gap-1.5 text-left"
-      aria-label="Ver la regulación de esta pesquería"
+      aria-label={t.verRegulacionAria}
     >
       {pastillas.map((p) => (
         <span key={p.etiqueta} className={cn("rounded-full border px-2 py-0.5 text-xs font-medium", p.clase)}>
@@ -104,7 +166,7 @@ export function ResumenRegulacion({
         </span>
       ))}
       <span className="flex items-center text-xs font-medium text-teal-700 group-hover:underline">
-        Ver regulación
+        {t.verRegulacion}
         <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
       </span>
     </button>
@@ -140,13 +202,14 @@ function SinDato({ children }: { children: React.ReactNode }) {
 }
 
 function EnlacesDocumentos({ docs }: { docs: PlanVinculado[] }) {
+  const t = TEXTOS[useIdioma().idioma]
   return (
     <ul className="space-y-1.5">
       {docs.map((d) => (
         <li key={d.id}>
           {d.alcanceLocal && (
             <span className="mb-1 inline-block rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-800">
-              Plan local
+              {t.planLocalCorto}
             </span>
           )}
           <a
@@ -167,6 +230,8 @@ function EnlacesDocumentos({ docs }: { docs: PlanVinculado[] }) {
 }
 
 export function RegulacionVinculada({ especie }: { especie: Especie }) {
+  const { idioma, ruta } = useIdioma()
+  const t = TEXTOS[idioma]
   const ficha = especie.ficha
   const [v] = useState(() => vinculosDe(especie.id))
   const activas = useVedasActivas(v.vedas)
@@ -185,10 +250,10 @@ export function RegulacionVinculada({ especie }: { especie: Especie }) {
   return (
     <Card className="border-teal-200">
       <CardHeader className="pb-3">
-        <CardTitle className="text-base text-teal-700">Regulación de esta pesquería</CardTitle>
+        <CardTitle className="text-base text-teal-700">{t.titulo}</CardTitle>
       </CardHeader>
       <CardContent className="divide-y divide-gray-100">
-        <Bloque icono={CalendarDays} titulo="Veda">
+        <Bloque icono={CalendarDays} titulo={t.veda}>
           {v.vedas.length > 0 ? (
             <>
               <ul className="space-y-2">
@@ -208,12 +273,12 @@ export function RegulacionVinculada({ especie }: { especie: Especie }) {
                                 : "border-green-200 bg-green-50 text-green-700",
                             )}
                           >
-                            {activa ? "En veda hoy" : "Abierta hoy"}
+                            {activa ? t.enVedaHoy : t.abiertaHoy}
                           </span>
                         )}
                       </div>
                       <div className="flex flex-wrap items-center gap-x-3 text-gray-600">
-                        <span className="tabular-nums">{periodos(veda)}</span>
+                        <span className="tabular-nums">{periodos(idioma, veda)}</span>
                         {veda.enlaceDOF && (
                           <a
                             href={veda.enlaceDOF}
@@ -221,7 +286,7 @@ export function RegulacionVinculada({ especie }: { especie: Especie }) {
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-1 text-teal-700 hover:underline"
                           >
-                            Acuerdo en el DOF
+                            {t.acuerdoDOF}
                             <ExternalLink className="h-3 w-3" aria-hidden="true" />
                           </a>
                         )}
@@ -231,63 +296,63 @@ export function RegulacionVinculada({ especie }: { especie: Especie }) {
                 })}
               </ul>
               <Link
-                href={busqueda ? `/vedas?q=${encodeURIComponent(busqueda)}` : "/vedas"}
+                href={busqueda ? `${ruta("/vedas")}?q=${encodeURIComponent(busqueda)}` : ruta("/vedas")}
                 className="mt-2 inline-flex items-center text-sm font-medium text-teal-700 hover:underline"
               >
-                Ver en el calendario de vedas
+                {t.verCalendario}
                 <ChevronRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </>
           ) : vedaCNP ? (
             <p className="text-sm leading-relaxed text-gray-700">{vedaCNP}</p>
           ) : (
-            <SinDato>La CNP no registra veda para esta pesquería.</SinDato>
+            <SinDato>{t.sinVeda}</SinDato>
           )}
         </Bloque>
 
-        <Bloque icono={FileText} titulo="Norma Oficial Mexicana">
+        <Bloque icono={FileText} titulo={t.nom}>
           {v.noms.length > 0 ? (
             <EnlacesDocumentos docs={v.noms} />
           ) : nomCNP ? (
             <p className="text-sm leading-relaxed text-gray-700">{nomCNP}</p>
           ) : (
-            <SinDato>Sin NOM específica.</SinDato>
+            <SinDato>{t.sinNom}</SinDato>
           )}
         </Bloque>
 
-        <Bloque icono={BookOpen} titulo="Plan de manejo pesquero">
+        <Bloque icono={BookOpen} titulo={t.planManejo}>
           {v.planes.length > 0 ? (
             <>
               <EnlacesDocumentos docs={v.planes} />
               {v.planes.every((p) => p.alcanceLocal) && (
                 <p className="mt-2 text-xs text-gray-500">
-                  La Carta Nacional Pesquera no registra un plan de manejo para toda la pesquería («No aplica»).
+                  {t.sinPlanCompleto}
                 </p>
               )}
             </>
           ) : planCNP ? (
             <p className="text-sm leading-relaxed text-gray-700">{planCNP}</p>
           ) : (
-            <SinDato>Sin plan de manejo publicado.</SinDato>
+            <SinDato>{t.sinPlan}</SinDato>
           )}
         </Bloque>
 
-        <Bloque icono={Ruler} titulo="Talla mínima">
+        <Bloque icono={Ruler} titulo={t.talla}>
           {talla ? (
             <p className="text-sm leading-relaxed text-gray-700">{talla}</p>
           ) : (
-            <SinDato>Sin talla mínima establecida.</SinDato>
+            <SinDato>{t.sinTalla}</SinDato>
           )}
         </Bloque>
 
-        <Bloque icono={MapPinned} titulo="Zonas de refugio pesquero">
+        <Bloque icono={MapPinned} titulo={t.zrp}>
           {v.zrp.length > 0 ? (
             <EnlacesDocumentos docs={v.zrp} />
           ) : (
             <SinDato>
-              Sin zonas de refugio vinculadas.{" "}
-              <Link href="/normativas?categoria=zrp" className="font-medium text-teal-700 hover:underline">
-                Ver todas las ZRP
+              {t.sinZrp}{" "}
+              <Link href={`${ruta("/normativas")}?categoria=zrp`} className="font-medium text-teal-700 hover:underline">
+                {t.verZrp}
               </Link>
             </SinDato>
           )}

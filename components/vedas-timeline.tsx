@@ -4,13 +4,44 @@ import { useEffect, useMemo, useState } from "react"
 import { Fish, MapPin, Clock, X, ExternalLink } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { type VedaData, isVedaActive, formatDateToDDMM } from "@/lib/vedas-data"
+import { type VedaData, isVedaActive } from "@/lib/vedas-data"
+import { useIdioma } from "@/components/idioma-provider"
+import { MESES_CORTOS, etiquetaTipoVeda, etiquetaZona, fechaDiaMes, type Idioma } from "@/lib/i18n"
 
 interface VedasTimelineProps {
   vedas: VedaData[]
 }
 
-const MESES = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"]
+const TEXTOS = {
+  es: {
+    temporales: "Temporales",
+    permanentes: "Permanentes",
+    continentales: "Aguas continentales",
+    sinVedas: "Sin vedas",
+    sinCoincidencias: "No hay vedas que coincidan con los filtros seleccionados.",
+    clic: "Clic en una fila para ver el detalle",
+    cerrar: "Cerrar detalle",
+    activa: "ACTIVA",
+    inactiva: "INACTIVA",
+    verDOF: "Ver DOF",
+    todoElAño: "Todo el año",
+    pie: (n: number) => `${n} ${n === 1 ? "veda" : "vedas"} · la línea vertical marca el día de hoy`,
+  },
+  en: {
+    temporales: "Seasonal",
+    permanentes: "Permanent",
+    continentales: "Inland waters",
+    sinVedas: "No closures",
+    sinCoincidencias: "No closures match the selected filters.",
+    clic: "Click a row to see the details",
+    cerrar: "Close details",
+    activa: "ACTIVE",
+    inactiva: "INACTIVE",
+    verDOF: "See DOF",
+    todoElAño: "All year",
+    pie: (n: number) => `${n} ${n === 1 ? "closure" : "closures"} · the vertical line marks today`,
+  },
+} satisfies Record<Idioma, unknown>
 
 // Color de la barra según el tipo de veda.
 const tipoColor: Record<string, string> = {
@@ -55,6 +86,8 @@ function segmentos(veda: VedaData): { left: number; width: number }[] {
 }
 
 export function VedasTimeline({ vedas }: VedasTimelineProps) {
+  const { idioma } = useIdioma()
+  const t = TEXTOS[idioma]
   const [seleccion, setSeleccion] = useState<VedaData | null>(null)
   const [hoy, setHoy] = useState<number | null>(null)
 
@@ -81,13 +114,13 @@ export function VedasTimeline({ vedas }: VedasTimelineProps) {
     const continentales = vedas.filter((v) => v.zona === "Aguas continentales")
     const marinas = vedas.filter((v) => v.zona !== "Aguas continentales")
     return [
-      { titulo: "Temporales", vedas: marinas.filter((v) => v.tipoVeda !== "Permanente") },
-      { titulo: "Permanentes", vedas: marinas.filter((v) => v.tipoVeda === "Permanente") },
-      { titulo: "Aguas continentales", vedas: continentales },
+      { titulo: t.temporales, vedas: marinas.filter((v) => v.tipoVeda !== "Permanente") },
+      { titulo: t.permanentes, vedas: marinas.filter((v) => v.tipoVeda === "Permanente") },
+      { titulo: t.continentales, vedas: continentales },
     ]
       .filter((sec) => sec.vedas.length > 0)
       .map((sec) => ({ titulo: sec.titulo, filas: ordenar(sec.vedas).map((veda) => ({ veda, segs: segmentos(veda) })) }))
-  }, [vedas])
+  }, [vedas, t])
   const totalFilas = secciones.reduce((n, sec) => n + sec.filas.length, 0)
 
   const gridBg =
@@ -98,8 +131,8 @@ export function VedasTimeline({ vedas }: VedasTimelineProps) {
       <Card className="bg-white/90 backdrop-blur-sm border-teal-200">
         <CardContent className="p-12 text-center">
           <Fish className="mx-auto mb-4 h-12 w-12 text-gray-400" />
-          <h3 className="mb-2 text-lg font-semibold text-gray-900">Sin vedas</h3>
-          <p className="text-gray-600">No hay vedas que coincidan con los filtros seleccionados.</p>
+          <h3 className="mb-2 text-lg font-semibold text-gray-900">{t.sinVedas}</h3>
+          <p className="text-gray-600">{t.sinCoincidencias}</p>
         </CardContent>
       </Card>
     )
@@ -110,15 +143,15 @@ export function VedasTimeline({ vedas }: VedasTimelineProps) {
       {/* Leyenda */}
       <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-gray-600">
         <span className="flex items-center gap-2">
-          <span className="h-3 w-4 rounded bg-red-500" /> Permanente
+          <span className="h-3 w-4 rounded bg-red-500" /> {etiquetaTipoVeda(idioma, "Permanente")}
         </span>
         <span className="flex items-center gap-2">
-          <span className="h-3 w-4 rounded bg-orange-500" /> Temporal Fija
+          <span className="h-3 w-4 rounded bg-orange-500" /> {etiquetaTipoVeda(idioma, "Temporal Fija")}
         </span>
         <span className="flex items-center gap-2">
-          <span className="h-3 w-4 rounded bg-amber-400" /> Temporal Variable
+          <span className="h-3 w-4 rounded bg-amber-400" /> {etiquetaTipoVeda(idioma, "Temporal Variable")}
         </span>
-        <span className="ml-auto text-xs text-gray-500">Clic en una fila para ver el detalle</span>
+        <span className="ml-auto text-xs text-gray-500">{t.clic}</span>
       </div>
 
       {/* Detalle de la veda seleccionada */}
@@ -128,7 +161,7 @@ export function VedasTimeline({ vedas }: VedasTimelineProps) {
             <button
               onClick={() => setSeleccion(null)}
               className="absolute right-3 top-3 text-gray-400 hover:text-gray-700"
-              aria-label="Cerrar detalle"
+              aria-label={t.cerrar}
             >
               <X className="h-4 w-4" />
             </button>
@@ -138,9 +171,9 @@ export function VedasTimeline({ vedas }: VedasTimelineProps) {
                 {seleccion.pesqueria}
               </h3>
               <Badge className={isVedaActive(seleccion) ? "bg-red-100 text-red-800" : "bg-gray-100 text-gray-700"}>
-                {isVedaActive(seleccion) ? "ACTIVA" : "INACTIVA"}
+                {isVedaActive(seleccion) ? t.activa : t.inactiva}
               </Badge>
-              <Badge variant="outline">{seleccion.tipoVeda}</Badge>
+              <Badge variant="outline">{etiquetaTipoVeda(idioma, seleccion.tipoVeda)}</Badge>
             </div>
             <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 text-sm text-gray-700">
               <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
@@ -151,7 +184,7 @@ export function VedasTimeline({ vedas }: VedasTimelineProps) {
                   </>
                 )}
                 <MapPin className="h-4 w-4 shrink-0 text-teal-600" />
-                <span>{seleccion.region} · {seleccion.zona}</span>
+                <span>{seleccion.region} · {etiquetaZona(idioma, seleccion.zona)}</span>
               </div>
               {seleccion.enlaceDOF && (
                 <a
@@ -161,21 +194,21 @@ export function VedasTimeline({ vedas }: VedasTimelineProps) {
                   className="inline-flex shrink-0 items-center gap-1.5 rounded-md border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-700 transition-colors hover:bg-blue-100 hover:border-blue-300"
                 >
                   <ExternalLink className="h-3.5 w-3.5" />
-                  Ver DOF
+                  {t.verDOF}
                 </a>
               )}
             </div>
             <div className="mt-2 flex items-center gap-2 text-sm text-gray-700">
               <Clock className="h-4 w-4 shrink-0 text-teal-600" />
               {seleccion.tipoVeda === "Permanente"
-                ? "Todo el año"
+                ? t.todoElAño
                 : [
                     [seleccion.fechaInicio1, seleccion.fechaTermino1],
                     [seleccion.fechaInicio2, seleccion.fechaTermino2],
                     [seleccion.fechaInicio3, seleccion.fechaTermino3],
                   ]
                     .filter(([a, b]) => a && b)
-                    .map(([a, b]) => `${formatDateToDDMM(a)}–${formatDateToDDMM(b)}`)
+                    .map(([a, b]) => `${fechaDiaMes(idioma, a)}–${fechaDiaMes(idioma, b)}`)
                     .join(" · ")}
             </div>
           </CardContent>
@@ -191,7 +224,7 @@ export function VedasTimeline({ vedas }: VedasTimelineProps) {
               <div className="mb-2 flex items-end">
                 <div className="w-32 shrink-0 sm:w-44" />
                 <div className="grid flex-1 grid-cols-12">
-                  {MESES.map((m) => (
+                  {MESES_CORTOS[idioma].map((m) => (
                     <div key={m} className="text-center text-xs font-medium text-gray-500">
                       {m}
                     </div>
@@ -253,7 +286,7 @@ export function VedasTimeline({ vedas }: VedasTimelineProps) {
             </div>
           </div>
           <p className="mt-3 text-xs text-gray-500">
-            {totalFilas} {totalFilas === 1 ? "veda" : "vedas"} · la línea vertical marca el día de hoy
+            {t.pie(totalFilas)}
           </p>
         </CardContent>
       </Card>

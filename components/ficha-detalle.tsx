@@ -44,6 +44,8 @@ import { cn } from "@/lib/utils"
 import { EspecieImagen } from "@/components/especie-imagen"
 import { RegulacionVinculada, ResumenRegulacion } from "@/components/ficha-vinculos"
 import { Sustentabilidad } from "@/components/ficha-sustentabilidad"
+import { useIdioma } from "@/components/idioma-provider"
+import { etiquetaEstatus, etiquetaRegion, type Idioma } from "@/lib/i18n"
 import type {
   Especie,
   FiguraCNP,
@@ -89,20 +91,135 @@ type SeccionId =
   | "status"
   | "sustentabilidad"
 
-const SECCIONES: { id: SeccionId; label: string; icon: typeof Fish }[] = [
-  { id: "generalidades", label: "Generalidades", icon: Fish },
-  { id: "indicadores", label: "Indicadores", icon: TrendingUp },
-  { id: "ambiente", label: "Ambiente y clima", icon: Thermometer },
-  { id: "normatividad", label: "Normatividad", icon: Shield },
-  { id: "status", label: "Estado", icon: Target },
-  { id: "sustentabilidad", label: "Sustentabilidad", icon: BadgeCheck },
+const SECCIONES: { id: SeccionId; icon: typeof Fish }[] = [
+  { id: "generalidades", icon: Fish },
+  { id: "indicadores", icon: TrendingUp },
+  { id: "ambiente", icon: Thermometer },
+  { id: "normatividad", icon: Shield },
+  { id: "status", icon: Target },
+  { id: "sustentabilidad", icon: BadgeCheck },
 ]
+
+// Textos de la interfaz de la ficha. El contenido (párrafos, tablas, notas de
+// la CNP) se queda en el español de la fuente.
+const TEXTOS = {
+  es: {
+    pestanas: {
+      generalidades: "Generalidades",
+      indicadores: "Indicadores",
+      ambiente: "Ambiente y clima",
+      normatividad: "Normatividad",
+      status: "Estado",
+      sustentabilidad: "Sustentabilidad",
+    } satisfies Record<SeccionId, string>,
+    actualizacion: "Última actualización CNP:",
+    proximamente: "Próximamente",
+    fichaPendiente: "La ficha detallada de esta pesquería estará disponible próximamente.",
+    descripcion: "Descripción general",
+    embarcacionesArtes: "Embarcaciones y artes de pesca",
+    embarcaciones: "Embarcaciones",
+    artes: "Artes de pesca",
+    objetivo: "Especies objetivo",
+    asociadas: "Especies asociadas",
+    toneladas: "Toneladas",
+    año: "Año",
+    organismos: "% de los organismos",
+    rango: (a: number, b: number, u: string) => `${a} a ${b} ${u}`,
+    notaTallas: (u: string) =>
+      `Talla en ${u === "mm" ? "milímetros" : u}; todos los paneles comparten la misma escala vertical.`,
+    nacional: "nacional",
+    nal: "nal.",
+    capturaAnual: "Captura anual",
+    unidadToneladas: "toneladas",
+    valorProduccion: "Valor producción",
+    millones: "millones MXN",
+    empleos: "Empleos directos",
+    pescadores: "pescadores",
+    embarcacionesKpi: "Embarcaciones",
+    activas: "activas",
+    historica: "Captura histórica",
+    captura: "Captura",
+    valor: "Valor",
+    valorMillones: "Valor (millones)",
+    participacion: "Participación por estado",
+    ambiente: "Efectos ambientales y del cambio climático",
+    aplica: "Aplica",
+    noAplica: "No aplica",
+    sinDato: "Sin dato",
+    instrumentos: "Instrumentos de manejo según la CNP",
+    disposicion: "Disposición",
+    sustento: "Sustento",
+    estadoPesqueria: "Estado de la pesquería",
+    estrategia: "Estrategia",
+    tacticas: "Tácticas",
+    rms: "Rendimiento máximo sostenible por estado",
+    estado: "Estado",
+    recomendaciones: "Recomendaciones de manejo",
+  },
+  en: {
+    pestanas: {
+      generalidades: "Overview",
+      indicadores: "Indicators",
+      ambiente: "Environment & climate",
+      normatividad: "Regulation",
+      status: "Status",
+      sustentabilidad: "Sustainability",
+    } satisfies Record<SeccionId, string>,
+    actualizacion: "Last CNP update:",
+    proximamente: "Coming soon",
+    fichaPendiente: "The detailed profile of this fishery will be available soon.",
+    descripcion: "General description",
+    embarcacionesArtes: "Vessels and fishing gear",
+    embarcaciones: "Vessels",
+    artes: "Fishing gear",
+    objetivo: "Target species",
+    asociadas: "Associated species",
+    toneladas: "Tonnes",
+    año: "Year",
+    organismos: "% of individuals",
+    rango: (a: number, b: number, u: string) => `${a} to ${b} ${u}`,
+    notaTallas: (u: string) =>
+      `Size in ${u === "mm" ? "millimeters" : u}; all panels share the same vertical scale.`,
+    nacional: "national",
+    nal: "nat.",
+    capturaAnual: "Annual catch",
+    unidadToneladas: "tonnes",
+    valorProduccion: "Production value",
+    millones: "million MXN",
+    empleos: "Direct jobs",
+    pescadores: "fishers",
+    embarcacionesKpi: "Vessels",
+    activas: "active",
+    historica: "Historical catch",
+    captura: "Catch",
+    valor: "Value",
+    valorMillones: "Value (millions)",
+    participacion: "Share by state",
+    ambiente: "Environmental and climate change effects",
+    aplica: "Applies",
+    noAplica: "Doesn't apply",
+    sinDato: "No data",
+    instrumentos: "Management instruments according to the CNP",
+    disposicion: "Provision",
+    sustento: "Basis",
+    estadoPesqueria: "Fishery status",
+    estrategia: "Strategy",
+    tacticas: "Tactics",
+    rms: "Maximum sustainable yield by state",
+    estado: "State",
+    recomendaciones: "Management recommendations",
+  },
+} satisfies Record<Idioma, unknown>
+
+const useTextos = () => TEXTOS[useIdioma().idioma]
 
 // Textos de relleno de la CNP que no aportan contenido por sí solos.
 const esRelleno = (texto: string) =>
   /^(—|-|sin información\.?|por desarrollar\.?|no aplica\.?|en proceso( de \p{L}+)?\.?)$/iu.test(texto.trim())
 
 export function FichaDetalle({ especie }: { especie: Especie }) {
+  const { idioma } = useIdioma()
+  const t = TEXTOS[idioma]
   const ficha = especie.ficha
   const disponibles = SECCIONES.filter((s) => {
     if (!ficha) return false
@@ -137,12 +254,12 @@ export function FichaDetalle({ especie }: { especie: Especie }) {
           <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-600">
             <span className="flex items-center gap-1">
               <MapPin className="w-4 h-4 text-teal-600" />
-              {especie.region}
+              {etiquetaRegion(idioma, especie.region)}
             </span>
             {especie.ultimaActualizacion && (
               <span className="flex items-center gap-1">
                 <CalendarClock className="w-4 h-4 text-teal-600" />
-                Última actualización CNP:{" "}
+                {t.actualizacion}{" "}
                 <span className="font-semibold text-gray-900 tabular-nums">{especie.ultimaActualizacion}</span>
               </span>
             )}
@@ -153,7 +270,7 @@ export function FichaDetalle({ especie }: { especie: Especie }) {
               return (
                 <Badge key={i} className={cn(statusPillClass(color), "flex items-center gap-1")}>
                   {statusIcon(color)}
-                  <span className="text-xs">{estado}</span>
+                  <span className="text-xs">{etiquetaEstatus(idioma, estado)}</span>
                 </Badge>
               )
             })}
@@ -167,11 +284,8 @@ export function FichaDetalle({ especie }: { especie: Especie }) {
       {!ficha ? (
         <div className="flex-1 flex flex-col items-center justify-center text-center p-10 text-gray-500">
           <Fish className="w-12 h-12 text-teal-300 mb-3" />
-          <p className="font-medium text-gray-700">Próximamente</p>
-          <p className="text-sm max-w-sm">
-            {especie.descripcion ??
-              "La ficha detallada de esta pesquería estará disponible próximamente."}
-          </p>
+          <p className="font-medium text-gray-700">{t.proximamente}</p>
+          <p className="text-sm max-w-sm">{especie.descripcion ?? t.fichaPendiente}</p>
         </div>
       ) : (
         <>
@@ -200,7 +314,7 @@ export function FichaDetalle({ especie }: { especie: Especie }) {
                   )}
                 >
                   <Icon className="w-4 h-4" />
-                  {s.label}
+                  {t.pestanas[s.id]}
                 </button>
               )
             })}
@@ -244,6 +358,7 @@ function SectionTitle({ icon: Icon, children }: { icon: typeof Fish; children: R
 }
 
 function Generalidades({ ficha }: { ficha: Ficha }) {
+  const t = useTextos()
   const g = ficha.generalidades
   if (!g) return null
   return (
@@ -251,7 +366,7 @@ function Generalidades({ ficha }: { ficha: Ficha }) {
       {!!g.descripcion?.length && (
         <Card className="border-teal-200">
           <CardHeader className="pb-3">
-            <SectionTitle icon={Fish}>Descripción general</SectionTitle>
+            <SectionTitle icon={Fish}>{t.descripcion}</SectionTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             {g.descripcion.map((p, i) => (
@@ -266,7 +381,7 @@ function Generalidades({ ficha }: { ficha: Ficha }) {
       {(g.embarcaciones || g.artesPesca) && (
         <Card className="border-teal-200">
           <CardHeader className="pb-3">
-            <SectionTitle icon={Ship}>Embarcaciones y artes de pesca</SectionTitle>
+            <SectionTitle icon={Ship}>{t.embarcacionesArtes}</SectionTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {g.embarcaciones && (
@@ -274,7 +389,7 @@ function Generalidades({ ficha }: { ficha: Ficha }) {
                 {/* El subtítulo solo aparece cuando conviven ambos apartados */}
                 {g.artesPesca && (
                   <p className="mb-1 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-gray-500">
-                    <Ship className="h-3.5 w-3.5" /> Embarcaciones
+                    <Ship className="h-3.5 w-3.5" /> {t.embarcaciones}
                   </p>
                 )}
                 <p className="text-gray-700 leading-relaxed text-sm">{g.embarcaciones}</p>
@@ -283,7 +398,7 @@ function Generalidades({ ficha }: { ficha: Ficha }) {
             {g.artesPesca && (
               <div>
                 <p className="mb-1 flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-gray-500">
-                  <Anchor className="h-3.5 w-3.5" /> Artes de pesca
+                  <Anchor className="h-3.5 w-3.5" /> {t.artes}
                 </p>
                 <p className="text-gray-700 leading-relaxed text-sm">{g.artesPesca}</p>
               </div>
@@ -297,7 +412,7 @@ function Generalidades({ ficha }: { ficha: Ficha }) {
           {!!g.especiesObjetivo?.length && (
             <Card className="border-teal-200">
               <CardHeader className="pb-3">
-                <SectionTitle icon={Target}>Especies objetivo</SectionTitle>
+                <SectionTitle icon={Target}>{t.objetivo}</SectionTitle>
               </CardHeader>
               <CardContent className="space-y-2">
                 {g.especiesObjetivo.map((e, i) => (
@@ -312,7 +427,7 @@ function Generalidades({ ficha }: { ficha: Ficha }) {
           {!!g.especiesAsociadas?.length && (
             <Card className="border-teal-200">
               <CardHeader className="pb-3">
-                <SectionTitle icon={Fish}>Especies asociadas</SectionTitle>
+                <SectionTitle icon={Fish}>{t.asociadas}</SectionTitle>
               </CardHeader>
               <CardContent className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {g.especiesAsociadas.map((e, i) => (
@@ -369,6 +484,7 @@ const COLORES_TINTA: Record<string, string> = { "#0f172a": "rgb(var(--txt-gray-9
 const colorSerie = (color: string) => COLORES_TINTA[color.toLowerCase()] ?? color
 
 function GraficaEstados({ grafica }: { grafica: GraficaCapturaEstados }) {
+  const t = useTextos()
   // Combina las series (posiblemente con años distintos) en filas por año.
   const años = Array.from(new Set(grafica.series.flatMap((s) => s.datos.map((d) => d.año)))).sort((a, b) => a - b)
   const data = años.map((año) => {
@@ -379,7 +495,7 @@ function GraficaEstados({ grafica }: { grafica: GraficaCapturaEstados }) {
     }
     return fila
   })
-  const unidadIzq = grafica.unidadIzquierda ?? "Toneladas"
+  const unidadIzq = grafica.unidadIzquierda ?? t.toneladas
   const unidadDer = grafica.unidadDerecha
   // Unidad que corresponde a cada serie según el eje en el que se dibuja.
   const unidadDe = (nombre: string) =>
@@ -411,7 +527,7 @@ function GraficaEstados({ grafica }: { grafica: GraficaCapturaEstados }) {
               )}
               <Tooltip
                 formatter={(value: number, name: string) => [`${value.toLocaleString()} ${unidadDe(name)}`, name]}
-                labelFormatter={(label) => `Año: ${label}`}
+                labelFormatter={(label) => `${t.año}: ${label}`}
               />
               {grafica.series.length > 1 && <Legend />}
               {grafica.referencias?.map((r) => (
@@ -457,6 +573,7 @@ function GraficaEstados({ grafica }: { grafica: GraficaCapturaEstados }) {
 // original de la Carta Nacional escala cada panel por separado). Es una sola serie, así
 // que no lleva leyenda: bastan el título del panel y la etiqueta del intervalo modal.
 function FrecuenciaTallasCard({ grafica }: { grafica: GraficaFrecuenciaTallas }) {
+  const t = useTextos()
   const unidad = grafica.unidad ?? "mm"
   // Techo común redondeado a la decena superior, para que el eje tenga marcas limpias.
   const techo = Math.ceil(Math.max(...grafica.paneles.flatMap((p) => p.porcentajes)) / 10) * 10
@@ -493,8 +610,8 @@ function FrecuenciaTallasCard({ grafica }: { grafica: GraficaFrecuenciaTallas })
                       />
                       <Tooltip
                         cursor={{ fill: "rgba(13, 148, 136, 0.08)" }}
-                        formatter={(value: number) => [`${value}% de los organismos`, panel.estado]}
-                        labelFormatter={(label: number) => `${label} a ${label + grafica.anchoBin} ${unidad}`}
+                        formatter={(value: number) => [`${value}${t.organismos}`, panel.estado]}
+                        labelFormatter={(label: number) => t.rango(label, label + grafica.anchoBin, unidad)}
                       />
                       <Bar dataKey="porcentaje" fill="#0d9488" radius={[2, 2, 0, 0]} isAnimationActive={false}>
                         {/* Se etiqueta sólo el intervalo modal: una cifra por panel, no una por barra. */}
@@ -514,7 +631,7 @@ function FrecuenciaTallasCard({ grafica }: { grafica: GraficaFrecuenciaTallas })
           })}
         </div>
         <p className="mt-4 text-xs leading-relaxed text-gray-500">
-          Talla en {unidad === "mm" ? "milímetros" : unidad}; todos los paneles comparten la misma escala vertical.
+          {t.notaTallas(unidad)}
           {grafica.nota ? ` ${grafica.nota}` : ""}
         </p>
       </CardContent>
@@ -560,6 +677,7 @@ function ParticipacionCard({
 // El amarillo #eda100 queda en 2.11:1 de contraste, así que la gráfica lleva
 // leyenda y etiquetas visibles: ninguna especie se comunica sólo con color.
 function ParticipacionApiladaCard({ grafica }: { grafica: GraficaParticipacionApilada }) {
+  const t = useTextos()
   const especies: string[] = []
   const colores = new Map<string, string>()
   for (const e of grafica.estados) {
@@ -610,7 +728,7 @@ function ParticipacionApiladaCard({ grafica }: { grafica: GraficaParticipacionAp
                   return (
                     <div className="rounded-lg border border-teal-200 bg-white/95 px-2.5 py-2 shadow-sm">
                       <p className="mb-1 text-[11px] font-semibold text-gray-700">
-                        {label} · {total}% nacional
+                        {label} · {total}% {t.nacional}
                       </p>
                       {filas.map((p: any) => (
                         <p key={p.name} className="whitespace-nowrap text-[11px] text-gray-600">
@@ -622,7 +740,7 @@ function ParticipacionApiladaCard({ grafica }: { grafica: GraficaParticipacionAp
                           <span className="font-semibold tabular-nums text-gray-700">
                             {((Number(p.value) / total) * 100).toFixed(1)}%
                           </span>
-                          <span className="text-gray-400"> · {Number(p.value).toFixed(2)}% nal.</span>
+                          <span className="text-gray-400"> · {Number(p.value).toFixed(2)}% {t.nal}</span>
                         </p>
                       ))}
                     </div>
@@ -666,6 +784,7 @@ function ParticipacionApiladaCard({ grafica }: { grafica: GraficaParticipacionAp
 }
 
 function Indicadores({ ficha }: { ficha: Ficha }) {
+  const t = useTextos()
   const ind = ficha.indicadores
   if (!ind) return null
   const hist = ind.capturaHistorica ?? []
@@ -677,10 +796,10 @@ function Indicadores({ ficha }: { ficha: Ficha }) {
         ind.embarcaciones ||
         ind.indicadoresClave?.length) && (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {ind.capturaAnual && <Kpi label="Captura anual" value={ind.capturaAnual} unit="toneladas" icon={TrendingUp} />}
-          {ind.valorProduccion && <Kpi label="Valor producción" value={ind.valorProduccion} unit="millones MXN" icon={DollarSign} />}
-          {ind.empleos && <Kpi label="Empleos directos" value={ind.empleos} unit="pescadores" icon={Users} />}
-          {ind.embarcaciones && <Kpi label="Embarcaciones" value={ind.embarcaciones} unit="activas" icon={Anchor} />}
+          {ind.capturaAnual && <Kpi label={t.capturaAnual} value={ind.capturaAnual} unit={t.unidadToneladas} icon={TrendingUp} />}
+          {ind.valorProduccion && <Kpi label={t.valorProduccion} value={ind.valorProduccion} unit={t.millones} icon={DollarSign} />}
+          {ind.empleos && <Kpi label={t.empleos} value={ind.empleos} unit={t.pescadores} icon={Users} />}
+          {ind.embarcaciones && <Kpi label={t.embarcacionesKpi} value={ind.embarcaciones} unit={t.activas} icon={Anchor} />}
           {ind.indicadoresClave?.map((d) => (
             <Kpi
               key={d.etiqueta}
@@ -712,7 +831,7 @@ function Indicadores({ ficha }: { ficha: Ficha }) {
       {hist.length > 0 && (
         <Card className="border-teal-200">
           <CardHeader className="pb-3">
-            <CardTitle className="text-teal-700 text-base">Captura histórica</CardTitle>
+            <CardTitle className="text-teal-700 text-base">{t.historica}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-72">
@@ -720,17 +839,17 @@ function Indicadores({ ficha }: { ficha: Ficha }) {
                 <LineChart data={hist}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="año" tick={{ fontSize: 12 }} />
-                  <YAxis tick={{ fontSize: 12 }} label={{ value: "Toneladas", angle: -90, position: "insideLeft" }} />
+                  <YAxis tick={{ fontSize: 12 }} label={{ value: t.toneladas, angle: -90, position: "insideLeft" }} />
                   <Tooltip
                     formatter={(value: number, name: string) => [
                       `${value.toLocaleString()} ${name === "captura" ? "ton" : "MXN"}`,
-                      name === "captura" ? "Captura" : "Valor",
+                      name === "captura" ? t.captura : t.valor,
                     ]}
-                    labelFormatter={(label) => `Año: ${label}`}
+                    labelFormatter={(label) => `${t.año}: ${label}`}
                   />
                   <Legend />
-                  <Line type="monotone" dataKey="captura" stroke="#0d9488" strokeWidth={2} name="Captura" />
-                  <Line type="monotone" dataKey="valor" stroke="#0891b2" strokeWidth={2} name="Valor (millones)" />
+                  <Line type="monotone" dataKey="captura" stroke="#0d9488" strokeWidth={2} name={t.captura} />
+                  <Line type="monotone" dataKey="valor" stroke="#0891b2" strokeWidth={2} name={t.valorMillones} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
@@ -754,7 +873,7 @@ function Indicadores({ ficha }: { ficha: Ficha }) {
       )}
 
       {!!ind.participacionEstados?.length && (
-        <ParticipacionCard titulo="Participación por estado" estados={ind.participacionEstados} />
+        <ParticipacionCard titulo={t.participacion} estados={ind.participacionEstados} />
       )}
 
       {ind.participacionPorEspecie?.map((g) => (
@@ -767,13 +886,14 @@ function Indicadores({ ficha }: { ficha: Ficha }) {
 }
 
 function Ambiente({ ficha }: { ficha: Ficha }) {
+  const t = useTextos()
   if (!ficha.ambiente?.length && !ficha.ambienteGraficas?.length) return null
   return (
     <>
       {!!ficha.ambiente?.length && (
         <Card className="border-teal-200">
           <CardHeader className="pb-3">
-            <SectionTitle icon={Thermometer}>Efectos ambientales y del cambio climático</SectionTitle>
+            <SectionTitle icon={Thermometer}>{t.ambiente}</SectionTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             {ficha.ambiente.map((p, i) => (
@@ -790,26 +910,28 @@ function Ambiente({ ficha }: { ficha: Ficha }) {
 }
 
 function AplicaBadge({ aplica }: { aplica: boolean | null }) {
+  const t = useTextos()
   if (aplica === true) {
     return (
       <Badge className="gap-1 border border-green-200 bg-green-100 text-green-800 hover:bg-green-100">
-        <CheckCircle className="h-3 w-3" /> Aplica
+        <CheckCircle className="h-3 w-3" /> {t.aplica}
       </Badge>
     )
   }
   if (aplica === false) {
     return (
       <Badge className="gap-1 border border-red-200 bg-red-100 text-red-800 hover:bg-red-100">
-        <XCircle className="h-3 w-3" /> No aplica
+        <XCircle className="h-3 w-3" /> {t.noAplica}
       </Badge>
     )
   }
   return (
-    <Badge className="border border-gray-200 bg-gray-100 text-gray-600 hover:bg-gray-100">Sin dato</Badge>
+    <Badge className="border border-gray-200 bg-gray-100 text-gray-600 hover:bg-gray-100">{t.sinDato}</Badge>
   )
 }
 
 function Normatividad({ ficha }: { ficha: Ficha }) {
+  const t = useTextos()
   const [abiertos, setAbiertos] = useState<Set<number>>(new Set())
   if (!ficha.normatividad?.length) return null
 
@@ -824,7 +946,7 @@ function Normatividad({ ficha }: { ficha: Ficha }) {
   return (
     <Card className="border-teal-200">
       <CardHeader className="pb-3">
-        <SectionTitle icon={Shield}>Instrumentos de manejo según la CNP</SectionTitle>
+        <SectionTitle icon={Shield}>{t.instrumentos}</SectionTitle>
       </CardHeader>
       <CardContent>
         <div className="divide-y divide-gray-200 overflow-hidden rounded-lg border border-gray-200">
@@ -878,7 +1000,7 @@ function Normatividad({ ficha }: { ficha: Ficha }) {
                         {row.disposicion && (
                           <div>
                             <p className="mb-1 text-xs font-bold uppercase tracking-wide text-gray-500">
-                              Disposición
+                              {t.disposicion}
                             </p>
                             <p className="leading-relaxed text-gray-700">{row.disposicion}</p>
                           </div>
@@ -886,7 +1008,7 @@ function Normatividad({ ficha }: { ficha: Ficha }) {
                         {row.sustento && (
                           <div>
                             <p className="mb-1 text-xs font-bold uppercase tracking-wide text-gray-500">
-                              Sustento
+                              {t.sustento}
                             </p>
                             <p className="leading-relaxed text-gray-700">{row.sustento}</p>
                           </div>
@@ -922,12 +1044,14 @@ function FiguraCNPBloque({ figura }: { figura: FiguraCNP }) {
 const fmtRMS = (n: number) => n.toLocaleString("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
 function StatusSeccion({ ficha }: { ficha: Ficha }) {
+  const { idioma } = useIdioma()
+  const t = TEXTOS[idioma]
   const s = ficha.status
   if (!s) return null
   return (
     <Card className="border-teal-200">
       <CardHeader className="pb-3">
-        <SectionTitle icon={Target}>Estado de la pesquería</SectionTitle>
+        <SectionTitle icon={Target}>{t.estadoPesqueria}</SectionTitle>
       </CardHeader>
       <CardContent className="space-y-5">
         {!!s.cards?.length && (
@@ -941,7 +1065,7 @@ function StatusSeccion({ ficha }: { ficha: Ficha }) {
                   {statusIcon(c.color)}
                 </div>
                 <div>
-                  <h4 className="font-bold mb-0.5">{c.categoria}</h4>
+                  <h4 className="font-bold mb-0.5">{etiquetaEstatus(idioma, c.categoria)}</h4>
                   <p className="text-sm font-medium text-gray-700">{c.especie}</p>
                   <p className="text-xs text-gray-600">{c.zona}</p>
                 </div>
@@ -954,7 +1078,7 @@ function StatusSeccion({ ficha }: { ficha: Ficha }) {
 
         {s.estrategia && (
           <div>
-            <h3 className="text-base font-bold text-teal-800 border-b border-teal-200 pb-1.5 mb-2">Estrategia</h3>
+            <h3 className="text-base font-bold text-teal-800 border-b border-teal-200 pb-1.5 mb-2">{t.estrategia}</h3>
             <div className="bg-green-50 rounded-lg p-3 border border-green-200">
               <p className="text-sm text-gray-800">{s.estrategia}</p>
             </div>
@@ -963,7 +1087,7 @@ function StatusSeccion({ ficha }: { ficha: Ficha }) {
 
         {!!s.tacticas?.length && (
           <div>
-            <h3 className="text-base font-bold text-teal-800 border-b border-teal-200 pb-1.5 mb-2">Tácticas</h3>
+            <h3 className="text-base font-bold text-teal-800 border-b border-teal-200 pb-1.5 mb-2">{t.tacticas}</h3>
             <div className="bg-blue-50 rounded-lg p-3 border border-blue-200">
               <ul className="space-y-1.5">
                 {s.tacticas.map((t, i) => (
@@ -980,13 +1104,13 @@ function StatusSeccion({ ficha }: { ficha: Ficha }) {
         {!!s.rmsPorEstado?.length && (
           <div>
             <h3 className="text-base font-bold text-teal-800 border-b border-teal-200 pb-1.5 mb-2">
-              Rendimiento máximo sostenible por estado
+              {t.rms}
             </h3>
             <div className="overflow-x-auto rounded-lg border border-gray-200">
               <table className="w-full text-sm">
                 <thead className="bg-teal-50 text-teal-800">
                   <tr>
-                    <th className="px-3 py-2 text-left font-semibold">Estado</th>
+                    <th className="px-3 py-2 text-left font-semibold">{t.estado}</th>
                     <th className="px-3 py-2 text-right font-semibold">RMS (t)</th>
                     <th className="px-3 py-2 text-right font-semibold">IC −</th>
                     <th className="px-3 py-2 text-right font-semibold">IC +</th>
@@ -1017,11 +1141,12 @@ function StatusSeccion({ ficha }: { ficha: Ficha }) {
 }
 
 function Recomendaciones({ ficha }: { ficha: Ficha }) {
+  const t = useTextos()
   if (!ficha.recomendaciones?.length) return null
   return (
     <Card className="border-teal-200">
       <CardHeader className="pb-3">
-        <SectionTitle icon={FileText}>Recomendaciones de manejo</SectionTitle>
+        <SectionTitle icon={FileText}>{t.recomendaciones}</SectionTitle>
       </CardHeader>
       <CardContent>
         <ol className="divide-y divide-gray-200 overflow-hidden rounded-lg border border-gray-200">

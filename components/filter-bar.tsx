@@ -4,6 +4,7 @@ import type { ReactNode } from "react"
 import { Search, Filter } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { useIdioma } from "@/components/idioma-provider"
 
 interface FilterBarProps {
   searchValue: string
@@ -21,10 +22,11 @@ interface FilterBarProps {
 export function FilterBar({
   searchValue,
   onSearchChange,
-  searchPlaceholder = "Buscar...",
+  searchPlaceholder,
   onClear,
   children,
 }: FilterBarProps) {
+  const { idioma } = useIdioma()
   return (
     <div className="mb-6 flex flex-col gap-2 rounded-xl border border-gray-200 bg-gray-50/80 p-2 md:flex-row md:flex-wrap md:items-center">
       <div className="relative flex-1 md:min-w-[220px]">
@@ -33,7 +35,7 @@ export function FilterBar({
           type="text"
           value={searchValue}
           onChange={(e) => onSearchChange(e.target.value)}
-          placeholder={searchPlaceholder}
+          placeholder={searchPlaceholder ?? (idioma === "en" ? "Search..." : "Buscar...")}
           className="h-9 pl-9 bg-white border-gray-200 focus:border-teal-400"
         />
       </div>
@@ -47,7 +49,7 @@ export function FilterBar({
           className="h-9 text-gray-600 hover:text-teal-700 hover:bg-teal-100/60"
         >
           <Filter className="w-4 h-4 mr-2" />
-          Limpiar
+          {idioma === "en" ? "Clear" : "Limpiar"}
         </Button>
       )}
     </div>

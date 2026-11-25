@@ -7,6 +7,8 @@ import { Calendar, FileText, Fish, Search, X } from "lucide-react"
 import { especies } from "@/lib/especies-data"
 import { vedasData } from "@/lib/vedas-data"
 import { documents } from "@/lib/normativas-data"
+import { useIdioma } from "@/components/idioma-provider"
+import { etiquetaRegion, etiquetaTipoVeda, type Idioma } from "@/lib/i18n"
 
 // Minúsculas y sin acentos, para que "camaron" encuentre "Camarón".
 const normalizar = (texto: string) =>
@@ -31,10 +33,36 @@ type Grupo = {
 
 const MAX_POR_GRUPO = 4
 
+const TEXTOS = {
+  es: {
+    pesquerias: "Pesquerías",
+    vedas: "Vedas",
+    normas: "Normas",
+    nVedas: "vedas",
+    etiqueta: "Busca una especie, veda o norma",
+    placeholder: "Busca una especie, veda o norma…",
+    borrar: "Borrar búsqueda",
+    sinResultados: (q: string) => `Sin resultados para “${q}”. Prueba con el nombre común o científico.`,
+  },
+  en: {
+    pesquerias: "Fisheries",
+    vedas: "Closures",
+    normas: "Regulations",
+    nVedas: "closures",
+    etiqueta: "Search for a species, closure or regulation",
+    placeholder: "Search for a species, closure or regulation…",
+    borrar: "Clear search",
+    sinResultados: (q: string) =>
+      `No results for “${q}”. Try the common or scientific name (common names are in Spanish).`,
+  },
+} satisfies Record<Idioma, unknown>
+
 // Buscador de la portada: busca a la vez en pesquerías, vedas y normas y
 // lleva directo a cada sección (o al documento oficial).
 export function BuscadorInicio() {
   const router = useRouter()
+  const { idioma, ruta } = useIdioma()
+  const t = TEXTOS[idioma]
   const [consulta, setConsulta] = useState("")
   const [abierto, setAbierto] = useState(false)
   const contenedorRef = useRef<HTMLDivElement>(null)
@@ -60,8 +88,8 @@ export function BuscadorInicio() {
       .map((e) => ({
         clave: `e-${e.id}`,
         titulo: e.nombre,
-        detalle: e.region,
-        href: `/especies/${encodeURIComponent(e.id)}`,
+        detalle: etiquetaRegion(idioma, e.region),
+        href: ruta(`/especies/${encodeURIComponent(e.id)}`),
       }))
 
     // Una veda por pesquería: varias regiones de la misma especie se ven juntas en /vedas.
@@ -75,8 +103,11 @@ export function BuscadorInicio() {
       vedas.push({
         clave: `v-${v.id}`,
         titulo: v.pesqueria,
-        detalle: regiones > 1 ? `${regiones} vedas · ${v.tipoVeda}` : `${v.region} · ${v.tipoVeda}`,
-        href: `/vedas?q=${encodeURIComponent(v.pesqueria)}`,
+        detalle:
+          regiones > 1
+            ? `${regiones} ${t.nVedas} · ${etiquetaTipoVeda(idioma, v.tipoVeda)}`
+            : `${v.region} · ${etiquetaTipoVeda(idioma, v.tipoVeda)}`,
+        href: `${ruta("/vedas")}?q=${encodeURIComponent(v.pesqueria)}`,
       })
     }
 
@@ -92,11 +123,12 @@ export function BuscadorInicio() {
       }))
 
     return [
-      { nombre: "Pesquerías", icono: Fish, resultados: pesquerias },
-      { nombre: "Vedas", icono: Calendar, resultados: vedas },
-      { nombre: "Normas", icono: FileText, resultados: normas },
+      { nombre: t.pesquerias, icono: Fish, resultados: pesquerias },
+      { nombre: t.vedas, icono: Calendar, resultados: vedas },
+      { nombre: t.normas, icono: FileText, resultados: normas },
     ].filter((g) => g.resultados.length > 0)
-  }, [consulta])
+    // `ruta` y `t` sólo dependen del idioma.
+  }, [consulta, idioma])
 
   const primero = grupos[0]?.resultados[0]
   const mostrarPanel = abierto && consulta.trim().length >= 2
@@ -112,7 +144,7 @@ export function BuscadorInicio() {
     <div ref={contenedorRef} className="relative mx-auto w-full max-w-2xl text-left">
       <form onSubmit={enviar} role="search">
         <label htmlFor="buscador-inicio" className="sr-only">
-          Busca una especie, veda o norma
+          {t.etiqueta}
         </label>
         <div className="flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-xl ring-1 ring-black/5 focus-within:ring-2 focus-within:ring-teal-300">
           <Search className="h-5 w-5 flex-shrink-0 text-teal-600" aria-hidden="true" />
@@ -126,7 +158,7 @@ export function BuscadorInicio() {
             }}
             onFocus={() => setAbierto(true)}
             onKeyDown={(e) => e.key === "Escape" && setAbierto(false)}
-            placeholder="Busca una especie, veda o norma…"
+            placeholder={t.placeholder}
             autoComplete="off"
             className="w-full bg-transparent text-base text-gray-900 placeholder:text-gray-400 focus:outline-none md:text-lg [&::-webkit-search-cancel-button]:hidden"
           />
@@ -135,7 +167,7 @@ export function BuscadorInicio() {
               type="button"
               onClick={() => setConsulta("")}
               className="rounded-full p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600"
-              aria-label="Borrar búsqueda"
+              aria-label={t.borrar}
             >
               <X className="h-4 w-4" />
             </button>
@@ -147,7 +179,7 @@ export function BuscadorInicio() {
         <div className="absolute inset-x-0 top-full z-30 mt-2 max-h-[60vh] overflow-y-auto rounded-2xl bg-white p-2 text-gray-900 shadow-2xl ring-1 ring-black/5">
           {grupos.length === 0 ? (
             <p className="px-3 py-6 text-center text-sm text-gray-500">
-              Sin resultados para “{consulta.trim()}”. Prueba con el nombre común o científico.
+              {t.sinResultados(consulta.trim())}
             </p>
           ) : (
             grupos.map(({ nombre, icono: Icono, resultados }) => (

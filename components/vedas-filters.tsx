@@ -6,6 +6,37 @@ import { X } from "lucide-react"
 import { FilterBar } from "@/components/filter-bar"
 
 import { type VedaData, isVedaActive } from "@/lib/vedas-data"
+import { useIdioma } from "@/components/idioma-provider"
+import { etiquetaTipoVeda, etiquetaZona, unirLista, type Idioma } from "@/lib/i18n"
+
+const TEXTOS = {
+  es: {
+    mostrando: (n: number) => `Mostrando ${n} ${n === 1 ? "veda" : "vedas"} de`,
+    verTodas: "Ver todas",
+    buscar: "Búsqueda por especie, región o descripción...",
+    estado: "Estado",
+    todosEstados: "Todos los estados",
+    activas: "Vedas Activas",
+    inactivas: "Vedas Inactivas",
+    tipo: "Tipo de Veda",
+    todosTipos: "Todos los tipos de veda",
+    zona: "Zona",
+    todasZonas: "Todas las zonas",
+  },
+  en: {
+    mostrando: (n: number) => `Showing ${n} ${n === 1 ? "closure" : "closures"} for`,
+    verTodas: "See all",
+    buscar: "Search by species, region or description...",
+    estado: "Status",
+    todosEstados: "All statuses",
+    activas: "Active closures",
+    inactivas: "Inactive closures",
+    tipo: "Closure type",
+    todosTipos: "All closure types",
+    zona: "Zone",
+    todasZonas: "All zones",
+  },
+} satisfies Record<Idioma, unknown>
 
 interface VedasFiltersProps {
   vedas: VedaData[]
@@ -13,6 +44,8 @@ interface VedasFiltersProps {
 }
 
 export function VedasFilters({ vedas, onFilter }: VedasFiltersProps) {
+  const { idioma } = useIdioma()
+  const t = TEXTOS[idioma]
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedEstado, setSelectedEstado] = useState("all")
   const [selectedTipoVeda, setSelectedTipoVeda] = useState("all")
@@ -84,7 +117,7 @@ export function VedasFilters({ vedas, onFilter }: VedasFiltersProps) {
   }
 
   const vedasSeleccionadas = idsSeleccionados ? vedas.filter((v) => idsSeleccionados.includes(v.id)) : []
-  const pesqueriasSeleccionadas = [...new Set(vedasSeleccionadas.map((v) => v.pesqueria))].join(" y ")
+  const pesqueriasSeleccionadas = unirLista(idioma, [...new Set(vedasSeleccionadas.map((v) => v.pesqueria))])
   const regionesSeleccionadas = [...new Set(vedasSeleccionadas.map((v) => v.region))].join(" · ")
 
   const clearFilters = () => {
@@ -100,7 +133,7 @@ export function VedasFilters({ vedas, onFilter }: VedasFiltersProps) {
     {idsSeleccionados && (
       <div className="mb-3 flex items-center justify-between gap-3 rounded-xl border border-teal-200 bg-teal-50 px-4 py-2 text-sm text-teal-900">
         <span>
-          Mostrando {vedasSeleccionadas.length} {vedasSeleccionadas.length === 1 ? "veda" : "vedas"} de{" "}
+          {t.mostrando(vedasSeleccionadas.length)}{" "}
           <span className="font-semibold">{pesqueriasSeleccionadas}</span> · {regionesSeleccionadas}
         </span>
         <button
@@ -108,25 +141,25 @@ export function VedasFilters({ vedas, onFilter }: VedasFiltersProps) {
           onClick={quitarSeleccion}
           className="inline-flex flex-shrink-0 items-center gap-1 rounded-md px-2 py-1 font-medium text-teal-700 hover:bg-teal-100"
         >
-          <X className="h-4 w-4" /> Ver todas
+          <X className="h-4 w-4" /> {t.verTodas}
         </button>
       </div>
     )}
     <FilterBar
       searchValue={searchTerm}
       onSearchChange={setSearchTerm}
-      searchPlaceholder="Búsqueda por especie, región o descripción..."
+      searchPlaceholder={t.buscar}
       onClear={clearFilters}
     >
       <Select value={selectedEstado} onValueChange={setSelectedEstado}>
         <SelectTrigger className="h-9 w-full md:w-44 bg-white border-gray-200 focus:border-teal-400">
-          <SelectValue placeholder="Estado" />
+          <SelectValue placeholder={t.estado} />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">Todos los estados</SelectItem>
+          <SelectItem value="all">{t.todosEstados}</SelectItem>
           {estado.map((estadoItem) => (
             <SelectItem key={estadoItem} value={estadoItem}>
-              {estadoItem === "Activa" ? "Vedas Activas" : "Vedas Inactivas"}
+              {estadoItem === "Activa" ? t.activas : t.inactivas}
             </SelectItem>
           ))}
         </SelectContent>
@@ -134,13 +167,13 @@ export function VedasFilters({ vedas, onFilter }: VedasFiltersProps) {
 
       <Select value={selectedTipoVeda} onValueChange={setSelectedTipoVeda}>
         <SelectTrigger className="h-9 w-full md:w-44 bg-white border-gray-200 focus:border-teal-400">
-          <SelectValue placeholder="Tipo de Veda" />
+          <SelectValue placeholder={t.tipo} />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">Todos los tipos de veda</SelectItem>
+          <SelectItem value="all">{t.todosTipos}</SelectItem>
           {tiposVeda.map((tipo) => (
             <SelectItem key={tipo} value={tipo}>
-              {tipo}
+              {etiquetaTipoVeda(idioma, tipo)}
             </SelectItem>
           ))}
         </SelectContent>
@@ -148,13 +181,13 @@ export function VedasFilters({ vedas, onFilter }: VedasFiltersProps) {
 
       <Select value={selectedZona} onValueChange={setSelectedZona}>
         <SelectTrigger className="h-9 w-full md:w-44 bg-white border-gray-200 focus:border-teal-400">
-          <SelectValue placeholder="Zona" />
+          <SelectValue placeholder={t.zona} />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">Todas las zonas</SelectItem>
+          <SelectItem value="all">{t.todasZonas}</SelectItem>
           {zonas.map((zona) => (
             <SelectItem key={zona} value={zona}>
-              {zona}
+              {etiquetaZona(idioma, zona)}
             </SelectItem>
           ))}
         </SelectContent>

@@ -15,9 +15,66 @@ import {
   type FIP,
   type RecomendacionSFW,
 } from "@/lib/sustentabilidad-data"
+import { useIdioma } from "@/components/idioma-provider"
+import { etiquetaAval, fechaISO, type Idioma } from "@/lib/i18n"
 
-// "AAAA-MM-DD" → "DD/MM/AAAA" (a mano, sin Intl, para no desentonar al hidratar).
-const fechaLegible = (iso: string) => iso.split("-").reverse().join("/")
+const TEXTOS = {
+  es: {
+    titulo: "Sustentabilidad",
+    sinNada:
+      "Esta pesquería no tiene certificación MSC, proyecto de mejora (FIP) activo ni recomendación de Seafood Watch registrados en las fuentes consultadas.",
+    intro: "Las tres referencias más usadas en el mercado para saber si un producto del mar proviene de una pesca sustentable.",
+    msc: "Certificación MSC",
+    mscMide:
+      "Sello azul del Marine Stewardship Council: certifica que la pesquería cumple un estándar de sustentabilidad tras una auditoría independiente.",
+    sinCertificacion: "Sin certificación",
+    alcance: "Alcance:",
+    fip: "Proyectos de mejora pesquera (FIP)",
+    fipMide:
+      "Proyectos con un plan de trabajo para que la pesquería alcance el estándar MSC. FisheryProgress califica su avance de A (alto) a E (sin avance reciente).",
+    fipsActivos: (n: number, mejor?: string | null) =>
+      `${n} FIP activo${n > 1 ? "s" : ""}${mejor ? ` · mejor: ${mejor}` : ""}`,
+    sinFip: "Sin FIP activo",
+    calificacion: (c: string) => `Calificación de avance ${c}`,
+    sinCalificacion: "Sin calificación aún",
+    tipoFip: (tipo: string) => `FIP ${tipo.toLowerCase()}`,
+    prospectivos: "Los FIP prospectivos aún no publican plan de trabajo ni calificación.",
+    sfwMide:
+      "Guía del Monterey Bay Aquarium: califica cada combinación de especie, zona y arte de pesca como mejor opción (verde), buena alternativa (amarillo) o evitar (rojo).",
+    evaluaciones: (n: number) => `${n} evaluaciones`,
+    varia: "varía",
+    sinEvaluacion: "Sin evaluación",
+    consultado: (f: string) =>
+      `Consultado el ${f}. Estos estados cambian con frecuencia: verifique la información en la fuente.`,
+  },
+  en: {
+    titulo: "Sustainability",
+    sinNada:
+      "This fishery has no MSC certification, active fishery improvement project (FIP) or Seafood Watch recommendation in the sources consulted.",
+    intro: "The three references most used in the market to tell whether seafood comes from a sustainable fishery.",
+    msc: "MSC certification",
+    mscMide:
+      "The Marine Stewardship Council's blue label: it certifies that the fishery meets a sustainability standard after an independent audit.",
+    sinCertificacion: "Not certified",
+    alcance: "Scope:",
+    fip: "Fishery improvement projects (FIP)",
+    fipMide:
+      "Projects with a work plan to bring the fishery up to the MSC standard. FisheryProgress rates their progress from A (high) to E (no recent progress).",
+    fipsActivos: (n: number, mejor?: string | null) =>
+      `${n} active FIP${n > 1 ? "s" : ""}${mejor ? ` · best: ${mejor}` : ""}`,
+    sinFip: "No active FIP",
+    calificacion: (c: string) => `Progress rating ${c}`,
+    sinCalificacion: "Not rated yet",
+    tipoFip: (tipo: string) => `${tipo} FIP`,
+    prospectivos: "Prospective FIPs don't publish a work plan or rating yet.",
+    sfwMide:
+      "Monterey Bay Aquarium guide: rates each combination of species, area and fishing gear as best choice (green), good alternative (yellow) or avoid (red).",
+    evaluaciones: (n: number) => `${n} ratings`,
+    varia: "varies",
+    sinEvaluacion: "Not rated",
+    consultado: (f: string) => `Checked on ${f}. These statuses change often: verify the information at the source.`,
+  },
+} satisfies Record<Idioma, unknown>
 
 type Recomendacion = RecomendacionSFW["recomendacion"]
 
@@ -119,6 +176,7 @@ function Bloque({
 
 // Barra apilada con cuántas evaluaciones caen en cada color.
 function DistribucionSFW({ conteo, total }: { conteo: Record<Recomendacion, number>; total: number }) {
+  const { idioma } = useIdioma()
   return (
     <div>
       <div className="flex h-2 overflow-hidden rounded-full bg-gray-100" aria-hidden="true">
@@ -134,7 +192,7 @@ function DistribucionSFW({ conteo, total }: { conteo: Record<Recomendacion, numb
             <li key={r} className="flex items-center gap-1.5">
               <span className={cn("h-2 w-2 rounded-full", barraSFW[r])} aria-hidden="true" />
               <span>
-                <strong className="font-semibold text-gray-800">{conteo[r]}</strong> {r.toLowerCase()}
+                <strong className="font-semibold text-gray-800">{conteo[r]}</strong> {etiquetaAval(idioma, r).toLowerCase()}
               </span>
             </li>
           ) : null,
@@ -151,6 +209,9 @@ const contar = (lista: RecomendacionSFW[]) =>
   >
 
 export function Sustentabilidad({ especieId }: { especieId: string }) {
+  const { idioma } = useIdioma()
+  const t = TEXTOS[idioma]
+  const et = (valor: string) => etiquetaAval(idioma, valor)
   const { msc = [], fips = [], seafoodWatch = [], nota } = sustentabilidadDe(especieId)
 
   // MSC: el mejor estado de todas las unidades registradas.
@@ -185,12 +246,10 @@ export function Sustentabilidad({ especieId }: { especieId: string }) {
       <CardHeader className="pb-3">
         <CardTitle className="flex items-center text-base text-teal-700">
           <Award className="mr-2 h-5 w-5" aria-hidden="true" />
-          Sustentabilidad
+          {t.titulo}
         </CardTitle>
         <p className="text-sm text-gray-600">
-          {sinNada
-            ? "Esta pesquería no tiene certificación MSC, proyecto de mejora (FIP) activo ni recomendación de Seafood Watch registrados en las fuentes consultadas."
-            : "Las tres referencias más usadas en el mercado para saber si un producto del mar proviene de una pesca sustentable."}
+          {sinNada ? t.sinNada : t.intro}
         </p>
       </CardHeader>
       <CardContent className="space-y-3">
@@ -204,9 +263,9 @@ export function Sustentabilidad({ especieId }: { especieId: string }) {
         {/* MSC */}
         <Bloque
           icono={Award}
-          titulo="Certificación MSC"
-          queMide="Sello azul del Marine Stewardship Council: certifica que la pesquería cumple un estándar de sustentabilidad tras una auditoría independiente."
-          estado={mscPrincipal ?? "Sin certificación"}
+          titulo={t.msc}
+          queMide={t.mscMide}
+          estado={mscPrincipal ? et(mscPrincipal) : t.sinCertificacion}
           claseEstado={mscPrincipal ? claseMSC[mscPrincipal] : SIN_DATO}
           vacio={!msc.length}
         >
@@ -215,10 +274,10 @@ export function Sustentabilidad({ especieId }: { especieId: string }) {
               <li key={m.url}>
                 <div className="flex flex-wrap items-center gap-2">
                   <EnlaceExterno href={m.url}>{m.nombre}</EnlaceExterno>
-                  {msc.length > 1 && <Pastilla clase={claseMSC[m.estado]}>{m.estado}</Pastilla>}
+                  {msc.length > 1 && <Pastilla clase={claseMSC[m.estado]}>{et(m.estado)}</Pastilla>}
                 </div>
                 {m.alcance && (
-                  <p className="mt-1 text-xs font-medium text-amber-700">Alcance: {m.alcance}</p>
+                  <p className="mt-1 text-xs font-medium text-amber-700">{t.alcance} {m.alcance}</p>
                 )}
                 {m.detalle && <p className="mt-0.5 text-gray-600">{m.detalle}</p>}
               </li>
@@ -229,13 +288,9 @@ export function Sustentabilidad({ especieId }: { especieId: string }) {
         {/* FIP */}
         <Bloque
           icono={Wrench}
-          titulo="Proyectos de mejora pesquera (FIP)"
-          queMide="Proyectos con un plan de trabajo para que la pesquería alcance el estándar MSC. FisheryProgress califica su avance de A (alto) a E (sin avance reciente)."
-          estado={
-            fips.length
-              ? `${fips.length} FIP activo${fips.length > 1 ? "s" : ""}${mejorCalificacion ? ` · mejor: ${mejorCalificacion}` : ""}`
-              : "Sin FIP activo"
-          }
+          titulo={t.fip}
+          queMide={t.fipMide}
+          estado={fips.length ? t.fipsActivos(fips.length, mejorCalificacion) : t.sinFip}
           claseEstado={fips.length ? TEAL : SIN_DATO}
           vacio={!fips.length}
         >
@@ -247,18 +302,18 @@ export function Sustentabilidad({ especieId }: { especieId: string }) {
                     "flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-sm font-bold text-white",
                     f.calificacion ? claseCalificacion[f.calificacion] : "bg-gray-300",
                   )}
-                  title={f.calificacion ? `Calificación de avance ${f.calificacion}` : "Sin calificación aún"}
+                  title={f.calificacion ? t.calificacion(f.calificacion) : t.sinCalificacion}
                 >
                   {f.calificacion ?? "–"}
                   <span className="sr-only">
-                    {f.calificacion ? ` (calificación de avance ${f.calificacion})` : " (sin calificación aún)"}
+                    {` (${f.calificacion ? t.calificacion(f.calificacion) : t.sinCalificacion})`}
                   </span>
                 </span>
                 <div className="min-w-0 flex-1">
                   <EnlaceExterno href={f.url}>{f.nombre}</EnlaceExterno>
                   <div className="mt-1 flex flex-wrap gap-1.5">
-                    <Pastilla clase={SIN_DATO}>FIP {f.tipo.toLowerCase()}</Pastilla>
-                    {f.estado !== "Activo" && <Pastilla clase={claseMSC["En evaluación"]}>{f.estado}</Pastilla>}
+                    <Pastilla clase={SIN_DATO}>{t.tipoFip(et(f.tipo))}</Pastilla>
+                    {f.estado !== "Activo" && <Pastilla clase={claseMSC["En evaluación"]}>{et(f.estado)}</Pastilla>}
                   </div>
                   {f.nota && <p className="mt-1 text-xs text-amber-700">{f.nota}</p>}
                 </div>
@@ -266,7 +321,7 @@ export function Sustentabilidad({ especieId }: { especieId: string }) {
             ))}
           </ul>
           {fips.some((f) => f.tipo === "Prospectivo") && (
-            <p className="text-xs text-gray-500">Los FIP prospectivos aún no publican plan de trabajo ni calificación.</p>
+            <p className="text-xs text-gray-500">{t.prospectivos}</p>
           )}
         </Bloque>
 
@@ -274,15 +329,15 @@ export function Sustentabilidad({ especieId }: { especieId: string }) {
         <Bloque
           icono={Fish}
           titulo="Seafood Watch"
-          queMide="Guía del Monterey Bay Aquarium: califica cada combinación de especie, zona y arte de pesca como mejor opción (verde), buena alternativa (amarillo) o evitar (rojo)."
+          queMide={t.sfwMide}
           estado={
             sfwMejor
               ? sfwVarios
-                ? `${seafoodWatch.length} evaluaciones · varía`
+                ? `${t.evaluaciones(seafoodWatch.length)} · ${t.varia}`
                 : seafoodWatch.length > 1
-                  ? `${seafoodWatch.length} evaluaciones · ${sfwMejor.toLowerCase()}`
-                  : sfwMejor
-              : "Sin evaluación"
+                  ? `${t.evaluaciones(seafoodWatch.length)} · ${et(sfwMejor).toLowerCase()}`
+                  : et(sfwMejor)
+              : t.sinEvaluacion
           }
           claseEstado={sfwMejor ? (sfwVarios ? TEAL : claseSFW[sfwMejor]) : SIN_DATO}
           vacio={!seafoodWatch.length}
@@ -300,7 +355,7 @@ export function Sustentabilidad({ especieId }: { especieId: string }) {
                         <p className="text-gray-800">{s.arte}</p>
                         <p className="text-xs text-gray-500">{s.zona}</p>
                       </div>
-                      <Pastilla clase={claseSFW[s.recomendacion]}>{s.recomendacion}</Pastilla>
+                      <Pastilla clase={claseSFW[s.recomendacion]}>{et(s.recomendacion)}</Pastilla>
                     </li>
                   ))}
                 </ul>
@@ -315,10 +370,10 @@ export function Sustentabilidad({ especieId }: { especieId: string }) {
                 <span className="flex shrink-0 items-center gap-1.5 text-xs text-gray-500">
                   {ORDEN_SFW.map((r) =>
                     conteo[r] ? (
-                      <span key={r} className="flex items-center gap-1" title={r}>
+                      <span key={r} className="flex items-center gap-1" title={et(r)}>
                         <span className={cn("h-2 w-2 rounded-full", barraSFW[r])} aria-hidden="true" />
                         {conteo[r]}
-                        <span className="sr-only"> {r.toLowerCase()}</span>
+                        <span className="sr-only"> {et(r).toLowerCase()}</span>
                       </span>
                     ) : null,
                   )}
@@ -353,8 +408,7 @@ export function Sustentabilidad({ especieId }: { especieId: string }) {
 
         <div className="pt-2 text-xs text-gray-500">
           <p>
-            Consultado el {fechaLegible(FECHA_CONSULTA)}. Estos estados cambian con frecuencia: verifique la información
-            en la fuente.
+            {t.consultado(fechaISO(idioma, FECHA_CONSULTA))}
           </p>
           <ul className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
             {Object.values(FUENTES_SUSTENTABILIDAD).map((f) => (

@@ -14,6 +14,8 @@ import {
 import { Card } from "@/components/ui/card"
 import { EspecieImagen } from "@/components/especie-imagen"
 import { especies } from "@/lib/especies-data"
+import { useIdioma } from "@/components/idioma-provider"
+import { etiquetaRegion } from "@/lib/i18n"
 
 // Especies destacadas (más consultadas / de mayor relevancia comercial), de los
 // dos litorales. Se intercalan Golfo y Caribe con Pacífico para que el carrusel
@@ -49,6 +51,7 @@ const destacadas = (() => {
 })()
 
 export function EspeciesCarrusel() {
+  const { idioma, ruta } = useIdioma()
   const [api, setApi] = useState<CarouselApi>()
   const pausado = useRef(false)
 
@@ -82,7 +85,7 @@ export function EspeciesCarrusel() {
             key={especie.id}
             className="pl-3 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6"
           >
-            <Link href={`/especies/${especie.id}`} className="group block">
+            <Link href={ruta(`/especies/${especie.id}`)} className="group block">
               <Card className="overflow-hidden border-teal-200 bg-white/90 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-teal-300 hover:shadow-lg">
                 <div className="aspect-square w-full overflow-hidden bg-white">
                   <EspecieImagen
@@ -97,7 +100,7 @@ export function EspeciesCarrusel() {
                   </h3>
                   <div className="mt-1 flex items-center text-[11px] text-gray-600">
                     <MapPin className="mr-1 h-3 w-3 flex-shrink-0 text-teal-600" />
-                    <span className="truncate">{especie.region}</span>
+                    <span className="truncate">{etiquetaRegion(idioma, especie.region)}</span>
                   </div>
                 </div>
               </Card>
